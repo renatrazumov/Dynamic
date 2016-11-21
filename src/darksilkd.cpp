@@ -1,7 +1,7 @@
 // Copyright (c) 2009-2017 Satoshi Nakamoto
 // Copyright (c) 2009-2017 The Bitcoin Developers
 // Copyright (c) 2014-2017 The Dash Core Developers
-// Copyright (c) 2015-2017 Silk Network Developers
+// Copyright (c) 2016-2017 Duality Blockchain Solutions Ltd
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -29,7 +29,7 @@
  *
  * \section intro_sec Introduction
  *
- * This is the developer documentation of the reference client for an experimental new digital currency called Dynamic (https://www.silknetwork.org/),
+ * This is the developer documentation of the reference client for an experimental new digital currency called Dynamic (https://www.duality-solutions/),
  * which enables instant payments to anyone, anywhere in the world. Dynamic uses peer-to-peer technology to operate
  * with no central authority: managing transactions and issuing money are carried out collectively by the network.
  *
@@ -77,7 +77,7 @@ bool AppInit(int argc, char* argv[])
     // Process help and version before taking care about datadir
     if (mapArgs.count("-?") || mapArgs.count("-h") ||  mapArgs.count("-help") || mapArgs.count("-version"))
     {
-        std::string strUsage = _("Dynamic Core Daemon") + " " + _("version") + " " + FormatFullVersion() + "\n";
+        std::string strUsage = _("Dynamic Daemon") + " " + _("version") + " " + FormatFullVersion() + "\n";
 
         if (mapArgs.count("-version"))
         {
@@ -86,7 +86,7 @@ bool AppInit(int argc, char* argv[])
         else
         {
             strUsage += "\n" + _("Usage:") + "\n" +
-                  "  dynamicd [options]                     " + _("Start Dynamic Core Daemon") + "\n";
+                  "  dynamicd [options]                     " + _("Start Dynamic Daemon") + "\n";
 
             strUsage += "\n" + HelpMessage(HMM_DYNAMICD);
         }
@@ -139,7 +139,7 @@ bool AppInit(int argc, char* argv[])
         fDaemon = GetBoolArg("-daemon", false);
         if (fDaemon)
         {
-            fprintf(stdout, "Dynamic Core server starting\n");
+            fprintf(stdout, "Dynamic server starting\n");
 
             // Daemonize
             pid_t pid = fork();

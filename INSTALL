@@ -1,4 +1,4 @@
-Building Dynamic Core
+Building Dynamic
 
 Use the autogen script to prepare the build environment.
 
@@ -7,7 +7,7 @@ Use the autogen script to prepare the build environment.
     make
 
 Precompiled binaries are available at github, see
-https://github.com/silknetwork/dynamic-core
+https://github.com/duality-solutions/dynamic
 
 Always verify the signatures and checksums.
 

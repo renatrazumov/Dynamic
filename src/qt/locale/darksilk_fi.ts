@@ -231,8 +231,8 @@
 <context>
     <name>DynamicGUI</name>
     <message>
-        <source>Dynamic Core</source>
-        <translation>Dynamic Core</translation>
+        <source>Dynamic</source>
+        <translation>Dynamic</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -283,12 +283,12 @@
         <translation>Sulje ohjelma</translation>
     </message>
     <message>
-        <source>&amp;About Dynamic Core</source>
-        <translation>Tietoja &amp;Dynamic Core:sta</translation>
+        <source>&amp;About Dynamic</source>
+        <translation>Tietoja &amp;Dynamic:sta</translation>
     </message>
     <message>
-        <source>Show information about Dynamic Core</source>
-        <translation>Näytä tietoja Dynamic Core:sta</translation>
+        <source>Show information about Dynamic</source>
+        <translation>Näytä tietoja Dynamic:sta</translation>
     </message>
     <message>
         <source>About &amp;Qt</source>
@@ -451,8 +451,8 @@
         <translation>&amp;Komentorivin valinnat</translation>
     </message>
     <message>
-        <source>Dynamic Core client</source>
-        <translation>Dynamic Core asiakasohjelma</translation>
+        <source>Dynamic client</source>
+        <translation>Dynamic asiakasohjelma</translation>
     </message>
     <message numerus="yes">
         <source>Processed %n blocks of transaction history.</source>
@@ -463,8 +463,8 @@
         <translation>Synkronoidaan lisätietoja: %p%</translation>
     </message>
     <message>
-        <source>Show the Dynamic Core help message to get a list with possible Dynamic command-line options</source>
-        <translation>Näytä Dynamic Core ohjelista komentorivin valinnoista</translation>
+        <source>Show the Dynamic help message to get a list with possible Dynamic command-line options</source>
+        <translation>Näytä Dynamic ohjelista komentorivin valinnoista</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -989,8 +989,8 @@ Osoite: %4
 <context>
     <name>HelpMessageDialog</name>
     <message>
-        <source>Dynamic Core</source>
-        <translation>Dynamic Core</translation>
+        <source>Dynamic</source>
+        <translation>Dynamic</translation>
     </message>
     <message>
         <source>version</source>
@@ -1001,8 +1001,8 @@ Osoite: %4
         <translation>(%1-bittinen)</translation>
     </message>
     <message>
-        <source>About Dynamic Core</source>
-        <translation>Tietoja Dynamic Core:sta</translation>
+        <source>About Dynamic</source>
+        <translation>Tietoja Dynamic:sta</translation>
     </message>
     <message>
         <source>Command-line options</source>
@@ -1048,17 +1048,17 @@ Osoite: %4
         <translation>Tervetuloa</translation>
     </message>
     <message>
-        <source>Welcome to Dynamic Core.</source>
-        <translation>Dynamic Core - Tervetuloa.</translation>
+        <source>Welcome to Dynamic.</source>
+        <translation>Dynamic - Tervetuloa.</translation>
     </message>
     <message>
-        <source>As this is the first time the program is launched, you can choose where Dynamic Core will store its data.</source>
-        <translation>Koska tämä on ensimmäinen kerta kun ohjelma käynnistetään, voit valita minne Dynamic Core tallettaa datansa.
+        <source>As this is the first time the program is launched, you can choose where Dynamic will store its data.</source>
+        <translation>Koska tämä on ensimmäinen kerta kun ohjelma käynnistetään, voit valita minne Dynamic tallettaa datansa.
 Varoitus: Jos käytät käyttöjärjestelmää (Live os) suoraan usb, dvd tai cd levyltä, ohjaa talletettava data eri levyasemalle turvalliseen paikkaan.</translation>
     </message>
     <message>
-        <source>Dynamic Core will download and store a copy of the Dynamic block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
-        <translation>Dynamic Core lataa ja tallettaa kopion lohkoketjusta. Vähintään %1GB dataa talletetaan tähän hakemistoon, ja se myös kasvaa ajan myötä. Myös lompakko talletetaan tähän hakemistoon.</translation>
+        <source>Dynamic will download and store a copy of the Dynamic block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
+        <translation>Dynamic lataa ja tallettaa kopion lohkoketjusta. Vähintään %1GB dataa talletetaan tähän hakemistoon, ja se myös kasvaa ajan myötä. Myös lompakko talletetaan tähän hakemistoon.</translation>
     </message>
     <message>
         <source>Use the default data directory</source>
@@ -1069,8 +1069,8 @@ Varoitus: Jos käytät käyttöjärjestelmää (Live os) suoraan usb, dvd tai cd
         <translation>Määritä oma hakemisto:</translation>
     </message>
     <message>
-        <source>Dynamic Core</source>
-        <translation>Dynamic Core</translation>
+        <source>Dynamic</source>
+        <translation>Dynamic</translation>
     </message>
     <message>
         <source>Error: Specified data directory "%1" cannot be created.</source>
@@ -2591,8 +2591,8 @@ Näillä toiminnoilla voit korjata korruptoituneen lohkoketjun tai puuttuvat/van
 <context>
     <name>ShutdownWindow</name>
     <message>
-        <source>Dynamic Core is shutting down...</source>
-        <translation>Dynamic Core sulkeutuu...</translation>
+        <source>Dynamic is shutting down...</source>
+        <translation>Dynamic sulkeutuu...</translation>
     </message>
     <message>
         <source>Do not shut down the computer until this window disappears.</source>
@@ -2741,8 +2741,8 @@ Näillä toiminnoilla voit korjata korruptoituneen lohkoketjun tai puuttuvat/van
 <context>
     <name>SplashScreen</name>
     <message>
-        <source>Dynamic Core</source>
-        <translation>Dynamic Core</translation>
+        <source>Dynamic</source>
+        <translation>Dynamic</translation>
     </message>
     <message>
         <source>Version %1</source>
@@ -2753,8 +2753,8 @@ Näillä toiminnoilla voit korjata korruptoituneen lohkoketjun tai puuttuvat/van
         <translation>Bitcoin Core kehittäjät</translation>
     </message>
     <message>
-        <source>The Dynamic Core developers</source>
-        <translation>Dynamic Core kehittäjät</translation>
+        <source>The Dynamic developers</source>
+        <translation>Dynamic kehittäjät</translation>
     </message>
     <message>
         <source>[testnet]</source>
@@ -3325,14 +3325,14 @@ Näillä toiminnoilla voit korjata korruptoituneen lohkoketjun tai puuttuvat/van
     </message>
 </context>
 <context>
-    <name>dynamic-core</name>
+    <name>dynamic</name>
     <message>
         <source>Bind to given address and always listen on it. Use [host]:port notation for IPv6</source>
         <translation>Kytkeydy annettuun osoitteeseen ja pidä linja aina auki. Käytä [host]:port merkintätapaa IPv6:lle.</translation>
     </message>
     <message>
-        <source>Cannot obtain a lock on data directory %s. Dynamic Core is probably already running.</source>
-        <translation>Ei voida lukita data hakemistoa %s. Dynamic Core on luultavasti jo käynnissä.</translation>
+        <source>Cannot obtain a lock on data directory %s. Dynamic is probably already running.</source>
+        <translation>Ei voida lukita data hakemistoa %s. Dynamic on luultavasti jo käynnissä.</translation>
     </message>
     <message>
         <source>Privatesend uses exact denominated amounts to send funds, you might simply need to anonymize some more coins.</source>
@@ -3387,8 +3387,8 @@ Näillä toiminnoilla voit korjata korruptoituneen lohkoketjun tai puuttuvat/van
         <translation>Tämä on esi-julkaistu testiversio - Käytä omalla vastuulla - Älä käytä louhimiseen tai kauppasovelluksiin.</translation>
     </message>
     <message>
-        <source>Unable to bind to %s on this computer. Dynamic Core is probably already running.</source>
-        <translation>Ei voida yhdistää %s tässä tietokoneessa. Dynamic Core on luultavasti jo käynnissä.</translation>
+        <source>Unable to bind to %s on this computer. Dynamic is probably already running.</source>
+        <translation>Ei voida yhdistää %s tässä tietokoneessa. Dynamic on luultavasti jo käynnissä.</translation>
     </message>
     <message>
         <source>Unable to locate enough Privatesend denominated funds for this transaction.</source>
@@ -3753,7 +3753,7 @@ esimerkiksi: alertnotify=echo %%s | mail -s "Dynamic Hälytys" admin@foo.com
         <translation>Varoitus: -maxtxfee on asetettu erittäin korkeaksi! Näin isot siirtomaksut voitaisiin maksaa yhdessä siirtotapahtumassa.</translation>
     </message>
     <message>
-        <source>Warning: Please check that your computer's date and time are correct! If your clock is wrong Dynamic Core will not work properly.</source>
+        <source>Warning: Please check that your computer's date and time are correct! If your clock is wrong Dynamic will not work properly.</source>
         <translation>Varoitus: Tarkista että tietokoneesi kellonaika ja päivämäärä ovat oikein! Dynamic ei toimi oikein väärällä päivämäärällä ja/tai kellonajalla.</translation>
     </message>
     <message>
@@ -3807,8 +3807,8 @@ esimerkiksi: alertnotify=echo %%s | mail -s "Dynamic Hälytys" admin@foo.com
         <translation>Copyright (C) 2009-%i Bitcoin Core Kehittäjät</translation>
     </message>
     <message>
-        <source>Copyright (C) 2014-%i The Dynamic Core Developers</source>
-        <translation>Copyright (C) 2014-%i Dynamic Core Kehittäjät</translation>
+        <source>Copyright (C) 2014-%i The Dynamic Developers</source>
+        <translation>Copyright (C) 2014-%i Dynamic Kehittäjät</translation>
     </message>
     <message>
         <source>Could not parse -rpcbind value %s as network address</source>
@@ -3839,8 +3839,8 @@ esimerkiksi: alertnotify=echo %%s | mail -s "Dynamic Hälytys" admin@foo.com
         <translation>Virhe dynode:en kytkeytymisessä.</translation>
     </message>
     <message>
-        <source>Error loading wallet.dat: Wallet requires newer version of Dynamic Core</source>
-        <translation>Virhe ladattaessa wallet.dat: Lompakko vaatii uudemman version Dynamic Core:sta</translation>
+        <source>Error loading wallet.dat: Wallet requires newer version of Dynamic</source>
+        <translation>Virhe ladattaessa wallet.dat: Lompakko vaatii uudemman version Dynamic:sta</translation>
     </message>
     <message>
         <source>Error: A fatal internal error occured, see debug.log for details</source>
@@ -3911,8 +3911,8 @@ esimerkiksi: alertnotify=echo %%s | mail -s "Dynamic Hälytys" admin@foo.com
         <translation>Tietoa</translation>
     </message>
     <message>
-        <source>Initialization sanity check failed. Dynamic Core is shutting down.</source>
-        <translation>Alkuperäisyyden tarkistus epäonnistui. Dynamic Core sulkeutuu.</translation>
+        <source>Initialization sanity check failed. Dynamic is shutting down.</source>
+        <translation>Alkuperäisyyden tarkistus epäonnistui. Dynamic sulkeutuu.</translation>
     </message>
     <message>
         <source>Input is not valid.</source>
@@ -4163,8 +4163,8 @@ esimerkiksi: alertnotify=echo %%s | mail -s "Dynamic Hälytys" admin@foo.com
         <translation>Käytä UPnP:tä kuunneltavan portin kartoitukseen (oletus: %u)</translation>
     </message>
     <message>
-        <source>Wallet needed to be rewritten: restart Dynamic Core to complete</source>
-        <translation>Lompakko on kirjoitettava uudelleen: käynnistä Dynamic Core uudestaan viimeistelyä varten</translation>
+        <source>Wallet needed to be rewritten: restart Dynamic to complete</source>
+        <translation>Lompakko on kirjoitettava uudelleen: käynnistä Dynamic uudestaan viimeistelyä varten</translation>
     </message>
     <message>
         <source>Warning: Unsupported argument -benchmark ignored, use -debug=bench.</source>

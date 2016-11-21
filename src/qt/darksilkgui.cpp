@@ -1,7 +1,7 @@
 // Copyright (c) 2009-2017 Satoshi Nakamoto
 // Copyright (c) 2009-2017 The Bitcoin Developers
 // Copyright (c) 2014-2017 The Dash Core Developers
-// Copyright (c) 2015-2017 Silk Network Developers
+// Copyright (c) 2016-2017 Duality Blockchain Solutions Ltd
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -126,7 +126,7 @@ DynamicGUI::DynamicGUI(const PlatformStyle *platformStyle, const NetworkStyle *n
 
     GUIUtil::restoreWindowGeometry("nWindow", QSize(850, 550), this);
 
-    QString windowTitle = tr("Dynamic Core") + " - ";
+    QString windowTitle = tr("Dynamic") + " - ";
 #ifdef ENABLE_WALLET
     /* if compiled with wallet support, -disablewallet can still disable the wallet */
     enableWallet = !GetBoolArg("-disablewallet", false);
@@ -361,15 +361,15 @@ void DynamicGUI::createActions()
     quitAction->setStatusTip(tr("Quit application"));
     quitAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Q));
     quitAction->setMenuRole(QAction::QuitRole);
-    aboutAction = new QAction(QIcon(":/icons/" + theme + "/about"), tr("&About Dynamic Core"), this);
-    aboutAction->setStatusTip(tr("Show information about Dynamic Core"));
+    aboutAction = new QAction(QIcon(":/icons/" + theme + "/about"), tr("&About Dynamic"), this);
+    aboutAction->setStatusTip(tr("Show information about Dynamic"));
     aboutAction->setMenuRole(QAction::AboutRole);
     aboutAction->setEnabled(false);
     aboutQtAction = new QAction(QIcon(":/icons/" + theme + "/about_qt"), tr("About &Qt"), this);
     aboutQtAction->setStatusTip(tr("Show information about Qt"));
     aboutQtAction->setMenuRole(QAction::AboutQtRole);
     optionsAction = new QAction(QIcon(":/icons/" + theme + "/options"), tr("&Options..."), this);
-    optionsAction->setStatusTip(tr("Modify configuration options for Dynamic Core"));
+    optionsAction->setStatusTip(tr("Modify configuration options for Dynamic"));
     optionsAction->setMenuRole(QAction::PreferencesRole);
     optionsAction->setEnabled(false);
     toggleHideAction = new QAction(QIcon(":/icons/" + theme + "/about"), tr("&Show / Hide"), this);
@@ -423,7 +423,7 @@ void DynamicGUI::createActions()
 
     showHelpMessageAction = new QAction(QApplication::style()->standardIcon(QStyle::SP_MessageBoxInformation), tr("&Command-line options"), this);
     showHelpMessageAction->setMenuRole(QAction::NoRole);
-    showHelpMessageAction->setStatusTip(tr("Show the Dynamic Core help message to get a list with possible Dynamic Core command-line options"));
+    showHelpMessageAction->setStatusTip(tr("Show the Dynamic help message to get a list with possible Dynamic command-line options"));
 
     showPrivateSendHelpAction = new QAction(QApplication::style()->standardIcon(QStyle::SP_MessageBoxInformation), tr("&PrivateSend information"), this);
     showPrivateSendHelpAction->setMenuRole(QAction::NoRole);
@@ -677,7 +677,7 @@ void DynamicGUI::setWalletActionsEnabled(bool enabled)
 void DynamicGUI::createTrayIcon(const NetworkStyle *networkStyle)
 {
     trayIcon = new QSystemTrayIcon(this);
-    QString toolTip = tr("Dynamic Core client") + " " + networkStyle->getTitleAddText();
+    QString toolTip = tr("Dynamic client") + " " + networkStyle->getTitleAddText();
     trayIcon->setToolTip(toolTip);
     trayIcon->setIcon(networkStyle->getTrayAndWindowIcon());
     trayIcon->show();
@@ -1028,7 +1028,7 @@ void DynamicGUI::setAdditionalDataSyncProgress(double nSyncProgress)
 
 void DynamicGUI::message(const QString &title, const QString &message, unsigned int style, bool *ret)
 {
-    QString strTitle = tr("Dynamic Core"); // default title
+    QString strTitle = tr("Dynamic"); // default title
     // Default to information icon
     int nMBoxIcon = QMessageBox::Information;
     int nNotifyIcon = Notificator::Information;
@@ -1054,7 +1054,7 @@ void DynamicGUI::message(const QString &title, const QString &message, unsigned 
             break;
         }
     }
-    // Append title to "Dynamic Core - "
+    // Append title to "Dynamic - "
     if (!msgType.isEmpty())
         strTitle += " - " + msgType;
 

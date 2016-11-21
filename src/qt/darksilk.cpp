@@ -1,7 +1,7 @@
 // Copyright (c) 2009-2017 Satoshi Nakamoto
 // Copyright (c) 2009-2017 The Bitcoin Developers
 // Copyright (c) 2014-2017 The Dash Core Developers
-// Copyright (c) 2015-2017 Silk Network Developers
+// Copyright (c) 2016-2017 Duality Blockchain Solutions Ltd
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -97,7 +97,7 @@ static void InitMessage(const std::string &message)
  */
 static std::string Translate(const char* psz)
 {
-    return QCoreApplication::translate("dynamic-core", psz).toStdString();
+    return QCoreApplication::translate("dynamic", psz).toStdString();
 }
 
 static QString GetLangTerritory()
@@ -169,7 +169,7 @@ void DebugMessageHandler(QtMsgType type, const QMessageLogContext& context, cons
 }
 #endif
 
-/** Class encapsulating Dynamic Core startup and shutdown.
+/** Class encapsulating Dynamic startup and shutdown.
  * Allows running startup and shutdown in a different thread from the UI thread.
  */
 class DynamicCore: public QObject
@@ -538,7 +538,7 @@ void DynamicApplication::shutdownResult(int retval)
 
 void DynamicApplication::handleRunawayException(const QString &message)
 {
-    QMessageBox::critical(0, "Runaway exception", DynamicGUI::tr("A fatal error occurred. Dynamic Core can no longer continue safely and will quit.") + QString("\n\n") + message);
+    QMessageBox::critical(0, "Runaway exception", DynamicGUI::tr("A fatal error occurred. Dynamic can no longer continue safely and will quit.") + QString("\n\n") + message);
     ::exit(EXIT_FAILURE);
 }
 
@@ -624,14 +624,14 @@ int main(int argc, char *argv[])
     /// - Do not call GetDataDir(true) before this step finishes
     if (!boost::filesystem::is_directory(GetDataDir(false)))
     {
-        QMessageBox::critical(0, QObject::tr("Dynamic Core"),
+        QMessageBox::critical(0, QObject::tr("Dynamic"),
                               QObject::tr("Error: Specified data directory \"%1\" does not exist.").arg(QString::fromStdString(mapArgs["-datadir"])));
         return EXIT_FAILURE;
     }
     try {
         ReadConfigFile(mapArgs, mapMultiArgs);
     } catch (const std::exception& e) {
-        QMessageBox::critical(0, QObject::tr("Dynamic Core"),
+        QMessageBox::critical(0, QObject::tr("Dynamic"),
                               QObject::tr("Error: Cannot parse configuration file: %1. Only use key=value syntax.").arg(e.what()));
         return EXIT_FAILURE;
     }
@@ -646,7 +646,7 @@ int main(int argc, char *argv[])
     try {
         SelectParams(ChainNameFromCommandLine());
     } catch(std::exception &e) {
-        QMessageBox::critical(0, QObject::tr("Dynamic Core"), QObject::tr("Error: %1").arg(e.what()));
+        QMessageBox::critical(0, QObject::tr("Dynamic"), QObject::tr("Error: %1").arg(e.what()));
         return EXIT_FAILURE;
     }
 #ifdef ENABLE_WALLET
@@ -665,7 +665,7 @@ int main(int argc, char *argv[])
     /// 7a. parse dynode.conf
     std::string strErr;
     if(!dynodeConfig.read(strErr)) {
-        QMessageBox::critical(0, QObject::tr("Dynamic Core"),
+        QMessageBox::critical(0, QObject::tr("Dynamic"),
                               QObject::tr("Error reading dynode configuration file: %1").arg(strErr.c_str()));
         return EXIT_FAILURE;
     }
@@ -714,7 +714,7 @@ int main(int argc, char *argv[])
         app.createWindow(networkStyle.data());
         app.requestInitialize();
 #if defined(Q_OS_WIN) && QT_VERSION >= 0x050000
-        WinShutdownMonitor::registerShutdownBlockReason(QObject::tr("Dynamic Core didn't yet exit safely..."), (HWND)app.getMainWinId());
+        WinShutdownMonitor::registerShutdownBlockReason(QObject::tr("Dynamic didn't yet exit safely..."), (HWND)app.getMainWinId());
 #endif
         app.exec();
         app.requestShutdown();

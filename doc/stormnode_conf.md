@@ -1,7 +1,7 @@
 Dynode config
 =======================
 
-Dynamic Core allows controlling multiple remote dynodes from a single wallet. The wallet needs to have a valid collateral output of 1000 coins for each dynode and uses a configuration file named `dynode.conf` which can be found in the following data directory (depending on your operating system):
+Dynamic allows controlling multiple remote dynodes from a single wallet. The wallet needs to have a valid collateral output of 1000 coins for each dynode and uses a configuration file named `dynode.conf` which can be found in the following data directory (depending on your operating system):
  * Windows: %APPDATA%\Dynamic\
  * Mac OS: ~/Library/Application Support/Dynamic/
  * Unix/Linux: ~/.dynamic/

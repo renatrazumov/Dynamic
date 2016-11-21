@@ -34,10 +34,10 @@ QTabBar { alignment: left; }</string>
        <item>
         <widget class="QCheckBox" name="dynamicAtStartup">
          <property name="toolTip">
-          <string>Automatically start Dynamic Core after logging in to the system.</string>
+          <string>Automatically start Dynamic after logging in to the system.</string>
          </property>
          <property name="text">
-          <string>&amp;Start Dynamic Core on system login</string>
+          <string>&amp;Start Dynamic on system login</string>
          </property>
         </widget>
        </item>
@@ -302,7 +302,7 @@ QTabBar { alignment: left; }</string>
        <item>
         <widget class="QCheckBox" name="mapPortUpnp">
          <property name="toolTip">
-          <string>Automatically open the Dynamic Core client port on the router. This only works when your router supports UPnP and it is enabled.</string>
+          <string>Automatically open the Dynamic client port on the router. This only works when your router supports UPnP and it is enabled.</string>
          </property>
          <property name="text">
           <string>Map port using &amp;UPnP</string>
@@ -675,7 +675,7 @@ QTabBar { alignment: left; }</string>
          <item>
           <widget class="QValueComboBox" name="lang">
            <property name="toolTip">
-            <string>The user interface language can be set here. This setting will take effect after restarting Dynamic Core.</string>
+            <string>The user interface language can be set here. This setting will take effect after restarting Dynamic.</string>
            </property>
           </widget>
          </item>

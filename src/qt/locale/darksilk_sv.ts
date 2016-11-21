@@ -219,8 +219,8 @@
 <context>
     <name>DynamicGUI</name>
     <message>
-        <source>Dynamic Core</source>
-        <translation>Dynamic Core
+        <source>Dynamic</source>
+        <translation>Dynamic
 </translation>
     </message>
     <message>
@@ -272,8 +272,8 @@
         <translation>Avsluta applikationen</translation>
     </message>
     <message>
-        <source>&amp;About Dynamic Core</source>
-        <translation>&amp;Om Dynamic Core</translation>
+        <source>&amp;About Dynamic</source>
+        <translation>&amp;Om Dynamic</translation>
     </message>
     <message>
         <source>About &amp;Qt</source>
@@ -412,8 +412,8 @@
         <translation>&amp;Kommandoradalternativ</translation>
     </message>
     <message>
-        <source>Show the Dynamic Core help message to get a list with possible Dynamic command-line options</source>
-        <translation>Visa Dynamic Core-hjälpmeddelandet för att få en lista med möjliga Dynamic-kommandoradalternativ</translation>
+        <source>Show the Dynamic help message to get a list with possible Dynamic command-line options</source>
+        <translation>Visa Dynamic-hjälpmeddelandet för att få en lista med möjliga Dynamic-kommandoradalternativ</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -883,8 +883,8 @@ Adress: %4
 <context>
     <name>HelpMessageDialog</name>
     <message>
-        <source>Dynamic Core</source>
-        <translation>Dynamic Core
+        <source>Dynamic</source>
+        <translation>Dynamic
 </translation>
     </message>
     <message>
@@ -931,16 +931,16 @@ Adress: %4
         <translation>Välkommen</translation>
     </message>
     <message>
-        <source>Welcome to Dynamic Core.</source>
-        <translation>Välkommen till Dynamic Core.</translation>
+        <source>Welcome to Dynamic.</source>
+        <translation>Välkommen till Dynamic.</translation>
     </message>
     <message>
-        <source>As this is the first time the program is launched, you can choose where Dynamic Core will store its data.</source>
-        <translation>Då detta är första gången programmet startas kan du välja var Dynamic Core ska lagra sin data.</translation>
+        <source>As this is the first time the program is launched, you can choose where Dynamic will store its data.</source>
+        <translation>Då detta är första gången programmet startas kan du välja var Dynamic ska lagra sin data.</translation>
     </message>
     <message>
-        <source>Dynamic Core will download and store a copy of the Dynamic block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
-        <translation>Dynamic Core kommer att laddas ned och lagra en kopia av Dynamic:s blockkedja. Minst %1 GB data kommer att lagras i denna katalog och den kommer att växa med tiden. Plånboken kommer också att lagras i denna katalog.</translation>
+        <source>Dynamic will download and store a copy of the Dynamic block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
+        <translation>Dynamic kommer att laddas ned och lagra en kopia av Dynamic:s blockkedja. Minst %1 GB data kommer att lagras i denna katalog och den kommer att växa med tiden. Plånboken kommer också att lagras i denna katalog.</translation>
     </message>
     <message>
         <source>Use the default data directory</source>
@@ -1985,8 +1985,8 @@ https://www.transifex.com/projects/p/dynamic/</translation>
 <context>
     <name>ShutdownWindow</name>
     <message>
-        <source>Dynamic Core is shutting down...</source>
-        <translation>Dynamic Core stängs ned...</translation>
+        <source>Dynamic is shutting down...</source>
+        <translation>Dynamic stängs ned...</translation>
     </message>
     <message>
         <source>Do not shut down the computer until this window disappears.</source>
@@ -2127,8 +2127,8 @@ https://www.transifex.com/projects/p/dynamic/</translation>
 <context>
     <name>SplashScreen</name>
     <message>
-        <source>Dynamic Core</source>
-        <translation>Dynamic Core
+        <source>Dynamic</source>
+        <translation>Dynamic
 </translation>
     </message>
     <message>
@@ -2140,8 +2140,8 @@ https://www.transifex.com/projects/p/dynamic/</translation>
         <translation>Bitcoin Core-utvecklarna</translation>
     </message>
     <message>
-        <source>The Dynamic Core developers</source>
-        <translation>Dynamic Core-utvecklarna</translation>
+        <source>The Dynamic developers</source>
+        <translation>Dynamic-utvecklarna</translation>
     </message>
     <message>
         <source>[testnet]</source>
@@ -2656,14 +2656,14 @@ https://www.transifex.com/projects/p/dynamic/</translation>
     </message>
 </context>
 <context>
-    <name>dynamic-core</name>
+    <name>dynamic</name>
     <message>
         <source>Bind to given address and always listen on it. Use [host]:port notation for IPv6</source>
         <translation>Sammanbind till fastställd adress och avlyssna alltid den. Använd [host]:port-notation för IPv6</translation>
     </message>
     <message>
-        <source>Cannot obtain a lock on data directory %s. Dynamic Core is probably already running.</source>
-        <translation>Kan inte erhålla ett lås på datakatalog %s. Dynamic Core körs förmodligen redan.</translation>
+        <source>Cannot obtain a lock on data directory %s. Dynamic is probably already running.</source>
+        <translation>Kan inte erhålla ett lås på datakatalog %s. Dynamic körs förmodligen redan.</translation>
     </message>
     <message>
         <source>Privatesend uses exact denominated amounts to send funds, you might simply need to anonymize some more coins.</source>
@@ -2718,8 +2718,8 @@ https://www.transifex.com/projects/p/dynamic/</translation>
         <translation>Detta är en förhandsutgiven testkompilering - använd på egen risk - använd inte för utvinning eller handlarapplikationer.</translation>
     </message>
     <message>
-        <source>Unable to bind to %s on this computer. Dynamic Core is probably already running.</source>
-        <translation>Det går inte att binda till %s till denna dator. Dynamic Core körs förmodligen redan.</translation>
+        <source>Unable to bind to %s on this computer. Dynamic is probably already running.</source>
+        <translation>Det går inte att binda till %s till denna dator. Dynamic körs förmodligen redan.</translation>
     </message>
     <message>
         <source>Unable to locate enough Privatesend denominated funds for this transaction.</source>
@@ -2942,8 +2942,8 @@ https://www.transifex.com/projects/p/dynamic/</translation>
         <translation>Information</translation>
     </message>
     <message>
-        <source>Initialization sanity check failed. Dynamic Core is shutting down.</source>
-        <translation>Initialiseringstillståndkontroll misslyckades. Dynamic Core stängs ned.</translation>
+        <source>Initialization sanity check failed. Dynamic is shutting down.</source>
+        <translation>Initialiseringstillståndkontroll misslyckades. Dynamic stängs ned.</translation>
     </message>
     <message>
         <source>Input is not valid.</source>

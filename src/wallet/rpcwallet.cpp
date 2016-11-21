@@ -1,7 +1,7 @@
 // Copyright (c) 2009-2017 Satoshi Nakamoto
 // Copyright (c) 2009-2017 The Bitcoin Developers
 // Copyright (c) 2014-2017 The Dash CoreDevelopers
-// Copyright (c) 2015-2017 Silk Network Developers
+// Copyright (c) 2016-2017 Duality Blockchain Solutions Ltd
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -2196,7 +2196,7 @@ UniValue encryptwallet(const UniValue& params, bool fHelp)
     // slack space in .dat files; that is bad if the old data is
     // unencrypted private keys. So:
     StartShutdown();
-    return "Wallet encrypted; Dynamic Core server stopping, restart to run with encrypted wallet. The keypool has been flushed, you need to make a new backup.";
+    return "Wallet encrypted; Dynamic server stopping, restart to run with encrypted wallet. The keypool has been flushed, you need to make a new backup.";
 }
 
 UniValue lockunspent(const UniValue& params, bool fHelp)

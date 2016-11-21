@@ -231,7 +231,7 @@
 <context>
     <name>DynamicGUI</name>
     <message>
-        <source>Dynamic Core</source>
+        <source>Dynamic</source>
         <translation>达世币核心</translation>
     </message>
     <message>
@@ -283,11 +283,11 @@
         <translation>退出程序</translation>
     </message>
     <message>
-        <source>&amp;About Dynamic Core</source>
+        <source>&amp;About Dynamic</source>
         <translation>&amp;关于达世币核心</translation>
     </message>
     <message>
-        <source>Show information about Dynamic Core</source>
+        <source>Show information about Dynamic</source>
         <translation>显示关于达世币核心信息</translation>
     </message>
     <message>
@@ -451,7 +451,7 @@
         <translation>&amp;命令行 选项</translation>
     </message>
     <message>
-        <source>Dynamic Core client</source>
+        <source>Dynamic client</source>
         <translation>达世币核心客户端</translation>
     </message>
     <message numerus="yes">
@@ -463,7 +463,7 @@
         <translation>正在同步附加数据:%p%</translation>
     </message>
     <message>
-        <source>Show the Dynamic Core help message to get a list with possible Dynamic command-line options</source>
+        <source>Show the Dynamic help message to get a list with possible Dynamic command-line options</source>
         <translation>打开达世币核心帮助信息取得可使用的命令行列表</translation>
     </message>
     <message>
@@ -989,7 +989,7 @@ Address: %4
 <context>
     <name>HelpMessageDialog</name>
     <message>
-        <source>Dynamic Core</source>
+        <source>Dynamic</source>
         <translation>达世币核心</translation>
     </message>
     <message>
@@ -1001,7 +1001,7 @@ Address: %4
         <translation>(%1 位)</translation>
     </message>
     <message>
-        <source>About Dynamic Core</source>
+        <source>About Dynamic</source>
         <translation>关于 达世币核心</translation>
     </message>
     <message>
@@ -1049,15 +1049,15 @@ Address: %4
         <translation>欢迎</translation>
     </message>
     <message>
-        <source>Welcome to Dynamic Core.</source>
+        <source>Welcome to Dynamic.</source>
         <translation>欢迎来到达世币核心。</translation>
     </message>
     <message>
-        <source>As this is the first time the program is launched, you can choose where Dynamic Core will store its data.</source>
+        <source>As this is the first time the program is launched, you can choose where Dynamic will store its data.</source>
         <translation>此次为第一次程序启动，你可以选择储存达世币核心数据的路径。</translation>
     </message>
     <message>
-        <source>Dynamic Core will download and store a copy of the Dynamic block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
+        <source>Dynamic will download and store a copy of the Dynamic block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
         <translation>达世币核心将会下载并存储达世币数据链。至少有%1GB的数据会保存到此路径下，并且随着时间增长。钱包文件也将存储到此路径下。</translation>
     </message>
     <message>
@@ -1069,7 +1069,7 @@ Address: %4
         <translation>使用自定义的数据目录：</translation>
     </message>
     <message>
-        <source>Dynamic Core</source>
+        <source>Dynamic</source>
         <translation>达世币核心</translation>
     </message>
     <message>
@@ -2579,7 +2579,7 @@ https://www.transifex.com/projects/p/dynamic/</translation>
 <context>
     <name>ShutdownWindow</name>
     <message>
-        <source>Dynamic Core is shutting down...</source>
+        <source>Dynamic is shutting down...</source>
         <translation>达世币核心正在关闭...</translation>
     </message>
     <message>
@@ -2729,7 +2729,7 @@ https://www.transifex.com/projects/p/dynamic/</translation>
 <context>
     <name>SplashScreen</name>
     <message>
-        <source>Dynamic Core</source>
+        <source>Dynamic</source>
         <translation>达世币核心</translation>
     </message>
     <message>
@@ -2741,7 +2741,7 @@ https://www.transifex.com/projects/p/dynamic/</translation>
         <translation>Bitcoin Core 的开发者</translation>
     </message>
     <message>
-        <source>The Dynamic Core developers</source>
+        <source>The Dynamic developers</source>
         <translation>达世币核心开发人员</translation>
     </message>
     <message>
@@ -3301,13 +3301,13 @@ https://www.transifex.com/projects/p/dynamic/</translation>
     </message>
 </context>
 <context>
-    <name>dynamic-core</name>
+    <name>dynamic</name>
     <message>
         <source>Bind to given address and always listen on it. Use [host]:port notation for IPv6</source>
         <translation>与提供地址绑定，持续监听。使用[host]:标记IPv6端口</translation>
     </message>
     <message>
-        <source>Cannot obtain a lock on data directory %s. Dynamic Core is probably already running.</source>
+        <source>Cannot obtain a lock on data directory %s. Dynamic is probably already running.</source>
         <translation>不能获得锁定的数据目录 %s. 达世币核心可能已经在运行。</translation>
     </message>
     <message>
@@ -3339,7 +3339,7 @@ https://www.transifex.com/projects/p/dynamic/</translation>
         <translation>即时支付功能需要6步确认，您可以稍后重试。</translation>
     </message>
     <message>
-        <source>Unable to bind to %s on this computer. Dynamic Core is probably already running.</source>
+        <source>Unable to bind to %s on this computer. Dynamic is probably already running.</source>
         <translation>无法绑定%s此计算机. 达世币核心应该已经在运行中了.</translation>
     </message>
     <message>
@@ -3603,7 +3603,7 @@ https://www.transifex.com/projects/p/dynamic/</translation>
         <translation>警告: -maxtxfee 设定的金额过高! 这是一次交易就要支付的手续费.</translation>
     </message>
     <message>
-        <source>Warning: Please check that your computer's date and time are correct! If your clock is wrong Dynamic Core will not work properly.</source>
+        <source>Warning: Please check that your computer's date and time are correct! If your clock is wrong Dynamic will not work properly.</source>
         <translation>警告: 请检查电脑日期和时间是否正确！达世币核心没办法在时钟不准的情况下正常运作。</translation>
     </message>
     <message>
@@ -3653,8 +3653,8 @@ https://www.transifex.com/projects/p/dynamic/</translation>
         <translation>版权(C) 2009-%i The Bitcoin Core Developers</translation>
     </message>
     <message>
-        <source>Copyright (C) 2014-%i The Dynamic Core Developers</source>
-        <translation>版权 (C) 2014-%i The Dynamic Core Developers</translation>
+        <source>Copyright (C) 2014-%i The Dynamic Developers</source>
+        <translation>版权 (C) 2014-%i The Dynamic Developers</translation>
     </message>
     <message>
         <source>Could not parse -rpcbind value %s as network address</source>
@@ -3685,7 +3685,7 @@ https://www.transifex.com/projects/p/dynamic/</translation>
         <translation>连接到主节点时发生错误.</translation>
     </message>
     <message>
-        <source>Error loading wallet.dat: Wallet requires newer version of Dynamic Core</source>
+        <source>Error loading wallet.dat: Wallet requires newer version of Dynamic</source>
         <translation>读取钱包文件错误: 需要较为新版本的达世币核心来读取钱包</translation>
     </message>
     <message>
@@ -3742,7 +3742,7 @@ https://www.transifex.com/projects/p/dynamic/</translation>
         <translation>信息</translation>
     </message>
     <message>
-        <source>Initialization sanity check failed. Dynamic Core is shutting down.</source>
+        <source>Initialization sanity check failed. Dynamic is shutting down.</source>
         <translation>初始化检查失败。达世币核心正在关闭。</translation>
     </message>
     <message>
@@ -3938,7 +3938,7 @@ https://www.transifex.com/projects/p/dynamic/</translation>
         <translation>断开的作弊节点临界值(默认: %u)</translation>
     </message>
     <message>
-        <source>Wallet needed to be rewritten: restart Dynamic Core to complete</source>
+        <source>Wallet needed to be rewritten: restart Dynamic to complete</source>
         <translation>錢包需要重寫: 請重新啓動達世幣核心來完成
 钱包需要重写: 请重新启动达世币核心来完成</translation>
     </message>

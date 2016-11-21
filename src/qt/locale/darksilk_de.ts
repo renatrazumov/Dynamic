@@ -3320,7 +3320,7 @@ Dies kann passieren, wenn einige DYN aus ihrer Wallet bereits ausgegeben wurden.
     </message>
 </context>
 <context>
-    <name>dynamic-core</name>
+    <name>dynamic</name>
     <message>
         <source>Bind to given address and always listen on it. Use [host]:port notation for IPv6</source>
         <translation>An die angegebene Adresse binden und immer abhören. Für IPv6 "[Host]:Port"-Schreibweise verwenden</translation>

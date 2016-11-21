@@ -220,7 +220,7 @@ AC_DEFUN([DYNAMIC_QT_CONFIGURE],[
 
 
   dnl enable qt support
-  AC_MSG_CHECKING(whether to build Dynamic Core GUI)
+  AC_MSG_CHECKING(whether to build Dynamic GUI)
   DYNAMIC_QT_CHECK([
     dynamic_enable_qt=yes
     dynamic_enable_qt_test=yes

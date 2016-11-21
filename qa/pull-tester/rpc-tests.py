@@ -149,7 +149,7 @@ testScriptsExt = [
     'p2p-acceptblock.py', # NOTE: needs dynamic_hash to pass
     'mempool_packages.py',
     'maxuploadtarget.py',
-    # 'replace-by-fee.py', # RBF is disabled in Dynamic Core
+    # 'replace-by-fee.py', # RBF is disabled in Dynamic
 ]
 
 def runtests():

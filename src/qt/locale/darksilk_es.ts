@@ -231,8 +231,8 @@
 <context>
     <name>DynamicGUI</name>
     <message>
-        <source>Dynamic Core</source>
-        <translation>Dynamic Core</translation>
+        <source>Dynamic</source>
+        <translation>Dynamic</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -283,12 +283,12 @@
         <translation>Salir de la aplicación</translation>
     </message>
     <message>
-        <source>&amp;About Dynamic Core</source>
-        <translation>&amp;Acerca de Dynamic Core</translation>
+        <source>&amp;About Dynamic</source>
+        <translation>&amp;Acerca de Dynamic</translation>
     </message>
     <message>
-        <source>Show information about Dynamic Core</source>
-        <translation>Mostrar información acerca de Dynamic Core</translation>
+        <source>Show information about Dynamic</source>
+        <translation>Mostrar información acerca de Dynamic</translation>
     </message>
     <message>
         <source>About &amp;Qt</source>
@@ -451,8 +451,8 @@
         <translation>&amp;Opciones de consola de comandos</translation>
     </message>
     <message>
-        <source>Dynamic Core client</source>
-        <translation>Cliente Dynamic Core</translation>
+        <source>Dynamic client</source>
+        <translation>Cliente Dynamic</translation>
     </message>
     <message numerus="yes">
         <source>Processed %n blocks of transaction history.</source>
@@ -463,8 +463,8 @@
         <translation>Sincronizando datos adicionales: %p%</translation>
     </message>
     <message>
-        <source>Show the Dynamic Core help message to get a list with possible Dynamic command-line options</source>
-        <translation>Mostrar el mensaje de ayuda de Dynamic Core para obtener una lista con las posibles opciones de la consola de comandos</translation>
+        <source>Show the Dynamic help message to get a list with possible Dynamic command-line options</source>
+        <translation>Mostrar el mensaje de ayuda de Dynamic para obtener una lista con las posibles opciones de la consola de comandos</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -989,8 +989,8 @@ Dirección: %4
 <context>
     <name>HelpMessageDialog</name>
     <message>
-        <source>Dynamic Core</source>
-        <translation>Dynamic Core</translation>
+        <source>Dynamic</source>
+        <translation>Dynamic</translation>
     </message>
     <message>
         <source>version</source>
@@ -1001,8 +1001,8 @@ Dirección: %4
         <translation>(%1-bit)</translation>
     </message>
     <message>
-        <source>About Dynamic Core</source>
-        <translation>Acerca de Dynamic Core</translation>
+        <source>About Dynamic</source>
+        <translation>Acerca de Dynamic</translation>
     </message>
     <message>
         <source>Command-line options</source>
@@ -1048,16 +1048,16 @@ Dirección: %4
         <translation>Bienvenido</translation>
     </message>
     <message>
-        <source>Welcome to Dynamic Core.</source>
-        <translation>Bienvenido a Dynamic Core</translation>
+        <source>Welcome to Dynamic.</source>
+        <translation>Bienvenido a Dynamic</translation>
     </message>
     <message>
-        <source>As this is the first time the program is launched, you can choose where Dynamic Core will store its data.</source>
-        <translation>Al ser la primera vez que se ejecuta el programa, puede elegir dónde almacenará sus datos Dynamic Core.</translation>
+        <source>As this is the first time the program is launched, you can choose where Dynamic will store its data.</source>
+        <translation>Al ser la primera vez que se ejecuta el programa, puede elegir dónde almacenará sus datos Dynamic.</translation>
     </message>
     <message>
-        <source>Dynamic Core will download and store a copy of the Dynamic block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
-        <translation>Dynamic Core va a descargar y guardar una copia de la cadena de bloques de Dynamic. Se almacenará al menos %1GB de datos en este directorio, que irá creciendo con el tiempo. El monedero se guardará también en este directorio.</translation>
+        <source>Dynamic will download and store a copy of the Dynamic block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
+        <translation>Dynamic va a descargar y guardar una copia de la cadena de bloques de Dynamic. Se almacenará al menos %1GB de datos en este directorio, que irá creciendo con el tiempo. El monedero se guardará también en este directorio.</translation>
     </message>
     <message>
         <source>Use the default data directory</source>
@@ -1068,8 +1068,8 @@ Dirección: %4
         <translation>Utilizar un directorio de datos personalizado:</translation>
     </message>
     <message>
-        <source>Dynamic Core</source>
-        <translation>Dynamic Core</translation>
+        <source>Dynamic</source>
+        <translation>Dynamic</translation>
     </message>
     <message>
         <source>Error: Specified data directory "%1" cannot be created.</source>
@@ -2586,8 +2586,8 @@ https://www.transifex.com/projects/p/dynamic/</translation>
 <context>
     <name>ShutdownWindow</name>
     <message>
-        <source>Dynamic Core is shutting down...</source>
-        <translation>Dynamic Core se está cerrando...</translation>
+        <source>Dynamic is shutting down...</source>
+        <translation>Dynamic se está cerrando...</translation>
     </message>
     <message>
         <source>Do not shut down the computer until this window disappears.</source>
@@ -2736,8 +2736,8 @@ https://www.transifex.com/projects/p/dynamic/</translation>
 <context>
     <name>SplashScreen</name>
     <message>
-        <source>Dynamic Core</source>
-        <translation>Dynamic Core</translation>
+        <source>Dynamic</source>
+        <translation>Dynamic</translation>
     </message>
     <message>
         <source>Version %1</source>
@@ -2748,8 +2748,8 @@ https://www.transifex.com/projects/p/dynamic/</translation>
         <translation>Los desarrolladores de Bitcoin Core</translation>
     </message>
     <message>
-        <source>The Dynamic Core developers</source>
-        <translation>Los desarrolladores del Dynamic Core</translation>
+        <source>The Dynamic developers</source>
+        <translation>Los desarrolladores del Dynamic</translation>
     </message>
     <message>
         <source>[testnet]</source>
@@ -3320,14 +3320,14 @@ https://www.transifex.com/projects/p/dynamic/</translation>
     </message>
 </context>
 <context>
-    <name>dynamic-core</name>
+    <name>dynamic</name>
     <message>
         <source>Bind to given address and always listen on it. Use [host]:port notation for IPv6</source>
         <translation>Vincular a la dirección dada y escuchar siempre en ella. Utilice la notación [host]:port para IPv6</translation>
     </message>
     <message>
-        <source>Cannot obtain a lock on data directory %s. Dynamic Core is probably already running.</source>
-        <translation>No se ha podido bloquear el directorio de datos %s. Probablemente ya se está ejecutando Dynamic Core.</translation>
+        <source>Cannot obtain a lock on data directory %s. Dynamic is probably already running.</source>
+        <translation>No se ha podido bloquear el directorio de datos %s. Probablemente ya se está ejecutando Dynamic.</translation>
     </message>
     <message>
         <source>Privatesend uses exact denominated amounts to send funds, you might simply need to anonymize some more coins.</source>
@@ -3382,8 +3382,8 @@ https://www.transifex.com/projects/p/dynamic/</translation>
         <translation>Esta es una versión de pre-prueba - utilícela bajo su propio riesgo. No la utilice para usos comerciales o de minería.</translation>
     </message>
     <message>
-        <source>Unable to bind to %s on this computer. Dynamic Core is probably already running.</source>
-        <translation>No se puede enlazar a %s en este equipo. Dynamic Core probablemente ya está en funcionamiento.</translation>
+        <source>Unable to bind to %s on this computer. Dynamic is probably already running.</source>
+        <translation>No se puede enlazar a %s en este equipo. Dynamic probablemente ya está en funcionamiento.</translation>
     </message>
     <message>
         <source>Unable to locate enough Privatesend denominated funds for this transaction.</source>
@@ -3747,8 +3747,8 @@ por ejemplo: alertnotify=echo %%s | mail -s "Alerta de Dynamic" admin@foo.com
         <translation>Aviso: ¡-maxtxfee se estableció en un valor muy alto! Comisiones tan grandes no se podrían pagar en una única transacción.</translation>
     </message>
     <message>
-        <source>Warning: Please check that your computer's date and time are correct! If your clock is wrong Dynamic Core will not work properly.</source>
-        <translation>Aviso: ¡Por favor compruebe que la fecha y hora de su computadora son correctas! Si su reloj está mal ajustado, Dynamic Core no funcionará correctamente.</translation>
+        <source>Warning: Please check that your computer's date and time are correct! If your clock is wrong Dynamic will not work properly.</source>
+        <translation>Aviso: ¡Por favor compruebe que la fecha y hora de su computadora son correctas! Si su reloj está mal ajustado, Dynamic no funcionará correctamente.</translation>
     </message>
     <message>
         <source>Whitelist peers connecting from the given netmask or IP address. Can be specified multiple times.</source>
@@ -3801,8 +3801,8 @@ por ejemplo: alertnotify=echo %%s | mail -s "Alerta de Dynamic" admin@foo.com
         <translation>Copyright (C) 2009-%i Los Desarrolladores de Bitcoin Core</translation>
     </message>
     <message>
-        <source>Copyright (C) 2014-%i The Dynamic Core Developers</source>
-        <translation>Copyright (C) 2014-%i Los Desarrolladores de Dynamic Core</translation>
+        <source>Copyright (C) 2014-%i The Dynamic Developers</source>
+        <translation>Copyright (C) 2014-%i Los Desarrolladores de Dynamic</translation>
     </message>
     <message>
         <source>Could not parse -rpcbind value %s as network address</source>
@@ -3833,8 +3833,8 @@ por ejemplo: alertnotify=echo %%s | mail -s "Alerta de Dynamic" admin@foo.com
         <translation>Error al conectar al Nodo Maestro.</translation>
     </message>
     <message>
-        <source>Error loading wallet.dat: Wallet requires newer version of Dynamic Core</source>
-        <translation>Error al cargar wallet.dat: El monedero requiere una versión más reciente de Dynamic Core</translation>
+        <source>Error loading wallet.dat: Wallet requires newer version of Dynamic</source>
+        <translation>Error al cargar wallet.dat: El monedero requiere una versión más reciente de Dynamic</translation>
     </message>
     <message>
         <source>Error: A fatal internal error occured, see debug.log for details</source>
@@ -3905,8 +3905,8 @@ por ejemplo: alertnotify=echo %%s | mail -s "Alerta de Dynamic" admin@foo.com
         <translation>Información</translation>
     </message>
     <message>
-        <source>Initialization sanity check failed. Dynamic Core is shutting down.</source>
-        <translation>La comprobación de validez de inicio falló. Dynamic Core se está cerrando.</translation>
+        <source>Initialization sanity check failed. Dynamic is shutting down.</source>
+        <translation>La comprobación de validez de inicio falló. Dynamic se está cerrando.</translation>
     </message>
     <message>
         <source>Input is not valid.</source>
@@ -4157,8 +4157,8 @@ por ejemplo: alertnotify=echo %%s | mail -s "Alerta de Dynamic" admin@foo.com
         <translation>Usar UPnP para asignar el puerto de escucha (predeterminado: %u)</translation>
     </message>
     <message>
-        <source>Wallet needed to be rewritten: restart Dynamic Core to complete</source>
-        <translation>El monedero se ha de reescribir: reinicie Dynamic Core para completarlo</translation>
+        <source>Wallet needed to be rewritten: restart Dynamic to complete</source>
+        <translation>El monedero se ha de reescribir: reinicie Dynamic para completarlo</translation>
     </message>
     <message>
         <source>Warning: Unsupported argument -benchmark ignored, use -debug=bench.</source>

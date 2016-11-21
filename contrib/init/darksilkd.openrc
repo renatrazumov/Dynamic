@@ -18,7 +18,7 @@ DYNAMICD_BIN=${DYNAMICD_BIN:-/usr/bin/dynamicd}
 DYNAMICD_NICE=${DYNAMICD_NICE:-${NICELEVEL:-0}}
 DYNAMICD_OPTS="${DYNAMICD_OPTS:-${DYNAMIC_OPTS}}"
 
-name="Dynamic Core Daemon"
+name="Dynamic Daemon"
 description="Dynamic cryptocurrency P2P network daemon"
 
 command="/usr/bin/dynamicd"
@@ -84,7 +84,7 @@ checkconfig()
 		eerror "It is also recommended that you also set alertnotify so you are "
 		eerror "notified of problems:"
 		eerror ""
-		eerror "ie: alertnotify=echo %%s | mail -s \"Dynamic Core Alert\"" \
+		eerror "ie: alertnotify=echo %%s | mail -s \"Dynamic Alert\"" \
 			"admin@foo.com"
 		eerror ""
 		return 1

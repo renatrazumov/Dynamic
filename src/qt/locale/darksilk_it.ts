@@ -231,8 +231,8 @@
 <context>
     <name>DynamicGUI</name>
     <message>
-        <source>Dynamic Core</source>
-        <translation>Dynamic Core</translation>
+        <source>Dynamic</source>
+        <translation>Dynamic</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -283,12 +283,12 @@
         <translation>Chiudi applicazione</translation>
     </message>
     <message>
-        <source>&amp;About Dynamic Core</source>
-        <translation>&amp;Su Dynamic Core</translation>
+        <source>&amp;About Dynamic</source>
+        <translation>&amp;Su Dynamic</translation>
     </message>
     <message>
-        <source>Show information about Dynamic Core</source>
-        <translation>Mostra la informazione su Dynamic Core</translation>
+        <source>Show information about Dynamic</source>
+        <translation>Mostra la informazione su Dynamic</translation>
     </message>
     <message>
         <source>About &amp;Qt</source>
@@ -443,16 +443,16 @@
         <translation>Opzioni riga di &amp;comando</translation>
     </message>
     <message>
-        <source>Dynamic Core client</source>
-        <translation>Cliente Dynamic Core</translation>
+        <source>Dynamic client</source>
+        <translation>Cliente Dynamic</translation>
     </message>
     <message numerus="yes">
         <source>Processed %n blocks of transaction history.</source>
         <translation><numerusform>Processato %n blocco della cronologia transazioni.</numerusform><numerusform>Processati %n blocchi della cronologia transazioni.</numerusform></translation>
     </message>
     <message>
-        <source>Show the Dynamic Core help message to get a list with possible Dynamic command-line options</source>
-        <translation>Mostra il messaggio di aiuto di Dynamic Core per ottenere una lista con le possibili opzioni di linea di comando di Dynamic</translation>
+        <source>Show the Dynamic help message to get a list with possible Dynamic command-line options</source>
+        <translation>Mostra il messaggio di aiuto di Dynamic per ottenere una lista con le possibili opzioni di linea di comando di Dynamic</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -958,16 +958,16 @@ Indirizzo: %4
 <context>
     <name>HelpMessageDialog</name>
     <message>
-        <source>Dynamic Core</source>
-        <translation>Dynamic Core</translation>
+        <source>Dynamic</source>
+        <translation>Dynamic</translation>
     </message>
     <message>
         <source>version</source>
         <translation>versione</translation>
     </message>
     <message>
-        <source>About Dynamic Core</source>
-        <translation>Su Dynamic Core</translation>
+        <source>About Dynamic</source>
+        <translation>Su Dynamic</translation>
     </message>
     <message>
         <source>Command-line options</source>
@@ -1013,16 +1013,16 @@ Indirizzo: %4
         <translation>Benvenuto</translation>
     </message>
     <message>
-        <source>Welcome to Dynamic Core.</source>
-        <translation>Benvenuto in Dynamic Core</translation>
+        <source>Welcome to Dynamic.</source>
+        <translation>Benvenuto in Dynamic</translation>
     </message>
     <message>
-        <source>As this is the first time the program is launched, you can choose where Dynamic Core will store its data.</source>
-        <translation>Essendo la prima volta nella quale il programma viene lanciato, puoi scegliere dove Dynamic Core memorizzerà i propri dati.</translation>
+        <source>As this is the first time the program is launched, you can choose where Dynamic will store its data.</source>
+        <translation>Essendo la prima volta nella quale il programma viene lanciato, puoi scegliere dove Dynamic memorizzerà i propri dati.</translation>
     </message>
     <message>
-        <source>Dynamic Core will download and store a copy of the Dynamic block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
-        <translation>Dynamic Core scaricherà e salverà una copia della blocco catena. Almeno %1GB di dati sarà immagazzinato in questa cartella e aumenterà col tempo. Anche il portafoglio sarà conservato in questa cartella.</translation>
+        <source>Dynamic will download and store a copy of the Dynamic block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
+        <translation>Dynamic scaricherà e salverà una copia della blocco catena. Almeno %1GB di dati sarà immagazzinato in questa cartella e aumenterà col tempo. Anche il portafoglio sarà conservato in questa cartella.</translation>
     </message>
     <message>
         <source>Use the default data directory</source>
@@ -1033,8 +1033,8 @@ Indirizzo: %4
         <translation>Usa una cartella dati personalizzata:</translation>
     </message>
     <message>
-        <source>Dynamic Core</source>
-        <translation>Dynamic Core</translation>
+        <source>Dynamic</source>
+        <translation>Dynamic</translation>
     </message>
     <message>
         <source>Error: Specified data directory "%1" cannot be created.</source>
@@ -1088,7 +1088,7 @@ Indirizzo: %4
     </message>
     <message>
         <source>Automatically start Dynamic after logging in to the system.</source>
-        <translation>Esegui automaticamente Dynamic Core all'avvio del sistema.</translation>
+        <translation>Esegui automaticamente Dynamic all'avvio del sistema.</translation>
     </message>
     <message>
         <source>&amp;Start Dynamic on system login</source>
@@ -2428,8 +2428,8 @@ Più URL vengono separati da una barra verticale |.</translation>
 <context>
     <name>ShutdownWindow</name>
     <message>
-        <source>Dynamic Core is shutting down...</source>
-        <translation>Dynamic Core si sta chiudendo...</translation>
+        <source>Dynamic is shutting down...</source>
+        <translation>Dynamic si sta chiudendo...</translation>
     </message>
     <message>
         <source>Do not shut down the computer until this window disappears.</source>
@@ -2578,8 +2578,8 @@ Più URL vengono separati da una barra verticale |.</translation>
 <context>
     <name>SplashScreen</name>
     <message>
-        <source>Dynamic Core</source>
-        <translation>Dynamic Core</translation>
+        <source>Dynamic</source>
+        <translation>Dynamic</translation>
     </message>
     <message>
         <source>Version %1</source>
@@ -2590,8 +2590,8 @@ Più URL vengono separati da una barra verticale |.</translation>
         <translation>Gli sviluppatori di Bitcoin Core</translation>
     </message>
     <message>
-        <source>The Dynamic Core developers</source>
-        <translation>Gli sviluppatori di Dynamic Core</translation>
+        <source>The Dynamic developers</source>
+        <translation>Gli sviluppatori di Dynamic</translation>
     </message>
     <message>
         <source>[testnet]</source>
@@ -3158,14 +3158,14 @@ Più URL vengono separati da una barra verticale |.</translation>
     </message>
 </context>
 <context>
-    <name>dynamic-core</name>
+    <name>dynamic</name>
     <message>
         <source>Bind to given address and always listen on it. Use [host]:port notation for IPv6</source>
         <translation>Associa all'indirizzo indicato e resta permanentemente in ascolto su questo. Usa la notazione [host]:porta per l'IPv6</translation>
     </message>
     <message>
-        <source>Cannot obtain a lock on data directory %s. Dynamic Core is probably already running.</source>
-        <translation>Impossibile ottenere un blocco sulla data directory %s. Dynamic Core è probabilmente già in esecuzione.</translation>
+        <source>Cannot obtain a lock on data directory %s. Dynamic is probably already running.</source>
+        <translation>Impossibile ottenere un blocco sulla data directory %s. Dynamic è probabilmente già in esecuzione.</translation>
     </message>
     <message>
         <source>Privatesend uses exact denominated amounts to send funds, you might simply need to anonymize some more coins.</source>
@@ -3220,8 +3220,8 @@ Più URL vengono separati da una barra verticale |.</translation>
         <translation>Questa versione è una compilazione pre-rilascio - usala a tuo rischio - non utilizzarla per la generazione o per applicazioni di commercio</translation>
     </message>
     <message>
-        <source>Unable to bind to %s on this computer. Dynamic Core is probably already running.</source>
-        <translation>Incapace di legare al %s su questo computer. Dynamic Core è probabilmente già funzionato.</translation>
+        <source>Unable to bind to %s on this computer. Dynamic is probably already running.</source>
+        <translation>Incapace di legare al %s su questo computer. Dynamic è probabilmente già funzionato.</translation>
     </message>
     <message>
         <source>Unable to locate enough Privatesend denominated funds for this transaction.</source>
@@ -3468,8 +3468,8 @@ Più URL vengono separati da una barra verticale |.</translation>
         <translation>Errore di connessione al Dynode</translation>
     </message>
     <message>
-        <source>Error loading wallet.dat: Wallet requires newer version of Dynamic Core</source>
-        <translation>Errore caricando il wallet.dat: il Pertafoglio ha bisogno di una versione di Dynamic Core piú recente.</translation>
+        <source>Error loading wallet.dat: Wallet requires newer version of Dynamic</source>
+        <translation>Errore caricando il wallet.dat: il Pertafoglio ha bisogno di una versione di Dynamic piú recente.</translation>
     </message>
     <message>
         <source>Error: A fatal internal error occured, see debug.log for details</source>
@@ -3508,8 +3508,8 @@ Più URL vengono separati da una barra verticale |.</translation>
         <translation>Informazioni</translation>
     </message>
     <message>
-        <source>Initialization sanity check failed. Dynamic Core is shutting down.</source>
-        <translation>Controllo di inizializzazione sanity fallito. Dynamic Core verrà chiuso.</translation>
+        <source>Initialization sanity check failed. Dynamic is shutting down.</source>
+        <translation>Controllo di inizializzazione sanity fallito. Dynamic verrà chiuso.</translation>
     </message>
     <message>
         <source>Input is not valid.</source>

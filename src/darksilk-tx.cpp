@@ -1,7 +1,7 @@
 // Copyright (c) 2009-2017 Satoshi Nakamoto
 // Copyright (c) 2009-2017 The Bitcoin Developers
 // Copyright (c) 2014-2017 The Dash Core Developers
-// Copyright (c) 2015-2017 Silk Network Developers
+// Copyright (c) 2016-2017 Duality Blockchain Solutions Ltd
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -55,7 +55,7 @@ static int AppInitRawTx(int argc, char* argv[])
     if (argc<2 || mapArgs.count("-?") || mapArgs.count("-h") || mapArgs.count("-help"))
     {
         // First part of help message is specific to this utility
-        std::string strUsage = _("Dynamic Core dynamic-tx utility version") + " " + FormatFullVersion() + "\n\n" +
+        std::string strUsage = _("Dynamic dynamic-tx utility version") + " " + FormatFullVersion() + "\n\n" +
             _("Usage:") + "\n" +
               "  dynamic-tx [options] <hex-tx> [commands]  " + _("Update hex-encoded dynamic transaction") + "\n" +
               "  dynamic-tx [options] -create [commands]   " + _("Create hex-encoded dynamic transaction") + "\n" +

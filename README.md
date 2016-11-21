@@ -112,7 +112,7 @@ System requirements
 --------------------
 
 C++ compilers are memory-hungry. It is recommended to have at least 1 GB of
-memory available when compiling Dynamic Core. With 512MB of memory or less
+memory available when compiling Dynamic. With 512MB of memory or less
 compilation will take much longer due to swap thrashing.
 
 Dependency Build Instructions: Ubuntu & Debian
@@ -125,10 +125,10 @@ for Ubuntu 12.04 and later or Debian 7 and later libboost-all-dev has to be inst
 
 	sudo apt-get install libboost-all-dev
 
- db4.8 packages are available [here](https://launchpad.net/~silknetwork/+archive/silknetwork).
+ db4.8 packages are available [here](https://launchpad.net/~bitcoin/+archive/bitcoin).
  You can add the repository using the following command:
 
-        sudo add-apt-repository ppa:silknetwork/silknetwork
+        sudo add-apt-repository ppa:bitcoin/bitcoin
         sudo apt-get update
 
  Ubuntu 12.04 and later have packages for libdb5.1-dev and libdb5.1++-dev,
@@ -222,7 +222,7 @@ cd db-4.8.30.NC/build_unix/
 make 
 sudo make install
 
-# Configure Dynamic Core to use our own-built instance of BDB
+# Configure Dynamic to use our own-built instance of BDB
 cd $DYNAMIC_ROOT
 ./configure (other args...) LDFLAGS="-L${BDB_PREFIX}/lib/" CPPFLAGS="-I${BDB_PREFIX}/include/"
 ```

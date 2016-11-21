@@ -231,8 +231,8 @@
 <context>
     <name>BitcoinGUI</name>
     <message>
-        <source>Dynamic Core</source>
-        <translation>Dynamic Core</translation>
+        <source>Dynamic</source>
+        <translation>Dynamic</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -283,12 +283,12 @@
         <translation>Thoát ứng dụng</translation>
     </message>
     <message>
-        <source>&amp;About Dynamic Core</source>
-        <translation>&amp;Về Dynamic Core</translation>
+        <source>&amp;About Dynamic</source>
+        <translation>&amp;Về Dynamic</translation>
     </message>
     <message>
-        <source>Show information about Dynamic Core</source>
-        <translation>Hiển thị thông tin về Dynamic Core</translation>
+        <source>Show information about Dynamic</source>
+        <translation>Hiển thị thông tin về Dynamic</translation>
     </message>
     <message>
         <source>About &amp;Qt</source>
@@ -451,8 +451,8 @@
         <translation>&amp;Các Tuỳ chọn dòng lệnh</translation>
     </message>
     <message>
-        <source>Dynamic Core client</source>
-        <translation>Phần mềm Dynamic Core</translation>
+        <source>Dynamic client</source>
+        <translation>Phần mềm Dynamic</translation>
     </message>
     <message numerus="yes">
         <source>Processed %n blocks of transaction history.</source>
@@ -463,8 +463,8 @@
         <translation>Đang đồng bộ những dữ liệu bổ sung: %p%</translation>
     </message>
     <message>
-        <source>Show the Dynamic Core help message to get a list with possible Dynamic command-line options</source>
-        <translation>Hiển thị hướng dẫn của Dynamic Core để có danh sách đầy đủ các tuỳ chọn dòng lệnh của Dynamic.</translation>
+        <source>Show the Dynamic help message to get a list with possible Dynamic command-line options</source>
+        <translation>Hiển thị hướng dẫn của Dynamic để có danh sách đầy đủ các tuỳ chọn dòng lệnh của Dynamic.</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -989,8 +989,8 @@ Kiểu: %3
 <context>
     <name>HelpMessageDialog</name>
     <message>
-        <source>Dynamic Core</source>
-        <translation>Dynamic Core</translation>
+        <source>Dynamic</source>
+        <translation>Dynamic</translation>
     </message>
     <message>
         <source>version</source>
@@ -1001,8 +1001,8 @@ Kiểu: %3
         <translation>(%1-bit)</translation>
     </message>
     <message>
-        <source>About Dynamic Core</source>
-        <translation>Về Dynamic Core</translation>
+        <source>About Dynamic</source>
+        <translation>Về Dynamic</translation>
     </message>
     <message>
         <source>Command-line options</source>
@@ -1048,16 +1048,16 @@ Kiểu: %3
         <translation>Chào mừng</translation>
     </message>
     <message>
-        <source>Welcome to Dynamic Core.</source>
-        <translation>Chào mừng đến với Dynamic Core.</translation>
+        <source>Welcome to Dynamic.</source>
+        <translation>Chào mừng đến với Dynamic.</translation>
     </message>
     <message>
-        <source>As this is the first time the program is launched, you can choose where Dynamic Core will store its data.</source>
-        <translation>Đây là lần đầu tiên chương trình được khởi động, bạn có thể chọn nơi mà Dynamic Core sẽ lưu dữ liệu.</translation>
+        <source>As this is the first time the program is launched, you can choose where Dynamic will store its data.</source>
+        <translation>Đây là lần đầu tiên chương trình được khởi động, bạn có thể chọn nơi mà Dynamic sẽ lưu dữ liệu.</translation>
     </message>
     <message>
-        <source>Dynamic Core will download and store a copy of the Dynamic block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
-        <translation>Dynamic Core sẽ tải và lưu một bản của sổ cái Dynamic. Ít nhất %1GB dữ liệu sẽ được lưu trong thư mục này, và nó sẽ tăng lên theo thời gian. Ví của bạn cũng sẽ được lưu trong thư mục này.</translation>
+        <source>Dynamic will download and store a copy of the Dynamic block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
+        <translation>Dynamic sẽ tải và lưu một bản của sổ cái Dynamic. Ít nhất %1GB dữ liệu sẽ được lưu trong thư mục này, và nó sẽ tăng lên theo thời gian. Ví của bạn cũng sẽ được lưu trong thư mục này.</translation>
     </message>
     <message>
         <source>Use the default data directory</source>
@@ -1068,8 +1068,8 @@ Kiểu: %3
         <translation>Sử dụng thư mục dữ liệu tuỳ chọn:</translation>
     </message>
     <message>
-        <source>Dynamic Core</source>
-        <translation>Dynamic Core</translation>
+        <source>Dynamic</source>
+        <translation>Dynamic</translation>
     </message>
     <message>
         <source>Error: Specified data directory "%1" cannot be created.</source>
@@ -2586,8 +2586,8 @@ https://www.transifex.com/projects/p/dynamic/</translation>
 <context>
     <name>ShutdownWindow</name>
     <message>
-        <source>Dynamic Core is shutting down...</source>
-        <translation>Dynamic Core đang được tắt...</translation>
+        <source>Dynamic is shutting down...</source>
+        <translation>Dynamic đang được tắt...</translation>
     </message>
     <message>
         <source>Do not shut down the computer until this window disappears.</source>
@@ -2736,8 +2736,8 @@ https://www.transifex.com/projects/p/dynamic/</translation>
 <context>
     <name>SplashScreen</name>
     <message>
-        <source>Dynamic Core</source>
-        <translation>Dynamic Core</translation>
+        <source>Dynamic</source>
+        <translation>Dynamic</translation>
     </message>
     <message>
         <source>Version %1</source>
@@ -2748,8 +2748,8 @@ https://www.transifex.com/projects/p/dynamic/</translation>
         <translation>Nhóm phát triển Bitcoin Core</translation>
     </message>
     <message>
-        <source>The Dynamic Core developers</source>
-        <translation>Nhóm phát triển Dynamic Core</translation>
+        <source>The Dynamic developers</source>
+        <translation>Nhóm phát triển Dynamic</translation>
     </message>
     <message>
         <source>[testnet]</source>
@@ -3320,14 +3320,14 @@ https://www.transifex.com/projects/p/dynamic/</translation>
     </message>
 </context>
 <context>
-    <name>dynamic-core</name>
+    <name>dynamic</name>
     <message>
         <source>Bind to given address and always listen on it. Use [host]:port notation for IPv6</source>
         <translation>Liên kết với địa chỉ nhất định và luôn luôn lắng nghe trên đó. Sử dụng ký hiệu [host]:port cho IPv6</translation>
     </message>
     <message>
-        <source>Cannot obtain a lock on data directory %s. Dynamic Core is probably already running.</source>
-        <translation>Không nhận được một khoá trong thư mục %s. Dynamic Core có thể đã đang chạy.</translation>
+        <source>Cannot obtain a lock on data directory %s. Dynamic is probably already running.</source>
+        <translation>Không nhận được một khoá trong thư mục %s. Dynamic có thể đã đang chạy.</translation>
     </message>
     <message>
         <source>Privatesend uses exact denominated amounts to send funds, you might simply need to anonymize some more coins.</source>
@@ -3382,8 +3382,8 @@ https://www.transifex.com/projects/p/dynamic/</translation>
         <translation>Đây là phiên bản chưa chính thức - hãy dùng và tự chấp nhận mạo hiểm - đừng dùng để đào coin hoặc các ứng dụng thương mại.</translation>
     </message>
     <message>
-        <source>Unable to bind to %s on this computer. Dynamic Core is probably already running.</source>
-        <translation>Không thể để ràng buộc vào %s trên máy tính này. Dynamic Core có thể đã chạy.</translation>
+        <source>Unable to bind to %s on this computer. Dynamic is probably already running.</source>
+        <translation>Không thể để ràng buộc vào %s trên máy tính này. Dynamic có thể đã chạy.</translation>
     </message>
     <message>
         <source>Unable to locate enough Privatesend denominated funds for this transaction.</source>
@@ -3746,8 +3746,8 @@ ví dụ: alertnotify=echo %%s | mail -s "Dynamic Alert" admin@foo.com
         <translation>Cảnh báo: -maxtxfee được đặt rất cao! Mức Phí cao này sẽ được trả cho mỗi một giao dịch đơn.</translation>
     </message>
     <message>
-        <source>Warning: Please check that your computer's date and time are correct! If your clock is wrong Dynamic Core will not work properly.</source>
-        <translation>Cánh báo: Hãy vui lòng kiểm tra ngày giờ máy tính của bạn cho chính xác! Nếu đồng hồ của bạn sai thì Dynamic Core sẽ không làm việc một cách hoàn hảo.</translation>
+        <source>Warning: Please check that your computer's date and time are correct! If your clock is wrong Dynamic will not work properly.</source>
+        <translation>Cánh báo: Hãy vui lòng kiểm tra ngày giờ máy tính của bạn cho chính xác! Nếu đồng hồ của bạn sai thì Dynamic sẽ không làm việc một cách hoàn hảo.</translation>
     </message>
     <message>
         <source>Whitelist peers connecting from the given netmask or IP address. Can be specified multiple times.</source>
@@ -3799,8 +3799,8 @@ ví dụ: alertnotify=echo %%s | mail -s "Dynamic Alert" admin@foo.com
         <translation>Bản quyền (C) 2009-%i bởi Nhóm phát triển Bitcoin Core</translation>
     </message>
     <message>
-        <source>Copyright (C) 2014-%i The Dynamic Core Developers</source>
-        <translation>Bản quyền (C) 2014-%i bởi Nhóm phát triển Dynamic Core</translation>
+        <source>Copyright (C) 2014-%i The Dynamic Developers</source>
+        <translation>Bản quyền (C) 2014-%i bởi Nhóm phát triển Dynamic</translation>
     </message>
     <message>
         <source>Could not parse -rpcbind value %s as network address</source>
@@ -3831,8 +3831,8 @@ ví dụ: alertnotify=echo %%s | mail -s "Dynamic Alert" admin@foo.com
         <translation>Lỗi kết nối tới Dynode.</translation>
     </message>
     <message>
-        <source>Error loading wallet.dat: Wallet requires newer version of Dynamic Core</source>
-        <translation>Lỗi nạp wallet.dat: Ví cần một phiên bản mới hơn của Dynamic Core</translation>
+        <source>Error loading wallet.dat: Wallet requires newer version of Dynamic</source>
+        <translation>Lỗi nạp wallet.dat: Ví cần một phiên bản mới hơn của Dynamic</translation>
     </message>
     <message>
         <source>Error: A fatal internal error occured, see debug.log for details</source>
@@ -3903,8 +3903,8 @@ ví dụ: alertnotify=echo %%s | mail -s "Dynamic Alert" admin@foo.com
         <translation>Thông tin</translation>
     </message>
     <message>
-        <source>Initialization sanity check failed. Dynamic Core is shutting down.</source>
-        <translation>Khởi tạo việc kiểm tra tính đúng đắn thất bại. Dynamic Core đang được tắt.</translation>
+        <source>Initialization sanity check failed. Dynamic is shutting down.</source>
+        <translation>Khởi tạo việc kiểm tra tính đúng đắn thất bại. Dynamic đang được tắt.</translation>
     </message>
     <message>
         <source>Input is not valid.</source>
@@ -4155,8 +4155,8 @@ ví dụ: alertnotify=echo %%s | mail -s "Dynamic Alert" admin@foo.com
         <translation>Sử dụng UPnP để ánh xạ cổng lắng nghe (ngầm định: %u)</translation>
     </message>
     <message>
-        <source>Wallet needed to be rewritten: restart Dynamic Core to complete</source>
-        <translation>Ví cần được ghi lại: khởi động lại Dynamic Core để hoàn tất</translation>
+        <source>Wallet needed to be rewritten: restart Dynamic to complete</source>
+        <translation>Ví cần được ghi lại: khởi động lại Dynamic để hoàn tất</translation>
     </message>
     <message>
         <source>Warning: Unsupported argument -benchmark ignored, use -debug=bench.</source>

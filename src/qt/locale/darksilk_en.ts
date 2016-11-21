@@ -296,8 +296,8 @@
     <message>
         <location filename="../dynamicgui.cpp" line="+108"/>
         <location line="+752"/>
-        <source>Dynamic Core</source>
-        <translation>Dynamic Core</translation>
+        <source>Dynamic</source>
+        <translation>Dynamic</translation>
     </message>
     <message>
         <location line="-743"/>
@@ -361,13 +361,13 @@
     </message>
     <message>
         <location line="+3"/>
-        <source>&amp;About Dynamic Core</source>
-        <translation>&amp;About Dynamic Core</translation>
+        <source>&amp;About Dynamic</source>
+        <translation>&amp;About Dynamic</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Show information about Dynamic Core</source>
-        <translation>Show information about Dynamic Core</translation>
+        <source>Show information about Dynamic</source>
+        <translation>Show information about Dynamic</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -572,8 +572,8 @@
     </message>
     <message>
         <location line="+196"/>
-        <source>Dynamic Core client</source>
-        <translation>Dynamic Core client</translation>
+        <source>Dynamic client</source>
+        <translation>Dynamic client</translation>
     </message>
     <message numerus="yes">
         <location line="+182"/>
@@ -587,8 +587,8 @@
     </message>
     <message>
         <location line="-407"/>
-        <source>Show the Dynamic Core help message to get a list with possible Dynamic command-line options</source>
-        <translation>Show the Dynamic Core help message to get a list with possible Dynamic command-line options</translation>
+        <source>Show the Dynamic help message to get a list with possible Dynamic command-line options</source>
+        <translation>Show the Dynamic help message to get a list with possible Dynamic command-line options</translation>
     </message>
     <message>
         <location line="+36"/>
@@ -1246,8 +1246,8 @@ Address: %4
     <name>HelpMessageDialog</name>
     <message>
         <location filename="../utilitydialog.cpp" line="+32"/>
-        <source>Dynamic Core</source>
-        <translation>Dynamic Core</translation>
+        <source>Dynamic</source>
+        <translation>Dynamic</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -1262,8 +1262,8 @@ Address: %4
     </message>
     <message>
         <location line="+5"/>
-        <source>About Dynamic Core</source>
-        <translation>About Dynamic Core</translation>
+        <source>About Dynamic</source>
+        <translation>About Dynamic</translation>
     </message>
     <message>
         <location line="+19"/>
@@ -1320,18 +1320,18 @@ Address: %4
     </message>
     <message>
         <location line="+9"/>
-        <source>Welcome to Dynamic Core.</source>
-        <translation>Welcome to Dynamic Core.</translation>
+        <source>Welcome to Dynamic.</source>
+        <translation>Welcome to Dynamic.</translation>
     </message>
     <message>
         <location line="+26"/>
-        <source>As this is the first time the program is launched, you can choose where Dynamic Core will store its data.</source>
-        <translation>As this is the first time the program is launched, you can choose where Dynamic Core will store its data.</translation>
+        <source>As this is the first time the program is launched, you can choose where Dynamic will store its data.</source>
+        <translation>As this is the first time the program is launched, you can choose where Dynamic will store its data.</translation>
     </message>
     <message>
         <location line="+10"/>
-        <source>Dynamic Core will download and store a copy of the Dynamic block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
-        <translation>Dynamic Core will download and store a copy of the Dynamic block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</translation>
+        <source>Dynamic will download and store a copy of the Dynamic block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
+        <translation>Dynamic will download and store a copy of the Dynamic block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -1345,8 +1345,8 @@ Address: %4
     </message>
     <message>
         <location filename="../intro.cpp" line="+82"/>
-        <source>Dynamic Core</source>
-        <translation>Dynamic Core</translation>
+        <source>Dynamic</source>
+        <translation>Dynamic</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3303,8 +3303,8 @@ https://www.transifex.com/projects/p/dynamic/</translation>
     <name>ShutdownWindow</name>
     <message>
         <location filename="../utilitydialog.cpp" line="+43"/>
-        <source>Dynamic Core is shutting down...</source>
-        <translation>Dynamic Core is shutting down...</translation>
+        <source>Dynamic is shutting down...</source>
+        <translation>Dynamic is shutting down...</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3498,8 +3498,8 @@ https://www.transifex.com/projects/p/dynamic/</translation>
     <name>SplashScreen</name>
     <message>
         <location filename="../splashscreen.cpp" line="+36"/>
-        <source>Dynamic Core</source>
-        <translation>Dynamic Core</translation>
+        <source>Dynamic</source>
+        <translation>Dynamic</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3513,8 +3513,8 @@ https://www.transifex.com/projects/p/dynamic/</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>The Dynamic Core developers</source>
-        <translation>The Dynamic Core developers</translation>
+        <source>The Dynamic developers</source>
+        <translation>The Dynamic developers</translation>
     </message>
     <message>
         <location filename="../networkstyle.cpp" line="+19"/>
@@ -4242,7 +4242,7 @@ https://www.transifex.com/projects/p/dynamic/</translation>
     </message>
 </context>
 <context>
-    <name>dynamic-core</name>
+    <name>dynamic</name>
     <message>
         <location filename="../dynamicstrings.cpp" line="+22"/>
         <source>Bind to given address and always listen on it. Use [host]:port notation for IPv6</source>
@@ -4250,8 +4250,8 @@ https://www.transifex.com/projects/p/dynamic/</translation>
     </message>
     <message>
         <location line="+10"/>
-        <source>Cannot obtain a lock on data directory %s. Dynamic Core is probably already running.</source>
-        <translation>Cannot obtain a lock on data directory %s. Dynamic Core is probably already running.</translation>
+        <source>Cannot obtain a lock on data directory %s. Dynamic is probably already running.</source>
+        <translation>Cannot obtain a lock on data directory %s. Dynamic is probably already running.</translation>
     </message>
     <message>
         <location line="+12"/>
@@ -4320,8 +4320,8 @@ https://www.transifex.com/projects/p/dynamic/</translation>
     </message>
     <message>
         <location line="+20"/>
-        <source>Unable to bind to %s on this computer. Dynamic Core is probably already running.</source>
-        <translation>Unable to bind to %s on this computer. Dynamic Core is probably already running.</translation>
+        <source>Unable to bind to %s on this computer. Dynamic is probably already running.</source>
+        <translation>Unable to bind to %s on this computer. Dynamic is probably already running.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4770,8 +4770,8 @@ for example: alertnotify=echo %%s | mail -s &quot;Dynamic Alert&quot; admin@foo.
     </message>
     <message>
         <location line="+6"/>
-        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong Dynamic Core will not work properly.</source>
-        <translation>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong Dynamic Core will not work properly.</translation>
+        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong Dynamic will not work properly.</source>
+        <translation>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong Dynamic will not work properly.</translation>
     </message>
     <message>
         <location line="+16"/>
@@ -4837,8 +4837,8 @@ for example: alertnotify=echo %%s | mail -s &quot;Dynamic Alert&quot; admin@foo.
     </message>
     <message>
         <location line="+1"/>
-        <source>Copyright (C) 2014-%i The Dynamic Core Developers</source>
-        <translation>Copyright (C) 2014-%i The Dynamic Core Developers</translation>
+        <source>Copyright (C) 2014-%i The Dynamic Developers</source>
+        <translation>Copyright (C) 2014-%i The Dynamic Developers</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4877,8 +4877,8 @@ for example: alertnotify=echo %%s | mail -s &quot;Dynamic Alert&quot; admin@foo.
     </message>
     <message>
         <location line="+6"/>
-        <source>Error loading wallet.dat: Wallet requires newer version of Dynamic Core</source>
-        <translation>Error loading wallet.dat: Wallet requires newer version of Dynamic Core</translation>
+        <source>Error loading wallet.dat: Wallet requires newer version of Dynamic</source>
+        <translation>Error loading wallet.dat: Wallet requires newer version of Dynamic</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -4967,8 +4967,8 @@ for example: alertnotify=echo %%s | mail -s &quot;Dynamic Alert&quot; admin@foo.
     </message>
     <message>
         <location line="+1"/>
-        <source>Initialization sanity check failed. Dynamic Core is shutting down.</source>
-        <translation>Initialization sanity check failed. Dynamic Core is shutting down.</translation>
+        <source>Initialization sanity check failed. Dynamic is shutting down.</source>
+        <translation>Initialization sanity check failed. Dynamic is shutting down.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -5282,8 +5282,8 @@ for example: alertnotify=echo %%s | mail -s &quot;Dynamic Alert&quot; admin@foo.
     </message>
     <message>
         <location line="+9"/>
-        <source>Wallet needed to be rewritten: restart Dynamic Core to complete</source>
-        <translation>Wallet needed to be rewritten: restart Dynamic Core to complete</translation>
+        <source>Wallet needed to be rewritten: restart Dynamic to complete</source>
+        <translation>Wallet needed to be rewritten: restart Dynamic to complete</translation>
     </message>
     <message>
         <location line="+5"/>

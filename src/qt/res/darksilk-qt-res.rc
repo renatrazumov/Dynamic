@@ -19,13 +19,13 @@ BEGIN
         BLOCK "040904E4" // U.S. English - multilingual (hex)
         BEGIN
             VALUE "CompanyName",        "Dynamic"
-            VALUE "FileDescription",    "Dynamic Core (GUI node for Dynamic)"
+            VALUE "FileDescription",    "Dynamic (GUI node for Dynamic)"
             VALUE "FileVersion",        VER_FILEVERSION_STR
             VALUE "InternalName",       "dynamic-qt"
             VALUE "LegalCopyright",     COPYRIGHT_STR
             VALUE "LegalTrademarks1",   "Distributed under the MIT software license, see the accompanying file COPYING or http://www.opensource.org/licenses/mit-license.php."
             VALUE "OriginalFilename",   "dynamic-qt.exe"
-            VALUE "ProductName",        "Dynamic Core"
+            VALUE "ProductName",        "Dynamic"
             VALUE "ProductVersion",     VER_PRODUCTVERSION_STR
         END
     END

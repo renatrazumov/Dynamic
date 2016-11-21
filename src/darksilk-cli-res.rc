@@ -17,7 +17,7 @@ BEGIN
         BLOCK "040904E4" // U.S. English - multilingual (hex)
         BEGIN
             VALUE "CompanyName",        "Dynamic"
-            VALUE "FileDescription",    "dynamic-cli (JSON-RPC client for Dynamic Core)"
+            VALUE "FileDescription",    "dynamic-cli (JSON-RPC client for Dynamic)"
             VALUE "FileVersion",        VER_FILEVERSION_STR
             VALUE "InternalName",       "dynamic-cli"
             VALUE "LegalCopyright",     COPYRIGHT_STR

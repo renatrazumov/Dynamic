@@ -3,7 +3,7 @@ exec_prefix=@exec_prefix@
 libdir=@libdir@
 includedir=@includedir@
 
-Name: Dynamic Core consensus library
+Name: Dynamic consensus library
 Description: Library for the Dynamic consensus protocol.
 Version: @PACKAGE_VERSION@
 Libs: -L${libdir} -ldynamicconsensus

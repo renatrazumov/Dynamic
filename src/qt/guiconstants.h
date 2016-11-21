@@ -1,7 +1,7 @@
 // Copyright (c) 2009-2017 Satoshi Nakamoto
 // Copyright (c) 2009-2017 The Bitcoin Developers
 // Copyright (c) 2014-2017 The Dash Core Developers
-// Copyright (c) 2015-2017 Silk Network Developers
+// Copyright (c) 2016-2017 Duality Blockchain Solutions Ltd
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -49,8 +49,8 @@ static const int MAX_URI_LENGTH = 255;
 /* Number of frames in spinner animation */
 #define SPINNER_FRAMES 36
 
-#define QAPP_ORG_NAME "Silk Network"
-#define QAPP_ORG_DOMAIN "silknetwork.org"
+#define QAPP_ORG_NAME "Duality Blockchain Solutions Ltd"
+#define QAPP_ORG_DOMAIN "duality-solutions.com"
 #define QAPP_APP_NAME_DEFAULT "Dynamic-Qt"
 #define QAPP_APP_NAME_TESTNET "Dynamic-Qt-testnet"
 
