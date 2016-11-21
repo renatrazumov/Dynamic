@@ -5,8 +5,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_SERIALIZE_H
-#define DARKSILK_SERIALIZE_H
+#ifndef DYNAMIC_SERIALIZE_H
+#define DYNAMIC_SERIALIZE_H
 
 #include "compat/endian.h"
 
@@ -985,4 +985,4 @@ public:
     }
 };
 
-#endif // DARKSILK_SERIALIZE_H
+#endif // DYNAMIC_SERIALIZE_H

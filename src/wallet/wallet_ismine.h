@@ -5,8 +5,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_WALLET_WALLET_ISMINE_H
-#define DARKSILK_WALLET_WALLET_ISMINE_H
+#ifndef DYNAMIC_WALLET_WALLET_ISMINE_H
+#define DYNAMIC_WALLET_WALLET_ISMINE_H
 
 #include "script/standard.h"
 
@@ -33,4 +33,4 @@ typedef uint8_t isminefilter;
 isminetype IsMine(const CKeyStore& keystore, const CScript& scriptPubKey);
 isminetype IsMine(const CKeyStore& keystore, const CTxDestination& dest);
 
-#endif // DARKSILK_WALLET_WALLET_ISMINE_H
+#endif // DYNAMIC_WALLET_WALLET_ISMINE_H

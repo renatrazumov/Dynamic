@@ -3,18 +3,18 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_STORMNODECONFIG_H
-#define DARKSILK_STORMNODECONFIG_H
+#ifndef DYNAMIC_DYNODECONFIG_H
+#define DYNAMIC_DYNODECONFIG_H
 
-class CStormnodeConfig;
-extern CStormnodeConfig stormnodeConfig;
+class CDynodeConfig;
+extern CDynodeConfig dynodeConfig;
 
-class CStormnodeConfig
+class CDynodeConfig
 {
 
 public:
 
-    class CStormnodeEntry {
+    class CDynodeEntry {
 
     private:
         std::string alias;
@@ -24,7 +24,7 @@ public:
         std::string outputIndex;
     public:
 
-        CStormnodeEntry(std::string alias, std::string ip, std::string privKey, std::string txHash, std::string outputIndex) {
+        CDynodeEntry(std::string alias, std::string ip, std::string privKey, std::string txHash, std::string outputIndex) {
             this->alias = alias;
             this->ip = ip;
             this->privKey = privKey;
@@ -73,15 +73,15 @@ public:
         }
     };
 
-    CStormnodeConfig() {
-        entries = std::vector<CStormnodeEntry>();
+    CDynodeConfig() {
+        entries = std::vector<CDynodeEntry>();
     }
 
     void clear();
     bool read(std::string& strErr);
     void add(std::string alias, std::string ip, std::string privKey, std::string txHash, std::string outputIndex);
 
-    std::vector<CStormnodeEntry>& getEntries() {
+    std::vector<CDynodeEntry>& getEntries() {
         return entries;
     }
 
@@ -90,10 +90,10 @@ public:
     }
 
 private:
-    std::vector<CStormnodeEntry> entries;
+    std::vector<CDynodeEntry> entries;
 
 
 };
 
 
-#endif // DARKSILK_STORMNODECONFIG_H
+#endif // DYNAMIC_DYNODECONFIG_H

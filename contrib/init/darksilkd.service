@@ -1,15 +1,15 @@
 [Unit]
-Description=DarkSilk's distributed currency daemon
+Description=Dynamic's distributed currency daemon
 After=network.target
 
 [Service]
-User=darksilk
-Group=darksilk
+User=dynamic
+Group=dynamic
 
 Type=forking
-PIDFile=/var/lib/darksilkd/darksilkd.pid
-ExecStart=/usr/bin/darksilkd -daemon -pid=/var/lib/darksilkd/darksilkd.pid \
--conf=/etc/darksilk/darksilk.conf -datadir=/var/lib/darksilkd -disablewallet
+PIDFile=/var/lib/dynamicd/dynamicd.pid
+ExecStart=/usr/bin/dynamicd -daemon -pid=/var/lib/dynamicd/dynamicd.pid \
+-conf=/etc/dynamic/dynamic.conf -datadir=/var/lib/dynamicd -disablewallet
 
 Restart=always
 PrivateTmp=true

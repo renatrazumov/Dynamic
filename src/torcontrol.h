@@ -8,8 +8,8 @@
 /**
  * Functionality for communicating with Tor.
  */
-#ifndef DARKSILK_TORCONTROL_H
-#define DARKSILK_TORCONTROL_H
+#ifndef DYNAMIC_TORCONTROL_H
+#define DYNAMIC_TORCONTROL_H
 
 #include "scheduler.h"
 
@@ -20,4 +20,4 @@ void StartTorControl(boost::thread_group& threadGroup, CScheduler& scheduler);
 void InterruptTorControl();
 void StopTorControl();
 
-#endif // DARKSILK_TORCONTROL_H
+#endif // DYNAMIC_TORCONTROL_H

@@ -3,10 +3,10 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_GOVERNANCE_H
-#define DARKSILK_GOVERNANCE_H
+#ifndef DYNAMIC_GOVERNANCE_H
+#define DYNAMIC_GOVERNANCE_H
 
-//#define ENABLE_DARKSILK_DEBUG
+//#define ENABLE_DYNAMIC_DEBUG
 
 #include "util.h"
 #include "main.h"
@@ -15,11 +15,11 @@
 #include "key.h"
 #include "util.h"
 #include "base58.h"
-#include "stormnode.h"
+#include "dynode.h"
 #include "governance-exceptions.h"
 #include "governance-vote.h"
 #include "governance-votedb.h"
-#include "stormnodeman.h"
+#include "dynodeman.h"
 #include <boost/lexical_cast.hpp>
 #include "init.h"
 #include <univalue.h>
@@ -122,7 +122,7 @@ private:
 
     count_m_t mapSeenGovernanceObjects;
 
-    object_m_t mapStormnodeOrphanObjects;
+    object_m_t mapDynodeOrphanObjects;
 
     object_ref_cache_t mapVoteToObject;
 
@@ -130,7 +130,7 @@ private:
 
     vote_mcache_t mapOrphanVotes;
 
-    txout_m_t mapLastStormnodeTrigger;
+    txout_m_t mapLastDynodeTrigger;
 
     hash_s_t setRequestedObjects;
 
@@ -196,7 +196,7 @@ public:
         mapVoteToObject.Clear();
         mapInvalidVotes.Clear();
         mapOrphanVotes.Clear();
-        mapLastStormnodeTrigger.clear();
+        mapLastDynodeTrigger.clear();
     }
 
     std::string ToString() const;
@@ -218,7 +218,7 @@ public:
         READWRITE(mapInvalidVotes);
         READWRITE(mapOrphanVotes);
         READWRITE(mapObjects);
-        READWRITE(mapLastStormnodeTrigger);
+        READWRITE(mapLastDynodeTrigger);
         if(ser_action.ForRead() && (strVersion != SERIALIZATION_VERSION_STRING)) {
             Clear();
             return;
@@ -248,15 +248,15 @@ public:
 
     void AddSeenVote(uint256 nHash, int status);
 
-    bool StormnodeRateCheck(const CTxIn& vin, int nObjectType);
+    bool DynodeRateCheck(const CTxIn& vin, int nObjectType);
 
     bool ProcessVote(const CGovernanceVote& vote, CGovernanceException& exception) {
         return ProcessVote(NULL, vote, exception);
     }
 
-    void CheckStormnodeOrphanVotes();
+    void CheckDynodeOrphanVotes();
 
-    void CheckStormnodeOrphanObjects();
+    void CheckDynodeOrphanObjects();
 
     bool AreRateChecksEnabled() const {
         LOCK(cs);
@@ -291,7 +291,7 @@ private:
     void RebuildIndexes();
 
     /// Returns SN index, handling the case of index rebuilds
-    int GetStormnodeIndex(const CTxIn& stormnodeVin);
+    int GetDynodeIndex(const CTxIn& dynodeVin);
 
     void RebuildVoteMaps();
 
@@ -386,15 +386,15 @@ private:
     /// Data field - can be used for anything
     std::string strData;
 
-    /// Stormnode info for signed objects
-    CTxIn vinStormnode;
+    /// Dynode info for signed objects
+    CTxIn vinDynode;
     std::vector<unsigned char> vchSig;
 
     /// is valid by blockchain
     bool fCachedLocalValidity;
     std::string strLocalValidityError;
 
-    // VARIOUS FLAGS FOR OBJECT / SET VIA STORMNODE VOTING
+    // VARIOUS FLAGS FOR OBJECT / SET VIA DYNODE VOTING
 
     /// true == minimum network support has been reached for this object to be funded (doesn't mean it will for sure though)
     bool fCachedFunding;
@@ -454,8 +454,8 @@ public:
         return nCollateralHash;
     }
 
-    const CTxIn& GetStormnodeVin() const {
-        return vinStormnode;
+    const CTxIn& GetDynodeVin() const {
+        return vinDynode;
     }
 
     bool IsSetCachedFunding() const {
@@ -492,15 +492,15 @@ public:
 
     // Signature related functions
 
-    void SetStormnodeInfo(const CTxIn& vin);
-    bool Sign(CKey& keyStormnode, CPubKey& pubKeyStormnode);
-    bool CheckSignature(CPubKey& pubKeyStormnode);
+    void SetDynodeInfo(const CTxIn& vin);
+    bool Sign(CKey& keyDynode, CPubKey& pubKeyDynode);
+    bool CheckSignature(CPubKey& pubKeyDynode);
 
     // CORE OBJECT FUNCTIONS
 
     bool IsValidLocally(const CBlockIndex* pindex, std::string& strError, bool fCheckCollateral);
 
-    bool IsValidLocally(const CBlockIndex* pindex, std::string& strError, bool& fMissingStormnode, bool fCheckCollateral);
+    bool IsValidLocally(const CBlockIndex* pindex, std::string& strError, bool& fMissingDynode, bool fCheckCollateral);
 
     /// Check the collateral transaction for the budget proposal/finalized budget
     bool IsCollateralValid(std::string& strError);
@@ -549,7 +549,7 @@ public:
         READWRITE(nCollateralHash);
         READWRITE(LIMITED_STRING(strData, MAX_GOVERNANCE_OBJECT_DATA_SIZE));
         READWRITE(nObjectType);
-        READWRITE(vinStormnode);
+        READWRITE(vinDynode);
         READWRITE(vchSig);
         if(nType & SER_DISK) {
             // Only include these for the disk file format
@@ -574,11 +574,11 @@ private:
     void RebuildVoteMap();
 
     /// Called when SN's which have voted on this object have been removed
-    void ClearStormnodeVotes();
+    void ClearDynodeVotes();
 
     void CheckOrphanVotes();
 
 };
 
 
-#endif // DARKSILK_GOVERNANCE_H
+#endif // DYNAMIC_GOVERNANCE_H

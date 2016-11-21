@@ -5,15 +5,15 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_CHAINPARAMSBASE_H
-#define DARKSILK_CHAINPARAMSBASE_H
+#ifndef DYNAMIC_CHAINPARAMSBASE_H
+#define DYNAMIC_CHAINPARAMSBASE_H
 
 #include <string>
 #include <vector>
 
 /**
- * CBaseChainParams defines the base parameters (shared between darksilk-cli and darksilkd)
- * of a given instance of the DarkSilk system.
+ * CBaseChainParams defines the base parameters (shared between dynamic-cli and dynamicd)
+ * of a given instance of the Dynamic system.
  */
 class CBaseChainParams
 {
@@ -62,4 +62,4 @@ std::string ChainNameFromCommandLine();
  */
 bool AreBaseParamsConfigured();
 
-#endif // DARKSILK_CHAINPARAMSBASE_H
+#endif // DYNAMIC_CHAINPARAMSBASE_H

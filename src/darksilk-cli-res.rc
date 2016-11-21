@@ -16,14 +16,14 @@ BEGIN
     BEGIN
         BLOCK "040904E4" // U.S. English - multilingual (hex)
         BEGIN
-            VALUE "CompanyName",        "DarkSilk"
-            VALUE "FileDescription",    "darksilk-cli (JSON-RPC client for DarkSilk Core)"
+            VALUE "CompanyName",        "Dynamic"
+            VALUE "FileDescription",    "dynamic-cli (JSON-RPC client for Dynamic Core)"
             VALUE "FileVersion",        VER_FILEVERSION_STR
-            VALUE "InternalName",       "darksilk-cli"
+            VALUE "InternalName",       "dynamic-cli"
             VALUE "LegalCopyright",     COPYRIGHT_STR
             VALUE "LegalTrademarks1",   "Distributed under the MIT software license, see the accompanying file COPYING or http://www.opensource.org/licenses/mit-license.php."
-            VALUE "OriginalFilename",   "darksilk-cli.exe"
-            VALUE "ProductName",        "darksilk-cli"
+            VALUE "OriginalFilename",   "dynamic-cli.exe"
+            VALUE "ProductName",        "dynamic-cli"
             VALUE "ProductVersion",     VER_PRODUCTVERSION_STR
         END
     END

@@ -5,8 +5,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_UNDO_H
-#define DARKSILK_UNDO_H
+#ifndef DYNAMIC_UNDO_H
+#define DYNAMIC_UNDO_H
 
 #include "compressor.h" 
 #include "primitives/transaction.h"
@@ -84,4 +84,4 @@ public:
     }
 };
 
-#endif // DARKSILK_UNDO_H
+#endif // DYNAMIC_UNDO_H

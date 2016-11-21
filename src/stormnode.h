@@ -3,31 +3,31 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_STORMNODE_H
-#define DARKSILK_STORMNODE_H
+#ifndef DYNAMIC_DYNODE_H
+#define DYNAMIC_DYNODE_H
 
 #include "key.h"
 #include "main.h"
 #include "net.h"
 #include "timedata.h"
 
-class CStormnode;
-class CStormnodeBroadcast;
-class CStormnodePing;
+class CDynode;
+class CDynodeBroadcast;
+class CDynodePing;
 
-static const int STORMNODE_MIN_SNP_SECONDS         = 10 * 60;
-static const int STORMNODE_MIN_SNB_SECONDS         =  5 * 60;
-static const int STORMNODE_EXPIRATION_SECONDS      = 65 * 60;
-static const int STORMNODE_REMOVAL_SECONDS         = 75 * 60;
-static const int STORMNODE_CHECK_SECONDS           = 5;
-static const int STORMNODE_WATCHDOG_MAX_SECONDS    = 2 * 60 * 60;
+static const int DYNODE_MIN_SNP_SECONDS         = 10 * 60;
+static const int DYNODE_MIN_SNB_SECONDS         =  5 * 60;
+static const int DYNODE_EXPIRATION_SECONDS      = 65 * 60;
+static const int DYNODE_REMOVAL_SECONDS         = 75 * 60;
+static const int DYNODE_CHECK_SECONDS           = 5;
+static const int DYNODE_WATCHDOG_MAX_SECONDS    = 2 * 60 * 60;
 
-static const int STORMNODE_POSE_BAN_MAX_SCORE      = 5;
+static const int DYNODE_POSE_BAN_MAX_SCORE      = 5;
 //
-// The Stormnode Ping Class : Contains a different serialize method for sending pings from stormnodes throughout the network
+// The Dynode Ping Class : Contains a different serialize method for sending pings from dynodes throughout the network
 //
 
-class CStormnodePing
+class CDynodePing
 {
 public:
     CTxIn vin;
@@ -36,14 +36,14 @@ public:
     std::vector<unsigned char> vchSig;
     //removed stop
 
-    CStormnodePing() :
+    CDynodePing() :
         vin(),
         blockHash(),
         sigTime(0),
         vchSig()
         {}
 
-    CStormnodePing(CTxIn& vinNew);
+    CDynodePing(CTxIn& vinNew);
 
     ADD_SERIALIZE_METHODS;
 
@@ -55,7 +55,7 @@ public:
         READWRITE(vchSig);
     }
 
-    void swap(CStormnodePing& first, CStormnodePing& second) // nothrow
+    void swap(CDynodePing& first, CDynodePing& second) // nothrow
     {
         // enable ADL (not necessary in our case, but good practice)
         using std::swap;
@@ -76,34 +76,34 @@ public:
         return ss.GetHash();
     }
 
-    bool Sign(CKey& keyStormnode, CPubKey& pubKeyStormnode);
-    bool CheckSignature(CPubKey& pubKeyStormnode, int &nDos);
+    bool Sign(CKey& keyDynode, CPubKey& pubKeyDynode);
+    bool CheckSignature(CPubKey& pubKeyDynode, int &nDos);
     bool CheckAndUpdate(int& nDos, bool fRequireEnabled = true, bool fSimpleCheck = false);
     void Relay();
 
-    CStormnodePing& operator=(CStormnodePing from)
+    CDynodePing& operator=(CDynodePing from)
     {
         swap(*this, from);
         return *this;
     }
-    friend bool operator==(const CStormnodePing& a, const CStormnodePing& b)
+    friend bool operator==(const CDynodePing& a, const CDynodePing& b)
     {
         return a.vin == b.vin && a.blockHash == b.blockHash;
     }
-    friend bool operator!=(const CStormnodePing& a, const CStormnodePing& b)
+    friend bool operator!=(const CDynodePing& a, const CDynodePing& b)
     {
         return !(a == b);
     }
 
 };
 
-struct stormnode_info_t {
+struct dynode_info_t {
 
-    stormnode_info_t()
+    dynode_info_t()
         : vin(),
           addr(),
           pubKeyCollateralAddress(),
-          pubKeyStormnode(),
+          pubKeyDynode(),
           sigTime(0),
           nLastSsq(0),
           nTimeLastChecked(0),
@@ -117,7 +117,7 @@ struct stormnode_info_t {
     CTxIn vin;
     CService addr;
     CPubKey pubKeyCollateralAddress;
-    CPubKey pubKeyStormnode;
+    CPubKey pubKeyDynode;
     int64_t sigTime; //snb message time
     int64_t nLastSsq; //the ssq count from the last ssq broadcast of this node
     int64_t nTimeLastChecked;
@@ -129,10 +129,10 @@ struct stormnode_info_t {
 };
 
 //
-// The Stormnode Class. For managing the Sandstorm process. It contains the input of the 1000DSLK, signature to prove
+// The Dynode Class. For managing the Privatesend process. It contains the input of the 1000DYN, signature to prove
 // it's the one who own that ip address and code for calculating the payment election.
 //
-class CStormnode
+class CDynode
 {
 private:
     // critical section to protect the inner data structures
@@ -140,20 +140,20 @@ private:
 
 public:
     enum state {
-        STORMNODE_PRE_ENABLED,
-        STORMNODE_ENABLED,
-        STORMNODE_EXPIRED,
-        STORMNODE_OUTPOINT_SPENT,
-        STORMNODE_REMOVE,
-        STORMNODE_WATCHDOG_EXPIRED,
-        STORMNODE_POSE_BAN
+        DYNODE_PRE_ENABLED,
+        DYNODE_ENABLED,
+        DYNODE_EXPIRED,
+        DYNODE_OUTPOINT_SPENT,
+        DYNODE_REMOVE,
+        DYNODE_WATCHDOG_EXPIRED,
+        DYNODE_POSE_BAN
     };
 
     CTxIn vin;
     CService addr;
     CPubKey pubKeyCollateralAddress;
-    CPubKey pubKeyStormnode;
-    CStormnodePing lastPing;
+    CPubKey pubKeyDynode;
+    CDynodePing lastPing;
     std::vector<unsigned char> vchSig;
     int64_t sigTime; //snb message time
     int64_t nLastSsq; //the ssq count from the last ssq broadcast of this node
@@ -169,13 +169,13 @@ public:
     bool fAllowMixingTx;
     bool fUnitTest;
 
-    // KEEP TRACK OF GOVERNANCE ITEMS EACH STORMNODE HAS VOTE UPON FOR RECALCULATION
+    // KEEP TRACK OF GOVERNANCE ITEMS EACH DYNODE HAS VOTE UPON FOR RECALCULATION
     std::map<uint256, int> mapGovernanceObjectsVotedOn;
 
-    CStormnode();
-    CStormnode(const CStormnode& other);
-    CStormnode(const CStormnodeBroadcast& snb);
-    CStormnode(CService addrNew, CTxIn vinNew, CPubKey pubKeyCollateralAddressNew, CPubKey pubKeyStormnodeNew, int nProtocolVersionIn);
+    CDynode();
+    CDynode(const CDynode& other);
+    CDynode(const CDynodeBroadcast& snb);
+    CDynode(CService addrNew, CTxIn vinNew, CPubKey pubKeyCollateralAddressNew, CPubKey pubKeyDynodeNew, int nProtocolVersionIn);
 
     ADD_SERIALIZE_METHODS;
 
@@ -185,7 +185,7 @@ public:
         READWRITE(vin);
         READWRITE(addr);
         READWRITE(pubKeyCollateralAddress);
-        READWRITE(pubKeyStormnode);
+        READWRITE(pubKeyDynode);
         READWRITE(lastPing);
         READWRITE(vchSig);
         READWRITE(sigTime);
@@ -204,7 +204,7 @@ public:
         READWRITE(mapGovernanceObjectsVotedOn);
     }
 
-    void swap(CStormnode& first, CStormnode& second) // nothrow
+    void swap(CDynode& first, CDynode& second) // nothrow
     {
         // enable ADL (not necessary in our case, but good practice)
         using std::swap;
@@ -214,7 +214,7 @@ public:
         swap(first.vin, second.vin);
         swap(first.addr, second.addr);
         swap(first.pubKeyCollateralAddress, second.pubKeyCollateralAddress);
-        swap(first.pubKeyStormnode, second.pubKeyStormnode);
+        swap(first.pubKeyDynode, second.pubKeyDynode);
         swap(first.lastPing, second.lastPing);
         swap(first.vchSig, second.vchSig);
         swap(first.sigTime, second.sigTime);
@@ -236,7 +236,7 @@ public:
     // CALCULATE A RANK AGAINST OF GIVEN BLOCK
     arith_uint256 CalculateScore(const uint256& blockHash);
 
-    bool UpdateFromNewBroadcast(CStormnodeBroadcast& snb);
+    bool UpdateFromNewBroadcast(CDynodeBroadcast& snb);
 
     void Check(bool fForce = false);
 
@@ -244,7 +244,7 @@ public:
 
     bool IsPingedWithin(int nSeconds, int64_t nTimeToCheckAt = -1)
     {
-        if(lastPing == CStormnodePing()) return false;
+        if(lastPing == CDynodePing()) return false;
 
         if(nTimeToCheckAt == -1) {
             nTimeToCheckAt = GetAdjustedTime();
@@ -252,19 +252,19 @@ public:
         return nTimeToCheckAt - lastPing.sigTime < nSeconds;
     }
 
-    bool IsEnabled() { return nActiveState == STORMNODE_ENABLED; }
-    bool IsPreEnabled() { return nActiveState == STORMNODE_PRE_ENABLED; }
-    bool IsPoSeBanned() { return nActiveState == STORMNODE_POSE_BAN; }
-    bool IsPoSeVerified() { return nPoSeBanScore <= -STORMNODE_POSE_BAN_MAX_SCORE; }
+    bool IsEnabled() { return nActiveState == DYNODE_ENABLED; }
+    bool IsPreEnabled() { return nActiveState == DYNODE_PRE_ENABLED; }
+    bool IsPoSeBanned() { return nActiveState == DYNODE_POSE_BAN; }
+    bool IsPoSeVerified() { return nPoSeBanScore <= -DYNODE_POSE_BAN_MAX_SCORE; }
 
-    bool IsWatchdogExpired() { return nActiveState == STORMNODE_WATCHDOG_EXPIRED; }
+    bool IsWatchdogExpired() { return nActiveState == DYNODE_WATCHDOG_EXPIRED; }
 
     bool IsValidNetAddr();
 
-    void IncreasePoSeBanScore() { if(nPoSeBanScore < STORMNODE_POSE_BAN_MAX_SCORE) nPoSeBanScore++; }
-    void DecreasePoSeBanScore() { if(nPoSeBanScore > -STORMNODE_POSE_BAN_MAX_SCORE) nPoSeBanScore--; }
+    void IncreasePoSeBanScore() { if(nPoSeBanScore < DYNODE_POSE_BAN_MAX_SCORE) nPoSeBanScore++; }
+    void DecreasePoSeBanScore() { if(nPoSeBanScore > -DYNODE_POSE_BAN_MAX_SCORE) nPoSeBanScore--; }
 
-    stormnode_info_t GetInfo();
+    dynode_info_t GetInfo();
 
     static std::string StateToString(int nStateIn);
     std::string GetStateString() const;
@@ -285,16 +285,16 @@ public:
 
     void UpdateWatchdogVoteTime();
 
-    CStormnode& operator=(CStormnode from)
+    CDynode& operator=(CDynode from)
     {
         swap(*this, from);
         return *this;
     }
-    friend bool operator==(const CStormnode& a, const CStormnode& b)
+    friend bool operator==(const CDynode& a, const CDynode& b)
     {
         return a.vin == b.vin;
     }
-    friend bool operator!=(const CStormnode& a, const CStormnode& b)
+    friend bool operator!=(const CDynode& a, const CDynode& b)
     {
         return !(a.vin == b.vin);
     }
@@ -303,17 +303,17 @@ public:
 
 
 //
-// The Stormnode Broadcast Class : Contains a different serialize method for sending stormnodes through the network
+// The Dynode Broadcast Class : Contains a different serialize method for sending dynodes through the network
 //
 
-class CStormnodeBroadcast : public CStormnode
+class CDynodeBroadcast : public CDynode
 {
 public:
 
-    CStormnodeBroadcast() : CStormnode() {}
-    CStormnodeBroadcast(const CStormnode& sn) : CStormnode(sn) {}
-    CStormnodeBroadcast(CService addrNew, CTxIn vinNew, CPubKey pubKeyCollateralAddressNew, CPubKey pubKeyStormnodeNew, int nProtocolVersionIn) :
-        CStormnode(addrNew, vinNew, pubKeyCollateralAddressNew, pubKeyStormnodeNew, nProtocolVersionIn) {}
+    CDynodeBroadcast() : CDynode() {}
+    CDynodeBroadcast(const CDynode& sn) : CDynode(sn) {}
+    CDynodeBroadcast(CService addrNew, CTxIn vinNew, CPubKey pubKeyCollateralAddressNew, CPubKey pubKeyDynodeNew, int nProtocolVersionIn) :
+        CDynode(addrNew, vinNew, pubKeyCollateralAddressNew, pubKeyDynodeNew, nProtocolVersionIn) {}
 
     ADD_SERIALIZE_METHODS;
 
@@ -322,7 +322,7 @@ public:
         READWRITE(vin);
         READWRITE(addr);
         READWRITE(pubKeyCollateralAddress);
-        READWRITE(pubKeyStormnode);
+        READWRITE(pubKeyDynode);
         READWRITE(vchSig);
         READWRITE(sigTime);
         READWRITE(nProtocolVersion);
@@ -339,12 +339,12 @@ public:
         return ss.GetHash();
     }
 
-    /// Create Stormnode broadcast, needs to be relayed manually after that
-    static bool Create(CTxIn vin, CService service, CKey keyCollateralAddressNew, CPubKey pubKeyCollateralAddressNew, CKey keyStormnodeNew, CPubKey pubKeyStormnodeNew, std::string &strErrorRet, CStormnodeBroadcast &snbRet);
-    static bool Create(std::string strService, std::string strKey, std::string strTxHash, std::string strOutputIndex, std::string& strErrorRet, CStormnodeBroadcast &snbRet, bool fOffline = false);
+    /// Create Dynode broadcast, needs to be relayed manually after that
+    static bool Create(CTxIn vin, CService service, CKey keyCollateralAddressNew, CPubKey pubKeyCollateralAddressNew, CKey keyDynodeNew, CPubKey pubKeyDynodeNew, std::string &strErrorRet, CDynodeBroadcast &snbRet);
+    static bool Create(std::string strService, std::string strKey, std::string strTxHash, std::string strOutputIndex, std::string& strErrorRet, CDynodeBroadcast &snbRet, bool fOffline = false);
 
     bool SimpleCheck(int& nDos);
-    bool Update(CStormnode* psn, int& nDos);
+    bool Update(CDynode* psn, int& nDos);
     bool CheckOutpoint(int& nDos);
 
     bool Sign(CKey& keyCollateralAddress);
@@ -352,7 +352,7 @@ public:
     void Relay();
 };
 
-class CStormnodeVerification
+class CDynodeVerification
 {
 public:
     CTxIn vin1;
@@ -363,7 +363,7 @@ public:
     std::vector<unsigned char> vchSig1;
     std::vector<unsigned char> vchSig2;
 
-    CStormnodeVerification() :
+    CDynodeVerification() :
         vin1(),
         vin2(),
         addr(),
@@ -373,7 +373,7 @@ public:
         vchSig2()
         {}
 
-    CStormnodeVerification(CService addr, int nonce, int nBlockHeight) :
+    CDynodeVerification(CService addr, int nonce, int nBlockHeight) :
         vin1(),
         vin2(),
         addr(addr),
@@ -409,9 +409,9 @@ public:
 
     void Relay() const
     {
-        CInv inv(MSG_STORMNODE_VERIFY, GetHash());
+        CInv inv(MSG_DYNODE_VERIFY, GetHash());
         RelayInv(inv);
     }
 };
 
-#endif // DARKSILK_STORMNODE_H
+#endif // DYNAMIC_DYNODE_H

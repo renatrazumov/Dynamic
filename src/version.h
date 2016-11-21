@@ -5,8 +5,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_VERSION_H
-#define DARKSILK_VERSION_H
+#ifndef DYNAMIC_VERSION_H
+#define DYNAMIC_VERSION_H
 
 /**
  * network protocol versioning
@@ -43,4 +43,4 @@ static const int NO_BLOOM_VERSION = 60800;
 //! "sendheaders" command and announcing blocks with headers starts with this version
 static const int SENDHEADERS_VERSION = 60800;
 
-#endif // DARKSILK_VERSION_H
+#endif // DYNAMIC_VERSION_H

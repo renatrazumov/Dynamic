@@ -18,7 +18,7 @@ class CTxLockVote;
 class CTxLockCandidate;
 
 /*
-    At 15 signatures, 1/2 of the stormnode network can be owned by
+    At 15 signatures, 1/2 of the dynode network can be owned by
     one party without comprimising the security of InstantSend
     (1000/2150.0)**10 = 0.00047382219560689856
     (1000/2900.0)**10 = 2.3769498616783657e-05
@@ -83,18 +83,18 @@ int64_t GetAverageUnknownVoteTime();
 class CTxLockVote
 {
 public:
-    CTxIn vinStormnode;
+    CTxIn vinDynode;
     uint256 txHash;
     int nBlockHeight;
-    std::vector<unsigned char> vchStormNodeSignature;
+    std::vector<unsigned char> vchDyNodeSignature;
 
     ADD_SERIALIZE_METHODS;
 
     template <typename Stream, typename Operation>
     inline void SerializationOp(Stream& s, Operation ser_action, int nType, int nVersion) {
         READWRITE(txHash);
-        READWRITE(vinStormnode);
-        READWRITE(vchStormNodeSignature);
+        READWRITE(vinDynode);
+        READWRITE(vchDyNodeSignature);
         READWRITE(nBlockHeight);
     }
 

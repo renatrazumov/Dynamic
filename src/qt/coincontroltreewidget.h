@@ -5,8 +5,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_QT_COINCONTROLTREEDIALOG_H
-#define DARKSILK_QT_COINCONTROLTREEDIALOG_H
+#ifndef DYNAMIC_QT_COINCONTROLTREEDIALOG_H
+#define DYNAMIC_QT_COINCONTROLTREEDIALOG_H
 
 #include <QKeyEvent>
 #include <QTreeWidget>
@@ -22,4 +22,4 @@ protected:
     virtual void keyPressEvent(QKeyEvent *event);
 };
 
-#endif // DARKSILK_QT_COINCONTROLTREEDIALOG_H
+#endif // DYNAMIC_QT_COINCONTROLTREEDIALOG_H

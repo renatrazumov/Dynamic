@@ -3,8 +3,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_SSNOTIFICATIONINTERFACE_H
-#define DARKSILK_SSNOTIFICATIONINTERFACE_H
+#ifndef DYNAMIC_SSNOTIFICATIONINTERFACE_H
+#define DYNAMIC_SSNOTIFICATIONINTERFACE_H
 
 #include "validationinterface.h"
 
@@ -22,4 +22,4 @@ protected:
 private:
 };
 
-#endif // DARKSILK_SSNOTIFICATIONINTERFACE_H
+#endif // DYNAMIC_SSNOTIFICATIONINTERFACE_H

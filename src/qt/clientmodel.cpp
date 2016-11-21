@@ -15,12 +15,12 @@
 #include "chainparams.h"
 #include "checkpoints.h"
 #include "clientversion.h"
-#include "sandstorm.h"
+#include "privatesend.h"
 #include "net.h"
 #include "txmempool.h"
 #include "ui_interface.h"
-#include "stormnodeman.h"
-#include "stormnode-sync.h"
+#include "dynodeman.h"
+#include "dynode-sync.h"
 #include "util.h"
 
 #include <stdint.h>
@@ -37,7 +37,7 @@ ClientModel::ClientModel(OptionsModel *optionsModel, QObject *parent) :
     QObject(parent),
     optionsModel(optionsModel),
     peerTableModel(0),
-    cachedStormnodeCountString(""),
+    cachedDynodeCountString(""),
     banTableModel(0),
     pollTimer(0)
 {
@@ -74,7 +74,7 @@ int ClientModel::getNumConnections(unsigned int flags) const
     return nNum;
 }
 
-QString ClientModel::getStormnodeCountString() const
+QString ClientModel::getDynodeCountString() const
 {
     // return tr("Total: %1 (PS compatible: %2 / Enabled: %3) (IPv4: %4, IPv6: %5, TOR: %6)").arg(QString::number((int)snodeman.size()))
     return tr("Total: %1 (PS compatible: %2 / Enabled: %3)")
@@ -143,13 +143,13 @@ void ClientModel::updateTimer()
 
 void ClientModel::updateSnTimer()
 {
-    QString newStormnodeCountString = getStormnodeCountString();
+    QString newDynodeCountString = getDynodeCountString();
 
-    if (cachedStormnodeCountString != newStormnodeCountString)
+    if (cachedDynodeCountString != newDynodeCountString)
     {
-        cachedStormnodeCountString = newStormnodeCountString;
+        cachedDynodeCountString = newDynodeCountString;
 
-        Q_EMIT strStormnodesChanged(cachedStormnodeCountString);
+        Q_EMIT strDynodesChanged(cachedDynodeCountString);
     }
 }
 

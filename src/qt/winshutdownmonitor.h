@@ -5,8 +5,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_QT_WINSHUTDOWNMONITOR_H
-#define DARKSILK_QT_WINSHUTDOWNMONITOR_H
+#ifndef DYNAMIC_QT_WINSHUTDOWNMONITOR_H
+#define DYNAMIC_QT_WINSHUTDOWNMONITOR_H
 
 #ifdef WIN32
 #include <QByteArray>
@@ -29,4 +29,4 @@ public:
 #endif
 #endif
 
-#endif // DARKSILK_QT_WINSHUTDOWNMONITOR_H
+#endif // DYNAMIC_QT_WINSHUTDOWNMONITOR_H

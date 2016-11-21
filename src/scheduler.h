@@ -5,8 +5,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_SCHEDULER_H
-#define DARKSILK_SCHEDULER_H
+#ifndef DYNAMIC_SCHEDULER_H
+#define DYNAMIC_SCHEDULER_H
 
 //
 // NOTE:
@@ -83,4 +83,4 @@ private:
     bool shouldStop() { return stopRequested || (stopWhenEmpty && taskQueue.empty()); }
 };
 
-#endif // DARKSILK_SCHEDULER_H
+#endif // DYNAMIC_SCHEDULER_H

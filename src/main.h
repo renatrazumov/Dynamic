@@ -5,11 +5,11 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_MAIN_H
-#define DARKSILK_MAIN_H
+#ifndef DYNAMIC_MAIN_H
+#define DYNAMIC_MAIN_H
 
 #if defined(HAVE_CONFIG_H)
-#include "config/darksilk-config.h"
+#include "config/dynamic-config.h"
 #endif
 
 #include "amount.h"
@@ -129,10 +129,10 @@ static const bool DEFAULT_ENABLE_REPLACEMENT = false;
 /** Maximum number of headers to announce when relaying blocks with headers message.*/
 static const unsigned int MAX_BLOCKS_TO_ANNOUNCE = 8;
 
-//DarkSilk Constants
+//Dynamic Constants
 static const CAmount STATIC_POW_REWARD = COIN * 1;
 static const CAmount BLOCKCHAIN_INIT_REWARD = COIN * 0;
-static const CAmount STATIC_STORMNODE_PAYMENT = COIN * 0.382;
+static const CAmount STATIC_DYNODE_PAYMENT = COIN * 0.382;
 
 struct BlockHasher
 {
@@ -258,7 +258,7 @@ bool ActivateBestChain(CValidationState& state, const CChainParams& chainparams,
 
 int64_t GetTotalCoinEstimate(int nHeight);
 CAmount GetPoWBlockPayment(const int& nHeight);
-CAmount GetStormnodePayment(bool fStormnode = true);
+CAmount GetDynodePayment(bool fDynode = true);
 
 /**
  * Prune block and undo files (blk???.dat and undo???.dat) so that the disk space used is less than a user-defined target.
@@ -869,4 +869,4 @@ static const unsigned int REJECT_ALREADY_KNOWN = 0x101;
 /** Transaction conflicts with a transaction already known */
 static const unsigned int REJECT_CONFLICT = 0x102;
 
-#endif // DARKSILK_MAIN_H
+#endif // DYNAMIC_MAIN_H

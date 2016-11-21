@@ -5,8 +5,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_RANDOM_H
-#define DARKSILK_RANDOM_H
+#ifndef DYNAMIC_RANDOM_H
+#define DYNAMIC_RANDOM_H
 
 #include "uint256.h"
 
@@ -76,4 +76,4 @@ private:
      }
  };
 
-#endif // DARKSILK_RANDOM_H
+#endif // DYNAMIC_RANDOM_H

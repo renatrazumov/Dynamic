@@ -5,13 +5,13 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_QT_WALLETFRAME_H
-#define DARKSILK_QT_WALLETFRAME_H
+#ifndef DYNAMIC_QT_WALLETFRAME_H
+#define DYNAMIC_QT_WALLETFRAME_H
 
 #include <QFrame>
 #include <QMap>
 
-class DarkSilkGUI;
+class DynamicGUI;
 class ClientModel;
 class PlatformStyle;
 class SendCoinsRecipient;
@@ -27,7 +27,7 @@ class WalletFrame : public QFrame
     Q_OBJECT
 
 public:
-    explicit WalletFrame(const PlatformStyle *platformStyle, DarkSilkGUI *_gui = 0);
+    explicit WalletFrame(const PlatformStyle *platformStyle, DynamicGUI *_gui = 0);
     ~WalletFrame();
 
     void setClientModel(ClientModel *clientModel);
@@ -43,7 +43,7 @@ public:
 
 private:
     QStackedWidget *walletStack;
-    DarkSilkGUI *gui;
+    DynamicGUI *gui;
     ClientModel *clientModel;
     QMap<QString, WalletView*> mapWalletViews;
 
@@ -58,8 +58,8 @@ public Q_SLOTS:
     void gotoOverviewPage();
     /** Switch to history (transactions) page */
     void gotoHistoryPage();
-    /** Switch to stormnode page */
-    void gotoStormnodePage();
+    /** Switch to dynode page */
+    void gotoDynodePage();
     /** Switch to receive coins page */
     void gotoReceiveCoinsPage();
     /** Switch to send coins page */
@@ -87,4 +87,4 @@ public Q_SLOTS:
     void usedReceivingAddresses();
 };
 
-#endif // DARKSILK_QT_WALLETFRAME_H
+#endif // DYNAMIC_QT_WALLETFRAME_H

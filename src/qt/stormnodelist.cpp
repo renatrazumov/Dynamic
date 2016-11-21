@@ -5,16 +5,16 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include "stormnodelist.h"
-#include "ui_stormnodelist.h"
+#include "dynodelist.h"
+#include "ui_dynodelist.h"
 
 #include "sync.h"
 #include "clientmodel.h"
 #include "walletmodel.h"
-#include "activestormnode.h"
-#include "stormnode-sync.h"
-#include "stormnodeconfig.h"
-#include "stormnodeman.h"
+#include "activedynode.h"
+#include "dynode-sync.h"
+#include "dynodeconfig.h"
+#include "dynodeman.h"
 #include "wallet/wallet.h"
 #include "init.h"
 #include "guiutil.h"
@@ -22,11 +22,11 @@
 #include <QTimer>
 #include <QMessageBox>
 
-CCriticalSection cs_stormnodes;
+CCriticalSection cs_dynodes;
 
-StormnodeList::StormnodeList(const PlatformStyle *platformStyle, QWidget *parent) :
+DynodeList::DynodeList(const PlatformStyle *platformStyle, QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::StormnodeList),
+    ui(new Ui::DynodeList),
     clientModel(0),
     walletModel(0)
 {
@@ -41,25 +41,25 @@ StormnodeList::StormnodeList(const PlatformStyle *platformStyle, QWidget *parent
     int columnActiveWidth = 130;
     int columnLastSeenWidth = 130;
 
-    ui->tableWidgetMyStormnodes->setColumnWidth(0, columnAliasWidth);
-    ui->tableWidgetMyStormnodes->setColumnWidth(1, columnAddressWidth);
-    ui->tableWidgetMyStormnodes->setColumnWidth(2, columnProtocolWidth);
-    ui->tableWidgetMyStormnodes->setColumnWidth(3, columnStatusWidth);
-    ui->tableWidgetMyStormnodes->setColumnWidth(4, columnActiveWidth);
-    ui->tableWidgetMyStormnodes->setColumnWidth(5, columnLastSeenWidth);
+    ui->tableWidgetMyDynodes->setColumnWidth(0, columnAliasWidth);
+    ui->tableWidgetMyDynodes->setColumnWidth(1, columnAddressWidth);
+    ui->tableWidgetMyDynodes->setColumnWidth(2, columnProtocolWidth);
+    ui->tableWidgetMyDynodes->setColumnWidth(3, columnStatusWidth);
+    ui->tableWidgetMyDynodes->setColumnWidth(4, columnActiveWidth);
+    ui->tableWidgetMyDynodes->setColumnWidth(5, columnLastSeenWidth);
 
-    ui->tableWidgetStormnodes->setColumnWidth(0, columnAddressWidth);
-    ui->tableWidgetStormnodes->setColumnWidth(1, columnProtocolWidth);
-    ui->tableWidgetStormnodes->setColumnWidth(2, columnStatusWidth);
-    ui->tableWidgetStormnodes->setColumnWidth(3, columnActiveWidth);
-    ui->tableWidgetStormnodes->setColumnWidth(4, columnLastSeenWidth);
+    ui->tableWidgetDynodes->setColumnWidth(0, columnAddressWidth);
+    ui->tableWidgetDynodes->setColumnWidth(1, columnProtocolWidth);
+    ui->tableWidgetDynodes->setColumnWidth(2, columnStatusWidth);
+    ui->tableWidgetDynodes->setColumnWidth(3, columnActiveWidth);
+    ui->tableWidgetDynodes->setColumnWidth(4, columnLastSeenWidth);
 
-    ui->tableWidgetMyStormnodes->setContextMenuPolicy(Qt::CustomContextMenu);
+    ui->tableWidgetMyDynodes->setContextMenuPolicy(Qt::CustomContextMenu);
 
     QAction *startAliasAction = new QAction(tr("Start alias"), this);
     contextMenu = new QMenu();
     contextMenu->addAction(startAliasAction);
-    connect(ui->tableWidgetMyStormnodes, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(showContextMenu(const QPoint&)));
+    connect(ui->tableWidgetMyDynodes, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(showContextMenu(const QPoint&)));
     connect(startAliasAction, SIGNAL(triggered()), this, SLOT(on_startButton_clicked()));
 
     timer = new QTimer(this);
@@ -72,50 +72,50 @@ StormnodeList::StormnodeList(const PlatformStyle *platformStyle, QWidget *parent
     updateNodeList();
 }
 
-StormnodeList::~StormnodeList()
+DynodeList::~DynodeList()
 {
     delete ui;
 }
 
-void StormnodeList::setClientModel(ClientModel *model)
+void DynodeList::setClientModel(ClientModel *model)
 {
     this->clientModel = model;
     if(model) {
-        // try to update list when stormnode count changes
-        connect(clientModel, SIGNAL(strStormnodesChanged(QString)), this, SLOT(updateNodeList()));
+        // try to update list when dynode count changes
+        connect(clientModel, SIGNAL(strDynodesChanged(QString)), this, SLOT(updateNodeList()));
     }
 }
 
-void StormnodeList::setWalletModel(WalletModel *model)
+void DynodeList::setWalletModel(WalletModel *model)
 {
     this->walletModel = model;
 }
 
-void StormnodeList::showContextMenu(const QPoint &point)
+void DynodeList::showContextMenu(const QPoint &point)
 {
-    QTableWidgetItem *item = ui->tableWidgetMyStormnodes->itemAt(point);
+    QTableWidgetItem *item = ui->tableWidgetMyDynodes->itemAt(point);
     if(item) contextMenu->exec(QCursor::pos());
 }
 
-void StormnodeList::StartAlias(std::string strAlias)
+void DynodeList::StartAlias(std::string strAlias)
 {
     std::string strStatusHtml;
     strStatusHtml += "<center>Alias: " + strAlias;
 
-    BOOST_FOREACH(CStormnodeConfig::CStormnodeEntry sne, stormnodeConfig.getEntries()) {
+    BOOST_FOREACH(CDynodeConfig::CDynodeEntry sne, dynodeConfig.getEntries()) {
         if(sne.getAlias() == strAlias) {
             std::string strError;
-            CStormnodeBroadcast snb;
+            CDynodeBroadcast snb;
 
-            bool fSuccess = CStormnodeBroadcast::Create(sne.getIp(), sne.getPrivKey(), sne.getTxHash(), sne.getOutputIndex(), strError, snb);
+            bool fSuccess = CDynodeBroadcast::Create(sne.getIp(), sne.getPrivKey(), sne.getTxHash(), sne.getOutputIndex(), strError, snb);
 
             if(fSuccess) {
-                strStatusHtml += "<br>Successfully started stormnode.";
-                snodeman.UpdateStormnodeList(snb);
+                strStatusHtml += "<br>Successfully started dynode.";
+                snodeman.UpdateDynodeList(snb);
                 snb.Relay();
-                snodeman.NotifyStormnodeUpdates();
+                snodeman.NotifyDynodeUpdates();
             } else {
-                strStatusHtml += "<br>Failed to start stormnode.<br>Error: " + strError;
+                strStatusHtml += "<br>Failed to start dynode.<br>Error: " + strError;
             }
             break;
         }
@@ -129,28 +129,28 @@ void StormnodeList::StartAlias(std::string strAlias)
     updateMyNodeList(true);
 }
 
-void StormnodeList::StartAll(std::string strCommand)
+void DynodeList::StartAll(std::string strCommand)
 {
     int nCountSuccessful = 0;
     int nCountFailed = 0;
     std::string strFailedHtml;
 
-    BOOST_FOREACH(CStormnodeConfig::CStormnodeEntry sne, stormnodeConfig.getEntries()) {
+    BOOST_FOREACH(CDynodeConfig::CDynodeEntry sne, dynodeConfig.getEntries()) {
         std::string strError;
-        CStormnodeBroadcast snb;
+        CDynodeBroadcast snb;
 
         CTxIn txin = CTxIn(uint256S(sne.getTxHash()), uint32_t(atoi(sne.getOutputIndex().c_str())));
-        CStormnode *psn = snodeman.Find(txin);
+        CDynode *psn = snodeman.Find(txin);
 
         if(strCommand == "start-missing" && psn) continue;
 
-        bool fSuccess = CStormnodeBroadcast::Create(sne.getIp(), sne.getPrivKey(), sne.getTxHash(), sne.getOutputIndex(), strError, snb);
+        bool fSuccess = CDynodeBroadcast::Create(sne.getIp(), sne.getPrivKey(), sne.getTxHash(), sne.getOutputIndex(), strError, snb);
 
         if(fSuccess) {
             nCountSuccessful++;
-            snodeman.UpdateStormnodeList(snb);
+            snodeman.UpdateDynodeList(snb);
             snb.Relay();
-            snodeman.NotifyStormnodeUpdates();
+            snodeman.NotifyDynodeUpdates();
         } else {
             nCountFailed++;
             strFailedHtml += "\nFailed to start " + sne.getAlias() + ". Error: " + strError;
@@ -159,7 +159,7 @@ void StormnodeList::StartAll(std::string strCommand)
     pwalletMain->Lock();
 
     std::string returnObj;
-    returnObj = strprintf("Successfully started %d stormnodes, failed to start %d, total %d", nCountSuccessful, nCountFailed, nCountFailed + nCountSuccessful);
+    returnObj = strprintf("Successfully started %d dynodes, failed to start %d, total %d", nCountSuccessful, nCountFailed, nCountFailed + nCountSuccessful);
     if (nCountFailed > 0) {
         returnObj += strFailedHtml;
     }
@@ -171,14 +171,14 @@ void StormnodeList::StartAll(std::string strCommand)
     updateMyNodeList(true);
 }
 
-void StormnodeList::updateMyStormnodeInfo(QString strAlias, QString strAddr, CStormnode *psn)
+void DynodeList::updateMyDynodeInfo(QString strAlias, QString strAddr, CDynode *psn)
 {
     LOCK(cs_snlistupdate);
     bool fOldRowFound = false;
     int nNewRow = 0;
 
-    for(int i = 0; i < ui->tableWidgetMyStormnodes->rowCount(); i++) {
-        if(ui->tableWidgetMyStormnodes->item(i, 0)->text() == strAlias) {
+    for(int i = 0; i < ui->tableWidgetMyDynodes->rowCount(); i++) {
+        if(ui->tableWidgetMyDynodes->item(i, 0)->text() == strAlias) {
             fOldRowFound = true;
             nNewRow = i;
             break;
@@ -186,8 +186,8 @@ void StormnodeList::updateMyStormnodeInfo(QString strAlias, QString strAddr, CSt
     }
 
     if(nNewRow == 0 && !fOldRowFound) {
-        nNewRow = ui->tableWidgetMyStormnodes->rowCount();
-        ui->tableWidgetMyStormnodes->insertRow(nNewRow);
+        nNewRow = ui->tableWidgetMyDynodes->rowCount();
+        ui->tableWidgetMyDynodes->insertRow(nNewRow);
     }
 
     QTableWidgetItem *aliasItem = new QTableWidgetItem(strAlias);
@@ -196,51 +196,51 @@ void StormnodeList::updateMyStormnodeInfo(QString strAlias, QString strAddr, CSt
     QTableWidgetItem *statusItem = new QTableWidgetItem(QString::fromStdString(psn ? psn->GetStatus() : "MISSING"));
     QTableWidgetItem *activeSecondsItem = new QTableWidgetItem(QString::fromStdString(DurationToDHMS(psn ? (psn->lastPing.sigTime - psn->sigTime) : 0)));
     QTableWidgetItem *lastSeenItem = new QTableWidgetItem(QString::fromStdString(DateTimeStrFormat("%Y-%m-%d %H:%M", psn ? psn->lastPing.sigTime : 0)));
-    QTableWidgetItem *pubkeyItem = new QTableWidgetItem(QString::fromStdString(psn ? CDarkSilkAddress(psn->pubKeyCollateralAddress.GetID()).ToString() : ""));
+    QTableWidgetItem *pubkeyItem = new QTableWidgetItem(QString::fromStdString(psn ? CDynamicAddress(psn->pubKeyCollateralAddress.GetID()).ToString() : ""));
 
-    ui->tableWidgetMyStormnodes->setItem(nNewRow, 0, aliasItem);
-    ui->tableWidgetMyStormnodes->setItem(nNewRow, 1, addrItem);
-    ui->tableWidgetMyStormnodes->setItem(nNewRow, 2, protocolItem);
-    ui->tableWidgetMyStormnodes->setItem(nNewRow, 3, statusItem);
-    ui->tableWidgetMyStormnodes->setItem(nNewRow, 4, activeSecondsItem);
-    ui->tableWidgetMyStormnodes->setItem(nNewRow, 5, lastSeenItem);
-    ui->tableWidgetMyStormnodes->setItem(nNewRow, 6, pubkeyItem);
+    ui->tableWidgetMyDynodes->setItem(nNewRow, 0, aliasItem);
+    ui->tableWidgetMyDynodes->setItem(nNewRow, 1, addrItem);
+    ui->tableWidgetMyDynodes->setItem(nNewRow, 2, protocolItem);
+    ui->tableWidgetMyDynodes->setItem(nNewRow, 3, statusItem);
+    ui->tableWidgetMyDynodes->setItem(nNewRow, 4, activeSecondsItem);
+    ui->tableWidgetMyDynodes->setItem(nNewRow, 5, lastSeenItem);
+    ui->tableWidgetMyDynodes->setItem(nNewRow, 6, pubkeyItem);
 }
 
-void StormnodeList::updateMyNodeList(bool fForce)
+void DynodeList::updateMyNodeList(bool fForce)
 {
     static int64_t nTimeMyListUpdated = 0;
 
-    // automatically update my stormnode list only once in MY_STORMNODELIST_UPDATE_SECONDS seconds,
+    // automatically update my dynode list only once in MY_DYNODELIST_UPDATE_SECONDS seconds,
     // this update still can be triggered manually at any time via button click
-    int64_t nSecondsTillUpdate = nTimeMyListUpdated + MY_STORMNODELIST_UPDATE_SECONDS - GetTime();
+    int64_t nSecondsTillUpdate = nTimeMyListUpdated + MY_DYNODELIST_UPDATE_SECONDS - GetTime();
     ui->secondsLabel->setText(QString::number(nSecondsTillUpdate));
 
     if(nSecondsTillUpdate > 0 && !fForce) return;
     nTimeMyListUpdated = GetTime();
 
-    ui->tableWidgetStormnodes->setSortingEnabled(false);
-    BOOST_FOREACH(CStormnodeConfig::CStormnodeEntry sne, stormnodeConfig.getEntries()) {
+    ui->tableWidgetDynodes->setSortingEnabled(false);
+    BOOST_FOREACH(CDynodeConfig::CDynodeEntry sne, dynodeConfig.getEntries()) {
         CTxIn txin = CTxIn(uint256S(sne.getTxHash()), uint32_t(atoi(sne.getOutputIndex().c_str())));
-        CStormnode *psn = snodeman.Find(txin);
+        CDynode *psn = snodeman.Find(txin);
 
-        updateMyStormnodeInfo(QString::fromStdString(sne.getAlias()), QString::fromStdString(sne.getIp()), psn);
+        updateMyDynodeInfo(QString::fromStdString(sne.getAlias()), QString::fromStdString(sne.getIp()), psn);
     }
-    ui->tableWidgetStormnodes->setSortingEnabled(true);
+    ui->tableWidgetDynodes->setSortingEnabled(true);
 
     // reset "timer"
     ui->secondsLabel->setText("0");
 }
 
-void StormnodeList::updateNodeList()
+void DynodeList::updateNodeList()
 {
     static int64_t nTimeListUpdated = GetTime();
 
-    // to prevent high cpu usage update only once in STORMNODELIST_UPDATE_SECONDS seconds
-    // or STORMNODELIST_FILTER_COOLDOWN_SECONDS seconds after filter was last changed
+    // to prevent high cpu usage update only once in DYNODELIST_UPDATE_SECONDS seconds
+    // or DYNODELIST_FILTER_COOLDOWN_SECONDS seconds after filter was last changed
     int64_t nSecondsToWait = fFilterUpdated
-                            ? nTimeFilterUpdated - GetTime() + STORMNODELIST_FILTER_COOLDOWN_SECONDS
-                            : nTimeListUpdated - GetTime() + STORMNODELIST_UPDATE_SECONDS;
+                            ? nTimeFilterUpdated - GetTime() + DYNODELIST_FILTER_COOLDOWN_SECONDS
+                            : nTimeListUpdated - GetTime() + DYNODELIST_UPDATE_SECONDS;
 
     if(fFilterUpdated) ui->countLabel->setText(QString::fromStdString(strprintf("Please wait... %d", nSecondsToWait)));
     if(nSecondsToWait > 0) return;
@@ -248,17 +248,17 @@ void StormnodeList::updateNodeList()
     nTimeListUpdated = GetTime();
     fFilterUpdated = false;
 
-    TRY_LOCK(cs_stormnodes, lockStormnodes);
-    if(!lockStormnodes) return;
+    TRY_LOCK(cs_dynodes, lockDynodes);
+    if(!lockDynodes) return;
 
     QString strToFilter;
     ui->countLabel->setText("Updating...");
-    ui->tableWidgetStormnodes->setSortingEnabled(false);
-    ui->tableWidgetStormnodes->clearContents();
-    ui->tableWidgetStormnodes->setRowCount(0);
-    std::vector<CStormnode> vStormnodes = snodeman.GetFullStormnodeVector();
+    ui->tableWidgetDynodes->setSortingEnabled(false);
+    ui->tableWidgetDynodes->clearContents();
+    ui->tableWidgetDynodes->setRowCount(0);
+    std::vector<CDynode> vDynodes = snodeman.GetFullDynodeVector();
 
-    BOOST_FOREACH(CStormnode& sn, vStormnodes)
+    BOOST_FOREACH(CDynode& sn, vDynodes)
     {
         // populate list
         // Address, Protocol, Status, Active Seconds, Last Seen, Pub Key
@@ -267,7 +267,7 @@ void StormnodeList::updateNodeList()
         QTableWidgetItem *statusItem = new QTableWidgetItem(QString::fromStdString(sn.GetStatus()));
         QTableWidgetItem *activeSecondsItem = new QTableWidgetItem(QString::fromStdString(DurationToDHMS(sn.lastPing.sigTime - sn.sigTime)));
         QTableWidgetItem *lastSeenItem = new QTableWidgetItem(QString::fromStdString(DateTimeStrFormat("%Y-%m-%d %H:%M", sn.lastPing.sigTime)));
-        QTableWidgetItem *pubkeyItem = new QTableWidgetItem(QString::fromStdString(CDarkSilkAddress(sn.pubKeyCollateralAddress.GetID()).ToString()));
+        QTableWidgetItem *pubkeyItem = new QTableWidgetItem(QString::fromStdString(CDynamicAddress(sn.pubKeyCollateralAddress.GetID()).ToString()));
 
         if (strCurrentFilter != "")
         {
@@ -280,42 +280,42 @@ void StormnodeList::updateNodeList()
             if (!strToFilter.contains(strCurrentFilter)) continue;
         }
 
-        ui->tableWidgetStormnodes->insertRow(0);
-        ui->tableWidgetStormnodes->setItem(0, 0, addressItem);
-        ui->tableWidgetStormnodes->setItem(0, 1, protocolItem);
-        ui->tableWidgetStormnodes->setItem(0, 2, statusItem);
-        ui->tableWidgetStormnodes->setItem(0, 3, activeSecondsItem);
-        ui->tableWidgetStormnodes->setItem(0, 4, lastSeenItem);
-        ui->tableWidgetStormnodes->setItem(0, 5, pubkeyItem);
+        ui->tableWidgetDynodes->insertRow(0);
+        ui->tableWidgetDynodes->setItem(0, 0, addressItem);
+        ui->tableWidgetDynodes->setItem(0, 1, protocolItem);
+        ui->tableWidgetDynodes->setItem(0, 2, statusItem);
+        ui->tableWidgetDynodes->setItem(0, 3, activeSecondsItem);
+        ui->tableWidgetDynodes->setItem(0, 4, lastSeenItem);
+        ui->tableWidgetDynodes->setItem(0, 5, pubkeyItem);
     }
 
-    ui->countLabel->setText(QString::number(ui->tableWidgetStormnodes->rowCount()));
-    ui->tableWidgetStormnodes->setSortingEnabled(true);
+    ui->countLabel->setText(QString::number(ui->tableWidgetDynodes->rowCount()));
+    ui->tableWidgetDynodes->setSortingEnabled(true);
 }
 
-void StormnodeList::on_filterLineEdit_textChanged(const QString &strFilterIn)
+void DynodeList::on_filterLineEdit_textChanged(const QString &strFilterIn)
 {
     strCurrentFilter = strFilterIn;
     nTimeFilterUpdated = GetTime();
     fFilterUpdated = true;
-    ui->countLabel->setText(QString::fromStdString(strprintf("Please wait... %d", STORMNODELIST_FILTER_COOLDOWN_SECONDS)));
+    ui->countLabel->setText(QString::fromStdString(strprintf("Please wait... %d", DYNODELIST_FILTER_COOLDOWN_SECONDS)));
 }
 
-void StormnodeList::on_startButton_clicked()
+void DynodeList::on_startButton_clicked()
 {
     // Find selected node alias
-    QItemSelectionModel* selectionModel = ui->tableWidgetMyStormnodes->selectionModel();
+    QItemSelectionModel* selectionModel = ui->tableWidgetMyDynodes->selectionModel();
     QModelIndexList selected = selectionModel->selectedRows();
 
     if(selected.count() == 0) return;
 
     QModelIndex index = selected.at(0);
     int nSelectedRow = index.row();
-    std::string strAlias = ui->tableWidgetMyStormnodes->item(nSelectedRow, 0)->text().toStdString();
+    std::string strAlias = ui->tableWidgetMyDynodes->item(nSelectedRow, 0)->text().toStdString();
 
     // Display message box
-    QMessageBox::StandardButton retval = QMessageBox::question(this, tr("Confirm stormnode start"),
-        tr("Are you sure you want to start stormnode %1?").arg(QString::fromStdString(strAlias)),
+    QMessageBox::StandardButton retval = QMessageBox::question(this, tr("Confirm dynode start"),
+        tr("Are you sure you want to start dynode %1?").arg(QString::fromStdString(strAlias)),
         QMessageBox::Yes | QMessageBox::Cancel,
         QMessageBox::Cancel);
 
@@ -335,11 +335,11 @@ void StormnodeList::on_startButton_clicked()
     StartAlias(strAlias);
 }
 
-void StormnodeList::on_startAllButton_clicked()
+void DynodeList::on_startAllButton_clicked()
 {
     // Display message box
-    QMessageBox::StandardButton retval = QMessageBox::question(this, tr("Confirm all stormnodes start"),
-        tr("Are you sure you want to start ALL stormnodes?"),
+    QMessageBox::StandardButton retval = QMessageBox::question(this, tr("Confirm all dynodes start"),
+        tr("Are you sure you want to start ALL dynodes?"),
         QMessageBox::Yes | QMessageBox::Cancel,
         QMessageBox::Cancel);
 
@@ -359,19 +359,19 @@ void StormnodeList::on_startAllButton_clicked()
     StartAll();
 }
 
-void StormnodeList::on_startMissingButton_clicked()
+void DynodeList::on_startMissingButton_clicked()
 {
 
-    if(!stormnodeSync.IsStormnodeListSynced()) {
+    if(!dynodeSync.IsDynodeListSynced()) {
         QMessageBox::critical(this, tr("Command is not available right now"),
-            tr("You can't use this command until stormnode list is synced"));
+            tr("You can't use this command until dynode list is synced"));
         return;
     }
 
     // Display message box
     QMessageBox::StandardButton retval = QMessageBox::question(this,
-        tr("Confirm missing stormnodes start"),
-        tr("Are you sure you want to start MISSING stormnodes?"),
+        tr("Confirm missing dynodes start"),
+        tr("Are you sure you want to start MISSING dynodes?"),
         QMessageBox::Yes | QMessageBox::Cancel,
         QMessageBox::Cancel);
 
@@ -391,14 +391,14 @@ void StormnodeList::on_startMissingButton_clicked()
     StartAll("start-missing");
 }
 
-void StormnodeList::on_tableWidgetMyStormnodes_itemSelectionChanged()
+void DynodeList::on_tableWidgetMyDynodes_itemSelectionChanged()
 {
-    if(ui->tableWidgetMyStormnodes->selectedItems().count() > 0) {
+    if(ui->tableWidgetMyDynodes->selectedItems().count() > 0) {
         ui->startButton->setEnabled(true);
     }
 }
 
-void StormnodeList::on_UpdateButton_clicked()
+void DynodeList::on_UpdateButton_clicked()
 {
     updateMyNodeList(true);
 }

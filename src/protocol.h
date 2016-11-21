@@ -9,8 +9,8 @@
 #error This header can only be compiled as C++.
 #endif
 
-#ifndef DARKSILK_PROTOCOL_H
-#define DARKSILK_PROTOCOL_H
+#ifndef DYNAMIC_PROTOCOL_H
+#define DYNAMIC_PROTOCOL_H
 
 #include "netbase.h"
 #include "serialize.h"
@@ -221,15 +221,15 @@ extern const char *REJECT;
  */
 extern const char *SENDHEADERS;
 
-// DarkSilk message types
+// Dynamic message types
 // NOTE: do NOT declare non-implmented here, we don't want them to be exposed to the outside
 // TODO: add description
 extern const char *TXLOCKREQUEST;
 extern const char *TXLOCKVOTE;
 extern const char *SPORK;
 extern const char *GETSPORKS;
-extern const char *STORMNODEPAYMENTVOTE;
-extern const char *STORMNODEPAYMENTSYNC;
+extern const char *DYNODEPAYMENTVOTE;
+extern const char *DYNODEPAYMENTSYNC;
 extern const char *SNANNOUNCE;
 extern const char *SNPING;
 extern const char *SSACCEPT;
@@ -254,15 +254,15 @@ const std::vector<std::string> &getAllNetMessageTypes();
 /** nServices flags */
 enum {
     // NODE_NETWORK means that the node is capable of serving the block chain. It is currently
-    // set by all DarkSilk Core nodes, and is unset by SPV clients or other peers that just want
+    // set by all Dynamic Core nodes, and is unset by SPV clients or other peers that just want
     // network services but don't provide them.
     NODE_NETWORK = (1 << 0),
     // NODE_GETUTXO means the node is capable of responding to the getutxo protocol request.
-    // DarkSilk Core does not support this but a patch set called Bitcoin XT does.
+    // Dynamic Core does not support this but a patch set called Bitcoin XT does.
     // See BIP 64 for details on how this is implemented.
     NODE_GETUTXO = (1 << 1),
     // NODE_BLOOM means the node is capable and willing to handle bloom-filtered connections.
-    // DarkSilk Core nodes used to support this by default, without advertising this bit.
+    // Dynamic Core nodes used to support this by default, without advertising this bit.
     NODE_BLOOM = (1 << 2),
 
     // Bits 24-31 are reserved for temporary experiments. Just pick a bit that
@@ -342,24 +342,24 @@ enum {
     // Nodes may always request a MSG_FILTERED_BLOCK in a getdata, however,
     // MSG_FILTERED_BLOCK should not appear in any invs except as a part of getdata.
     MSG_FILTERED_BLOCK,
-    // DarkSilk message types
+    // Dynamic message types
     // NOTE: declare non-implmented here, we must keep this enum consistent and backwards compatible
     MSG_TXLOCK_REQUEST,
     MSG_TXLOCK_VOTE,
     MSG_SPORK,
-    MSG_STORMNODE_PAYMENT_VOTE,
-    MSG_STORMNODE_PAYMENT_BLOCK, // reusing, was MSG_STORMNODE_SCANNING_ERROR previousely, was NOT used in 12.0
+    MSG_DYNODE_PAYMENT_VOTE,
+    MSG_DYNODE_PAYMENT_BLOCK, // reusing, was MSG_DYNODE_SCANNING_ERROR previousely, was NOT used in 12.0
     MSG_BUDGET_VOTE, // depreciated since 12.1
     MSG_BUDGET_PROPOSAL, // depreciated since 12.1
     MSG_BUDGET_FINALIZED, // depreciated since 12.1
     MSG_BUDGET_FINALIZED_VOTE, // depreciated since 12.1
-    MSG_STORMNODE_QUORUM, // not implemented
-    MSG_STORMNODE_ANNOUNCE,
-    MSG_STORMNODE_PING,
+    MSG_DYNODE_QUORUM, // not implemented
+    MSG_DYNODE_ANNOUNCE,
+    MSG_DYNODE_PING,
     MSG_SSTX,
     MSG_GOVERNANCE_OBJECT,
     MSG_GOVERNANCE_OBJECT_VOTE,
-    MSG_STORMNODE_VERIFY,
+    MSG_DYNODE_VERIFY,
 };
 
-#endif // DARKSILK_PROTOCOL_H
+#endif // DYNAMIC_PROTOCOL_H

@@ -5,8 +5,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_CACHEMAP_H
-#define DARKSILK_CACHEMAP_H
+#ifndef DYNAMIC_CACHEMAP_H
+#define DYNAMIC_CACHEMAP_H
 
 #include <map>
 #include <list>
@@ -202,4 +202,4 @@ private:
     }
 };
 
-#endif // DARKSILK_CACHEMAP_H
+#endif // DYNAMIC_CACHEMAP_H

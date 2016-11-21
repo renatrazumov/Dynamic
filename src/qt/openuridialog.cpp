@@ -19,7 +19,7 @@ OpenURIDialog::OpenURIDialog(QWidget *parent) :
 {
     ui->setupUi(this);
 #if QT_VERSION >= 0x040700
-    ui->uriEdit->setPlaceholderText("darksilk:");
+    ui->uriEdit->setPlaceholderText("dynamic:");
 #endif
 }
 
@@ -36,7 +36,7 @@ QString OpenURIDialog::getURI()
 void OpenURIDialog::accept()
 {
     SendCoinsRecipient rcp;
-    if(GUIUtil::parseDarkSilkURI(getURI(), &rcp))
+    if(GUIUtil::parseDynamicURI(getURI(), &rcp))
     {
         /* Only accept value URIs */
         QDialog::accept();
@@ -51,5 +51,5 @@ void OpenURIDialog::on_selectFileButton_clicked()
     if(filename.isEmpty())
         return;
     QUrl fileUri = QUrl::fromLocalFile(filename);
-    ui->uriEdit->setText("darksilk:?r=" + QUrl::toPercentEncoding(fileUri.toString()));
+    ui->uriEdit->setText("dynamic:?r=" + QUrl::toPercentEncoding(fileUri.toString()));
 }

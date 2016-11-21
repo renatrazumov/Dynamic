@@ -5,8 +5,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_CORE_MEMUSAGE_H
-#define DARKSILK_CORE_MEMUSAGE_H
+#ifndef DYNAMIC_CORE_MEMUSAGE_H
+#define DYNAMIC_CORE_MEMUSAGE_H
 
 #include "primitives/transaction.h"
 #include "primitives/block.h"
@@ -62,4 +62,4 @@ static inline size_t RecursiveDynamicUsage(const CBlockLocator& locator) {
     return memusage::DynamicUsage(locator.vHave);
 }
 
-#endif // DARKSILK_CORE_MEMUSAGE_H
+#endif // DYNAMIC_CORE_MEMUSAGE_H

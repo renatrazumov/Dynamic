@@ -54,11 +54,11 @@ std::vector<CGovernanceVote> CGovernanceObjectVoteFile::GetVotes() const
     return vecResult;
 }
 
-void CGovernanceObjectVoteFile::RemoveVotesFromStormnode(const CTxIn& vinStormnode)
+void CGovernanceObjectVoteFile::RemoveVotesFromDynode(const CTxIn& vinDynode)
 {
     vote_l_it it = listVotes.begin();
     while(it != listVotes.end()) {
-        if(it->GetVinStormnode() == vinStormnode) {
+        if(it->GetVinDynode() == vinDynode) {
             listVotes.erase(it++);
         }
         else {

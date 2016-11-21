@@ -1,5 +1,5 @@
 #!/bin/bash
-if ! [[ "$2" =~ ^(git@)?(www.)?github.com(:|/)silknetwork/darksilk-core(.git)?$ ]]; then
+if ! [[ "$2" =~ ^(git@)?(www.)?github.com(:|/)silknetwork/dynamic-core(.git)?$ ]]; then
     exit 0
 fi
 

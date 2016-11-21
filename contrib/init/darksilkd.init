@@ -1,36 +1,36 @@
 #!/bin/bash
 #
-#  darksilkd The DarkSilk Core server.
+#  dynamicd The Dynamic Core server.
 #
 #
 # chkconfig: 345 80 20
-# description: darksilkd
-# processname: darksilkd
+# description: dynamicd
+# processname: dynamicd
 #
 
 # Source function library.
 . /etc/init.d/functions
 
-# you can override defaults in /etc/sysconfig/darksilkd, see below
-if [ -f /etc/sysconfig/darksilkd ]; then
-        . /etc/sysconfig/darksilkd
+# you can override defaults in /etc/sysconfig/dynamicd, see below
+if [ -f /etc/sysconfig/dynamicd ]; then
+        . /etc/sysconfig/dynamicd
 fi
 
 RETVAL=0
 
-prog=darksilkd
-# you can override the lockfile via DARKSILKD_LOCKFILE in /etc/sysconfig/darksilkd
-lockfile=${DARKSILKD_LOCKFILE-/var/lock/subsys/darksilkd}
+prog=dynamicd
+# you can override the lockfile via DYNAMICD_LOCKFILE in /etc/sysconfig/dynamicd
+lockfile=${DYNAMICD_LOCKFILE-/var/lock/subsys/dynamicd}
 
-# darksilkd defaults to /usr/bin/darksilkd, override with DARKSILKD_BIN
-darksilkd=${DARKSILKD_BIN-/usr/bin/darksilkd}
+# dynamicd defaults to /usr/bin/dynamicd, override with DYNAMICD_BIN
+dynamicd=${DYNAMICD_BIN-/usr/bin/dynamicd}
 
-# darksilkd opts default to -disablewallet, override with DARKSILKD_OPTS
-darksilkd_opts=${DARKSILKD_OPTS--disablewallet}
+# dynamicd opts default to -disablewallet, override with DYNAMICD_OPTS
+dynamicd_opts=${DYNAMICD_OPTS--disablewallet}
 
 start() {
     echo -n $"Starting $prog: "
-    daemon $DAEMONOPTS $darksilkd $darksilkd_opts
+    daemon $DAEMONOPTS $dynamicd $dynamicd_opts
     RETVAL=$?
     echo
     [ $RETVAL -eq 0 ] && touch $lockfile

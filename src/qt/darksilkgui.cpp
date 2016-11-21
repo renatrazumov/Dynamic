@@ -5,9 +5,9 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include "darksilkgui.h"
+#include "dynamicgui.h"
 
-#include "darksilkunits.h"
+#include "dynamicunits.h"
 #include "clientmodel.h"
 #include "guiconstants.h"
 #include "guiutil.h"
@@ -32,8 +32,8 @@
 #include "init.h"
 #include "ui_interface.h"
 #include "util.h"
-#include "stormnode-sync.h"
-#include "stormnodelist.h"
+#include "dynode-sync.h"
+#include "dynodelist.h"
 
 #include <iostream>
 
@@ -64,7 +64,7 @@
 #include <QUrlQuery>
 #endif
 
-const std::string DarkSilkGUI::DEFAULT_UIPLATFORM =
+const std::string DynamicGUI::DEFAULT_UIPLATFORM =
 #if defined(Q_OS_MAC)
         "macosx"
 #elif defined(Q_OS_WIN)
@@ -74,9 +74,9 @@ const std::string DarkSilkGUI::DEFAULT_UIPLATFORM =
 #endif
         ;
 
-const QString DarkSilkGUI::DEFAULT_WALLET = "~Default";
+const QString DynamicGUI::DEFAULT_WALLET = "~Default";
 
-DarkSilkGUI::DarkSilkGUI(const PlatformStyle *platformStyle, const NetworkStyle *networkStyle, QWidget *parent) :
+DynamicGUI::DynamicGUI(const PlatformStyle *platformStyle, const NetworkStyle *networkStyle, QWidget *parent) :
     QMainWindow(parent),
     clientModel(0),
     walletFrame(0),
@@ -90,7 +90,7 @@ DarkSilkGUI::DarkSilkGUI(const PlatformStyle *platformStyle, const NetworkStyle 
     appMenuBar(0),
     overviewAction(0),
     historyAction(0),
-    stormnodeAction(0),
+    dynodeAction(0),
     quitAction(0),
     sendCoinsAction(0),
     sendCoinsMenuAction(0),
@@ -126,7 +126,7 @@ DarkSilkGUI::DarkSilkGUI(const PlatformStyle *platformStyle, const NetworkStyle 
 
     GUIUtil::restoreWindowGeometry("nWindow", QSize(850, 550), this);
 
-    QString windowTitle = tr("DarkSilk Core") + " - ";
+    QString windowTitle = tr("Dynamic Core") + " - ";
 #ifdef ENABLE_WALLET
     /* if compiled with wallet support, -disablewallet can still disable the wallet */
     enableWallet = !GetBoolArg("-disablewallet", false);
@@ -254,7 +254,7 @@ DarkSilkGUI::DarkSilkGUI(const PlatformStyle *platformStyle, const NetworkStyle 
     subscribeToCoreSignals();
 }
 
-DarkSilkGUI::~DarkSilkGUI()
+DynamicGUI::~DynamicGUI()
 {
     // Unsubscribe from notifications from core
     unsubscribeFromCoreSignals();
@@ -270,7 +270,7 @@ DarkSilkGUI::~DarkSilkGUI()
     delete rpcConsole;
 }
 
-void DarkSilkGUI::createActions()
+void DynamicGUI::createActions()
 {
     QActionGroup *tabGroup = new QActionGroup(this);
 
@@ -287,7 +287,7 @@ void DarkSilkGUI::createActions()
     tabGroup->addAction(overviewAction);
 
     sendCoinsAction = new QAction(QIcon(":/icons/" + theme + "/send"), tr("&Send"), this);
-    sendCoinsAction->setStatusTip(tr("Send coins to a DarkSilk address"));
+    sendCoinsAction->setStatusTip(tr("Send coins to a Dynamic address"));
     sendCoinsAction->setToolTip(sendCoinsAction->statusTip());
     sendCoinsAction->setCheckable(true);
 #ifdef Q_OS_MAC
@@ -302,7 +302,7 @@ void DarkSilkGUI::createActions()
     sendCoinsMenuAction->setToolTip(sendCoinsMenuAction->statusTip());
 
     receiveCoinsAction = new QAction(QIcon(":/icons/" + theme + "/receiving_addresses"), tr("&Receive"), this);
-    receiveCoinsAction->setStatusTip(tr("Request payments (generates QR codes and darksilk: URIs)"));
+    receiveCoinsAction->setStatusTip(tr("Request payments (generates QR codes and dynamic: URIs)"));
     receiveCoinsAction->setToolTip(receiveCoinsAction->statusTip());
     receiveCoinsAction->setCheckable(true);
 #ifdef Q_OS_MAC
@@ -328,16 +328,16 @@ void DarkSilkGUI::createActions()
     tabGroup->addAction(historyAction);
 
 #ifdef ENABLE_WALLET
-    stormnodeAction = new QAction(QIcon(":/icons/" + theme + "/stormnodes"), tr("&Stormnodes"), this);
-    stormnodeAction->setStatusTip(tr("Browse stormnodes"));
-    stormnodeAction->setToolTip(stormnodeAction->statusTip());
-    stormnodeAction->setCheckable(true);
+    dynodeAction = new QAction(QIcon(":/icons/" + theme + "/dynodes"), tr("&Dynodes"), this);
+    dynodeAction->setStatusTip(tr("Browse dynodes"));
+    dynodeAction->setToolTip(dynodeAction->statusTip());
+    dynodeAction->setCheckable(true);
 #ifdef Q_OS_MAC
-    stormnodeAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_5));
+    dynodeAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_5));
 #else
-    stormnodeAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_5));
+    dynodeAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_5));
 #endif
-    tabGroup->addAction(stormnodeAction);    
+    tabGroup->addAction(dynodeAction);    
 
     // These showNormalIfMinimized are needed because Send Coins and Receive Coins
     // can be triggered from the tray menu, and need to show the GUI to be useful.
@@ -353,23 +353,23 @@ void DarkSilkGUI::createActions()
     connect(receiveCoinsMenuAction, SIGNAL(triggered()), this, SLOT(gotoReceiveCoinsPage()));
     connect(historyAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
     connect(historyAction, SIGNAL(triggered()), this, SLOT(gotoHistoryPage()));
-    connect(stormnodeAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
-    connect(stormnodeAction, SIGNAL(triggered()), this, SLOT(gotoStormnodePage()));
+    connect(dynodeAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
+    connect(dynodeAction, SIGNAL(triggered()), this, SLOT(gotoDynodePage()));
 #endif // ENABLE_WALLET
 
     quitAction = new QAction(QIcon(":/icons/" + theme + "/quit"), tr("E&xit"), this);
     quitAction->setStatusTip(tr("Quit application"));
     quitAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Q));
     quitAction->setMenuRole(QAction::QuitRole);
-    aboutAction = new QAction(QIcon(":/icons/" + theme + "/about"), tr("&About DarkSilk Core"), this);
-    aboutAction->setStatusTip(tr("Show information about DarkSilk Core"));
+    aboutAction = new QAction(QIcon(":/icons/" + theme + "/about"), tr("&About Dynamic Core"), this);
+    aboutAction->setStatusTip(tr("Show information about Dynamic Core"));
     aboutAction->setMenuRole(QAction::AboutRole);
     aboutAction->setEnabled(false);
     aboutQtAction = new QAction(QIcon(":/icons/" + theme + "/about_qt"), tr("About &Qt"), this);
     aboutQtAction->setStatusTip(tr("Show information about Qt"));
     aboutQtAction->setMenuRole(QAction::AboutQtRole);
     optionsAction = new QAction(QIcon(":/icons/" + theme + "/options"), tr("&Options..."), this);
-    optionsAction->setStatusTip(tr("Modify configuration options for DarkSilk Core"));
+    optionsAction->setStatusTip(tr("Modify configuration options for Dynamic Core"));
     optionsAction->setMenuRole(QAction::PreferencesRole);
     optionsAction->setEnabled(false);
     toggleHideAction = new QAction(QIcon(":/icons/" + theme + "/about"), tr("&Show / Hide"), this);
@@ -386,9 +386,9 @@ void DarkSilkGUI::createActions()
     unlockWalletAction->setToolTip(tr("Unlock wallet"));
     lockWalletAction = new QAction(tr("&Lock Wallet"), this);
     signMessageAction = new QAction(QIcon(":/icons/" + theme + "/edit"), tr("Sign &message..."), this);
-    signMessageAction->setStatusTip(tr("Sign messages with your DarkSilk addresses to prove you own them"));
+    signMessageAction->setStatusTip(tr("Sign messages with your Dynamic addresses to prove you own them"));
     verifyMessageAction = new QAction(QIcon(":/icons/" + theme + "/transaction_0"), tr("&Verify message..."), this);
-    verifyMessageAction->setStatusTip(tr("Verify messages to ensure they were signed with specified DarkSilk addresses"));
+    verifyMessageAction->setStatusTip(tr("Verify messages to ensure they were signed with specified Dynamic addresses"));
 
     openInfoAction = new QAction(QApplication::style()->standardIcon(QStyle::SP_MessageBoxInformation), tr("&Information"), this);
     openInfoAction->setStatusTip(tr("Show diagnostic information"));
@@ -402,8 +402,8 @@ void DarkSilkGUI::createActions()
     openRepairAction->setStatusTip(tr("Show wallet repair options"));
     openConfEditorAction = new QAction(QIcon(":/icons/" + theme + "/edit"), tr("Open Wallet &Configuration File"), this);
     openConfEditorAction->setStatusTip(tr("Open configuration file"));
-    openSNConfEditorAction = new QAction(QIcon(":/icons/" + theme + "/edit"), tr("Open &Stormnode Configuration File"), this);
-    openSNConfEditorAction->setStatusTip(tr("Open Stormnode configuration file"));    
+    openSNConfEditorAction = new QAction(QIcon(":/icons/" + theme + "/edit"), tr("Open &Dynode Configuration File"), this);
+    openSNConfEditorAction->setStatusTip(tr("Open Dynode configuration file"));    
     showBackupsAction = new QAction(QIcon(":/icons/" + theme + "/browse"), tr("Show Automatic &Backups"), this);
     showBackupsAction->setStatusTip(tr("Show automatically created wallet backups"));
     // initially disable the debug window menu items
@@ -419,11 +419,11 @@ void DarkSilkGUI::createActions()
     usedReceivingAddressesAction->setStatusTip(tr("Show the list of used receiving addresses and labels"));
 
     openAction = new QAction(QApplication::style()->standardIcon(QStyle::SP_DirOpenIcon), tr("Open &URI..."), this);
-    openAction->setStatusTip(tr("Open a darksilk: URI or payment request"));
+    openAction->setStatusTip(tr("Open a dynamic: URI or payment request"));
 
     showHelpMessageAction = new QAction(QApplication::style()->standardIcon(QStyle::SP_MessageBoxInformation), tr("&Command-line options"), this);
     showHelpMessageAction->setMenuRole(QAction::NoRole);
-    showHelpMessageAction->setStatusTip(tr("Show the DarkSilk Core help message to get a list with possible DarkSilk Core command-line options"));
+    showHelpMessageAction->setStatusTip(tr("Show the Dynamic Core help message to get a list with possible Dynamic Core command-line options"));
 
     showPrivateSendHelpAction = new QAction(QApplication::style()->standardIcon(QStyle::SP_MessageBoxInformation), tr("&PrivateSend information"), this);
     showPrivateSendHelpAction->setMenuRole(QAction::NoRole);
@@ -478,7 +478,7 @@ void DarkSilkGUI::createActions()
     new QShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_R), this, SLOT(showRepair()));
 }
 
-void DarkSilkGUI::createMenuBar()
+void DynamicGUI::createMenuBar()
 {
 #ifdef Q_OS_MAC
     // Create a decoupled menu bar on Mac which stays even if the window is closed
@@ -536,7 +536,7 @@ void DarkSilkGUI::createMenuBar()
     help->addAction(aboutQtAction);
 }
 
-void DarkSilkGUI::createToolBars()
+void DynamicGUI::createToolBars()
 {
     if(walletFrame)
     {
@@ -546,7 +546,7 @@ void DarkSilkGUI::createToolBars()
         toolbar->addAction(sendCoinsAction);
         toolbar->addAction(receiveCoinsAction);
         toolbar->addAction(historyAction);
-        toolbar->addAction(stormnodeAction);
+        toolbar->addAction(dynodeAction);
 
         /** Create additional container for toolbar and walletFrame and make it the central widget.
             This is a workaround mostly for toolbar styling on Mac OS but should work fine for every other OSes too.
@@ -562,7 +562,7 @@ void DarkSilkGUI::createToolBars()
     }
 }
 
-void DarkSilkGUI::setClientModel(ClientModel *clientModel)
+void DynamicGUI::setClientModel(ClientModel *clientModel)
 {
     this->clientModel = clientModel;
     if(clientModel)
@@ -631,7 +631,7 @@ void DarkSilkGUI::setClientModel(ClientModel *clientModel)
 }
 
 #ifdef ENABLE_WALLET
-bool DarkSilkGUI::addWallet(const QString& name, WalletModel *walletModel)
+bool DynamicGUI::addWallet(const QString& name, WalletModel *walletModel)
 {
     if(!walletFrame)
         return false;
@@ -639,14 +639,14 @@ bool DarkSilkGUI::addWallet(const QString& name, WalletModel *walletModel)
     return walletFrame->addWallet(name, walletModel);
 }
 
-bool DarkSilkGUI::setCurrentWallet(const QString& name)
+bool DynamicGUI::setCurrentWallet(const QString& name)
 {
     if(!walletFrame)
         return false;
     return walletFrame->setCurrentWallet(name);
 }
 
-void DarkSilkGUI::removeAllWallets()
+void DynamicGUI::removeAllWallets()
 {
     if(!walletFrame)
         return;
@@ -655,7 +655,7 @@ void DarkSilkGUI::removeAllWallets()
 }
 #endif // ENABLE_WALLET
 
-void DarkSilkGUI::setWalletActionsEnabled(bool enabled)
+void DynamicGUI::setWalletActionsEnabled(bool enabled)
 {
     overviewAction->setEnabled(enabled);
     sendCoinsAction->setEnabled(enabled);
@@ -663,7 +663,7 @@ void DarkSilkGUI::setWalletActionsEnabled(bool enabled)
     receiveCoinsAction->setEnabled(enabled);
     receiveCoinsMenuAction->setEnabled(enabled);
     historyAction->setEnabled(enabled);
-    stormnodeAction->setEnabled(enabled);
+    dynodeAction->setEnabled(enabled);
     encryptWalletAction->setEnabled(enabled);
     backupWalletAction->setEnabled(enabled);
     changePassphraseAction->setEnabled(enabled);
@@ -674,17 +674,17 @@ void DarkSilkGUI::setWalletActionsEnabled(bool enabled)
     openAction->setEnabled(enabled);
 }
 
-void DarkSilkGUI::createTrayIcon(const NetworkStyle *networkStyle)
+void DynamicGUI::createTrayIcon(const NetworkStyle *networkStyle)
 {
     trayIcon = new QSystemTrayIcon(this);
-    QString toolTip = tr("DarkSilk Core client") + " " + networkStyle->getTitleAddText();
+    QString toolTip = tr("Dynamic Core client") + " " + networkStyle->getTitleAddText();
     trayIcon->setToolTip(toolTip);
     trayIcon->setIcon(networkStyle->getTrayAndWindowIcon());
     trayIcon->show();
     notificator = new Notificator(QApplication::applicationName(), trayIcon, this);
 }
 
-void DarkSilkGUI::createIconMenu(QMenu *pmenu)
+void DynamicGUI::createIconMenu(QMenu *pmenu)
 {
     // Configuration of the tray icon (or dock icon) icon menu
     pmenu->addAction(toggleHideAction);
@@ -712,7 +712,7 @@ void DarkSilkGUI::createIconMenu(QMenu *pmenu)
 }
 
 #ifndef Q_OS_MAC
-void DarkSilkGUI::trayIconActivated(QSystemTrayIcon::ActivationReason reason)
+void DynamicGUI::trayIconActivated(QSystemTrayIcon::ActivationReason reason)
 {
     if(reason == QSystemTrayIcon::Trigger)
     {
@@ -722,7 +722,7 @@ void DarkSilkGUI::trayIconActivated(QSystemTrayIcon::ActivationReason reason)
 }
 #endif
 
-void DarkSilkGUI::optionsClicked()
+void DynamicGUI::optionsClicked()
 {
     if(!clientModel || !clientModel->getOptionsModel())
         return;
@@ -732,7 +732,7 @@ void DarkSilkGUI::optionsClicked()
     dlg.exec();
 }
 
-void DarkSilkGUI::aboutClicked()
+void DynamicGUI::aboutClicked()
 {
     if(!clientModel)
         return;
@@ -741,7 +741,7 @@ void DarkSilkGUI::aboutClicked()
     dlg.exec();
 }
 
-void DarkSilkGUI::showRPCConsole()
+void DynamicGUI::showRPCConsole()
 {
     rpcConsole->showNormal();
     rpcConsole->show();
@@ -749,57 +749,57 @@ void DarkSilkGUI::showRPCConsole()
     rpcConsole->activateWindow();
 }
 
-void DarkSilkGUI::showInfo()
+void DynamicGUI::showInfo()
 {
     rpcConsole->setTabFocus(RPCConsole::TAB_INFO);
     showRPCConsole();
 }
 
-void DarkSilkGUI::showConsole()
+void DynamicGUI::showConsole()
 {
     rpcConsole->setTabFocus(RPCConsole::TAB_CONSOLE);
     showRPCConsole();
 }
 
-void DarkSilkGUI::showGraph()
+void DynamicGUI::showGraph()
 {
     rpcConsole->setTabFocus(RPCConsole::TAB_GRAPH);
     showRPCConsole();
 }
 
-void DarkSilkGUI::showPeers()
+void DynamicGUI::showPeers()
 {
     rpcConsole->setTabFocus(RPCConsole::TAB_PEERS);
     showRPCConsole();
 }
 
-void DarkSilkGUI::showRepair()
+void DynamicGUI::showRepair()
 {
     rpcConsole->setTabFocus(RPCConsole::TAB_REPAIR);
     showRPCConsole();
 }
 
-void DarkSilkGUI::showConfEditor()
+void DynamicGUI::showConfEditor()
 {
     GUIUtil::openConfigfile();
 }
 
-void DarkSilkGUI::showSNConfEditor()
+void DynamicGUI::showSNConfEditor()
 {
     GUIUtil::openSNConfigfile();
 }
 
-void DarkSilkGUI::showBackups()
+void DynamicGUI::showBackups()
 {
     GUIUtil::showBackups();
 }
 
-void DarkSilkGUI::showHelpMessageClicked()
+void DynamicGUI::showHelpMessageClicked()
 {
     helpMessageDialog->show();
 }
 
-void DarkSilkGUI::showPrivateSendHelpClicked()
+void DynamicGUI::showPrivateSendHelpClicked()
 {
     if(!clientModel)
         return;
@@ -809,7 +809,7 @@ void DarkSilkGUI::showPrivateSendHelpClicked()
 }
 
 #ifdef ENABLE_WALLET
-void DarkSilkGUI::openClicked()
+void DynamicGUI::openClicked()
 {
     OpenURIDialog dlg(this);
     if(dlg.exec())
@@ -818,48 +818,48 @@ void DarkSilkGUI::openClicked()
     }
 }
 
-void DarkSilkGUI::gotoOverviewPage()
+void DynamicGUI::gotoOverviewPage()
 {
     overviewAction->setChecked(true);
     if (walletFrame) walletFrame->gotoOverviewPage();
 }
 
-void DarkSilkGUI::gotoHistoryPage()
+void DynamicGUI::gotoHistoryPage()
 {
     historyAction->setChecked(true);
     if (walletFrame) walletFrame->gotoHistoryPage();
 }
 
-void DarkSilkGUI::gotoStormnodePage()
+void DynamicGUI::gotoDynodePage()
 {
-    stormnodeAction->setChecked(true);
-    if (walletFrame) walletFrame->gotoStormnodePage();
+    dynodeAction->setChecked(true);
+    if (walletFrame) walletFrame->gotoDynodePage();
 }
 
-void DarkSilkGUI::gotoReceiveCoinsPage()
+void DynamicGUI::gotoReceiveCoinsPage()
 {
     receiveCoinsAction->setChecked(true);
     if (walletFrame) walletFrame->gotoReceiveCoinsPage();
 }
 
-void DarkSilkGUI::gotoSendCoinsPage(QString addr)
+void DynamicGUI::gotoSendCoinsPage(QString addr)
 {
     sendCoinsAction->setChecked(true);
     if (walletFrame) walletFrame->gotoSendCoinsPage(addr);
 }
 
-void DarkSilkGUI::gotoSignMessageTab(QString addr)
+void DynamicGUI::gotoSignMessageTab(QString addr)
 {
     if (walletFrame) walletFrame->gotoSignMessageTab(addr);
 }
 
-void DarkSilkGUI::gotoVerifyMessageTab(QString addr)
+void DynamicGUI::gotoVerifyMessageTab(QString addr)
 {
     if (walletFrame) walletFrame->gotoVerifyMessageTab(addr);
 }
 #endif // ENABLE_WALLET
 
-void DarkSilkGUI::setNumConnections(int count)
+void DynamicGUI::setNumConnections(int count)
 {
     QString icon;
     QString theme = GUIUtil::getThemeName();
@@ -873,10 +873,10 @@ void DarkSilkGUI::setNumConnections(int count)
     }
     QIcon connectionItem = QIcon(icon).pixmap(STATUSBAR_ICONSIZE,STATUSBAR_ICONSIZE);
     labelConnectionsIcon->setIcon(connectionItem);
-    labelConnectionsIcon->setToolTip(tr("%n active connection(s) to DarkSilk network", "", count));
+    labelConnectionsIcon->setToolTip(tr("%n active connection(s) to Dynamic network", "", count));
 }
 
-void DarkSilkGUI::setNumBlocks(int count, const QDateTime& blockDate, double nVerificationProgress)
+void DynamicGUI::setNumBlocks(int count, const QDateTime& blockDate, double nVerificationProgress)
 {
     if(!clientModel)
         return;
@@ -912,7 +912,7 @@ void DarkSilkGUI::setNumBlocks(int count, const QDateTime& blockDate, double nVe
     // Set icon state: spinning if catching up, tick otherwise
     QString theme = GUIUtil::getThemeName();
 
-    if(!stormnodeSync.IsBlockchainSynced())
+    if(!dynodeSync.IsBlockchainSynced())
     {
         // Represent time from last generated block in human readable text
         QString timeBehindText;
@@ -974,7 +974,7 @@ void DarkSilkGUI::setNumBlocks(int count, const QDateTime& blockDate, double nVe
     progressBar->setToolTip(tooltip);
 }
 
-void DarkSilkGUI::setAdditionalDataSyncProgress(double nSyncProgress)
+void DynamicGUI::setAdditionalDataSyncProgress(double nSyncProgress)
 {
     if(!clientModel)
         return;
@@ -987,12 +987,12 @@ void DarkSilkGUI::setAdditionalDataSyncProgress(double nSyncProgress)
     // Set icon state: spinning if catching up, tick otherwise
     QString theme = GUIUtil::getThemeName();
 
-    if(stormnodeSync.IsBlockchainSynced())
+    if(dynodeSync.IsBlockchainSynced())
     {
         QString strSyncStatus;
         tooltip = tr("Up to date") + QString(".<br>") + tooltip;
 
-        if(stormnodeSync.IsSynced()) {
+        if(dynodeSync.IsSynced()) {
             progressBarLabel->setVisible(false);
             progressBar->setVisible(false);
             labelBlocksIcon->setPixmap(QIcon(":/icons/" + theme + "/synced").pixmap(STATUSBAR_ICONSIZE, STATUSBAR_ICONSIZE));
@@ -1013,7 +1013,7 @@ void DarkSilkGUI::setAdditionalDataSyncProgress(double nSyncProgress)
             progressBar->setValue(nSyncProgress * 1000000000.0 + 0.5);
         }
 
-        strSyncStatus = QString(stormnodeSync.GetSyncStatus().c_str());
+        strSyncStatus = QString(dynodeSync.GetSyncStatus().c_str());
         progressBarLabel->setText(strSyncStatus);
         tooltip = strSyncStatus + QString("<br>") + tooltip;
     }
@@ -1026,9 +1026,9 @@ void DarkSilkGUI::setAdditionalDataSyncProgress(double nSyncProgress)
     progressBar->setToolTip(tooltip);
 }
 
-void DarkSilkGUI::message(const QString &title, const QString &message, unsigned int style, bool *ret)
+void DynamicGUI::message(const QString &title, const QString &message, unsigned int style, bool *ret)
 {
-    QString strTitle = tr("DarkSilk Core"); // default title
+    QString strTitle = tr("Dynamic Core"); // default title
     // Default to information icon
     int nMBoxIcon = QMessageBox::Information;
     int nNotifyIcon = Notificator::Information;
@@ -1054,7 +1054,7 @@ void DarkSilkGUI::message(const QString &title, const QString &message, unsigned
             break;
         }
     }
-    // Append title to "DarkSilk Core - "
+    // Append title to "Dynamic Core - "
     if (!msgType.isEmpty())
         strTitle += " - " + msgType;
 
@@ -1085,7 +1085,7 @@ void DarkSilkGUI::message(const QString &title, const QString &message, unsigned
         notificator->notify((Notificator::Class)nNotifyIcon, strTitle, message);
 }
 
-void DarkSilkGUI::changeEvent(QEvent *e)
+void DynamicGUI::changeEvent(QEvent *e)
 {
     QMainWindow::changeEvent(e);
 #ifndef Q_OS_MAC // Ignored on Mac
@@ -1104,7 +1104,7 @@ void DarkSilkGUI::changeEvent(QEvent *e)
 #endif
 }
 
-void DarkSilkGUI::closeEvent(QCloseEvent *event)
+void DynamicGUI::closeEvent(QCloseEvent *event)
 {
 #ifndef Q_OS_MAC // Ignored on Mac
     if(clientModel && clientModel->getOptionsModel())
@@ -1121,7 +1121,7 @@ void DarkSilkGUI::closeEvent(QCloseEvent *event)
     QMainWindow::closeEvent(event);
 }
 
-void DarkSilkGUI::showEvent(QShowEvent *event)
+void DynamicGUI::showEvent(QShowEvent *event)
 {
     // enable the debug window when the main window shows up
     openInfoAction->setEnabled(true);
@@ -1134,11 +1134,11 @@ void DarkSilkGUI::showEvent(QShowEvent *event)
 }
 
 #ifdef ENABLE_WALLET
-void DarkSilkGUI::incomingTransaction(const QString& date, int unit, const CAmount& amount, const QString& type, const QString& address, const QString& label)
+void DynamicGUI::incomingTransaction(const QString& date, int unit, const CAmount& amount, const QString& type, const QString& address, const QString& label)
 {
     // On new transaction, make an info balloon
     QString msg = tr("Date: %1\n").arg(date) +
-                  tr("Amount: %1\n").arg(DarkSilkUnits::formatWithUnit(unit, amount, true)) +
+                  tr("Amount: %1\n").arg(DynamicUnits::formatWithUnit(unit, amount, true)) +
                   tr("Type: %1\n").arg(type);
     if (!label.isEmpty())
         msg += tr("Label: %1\n").arg(label);
@@ -1149,14 +1149,14 @@ void DarkSilkGUI::incomingTransaction(const QString& date, int unit, const CAmou
 }
 #endif // ENABLE_WALLET
 
-void DarkSilkGUI::dragEnterEvent(QDragEnterEvent *event)
+void DynamicGUI::dragEnterEvent(QDragEnterEvent *event)
 {
     // Accept only URIs
     if(event->mimeData()->hasUrls())
         event->acceptProposedAction();
 }
 
-void DarkSilkGUI::dropEvent(QDropEvent *event)
+void DynamicGUI::dropEvent(QDropEvent *event)
 {
     if(event->mimeData()->hasUrls())
     {
@@ -1168,7 +1168,7 @@ void DarkSilkGUI::dropEvent(QDropEvent *event)
     event->acceptProposedAction();
 }
 
-bool DarkSilkGUI::eventFilter(QObject *object, QEvent *event)
+bool DynamicGUI::eventFilter(QObject *object, QEvent *event)
 {
     // Catch status tip events
     if (event->type() == QEvent::StatusTip)
@@ -1181,7 +1181,7 @@ bool DarkSilkGUI::eventFilter(QObject *object, QEvent *event)
 }
 
 #ifdef ENABLE_WALLET
-bool DarkSilkGUI::handlePaymentRequest(const SendCoinsRecipient& recipient)
+bool DynamicGUI::handlePaymentRequest(const SendCoinsRecipient& recipient)
 {
     // URI has to be valid
     if (walletFrame && walletFrame->handlePaymentRequest(recipient))
@@ -1193,7 +1193,7 @@ bool DarkSilkGUI::handlePaymentRequest(const SendCoinsRecipient& recipient)
     return false;
 }
 
-void DarkSilkGUI::setEncryptionStatus(int status)
+void DynamicGUI::setEncryptionStatus(int status)
 {
     QString theme = GUIUtil::getThemeName();
     switch(status)
@@ -1240,7 +1240,7 @@ void DarkSilkGUI::setEncryptionStatus(int status)
 }
 #endif // ENABLE_WALLET
 
-void DarkSilkGUI::showNormalIfMinimized(bool fToggleHidden)
+void DynamicGUI::showNormalIfMinimized(bool fToggleHidden)
 {
     if(!clientModel)
         return;
@@ -1265,12 +1265,12 @@ void DarkSilkGUI::showNormalIfMinimized(bool fToggleHidden)
         hide();
 }
 
-void DarkSilkGUI::toggleHidden()
+void DynamicGUI::toggleHidden()
 {
     showNormalIfMinimized(true);
 }
 
-void DarkSilkGUI::detectShutdown()
+void DynamicGUI::detectShutdown()
 {
     if (ShutdownRequested())
     {
@@ -1280,7 +1280,7 @@ void DarkSilkGUI::detectShutdown()
     }
 }
 
-void DarkSilkGUI::showProgress(const QString &title, int nProgress)
+void DynamicGUI::showProgress(const QString &title, int nProgress)
 {
     if (nProgress == 0)
     {
@@ -1303,7 +1303,7 @@ void DarkSilkGUI::showProgress(const QString &title, int nProgress)
         progressDialog->setValue(nProgress);
 }
 
-static bool ThreadSafeMessageBox(DarkSilkGUI *gui, const std::string& message, const std::string& caption, unsigned int style)
+static bool ThreadSafeMessageBox(DynamicGUI *gui, const std::string& message, const std::string& caption, unsigned int style)
 {
     bool modal = (style & CClientUIInterface::MODAL);
     // The SECURE flag has no effect in the Qt GUI.
@@ -1320,20 +1320,20 @@ static bool ThreadSafeMessageBox(DarkSilkGUI *gui, const std::string& message, c
     return ret;
 }
 
-void DarkSilkGUI::subscribeToCoreSignals()
+void DynamicGUI::subscribeToCoreSignals()
 {
     // Connect signals to client
     uiInterface.ThreadSafeMessageBox.connect(boost::bind(ThreadSafeMessageBox, this, _1, _2, _3));
 }
 
-void DarkSilkGUI::unsubscribeFromCoreSignals()
+void DynamicGUI::unsubscribeFromCoreSignals()
 {
     // Disconnect signals from client
     uiInterface.ThreadSafeMessageBox.disconnect(boost::bind(ThreadSafeMessageBox, this, _1, _2, _3));
 }
 
 /** Get restart command-line parameters and request restart */
-void DarkSilkGUI::handleRestart(QStringList args)
+void DynamicGUI::handleRestart(QStringList args)
 {
     if (!ShutdownRequested())
         Q_EMIT requestedRestart(args);
@@ -1345,12 +1345,12 @@ UnitDisplayStatusBarControl::UnitDisplayStatusBarControl(const PlatformStyle *pl
 {
     createContextMenu();
     setToolTip(tr("Unit to show amounts in. Click to select another unit."));
-    QList<DarkSilkUnits::Unit> units = DarkSilkUnits::availableUnits();
+    QList<DynamicUnits::Unit> units = DynamicUnits::availableUnits();
     int max_width = 0;
     const QFontMetrics fm(font());
-    Q_FOREACH (const DarkSilkUnits::Unit unit, units)
+    Q_FOREACH (const DynamicUnits::Unit unit, units)
     {
-        max_width = qMax(max_width, fm.width(DarkSilkUnits::name(unit)));
+        max_width = qMax(max_width, fm.width(DynamicUnits::name(unit)));
     }
     setMinimumSize(max_width, 0);
     setAlignment(Qt::AlignRight | Qt::AlignVCenter);
@@ -1367,9 +1367,9 @@ void UnitDisplayStatusBarControl::mousePressEvent(QMouseEvent *event)
 void UnitDisplayStatusBarControl::createContextMenu()
 {
     menu = new QMenu();
-    Q_FOREACH(DarkSilkUnits::Unit u, DarkSilkUnits::availableUnits())
+    Q_FOREACH(DynamicUnits::Unit u, DynamicUnits::availableUnits())
     {
-        QAction *menuAction = new QAction(QString(DarkSilkUnits::name(u)), this);
+        QAction *menuAction = new QAction(QString(DynamicUnits::name(u)), this);
         menuAction->setData(QVariant(u));
         menu->addAction(menuAction);
     }
@@ -1394,7 +1394,7 @@ void UnitDisplayStatusBarControl::setOptionsModel(OptionsModel *optionsModel)
 /** When Display Units are changed on OptionsModel it will refresh the display text of the control on the status bar */
 void UnitDisplayStatusBarControl::updateDisplayUnit(int newUnits)
 {
-    setText(DarkSilkUnits::name(newUnits));
+    setText(DynamicUnits::name(newUnits));
 }
 
 /** Shows context menu with Display Unit options by the mouse coordinates */

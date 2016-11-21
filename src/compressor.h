@@ -5,8 +5,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_COMPRESSOR_H
-#define DARKSILK_COMPRESSOR_H
+#ifndef DYNAMIC_COMPRESSOR_H
+#define DYNAMIC_COMPRESSOR_H
 
 #include "primitives/transaction.h"
 #include "script/script.h"
@@ -122,4 +122,4 @@ public:
     }
 };
 
-#endif // DARKSILK_COMPRESSOR_H
+#endif // DYNAMIC_COMPRESSOR_H

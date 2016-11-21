@@ -3,47 +3,47 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_STORMNODE_SYNC_H
-#define DARKSILK_STORMNODE_SYNC_H
+#ifndef DYNAMIC_DYNODE_SYNC_H
+#define DYNAMIC_DYNODE_SYNC_H
 
 #include "chain.h"
 #include "net.h"
 
 #include <univalue.h>
 
-class CStormnodeSync;
+class CDynodeSync;
 
-static const int STORMNODE_SYNC_FAILED          = -1;
-static const int STORMNODE_SYNC_INITIAL         = 0;
-static const int STORMNODE_SYNC_SPORKS          = 1;
-static const int STORMNODE_SYNC_LIST            = 2;
-static const int STORMNODE_SYNC_SNW             = 3;
-static const int STORMNODE_SYNC_GOVERNANCE      = 4;
-static const int STORMNODE_SYNC_GOVOBJ          = 10;
-static const int STORMNODE_SYNC_GOVERNANCE_FIN  = 11;
-static const int STORMNODE_SYNC_FINISHED        = 999;
+static const int DYNODE_SYNC_FAILED          = -1;
+static const int DYNODE_SYNC_INITIAL         = 0;
+static const int DYNODE_SYNC_SPORKS          = 1;
+static const int DYNODE_SYNC_LIST            = 2;
+static const int DYNODE_SYNC_SNW             = 3;
+static const int DYNODE_SYNC_GOVERNANCE      = 4;
+static const int DYNODE_SYNC_GOVOBJ          = 10;
+static const int DYNODE_SYNC_GOVERNANCE_FIN  = 11;
+static const int DYNODE_SYNC_FINISHED        = 999;
 
-static const int STORMNODE_SYNC_TIMEOUT_SECONDS = 30; // our blocks are 2.5 minutes so 30 seconds should be fine
+static const int DYNODE_SYNC_TIMEOUT_SECONDS = 30; // our blocks are 2.5 minutes so 30 seconds should be fine
 
-extern CStormnodeSync stormnodeSync;
+extern CDynodeSync dynodeSync;
 
 //
-// CStormnodeSync : Sync stormnode assets in stages
+// CDynodeSync : Sync dynode assets in stages
 //
 
-class CStormnodeSync
+class CDynodeSync
 {
 private:
     // Keep track of current asset
-    int nRequestedStormnodeAssets;
+    int nRequestedDynodeAssets;
     // Count peers we've requested the asset from
-    int nRequestedStormnodeAttempt;
+    int nRequestedDynodeAttempt;
 
-    // Time when current stormnode asset sync started
+    // Time when current dynode asset sync started
     int64_t nTimeAssetSyncStarted;
 
-    // Last time when we received some stormnode asset ...
-    int64_t nTimeLastStormnodeList;
+    // Last time when we received some dynode asset ...
+    int64_t nTimeLastDynodeList;
     int64_t nTimeLastPaymentVote;
     int64_t nTimeLastBudgetItem;
     // ... or failed
@@ -59,20 +59,20 @@ private:
     void ClearFulfilledRequests();
 
 public:
-    CStormnodeSync() { Reset(); }
+    CDynodeSync() { Reset(); }
 
-    void AddedStormnodeList() { nTimeLastStormnodeList = GetTime(); }
+    void AddedDynodeList() { nTimeLastDynodeList = GetTime(); }
     void AddedPaymentVote() { nTimeLastPaymentVote = GetTime(); }
     void AddedBudgetItem(uint256 hash);
 
-    bool IsFailed() { return nRequestedStormnodeAssets == STORMNODE_SYNC_FAILED; }
+    bool IsFailed() { return nRequestedDynodeAssets == DYNODE_SYNC_FAILED; }
     bool IsBlockchainSynced();
-    bool IsStormnodeListSynced() { return nRequestedStormnodeAssets > STORMNODE_SYNC_LIST; }
-    bool IsWinnersListSynced() { return nRequestedStormnodeAssets > STORMNODE_SYNC_SNW; }
-    bool IsSynced() { return nRequestedStormnodeAssets == STORMNODE_SYNC_FINISHED; }
+    bool IsDynodeListSynced() { return nRequestedDynodeAssets > DYNODE_SYNC_LIST; }
+    bool IsWinnersListSynced() { return nRequestedDynodeAssets > DYNODE_SYNC_SNW; }
+    bool IsSynced() { return nRequestedDynodeAssets == DYNODE_SYNC_FINISHED; }
 
-    int GetAssetID() { return nRequestedStormnodeAssets; }
-    int GetAttempt() { return nRequestedStormnodeAttempt; }
+    int GetAssetID() { return nRequestedDynodeAssets; }
+    int GetAttempt() { return nRequestedDynodeAttempt; }
     std::string GetAssetName();
     std::string GetSyncStatus();
 
@@ -85,4 +85,4 @@ public:
     void UpdatedBlockTip(const CBlockIndex *pindex);
 };
 
-#endif // DARKSILK_STORMNODE_SYNC_H
+#endif // DYNAMIC_DYNODE_SYNC_H

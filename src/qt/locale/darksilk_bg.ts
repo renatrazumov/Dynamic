@@ -62,12 +62,12 @@
         <translation>Адреси за получаване</translation>
     </message>
     <message>
-        <source>These are your DarkSilk addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>Това са вашите DarkSilk адреси за изпращане на плащания. Преди изпращане винаги проверявайте количеството и адреса за получаване на монетите.</translation>
+        <source>These are your Dynamic addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation>Това са вашите Dynamic адреси за изпращане на плащания. Преди изпращане винаги проверявайте количеството и адреса за получаване на монетите.</translation>
     </message>
     <message>
-        <source>These are your DarkSilk addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>Това са вашите DarkSilk адреси за получаване на плащания. Препоръчително е да използвате нов адрес за всяка нова транзакция. </translation>
+        <source>These are your Dynamic addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
+        <translation>Това са вашите Dynamic адреси за получаване на плащания. Препоръчително е да използвате нов адрес за всяка нова транзакция. </translation>
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -176,8 +176,8 @@
         <translation>Потвърдете на шифрирането на портфейла</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR DSLK&lt;/b&gt;!</source>
-        <translation>Внимание: Ако шифрирате вашия портфейл и загубите паролата си,  &lt;b&gt;ЩЕ ЗАГУБИТЕ ВСИЧКИ DSLK МОНЕТИ!&lt;/b&gt;!</translation>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR DYN&lt;/b&gt;!</source>
+        <translation>Внимание: Ако шифрирате вашия портфейл и загубите паролата си,  &lt;b&gt;ЩЕ ЗАГУБИТЕ ВСИЧКИ DYN МОНЕТИ!&lt;/b&gt;!</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
@@ -188,8 +188,8 @@
         <translation>Портфейлът е шифриран</translation>
     </message>
     <message>
-        <source>DarkSilk will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your darksilks from being stolen by malware infecting your computer.</source>
-        <translation>DarkSilk ще се затвори, за да завърши процеса по шифриране. Запомнете, че шифрирането на вашия портфейл не може напълно да ви предпази от кражба на монетите чрез зловреден софтуер инфектирал компютъра ви. </translation>
+        <source>Dynamic will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your dynamics from being stolen by malware infecting your computer.</source>
+        <translation>Dynamic ще се затвори, за да завърши процеса по шифриране. Запомнете, че шифрирането на вашия портфейл не може напълно да ви предпази от кражба на монетите чрез зловреден софтуер инфектирал компютъра ви. </translation>
     </message>
     <message>
         <source>IMPORTANT: Any previous backups you have made of your wallet file should be replaced with the newly generated, encrypted wallet file. For security reasons, previous backups of the unencrypted wallet file will become useless as soon as you start using the new, encrypted wallet.</source>
@@ -229,10 +229,10 @@
     </message>
 </context>
 <context>
-    <name>DarkSilkGUI</name>
+    <name>DynamicGUI</name>
     <message>
-        <source>DarkSilk Core</source>
-        <translation>DarkSilk Ядро</translation>
+        <source>Dynamic Core</source>
+        <translation>Dynamic Ядро</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -255,16 +255,16 @@
         <translation>&amp;Изпращане</translation>
     </message>
     <message>
-        <source>Send coins to a DarkSilk address</source>
-        <translation>Изпращане на монети към DarkSilk адрес</translation>
+        <source>Send coins to a Dynamic address</source>
+        <translation>Изпращане на монети към Dynamic адрес</translation>
     </message>
     <message>
         <source>&amp;Receive</source>
         <translation>&amp;Получаване</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and darksilk: URIs)</source>
-        <translation>Заявка за плащане (генерира QR кодове и DarkSilk: URI)</translation>
+        <source>Request payments (generates QR codes and dynamic: URIs)</source>
+        <translation>Заявка за плащане (генерира QR кодове и Dynamic: URI)</translation>
     </message>
     <message>
         <source>&amp;Transactions</source>
@@ -283,12 +283,12 @@
         <translation>Изход от приложението</translation>
     </message>
     <message>
-        <source>&amp;About DarkSilk Core</source>
-        <translation>&amp;За DarkSilk ядрото</translation>
+        <source>&amp;About Dynamic Core</source>
+        <translation>&amp;За Dynamic ядрото</translation>
     </message>
     <message>
-        <source>Show information about DarkSilk Core</source>
-        <translation>Покаци информация за DarkSilk Core</translation>
+        <source>Show information about Dynamic Core</source>
+        <translation>Покаци информация за Dynamic Core</translation>
     </message>
     <message>
         <source>About &amp;Qt</source>
@@ -303,8 +303,8 @@
         <translation>&amp;Опции...</translation>
     </message>
     <message>
-        <source>Modify configuration options for DarkSilk</source>
-        <translation>Промяна на опции за конфигуриране на DarkSilk</translation>
+        <source>Modify configuration options for Dynamic</source>
+        <translation>Промяна на опции за конфигуриране на Dynamic</translation>
     </message>
     <message>
         <source>&amp;Show / Hide</source>
@@ -355,16 +355,16 @@
         <translation>Подписване на &amp;съобщение...</translation>
     </message>
     <message>
-        <source>Sign messages with your DarkSilk addresses to prove you own them</source>
-        <translation>Подпиши съобщения с твоите DarkSilk адреси за да докажеш че ги притежаваш</translation>
+        <source>Sign messages with your Dynamic addresses to prove you own them</source>
+        <translation>Подпиши съобщения с твоите Dynamic адреси за да докажеш че ги притежаваш</translation>
     </message>
     <message>
         <source>&amp;Verify message...</source>
         <translation>&amp;Проверка на съобщение...</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified DarkSilk addresses</source>
-        <translation>Проверете съобщенията, за да сте сигурни че са подписани с определен DarkSilk адрес</translation>
+        <source>Verify messages to ensure they were signed with specified Dynamic addresses</source>
+        <translation>Проверете съобщенията, за да сте сигурни че са подписани с определен Dynamic адрес</translation>
     </message>
     <message>
         <source>&amp;Information</source>
@@ -443,16 +443,16 @@
         <translation>Отвори &amp;URI...</translation>
     </message>
     <message>
-        <source>Open a darksilk: URI or payment request</source>
-        <translation>Отвори DarkSilk: URI или заявка за плащане</translation>
+        <source>Open a dynamic: URI or payment request</source>
+        <translation>Отвори Dynamic: URI или заявка за плащане</translation>
     </message>
     <message>
         <source>&amp;Command-line options</source>
         <translation>&amp;Опции на командния ред</translation>
     </message>
     <message>
-        <source>DarkSilk Core client</source>
-        <translation>DarkSilk Core клиент</translation>
+        <source>Dynamic Core client</source>
+        <translation>Dynamic Core клиент</translation>
     </message>
     <message numerus="yes">
         <source>Processed %n blocks of transaction history.</source>
@@ -463,8 +463,8 @@
         <translation>Синхронизиране на допълнителни данни: %p%</translation>
     </message>
     <message>
-        <source>Show the DarkSilk Core help message to get a list with possible DarkSilk command-line options</source>
-        <translation>Покажи съобщението за помощ на DarkSilk ядрото за да получиш списък на възможните опции за командния ред</translation>
+        <source>Show the Dynamic Core help message to get a list with possible Dynamic command-line options</source>
+        <translation>Покажи съобщението за помощ на Dynamic ядрото за да получиш списък на възможните опции за командния ред</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -487,8 +487,8 @@
         <translation>Лента с инструменти</translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to DarkSilk network</source>
-        <translation><numerusform>%n активни връзки към DarkSilk мрежата</numerusform><numerusform>%n активни връзки към DarkSilk мрежата</numerusform></translation>
+        <source>%n active connection(s) to Dynamic network</source>
+        <translation><numerusform>%n активни връзки към Dynamic мрежата</numerusform><numerusform>%n активни връзки към Dynamic мрежата</numerusform></translation>
     </message>
     <message>
         <source>Synchronizing with network...</source>
@@ -741,8 +741,8 @@ Address: %4
         <translation>Копирай рестото</translation>
     </message>
     <message>
-        <source>Non-anonymized input selected. &lt;b&gt;Sandstorm will be disabled.&lt;/b&gt;&lt;br&gt;&lt;br&gt;If you still want to use Sandstorm, please deselect all non-nonymized inputs first and then check Sandstorm checkbox again.</source>
-        <translation>Избрани са не-анонимизирани наличности. &lt;b&gt;Sandstorm ще бъде изключен.&lt;/b&gt;&lt;br&gt;&lt;br&gt;Ако искате да използвате Sandstorm, моля отменете избора на всички не-анонимизирани наличности и след това изберете чекбокса на Sandstorm отново.</translation>
+        <source>Non-anonymized input selected. &lt;b&gt;Privatesend will be disabled.&lt;/b&gt;&lt;br&gt;&lt;br&gt;If you still want to use Privatesend, please deselect all non-nonymized inputs first and then check Privatesend checkbox again.</source>
+        <translation>Избрани са не-анонимизирани наличности. &lt;b&gt;Privatesend ще бъде изключен.&lt;/b&gt;&lt;br&gt;&lt;br&gt;Ако искате да използвате Privatesend, моля отменете избора на всички не-анонимизирани наличности и след това изберете чекбокса на Privatesend отново.</translation>
     </message>
     <message>
         <source>highest</source>
@@ -842,10 +842,10 @@ Address: %4
     </message>
 </context>
 <context>
-    <name>SandstormConfig</name>
+    <name>PrivatesendConfig</name>
     <message>
-        <source>Configure Sandstorm</source>
-        <translation>Настройка на Sandstorm</translation>
+        <source>Configure Privatesend</source>
+        <translation>Настройка на Privatesend</translation>
     </message>
     <message>
         <source>Basic Privacy</source>
@@ -864,48 +864,48 @@ Address: %4
         <translation>Моля изберете ниво на сигурност.</translation>
     </message>
     <message>
-        <source>Use 2 separate stormnodes to mix funds up to 1000 DSLK</source>
-        <translation>Използване на 2 различни stormnodes за смесване на средства до 1000 DSLK</translation>
+        <source>Use 2 separate dynodes to mix funds up to 1000 DYN</source>
+        <translation>Използване на 2 различни dynodes за смесване на средства до 1000 DYN</translation>
     </message>
     <message>
-        <source>Use 8 separate stormnodes to mix funds up to 1000 DSLK</source>
-        <translation>Използване на 8 различни stormnodes за смесване на средства до 1000 DSLK</translation>
+        <source>Use 8 separate dynodes to mix funds up to 1000 DYN</source>
+        <translation>Използване на 8 различни dynodes за смесване на средства до 1000 DYN</translation>
     </message>
     <message>
-        <source>Use 16 separate stormnodes</source>
-        <translation>Използване на 16 различни stormnodes за смесване на средства до 1000 DSLK</translation>
+        <source>Use 16 separate dynodes</source>
+        <translation>Използване на 16 различни dynodes за смесване на средства до 1000 DYN</translation>
     </message>
     <message>
-        <source>This option is the quickest and will cost about ~0.025 DSLK to anonymize 1000 DSLK</source>
-        <translation>Това е най-бързият вариант, анонимизиране на 1000 DSLK ще ви струва около 0.025 DSLK</translation>
+        <source>This option is the quickest and will cost about ~0.025 DYN to anonymize 1000 DYN</source>
+        <translation>Това е най-бързият вариант, анонимизиране на 1000 DYN ще ви струва около 0.025 DYN</translation>
     </message>
     <message>
-        <source>This option is moderately fast and will cost about 0.05 DSLK to anonymize 1000 DSLK</source>
-        <translation>Това е средно бърз вариант, анонимизиране на 1000 DSLK ще ви струва около 0.05 DSLK</translation>
+        <source>This option is moderately fast and will cost about 0.05 DYN to anonymize 1000 DYN</source>
+        <translation>Това е средно бърз вариант, анонимизиране на 1000 DYN ще ви струва около 0.05 DYN</translation>
     </message>
     <message>
-        <source>0.1 DSLK per 1000 DSLK you anonymize.</source>
-        <translation>0.1 DSLK за всеки 1000 DSLK които анонимизирате.</translation>
+        <source>0.1 DYN per 1000 DYN you anonymize.</source>
+        <translation>0.1 DYN за всеки 1000 DYN които анонимизирате.</translation>
     </message>
     <message>
         <source>This is the slowest and most secure option. Using maximum anonymity will cost</source>
         <translation>Това е най-бавния и най-сигурен начин. Използването на максимална анонимност ще ви коства</translation>
     </message>
     <message>
-        <source>Sandstorm Configuration</source>
-        <translation>Настройка на Sandstorm </translation>
+        <source>Privatesend Configuration</source>
+        <translation>Настройка на Privatesend </translation>
     </message>
     <message>
-        <source>Sandstorm was successfully set to basic (%1 and 2 rounds). You can change this at any time by opening DarkSilk's configuration screen.</source>
-        <translation>Sandstorm беше успешно настроен на режим основен (%1 и 2 цикъла). Можете да промените тази настройка по всяко време, като отворите конфигурационния прозорец на DarkSilk.</translation>
+        <source>Privatesend was successfully set to basic (%1 and 2 rounds). You can change this at any time by opening Dynamic's configuration screen.</source>
+        <translation>Privatesend беше успешно настроен на режим основен (%1 и 2 цикъла). Можете да промените тази настройка по всяко време, като отворите конфигурационния прозорец на Dynamic.</translation>
     </message>
     <message>
-        <source>Sandstorm was successfully set to high (%1 and 8 rounds). You can change this at any time by opening DarkSilk's configuration screen.</source>
-        <translation>Sandstorm  беше успешно настроен на режим висок (%1 и 8 цикъла). Можете да промените тази настройка по всяко време, като отворите конфигурационния прозорец на DarkSilk.</translation>
+        <source>Privatesend was successfully set to high (%1 and 8 rounds). You can change this at any time by opening Dynamic's configuration screen.</source>
+        <translation>Privatesend  беше успешно настроен на режим висок (%1 и 8 цикъла). Можете да промените тази настройка по всяко време, като отворите конфигурационния прозорец на Dynamic.</translation>
     </message>
     <message>
-        <source>Sandstorm was successfully set to maximum (%1 and 16 rounds). You can change this at any time by opening DarkSilk's configuration screen.</source>
-        <translation>Sandstorm беше успешно настроен на режим максимум (%1 и 16 цикъла). Можете да промените тази настройка по всяко време, като отворите конфигурационния прозорец на DarkSilk.</translation>
+        <source>Privatesend was successfully set to maximum (%1 and 16 rounds). You can change this at any time by opening Dynamic's configuration screen.</source>
+        <translation>Privatesend беше успешно настроен на режим максимум (%1 и 16 цикъла). Можете да промените тази настройка по всяко време, като отворите конфигурационния прозорец на Dynamic.</translation>
     </message>
 </context>
 <context>
@@ -947,8 +947,8 @@ Address: %4
         <translation>Редактиране на адрес за изпращане</translation>
     </message>
     <message>
-        <source>The entered address "%1" is not a valid DarkSilk address.</source>
-        <translation>Въведеният адрес "%1" не е валиден DarkSilk адрес.</translation>
+        <source>The entered address "%1" is not a valid Dynamic address.</source>
+        <translation>Въведеният адрес "%1" не е валиден Dynamic адрес.</translation>
     </message>
     <message>
         <source>The entered address "%1" is already in the address book.</source>
@@ -989,8 +989,8 @@ Address: %4
 <context>
     <name>HelpMessageDialog</name>
     <message>
-        <source>DarkSilk Core</source>
-        <translation>DarkSilk ядро</translation>
+        <source>Dynamic Core</source>
+        <translation>Dynamic ядро</translation>
     </message>
     <message>
         <source>version</source>
@@ -1001,8 +1001,8 @@ Address: %4
         <translation>(%1-битов)</translation>
     </message>
     <message>
-        <source>About DarkSilk Core</source>
-        <translation>За DarkSilk ядрото</translation>
+        <source>About Dynamic Core</source>
+        <translation>За Dynamic ядрото</translation>
     </message>
     <message>
         <source>Command-line options</source>
@@ -1048,16 +1048,16 @@ Address: %4
         <translation>Добре дошли</translation>
     </message>
     <message>
-        <source>Welcome to DarkSilk Core.</source>
-        <translation>Добре дошли в ядрото на DarkSilk.</translation>
+        <source>Welcome to Dynamic Core.</source>
+        <translation>Добре дошли в ядрото на Dynamic.</translation>
     </message>
     <message>
-        <source>As this is the first time the program is launched, you can choose where DarkSilk Core will store its data.</source>
-        <translation>Тъй като програмата се стартира за първи път вие може да изберете къде DarkSilk да съхранява своята информация.</translation>
+        <source>As this is the first time the program is launched, you can choose where Dynamic Core will store its data.</source>
+        <translation>Тъй като програмата се стартира за първи път вие може да изберете къде Dynamic да съхранява своята информация.</translation>
     </message>
     <message>
-        <source>DarkSilk Core will download and store a copy of the DarkSilk block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
-        <translation>DarkSilk ще свали и съхрани копие на DarkSilk регистъра на блокове. Информацията ще заеме поне %1ГБ  пространство и ще нараства с времето. В тази папка ще бъде съхранен и портфейла. </translation>
+        <source>Dynamic Core will download and store a copy of the Dynamic block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
+        <translation>Dynamic ще свали и съхрани копие на Dynamic регистъра на блокове. Информацията ще заеме поне %1ГБ  пространство и ще нараства с времето. В тази папка ще бъде съхранен и портфейла. </translation>
     </message>
     <message>
         <source>Use the default data directory</source>
@@ -1068,8 +1068,8 @@ Address: %4
         <translation>Определете папка по ваш избор:</translation>
     </message>
     <message>
-        <source>DarkSilk Core</source>
-        <translation>DarkSilk ядро</translation>
+        <source>Dynamic Core</source>
+        <translation>Dynamic ядро</translation>
     </message>
     <message>
         <source>Error: Specified data directory "%1" cannot be created.</source>
@@ -1122,12 +1122,12 @@ Address: %4
         <translation>&amp;Основни</translation>
     </message>
     <message>
-        <source>Automatically start DarkSilk after logging in to the system.</source>
-        <translation>Автоматично стартиране на DarkSilk след влизане в системата.</translation>
+        <source>Automatically start Dynamic after logging in to the system.</source>
+        <translation>Автоматично стартиране на Dynamic след влизане в системата.</translation>
     </message>
     <message>
-        <source>&amp;Start DarkSilk on system login</source>
-        <translation>&amp;Стартирне на DarkSilk при влизане в системата.</translation>
+        <source>&amp;Start Dynamic on system login</source>
+        <translation>&amp;Стартирне на Dynamic при влизане в системата.</translation>
     </message>
     <message>
         <source>Size of &amp;database cache</source>
@@ -1146,16 +1146,16 @@ Address: %4
         <translation>(0 = автоматично, &lt;0 = оставете толкова неизползвани ядра)</translation>
     </message>
     <message>
-        <source>Sandstorm rounds to use</source>
-        <translation>Използвани DarkSilk цикли</translation>
+        <source>Privatesend rounds to use</source>
+        <translation>Използвани Dynamic цикли</translation>
     </message>
     <message>
-        <source>This amount acts as a threshold to turn off Sandstorm once it's reached.</source>
-        <translation>Тази сума действа като праг, за да се изключи Sandstorm, когато той е достигнат.</translation>
+        <source>This amount acts as a threshold to turn off Privatesend once it's reached.</source>
+        <translation>Тази сума действа като праг, за да се изключи Privatesend, когато той е достигнат.</translation>
     </message>
     <message>
-        <source>Amount of DarkSilk to keep anonymized</source>
-        <translation>Постоянно поддържано количество анонимни DarkSilk монети </translation>
+        <source>Amount of Dynamic to keep anonymized</source>
+        <translation>Постоянно поддържано количество анонимни Dynamic монети </translation>
     </message>
     <message>
         <source>W&amp;allet</source>
@@ -1174,8 +1174,8 @@ Address: %4
         <translation>Разрешени входящи връзки</translation>
     </message>
     <message>
-        <source>Connect to the DarkSilk network through a SOCKS5 proxy.</source>
-        <translation>Свързване с мрежата на DarkSilk чрез SOCKS5 прокси.</translation>
+        <source>Connect to the Dynamic network through a SOCKS5 proxy.</source>
+        <translation>Свързване с мрежата на Dynamic чрез SOCKS5 прокси.</translation>
     </message>
     <message>
         <source>&amp;Connect through SOCKS5 proxy (default proxy):</source>
@@ -1186,8 +1186,8 @@ Address: %4
         <translation>Експерт</translation>
     </message>
     <message>
-        <source>This setting determines the amount of individual stormnodes that an input will be anonymized through.&lt;br/&gt;More rounds of anonymization gives a higher degree of privacy, but also costs more in fees.</source>
-        <translation>Тази настройка определя броя на отделните stormnodes, чрез които ще се извършва анонимизирането.&lt;br/&gt;Повече цикли на анонимизиране дава по-висока степен на сигурност, но и  по-високи такси.</translation>
+        <source>This setting determines the amount of individual dynodes that an input will be anonymized through.&lt;br/&gt;More rounds of anonymization gives a higher degree of privacy, but also costs more in fees.</source>
+        <translation>Тази настройка определя броя на отделните dynodes, чрез които ще се извършва анонимизирането.&lt;br/&gt;Повече цикли на анонимизиране дава по-висока степен на сигурност, но и  по-високи такси.</translation>
     </message>
     <message>
         <source>Whether to show coin control features or not.</source>
@@ -1206,8 +1206,8 @@ Address: %4
         <translation>&amp;Мрежа</translation>
     </message>
     <message>
-        <source>Automatically open the DarkSilk client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Автоматично отваря порта за DarkSilk клиента в маршрутизатора. Това работи само когато вашият маршрутизатор поддържа UPnP и той е разрешен.</translation>
+        <source>Automatically open the Dynamic client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation>Автоматично отваря порта за Dynamic клиента в маршрутизатора. Това работи само когато вашият маршрутизатор поддържа UPnP и той е разрешен.</translation>
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>
@@ -1258,14 +1258,14 @@ Address: %4
         <translation>Език на потребителски &amp;изглед :</translation>
     </message>
     <message>
-        <source>The user interface language can be set here. This setting will take effect after restarting DarkSilk.</source>
-        <translation>Тук можете да промените езика на потребителския изглед. Настройката ще влезе в сила след рестартиране на DarkSilk.</translation>
+        <source>The user interface language can be set here. This setting will take effect after restarting Dynamic.</source>
+        <translation>Тук можете да промените езика на потребителския изглед. Настройката ще влезе в сила след рестартиране на Dynamic.</translation>
     </message>
     <message>
         <source>Language missing or translation incomplete? Help contributing translations here:
-https://www.transifex.com/projects/p/darksilk/</source>
+https://www.transifex.com/projects/p/dynamic/</source>
         <translation>Липсва език или превода е непълен? Можете да помогнете с превода тук:
-https://www.transifex.com/projects/p/darksilk/</translation>
+https://www.transifex.com/projects/p/dynamic/</translation>
     </message>
     <message>
         <source>User Interface Theme:</source>
@@ -1347,8 +1347,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Формуляр</translation>
     </message>
     <message>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the DarkSilk network after a connection is established, but this process has not completed yet.</source>
-        <translation>Показаната информация може да е остаряла. Вашият портфейл се синхронизира автоматично след изграждането на връзка с DarkSilk мрежата, но този процес все още не е завършен.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Dynamic network after a connection is established, but this process has not completed yet.</source>
+        <translation>Показаната информация може да е остаряла. Вашият портфейл се синхронизира автоматично след изграждането на връзка с Dynamic мрежата, но този процес все още не е завършен.</translation>
     </message>
     <message>
         <source>Available:</source>
@@ -1423,16 +1423,16 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Завършено:</translation>
     </message>
     <message>
-        <source>Sandstorm Balance:</source>
-        <translation>Sandstorm баланс:</translation>
+        <source>Privatesend Balance:</source>
+        <translation>Privatesend баланс:</translation>
     </message>
     <message>
         <source>Amount and Rounds:</source>
         <translation>Количество и цикли:</translation>
     </message>
     <message>
-        <source>0 DSLK / 0 Rounds</source>
-        <translation>0 DSLK / 0 Цикъла</translation>
+        <source>0 DYN / 0 Rounds</source>
+        <translation>0 DYN / 0 Цикъла</translation>
     </message>
     <message>
         <source>Submitted Denom:</source>
@@ -1443,8 +1443,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Няма такова</translation>
     </message>
     <message>
-        <source>Sandstorm</source>
-        <translation>Sandstorm</translation>
+        <source>Privatesend</source>
+        <translation>Privatesend</translation>
     </message>
     <message>
         <source>Recent transactions</source>
@@ -1455,24 +1455,24 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Пусни/Спри Смесване</translation>
     </message>
     <message>
-        <source>The denominations you submitted to the Stormnode.&lt;br&gt;To mix, other users must submit the exact same denominations.</source>
-        <translation>Деноминираните суми, които сте изпратили към Stormnode. За смесване, другите потребители трябва да изпратят абсолютно същите деноминирани суми.</translation>
+        <source>The denominations you submitted to the Dynode.&lt;br&gt;To mix, other users must submit the exact same denominations.</source>
+        <translation>Деноминираните суми, които сте изпратили към Dynode. За смесване, другите потребители трябва да изпратят абсолютно същите деноминирани суми.</translation>
     </message>
     <message>
         <source>(Last Message)</source>
         <translation>(Последно съобщение)</translation>
     </message>
     <message>
-        <source>Try to manually submit a Sandstorm request.</source>
-        <translation>Опитай ръчно изпращане на Sandstorm заявка.</translation>
+        <source>Try to manually submit a Privatesend request.</source>
+        <translation>Опитай ръчно изпращане на Privatesend заявка.</translation>
     </message>
     <message>
         <source>Try Mix</source>
         <translation>Опитай смесване</translation>
     </message>
     <message>
-        <source>Reset the current status of Sandstorm (can interrupt Sandstorm if it's in the process of Mixing, which can cost you money!)</source>
-        <translation>Изчистване на текущия статус на Sandstorm (може да прекъсне Sandstorm по време на миксиране, което може да ви коства пари!)</translation>
+        <source>Reset the current status of Privatesend (can interrupt Privatesend if it's in the process of Mixing, which can cost you money!)</source>
+        <translation>Изчистване на текущия статус на Privatesend (може да прекъсне Privatesend по време на миксиране, което може да ви коства пари!)</translation>
     </message>
     <message>
         <source>Reset</source>
@@ -1487,12 +1487,12 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Неактивно</translation>
     </message>
     <message>
-        <source>Start Sandstorm Mixing</source>
-        <translation>Пусни Sandstorm смесването</translation>
+        <source>Start Privatesend Mixing</source>
+        <translation>Пусни Privatesend смесването</translation>
     </message>
     <message>
-        <source>Stop Sandstorm Mixing</source>
-        <translation>Спри Sandstorm смесването</translation>
+        <source>Stop Privatesend Mixing</source>
+        <translation>Спри Privatesend смесването</translation>
     </message>
     <message>
         <source>No inputs detected</source>
@@ -1535,9 +1535,9 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Активирано</translation>
     </message>
     <message>
-        <source>Last Sandstorm message:
+        <source>Last Privatesend message:
 </source>
-        <translation>Последно Sandstorm съобщение:
+        <translation>Последно Privatesend съобщение:
 </translation>
     </message>
     <message>
@@ -1545,20 +1545,20 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>N/A</translation>
     </message>
     <message>
-        <source>Sandstorm was successfully reset.</source>
-        <translation>Sandstorm беше успешно нулиран.</translation>
+        <source>Privatesend was successfully reset.</source>
+        <translation>Privatesend беше успешно нулиран.</translation>
     </message>
     <message>
-        <source>If you don't want to see internal Sandstorm fees/transactions select "Most Common" as Type on the "Transactions" tab.</source>
-        <translation>Ако не искате да видите вътрешните Sandstorm такси/транзакции изберете "Най-често срещаните" като тип от раздел "Операции" .</translation>
+        <source>If you don't want to see internal Privatesend fees/transactions select "Most Common" as Type on the "Transactions" tab.</source>
+        <translation>Ако не искате да видите вътрешните Privatesend такси/транзакции изберете "Най-често срещаните" като тип от раздел "Операции" .</translation>
     </message>
     <message>
-        <source>Sandstorm requires at least %1 to use.</source>
-        <translation>Sandstorm се нуждае от поне %1 за да започне.</translation>
+        <source>Privatesend requires at least %1 to use.</source>
+        <translation>Privatesend се нуждае от поне %1 за да започне.</translation>
     </message>
     <message>
-        <source>Wallet is locked and user declined to unlock. Disabling Sandstorm.</source>
-        <translation>Портфейлът е заключен и потребителя отказва отключване. Sandstorm е деактивиран.</translation>
+        <source>Wallet is locked and user declined to unlock. Disabling Privatesend.</source>
+        <translation>Портфейлът е заключен и потребителя отказва отключване. Privatesend е деактивиран.</translation>
     </message>
 </context>
 <context>
@@ -1568,8 +1568,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Грешка в заявката за плащане</translation>
     </message>
     <message>
-        <source>Cannot start darksilk: click-to-pay handler</source>
-        <translation>Не може да стартира darksilk: кликни за плащане на притежателя</translation>
+        <source>Cannot start dynamic: click-to-pay handler</source>
+        <translation>Не може да стартира dynamic: кликни за плащане на притежателя</translation>
     </message>
     <message>
         <source>URI handling</source>
@@ -1588,8 +1588,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Невалиден адрес за плащане %1</translation>
     </message>
     <message>
-        <source>URI cannot be parsed! This can be caused by an invalid DarkSilk address or malformed URI parameters.</source>
-        <translation>Грешка при анализ на URI! Това може да е следствие от неправилен DarkSilk адрес или неправилно зададени URI параметри.</translation>
+        <source>URI cannot be parsed! This can be caused by an invalid Dynamic address or malformed URI parameters.</source>
+        <translation>Грешка при анализ на URI! Това може да е следствие от неправилен Dynamic адрес или неправилно зададени URI параметри.</translation>
     </message>
     <message>
         <source>Payment request file cannot be read! This can be caused by an invalid payment request file.</source>
@@ -1674,8 +1674,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Сума</translation>
     </message>
     <message>
-        <source>Enter a DarkSilk address (e.g. %1)</source>
-        <translation>Въведете DarkSilk адрес (напр.%1)</translation>
+        <source>Enter a Dynamic address (e.g. %1)</source>
+        <translation>Въведете Dynamic адрес (напр.%1)</translation>
     </message>
     <message>
         <source>%1 d</source>
@@ -1764,8 +1764,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Брой връзки</translation>
     </message>
     <message>
-        <source>Open the DarkSilk debug log file from the current data directory. This can take a few seconds for large log files.</source>
-        <translation>Отваря файла за откриване на грешки на DarkSilk от текущата папка.  За по-големите файлове това може да отнеме няколко секунди.</translation>
+        <source>Open the Dynamic debug log file from the current data directory. This can take a few seconds for large log files.</source>
+        <translation>Отваря файла за откриване на грешки на Dynamic от текущата папка.  За по-големите файлове това може да отнеме няколко секунди.</translation>
     </message>
     <message>
         <source>&amp;Open</source>
@@ -1812,8 +1812,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Регистър на блокове</translation>
     </message>
     <message>
-        <source>Number of Stormnodes</source>
-        <translation>Брой на Stormnodes</translation>
+        <source>Number of Dynodes</source>
+        <translation>Брой на Dynodes</translation>
     </message>
     <message>
         <source>&amp;Console</source>
@@ -1972,8 +1972,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Изход:</translation>
     </message>
     <message>
-        <source>Welcome to the DarkSilk RPC console.</source>
-        <translation>Добре дошли в DarkSilk RPC (Remote Procedure Call) конзолата.</translation>
+        <source>Welcome to the Dynamic RPC console.</source>
+        <translation>Добре дошли в Dynamic RPC (Remote Procedure Call) конзолата.</translation>
     </message>
     <message>
         <source>Use up and down arrows to navigate history, and &lt;b&gt;Ctrl-L&lt;/b&gt; to clear screen.</source>
@@ -2035,8 +2035,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>П&amp;овторно използване на съществуващ адрес за получаване (не се препоръчва)</translation>
     </message>
     <message>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the DarkSilk network.</source>
-        <translation>Възможност  да се прикрепи съобщение към заявката за плащане, което да бъде показано при отваряне на заявката. Забележка: съобщението няма да бъде изпратено с плащането по мрежата на DarkSilk.</translation>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Dynamic network.</source>
+        <translation>Възможност  да се прикрепи съобщение към заявката за плащане, което да бъде показано при отваряне на заявката. Забележка: съобщението няма да бъде изпратено с плащането по мрежата на Dynamic.</translation>
     </message>
     <message>
         <source>&amp;Message:</source>
@@ -2047,8 +2047,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Възможност да се прикрепи наименование към новия адрес за получаване.</translation>
     </message>
     <message>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened.&lt;br&gt;Note: The message will not be sent with the payment over the DarkSilk network.</source>
-        <translation>Възможност  да се прикрепи съобщение към заявката за плащане, което да бъде показано при отваряне на заявката. &lt;br&gt;Забележка: съобщението няма да бъде изпратено с плащането по мрежата на DarkSilk.</translation>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened.&lt;br&gt;Note: The message will not be sent with the payment over the Dynamic network.</source>
+        <translation>Възможност  да се прикрепи съобщение към заявката за плащане, което да бъде показано при отваряне на заявката. &lt;br&gt;Забележка: съобщението няма да бъде изпратено с плащането по мрежата на Dynamic.</translation>
     </message>
     <message>
         <source>Use this form to request payments. All fields are &lt;b&gt;optional&lt;/b&gt;.</source>
@@ -2292,8 +2292,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Ако променената такса е 1000 duffs и транзакцията е само 250 байта, тогава "за килобайт" само плаща такса 250 duffs,&lt;br /&gt; тогава"за последно" заплаща 1000 duffs. За транзакции по-големи от килобайт едновременно се заплащат от килобайт.</translation>
     </message>
     <message>
-        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks.&lt;br /&gt;But be aware that this can end up in a never confirming transaction once there is more demand for darksilk transactions than the network can process.</source>
-        <translation>Разплащането само минималната такса ще продължи толкова дълго,докато транзакцията заема по-малък обем в блоковото пространство.&lt;br /&gt; Но имайте предвид, че транзакцията може да се окаже без първоначално потвърждение ако се появи голямо търсене на darksilk транзакции отколкото мрежата може да обработи.</translation>
+        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks.&lt;br /&gt;But be aware that this can end up in a never confirming transaction once there is more demand for dynamic transactions than the network can process.</source>
+        <translation>Разплащането само минималната такса ще продължи толкова дълго,докато транзакцията заема по-малък обем в блоковото пространство.&lt;br /&gt; Но имайте предвид, че транзакцията може да се окаже без първоначално потвърждение ако се появи голямо търсене на dynamic транзакции отколкото мрежата може да обработи.</translation>
     </message>
     <message>
         <source>per kilobyte</source>
@@ -2364,8 +2364,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Добави &amp;получател</translation>
     </message>
     <message>
-        <source>Sandstorm</source>
-        <translation>Sandstorm</translation>
+        <source>Privatesend</source>
+        <translation>Privatesend</translation>
     </message>
     <message>
         <source>InstantX</source>
@@ -2416,8 +2416,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>анонимни средства</translation>
     </message>
     <message>
-        <source>(sandstorm requires this amount to be rounded up to the nearest %1).</source>
-        <translation>(sandstorm изисква тази сума да бъде закръглена до най-близката %1).</translation>
+        <source>(privatesend requires this amount to be rounded up to the nearest %1).</source>
+        <translation>(privatesend изисква тази сума да бъде закръглена до най-близката %1).</translation>
     </message>
     <message>
         <source>any available funds (not recommended)</source>
@@ -2496,8 +2496,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Плати само минималната такса от %1</translation>
     </message>
     <message>
-        <source>Warning: Invalid DarkSilk address</source>
-        <translation>Внимание: Невалиден DarkSilk адрес</translation>
+        <source>Warning: Invalid Dynamic address</source>
+        <translation>Внимание: Невалиден Dynamic адрес</translation>
     </message>
     <message>
         <source>Warning: Unknown change address</source>
@@ -2519,8 +2519,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Плати &amp;На:</translation>
     </message>
     <message>
-        <source>The DarkSilk address to send the payment to</source>
-        <translation>DarkSilk адресът да изпрати плащането към </translation>
+        <source>The Dynamic address to send the payment to</source>
+        <translation>Dynamic адресът да изпрати плащането към </translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -2559,8 +2559,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Съобщение:</translation>
     </message>
     <message>
-        <source>A message that was attached to the darksilk: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the DarkSilk network.</source>
-        <translation>Съобщението което беше прикрепено към darksilk: URI ще бъде запазено с транзакцията за ваше сведение. Забележка: Това съобщение няма да бъде изпратено през DarkSilk мрежата.</translation>
+        <source>A message that was attached to the dynamic: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Dynamic network.</source>
+        <translation>Съобщението което беше прикрепено към dynamic: URI ще бъде запазено с транзакцията за ваше сведение. Забележка: Това съобщение няма да бъде изпратено през Dynamic мрежата.</translation>
     </message>
     <message>
         <source>This is an unverified payment request.</source>
@@ -2586,8 +2586,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
 <context>
     <name>ShutdownWindow</name>
     <message>
-        <source>DarkSilk Core is shutting down...</source>
-        <translation>DarkSilk ядрото се изключва...</translation>
+        <source>Dynamic Core is shutting down...</source>
+        <translation>Dynamic ядрото се изключва...</translation>
     </message>
     <message>
         <source>Do not shut down the computer until this window disappears.</source>
@@ -2609,8 +2609,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Можете да подпишете съобщение като доказателство, че притежавате определен адрес. Бъдете внимателни и не подписвайте съобщения, които биха разкрили лична информация без вашето съгласие.</translation>
     </message>
     <message>
-        <source>The DarkSilk address to sign the message with</source>
-        <translation>DarkSilk адресът да подпише съобщението</translation>
+        <source>The Dynamic address to sign the message with</source>
+        <translation>Dynamic адресът да подпише съобщението</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -2641,8 +2641,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Копиране на текущия подпис в системния клипборд</translation>
     </message>
     <message>
-        <source>Sign the message to prove you own this DarkSilk address</source>
-        <translation>Подпиши съобщението за да докажеш че притежаваш този DarkSilk адрес</translation>
+        <source>Sign the message to prove you own this Dynamic address</source>
+        <translation>Подпиши съобщението за да докажеш че притежаваш този Dynamic адрес</translation>
     </message>
     <message>
         <source>Sign &amp;Message</source>
@@ -2665,12 +2665,12 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Въведете подписания адрес, съобщението (уверете се, че сте копирали редовете, спациите, табовете и другите точно) и подпишете отдолу, за да удостоверите съобщението. Внимавайте да не вмъкнете излишни символи в подписа от това, което е в самото съобщение, за да избегнете риска от злонамерна външа намеса.</translation>
     </message>
     <message>
-        <source>The DarkSilk address the message was signed with</source>
-        <translation>DarkSilk адресът ,с който е подписано съобщението</translation>
+        <source>The Dynamic address the message was signed with</source>
+        <translation>Dynamic адресът ,с който е подписано съобщението</translation>
     </message>
     <message>
-        <source>Verify the message to ensure it was signed with the specified DarkSilk address</source>
-        <translation>Проверете съобщението, за да сте сигурни че е подписано с определен DarkSilk адрес</translation>
+        <source>Verify the message to ensure it was signed with the specified Dynamic address</source>
+        <translation>Проверете съобщението, за да сте сигурни че е подписано с определен Dynamic адрес</translation>
     </message>
     <message>
         <source>Verify &amp;Message</source>
@@ -2736,8 +2736,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
 <context>
     <name>SplashScreen</name>
     <message>
-        <source>DarkSilk Core</source>
-        <translation>DarkSilk Ядро</translation>
+        <source>Dynamic Core</source>
+        <translation>Dynamic Ядро</translation>
     </message>
     <message>
         <source>Version %1</source>
@@ -2748,8 +2748,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Водещи Bitcoin разработчици</translation>
     </message>
     <message>
-        <source>The DarkSilk Core developers</source>
-        <translation>Водещи DarkSilk разработчици</translation>
+        <source>The Dynamic Core developers</source>
+        <translation>Водещи Dynamic разработчици</translation>
     </message>
     <message>
         <source>[testnet]</source>
@@ -3020,8 +3020,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Получен от</translation>
     </message>
     <message>
-        <source>Received via Sandstorm</source>
-        <translation>Получени с Sandstorm</translation>
+        <source>Received via Privatesend</source>
+        <translation>Получени с Privatesend</translation>
     </message>
     <message>
         <source>Sent to</source>
@@ -3036,24 +3036,24 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Емитирани</translation>
     </message>
     <message>
-        <source>Sandstorm Denominate</source>
-        <translation>Sandstorm деноминация</translation>
+        <source>Privatesend Denominate</source>
+        <translation>Privatesend деноминация</translation>
     </message>
     <message>
-        <source>Sandstorm Collateral Payment</source>
-        <translation>Sandstorm обезпечава плащането</translation>
+        <source>Privatesend Collateral Payment</source>
+        <translation>Privatesend обезпечава плащането</translation>
     </message>
     <message>
-        <source>Sandstorm Make Collateral Inputs</source>
-        <translation>Sandstorm направи обезпечение на постъпленията</translation>
+        <source>Privatesend Make Collateral Inputs</source>
+        <translation>Privatesend направи обезпечение на постъпленията</translation>
     </message>
     <message>
-        <source>Sandstorm Create Denominations</source>
-        <translation>Sandstorm направени деноминации</translation>
+        <source>Privatesend Create Denominations</source>
+        <translation>Privatesend направени деноминации</translation>
     </message>
     <message>
-        <source>Sandstormed</source>
-        <translation>Sandstormed</translation>
+        <source>Privatesended</source>
+        <translation>Privatesended</translation>
     </message>
     <message>
         <source>watch-only</source>
@@ -3131,24 +3131,24 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Изпратени на</translation>
     </message>
     <message>
-        <source>Sandstormed</source>
-        <translation>Sandstormed</translation>
+        <source>Privatesended</source>
+        <translation>Privatesended</translation>
     </message>
     <message>
-        <source>Sandstorm Make Collateral Inputs</source>
-        <translation>Sandstorm направи обезпечение на постъпленията</translation>
+        <source>Privatesend Make Collateral Inputs</source>
+        <translation>Privatesend направи обезпечение на постъпленията</translation>
     </message>
     <message>
-        <source>Sandstorm Create Denominations</source>
-        <translation>Sandstorm създава деноминации</translation>
+        <source>Privatesend Create Denominations</source>
+        <translation>Privatesend създава деноминации</translation>
     </message>
     <message>
-        <source>Sandstorm Denominate</source>
-        <translation>Sandstorm деноминация</translation>
+        <source>Privatesend Denominate</source>
+        <translation>Privatesend деноминация</translation>
     </message>
     <message>
-        <source>Sandstorm Collateral Payment</source>
-        <translation>Sandstorm обезпечава плащането</translation>
+        <source>Privatesend Collateral Payment</source>
+        <translation>Privatesend обезпечава плащането</translation>
     </message>
     <message>
         <source>To yourself</source>
@@ -3276,8 +3276,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Изпращане</translation>
     </message>
     <message>
-        <source>InstantX doesn't support sending values that high yet. Transactions are currently limited to %1 DSLK.</source>
-        <translation>InstantX не поддържа изпращане на толкова големи суми. Транзакциите са ограничени до %1 DSLK.</translation>
+        <source>InstantX doesn't support sending values that high yet. Transactions are currently limited to %1 DYN.</source>
+        <translation>InstantX не поддържа изпращане на толкова големи суми. Транзакциите са ограничени до %1 DYN.</translation>
     </message>
 </context>
 <context>
@@ -3320,18 +3320,18 @@ https://www.transifex.com/projects/p/darksilk/</translation>
     </message>
 </context>
 <context>
-    <name>darksilk-core</name>
+    <name>dynamic-core</name>
     <message>
         <source>Bind to given address and always listen on it. Use [host]:port notation for IPv6</source>
         <translation>Свързва се с посочения адрес и винаги слуша за него. Използвайте [хост]:порт за изписване при IPv6</translation>
     </message>
     <message>
-        <source>Cannot obtain a lock on data directory %s. DarkSilk Core is probably already running.</source>
-        <translation>Не може да се заключи дата директорията %s. DarkSilk ядрото вече работи.</translation>
+        <source>Cannot obtain a lock on data directory %s. Dynamic Core is probably already running.</source>
+        <translation>Не може да се заключи дата директорията %s. Dynamic ядрото вече работи.</translation>
     </message>
     <message>
-        <source>Sandstorm uses exact denominated amounts to send funds, you might simply need to anonymize some more coins.</source>
-        <translation>Sandstorm използва всички деноминирани наличности за да изпрати сумата, може би ще е необходимо да бъдат анонимизирани  още монети.</translation>
+        <source>Privatesend uses exact denominated amounts to send funds, you might simply need to anonymize some more coins.</source>
+        <translation>Privatesend използва всички деноминирани наличности за да изпрати сумата, може би ще е необходимо да бъдат анонимизирани  още монети.</translation>
     </message>
     <message>
         <source>Enter regression test mode, which uses a special chain in which blocks can be solved instantly.</source>
@@ -3382,16 +3382,16 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Това е предварителна тест версия - използвайте я на ваша отговорност - не използвайте за копане или за търговски приложения.</translation>
     </message>
     <message>
-        <source>Unable to bind to %s on this computer. DarkSilk Core is probably already running.</source>
-        <translation>Не може да се свърже с %s на този компютър. DarkSilk ядрото най-вероятно вече работи.</translation>
+        <source>Unable to bind to %s on this computer. Dynamic Core is probably already running.</source>
+        <translation>Не може да се свърже с %s на този компютър. Dynamic ядрото най-вероятно вече работи.</translation>
     </message>
     <message>
-        <source>Unable to locate enough Sandstorm denominated funds for this transaction.</source>
-        <translation>Не са намерени достатъчно Sandstorm деноминирани средства за тази транзакция.</translation>
+        <source>Unable to locate enough Privatesend denominated funds for this transaction.</source>
+        <translation>Не са намерени достатъчно Privatesend деноминирани средства за тази транзакция.</translation>
     </message>
     <message>
-        <source>Unable to locate enough Sandstorm non-denominated funds for this transaction that are not equal 1000 DSLK.</source>
-        <translation>Не са намерени достатъчно Sandstorm неденоминирани средства за тази транзакция, които не са равни на 1000 DSLK.</translation>
+        <source>Unable to locate enough Privatesend non-denominated funds for this transaction that are not equal 1000 DYN.</source>
+        <translation>Не са намерени достатъчно Privatesend неденоминирани средства за тази транзакция, които не са равни на 1000 DYN.</translation>
     </message>
     <message>
         <source>Warning: -paytxfee is set very high! This is the transaction fee you will pay if you send a transaction.</source>
@@ -3414,8 +3414,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Внимание: wallet.dat  е развален, данните са спасени! Оригиналния wallet.dat е запазен като wallet.{timestamp}.bak в %s; ако твоят баланс или транзакции са неверни трябва да възстановите от резервното копие.</translation>
     </message>
     <message>
-        <source>You must specify a stormnodeprivkey in the configuration. Please see documentation for help.</source>
-        <translation>Трябва да посочите stormnodeprivkey в конфигурацията. Моля прочетете документацията за помощ.</translation>
+        <source>You must specify a dynodeprivkey in the configuration. Please see documentation for help.</source>
+        <translation>Трябва да посочите dynodeprivkey в конфигурацията. Моля прочетете документацията за помощ.</translation>
     </message>
     <message>
         <source>(default: 1)</source>
@@ -3490,8 +3490,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Открита е повредена блок база данни</translation>
     </message>
     <message>
-        <source>Sandstorm options:</source>
-        <translation>Опции на Sandstorm:</translation>
+        <source>Privatesend options:</source>
+        <translation>Опции на Privatesend:</translation>
     </message>
     <message>
         <source>Debugging/Testing options:</source>
@@ -3562,8 +3562,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Грешка: Портфейлът е заключен, транзакцията е невъзможна!</translation>
     </message>
     <message>
-        <source>Error: You already have pending entries in the Sandstorm pool</source>
-        <translation>Грешка: Вече имате чакащи вписвания в Sandstorm басейна</translation>
+        <source>Error: You already have pending entries in the Privatesend pool</source>
+        <translation>Грешка: Вече имате чакащи вписвания в Privatesend басейна</translation>
     </message>
     <message>
         <source>Failed to listen on any port. Use -listen=0 if you want this.</source>
@@ -3614,8 +3614,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Изтриване на всички транзакции на портфейла и  възстановява само тези части на блок веригата чрез -rescan при стартиране</translation>
     </message>
     <message>
-        <source>Disable all DarkSilk specific functionality (Stormnodes, Sandstorm, InstantX, Budgeting) (0-1, default: %u)</source>
-        <translation>Изключване на всички специфични DarkSilk функции (Stormnodes, Sandstorm, InstantX, Budgeting) (0-1, по подразбиране: %u)</translation>
+        <source>Disable all Dynamic specific functionality (Dynodes, Privatesend, InstantX, Budgeting) (0-1, default: %u)</source>
+        <translation>Изключване на всички специфични Dynamic функции (Dynodes, Privatesend, InstantX, Budgeting) (0-1, по подразбиране: %u)</translation>
     </message>
     <message>
         <source>Distributed under the MIT software license, see the accompanying file COPYING or &lt;http://www.opensource.org/licenses/mit-license.php&gt;.</source>
@@ -3626,20 +3626,20 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Включен instantx,покажи потвърждения за заключени транзакции (bool, по подразбиране: %s)</translation>
     </message>
     <message>
-        <source>Enable use of automated sandstorm for funds stored in this wallet (0-1, default: %u)</source>
-        <translation>Включено автоматично използване на sandstorm за средствата в този портфейл (0-1, по подразбиране: %u)</translation>
+        <source>Enable use of automated privatesend for funds stored in this wallet (0-1, default: %u)</source>
+        <translation>Включено автоматично използване на privatesend за средствата в този портфейл (0-1, по подразбиране: %u)</translation>
     </message>
     <message>
         <source>Error: Unsupported argument -socks found. Setting SOCKS version isn't possible anymore, only SOCKS5 proxies are supported.</source>
         <translation>Грешка: Открит е неподдържан аргумент -socks .настройка SOCKS версия вече не е възможна, само SOCKS5 прокси се поддържа.</translation>
     </message>
     <message>
-        <source>Fees (in DSLK/Kb) smaller than this are considered zero fee for relaying (default: %s)</source>
-        <translation>Такси (в DSLK/Kb) по-малки от това се считат за нулева такса за прилагане (по подразбиране: %s)</translation>
+        <source>Fees (in DYN/Kb) smaller than this are considered zero fee for relaying (default: %s)</source>
+        <translation>Такси (в DYN/Kb) по-малки от това се считат за нулева такса за прилагане (по подразбиране: %s)</translation>
     </message>
     <message>
-        <source>Fees (in DSLK/Kb) smaller than this are considered zero fee for transaction creation (default: %s)</source>
-        <translation>Такси (в DSLK/Kb) по-малки от това се считат за нулева такса при създаване на транзакция (по подразбиране: %s)</translation>
+        <source>Fees (in DYN/Kb) smaller than this are considered zero fee for transaction creation (default: %s)</source>
+        <translation>Такси (в DYN/Kb) по-малки от това се считат за нулева такса при създаване на транзакция (по подразбиране: %s)</translation>
     </message>
     <message>
         <source>Flush database activity from memory pool to disk log every &lt;n&gt; megabytes (default: %u)</source>
@@ -3686,8 +3686,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Изходяща информация за грешки (по подразбиране: %u, задаването на &lt;category&gt; е опция)</translation>
     </message>
     <message>
-        <source>Provide liquidity to Sandstorm by infrequently mixing coins on a continual basis (0-100, default: %u, 1=very frequent, high fees, 100=very infrequent, low fees)</source>
-        <translation>Осигуряване на ликвидност Sandstorm от рядко смесване монети непрекъснато в съответствие (0-100, по подразбиране: %u, 1=много чести, високи такси, 100=твърде редки, ниски такси)</translation>
+        <source>Provide liquidity to Privatesend by infrequently mixing coins on a continual basis (0-100, default: %u, 1=very frequent, high fees, 100=very infrequent, low fees)</source>
+        <translation>Осигуряване на ликвидност Privatesend от рядко смесване монети непрекъснато в съответствие (0-100, по подразбиране: %u, 1=много чести, високи такси, 100=твърде редки, ниски такси)</translation>
     </message>
     <message>
         <source>Require high priority for relaying free or low-fee transactions (default:%u)</source>
@@ -3710,23 +3710,23 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Този продукт включва софтуер, разработен от проекта OpenSSL за използване в OpenSSL Toolkit &lt;https://www.openssl.org/&gt; и криптографски софтуер, написан от Eric Young и UPnP софтуер, написан от Thomas Bernard.</translation>
     </message>
     <message>
-        <source>To use darksilkd, or the -server option to darksilk-qt, you must set an rpcpassword in the configuration file:
+        <source>To use dynamicd, or the -server option to dynamic-qt, you must set an rpcpassword in the configuration file:
 %s
 It is recommended you use the following random password:
-rpcuser=darksilkrpc
+rpcuser=dynamicrpc
 rpcpassword=%s
 (you do not need to remember this password)
 The username and password MUST NOT be the same.
 If the file does not exist, create it with owner-readable-only file permissions.
 It is also recommended to set alertnotify so you are notified of problems;
-for example: alertnotify=echo %%s | mail -s "DarkSilk Alert" admin@foo.com
+for example: alertnotify=echo %%s | mail -s "Dynamic Alert" admin@foo.com
 </source>
-        <translation>За използване на darksilkd, или the -server опция към darksilk-qt, трябва да зададете rpcpassword в конфигурационния файл: %s Препоръчително е да използвате следната произволна парола: rpcuser=darksilkrpc rpcpassword=%s (не е нужно да запомняте тази парола) Потребителя и паролата НЕ ТРЯБВА да са еднакви. Ако файла не съществува , създайте го с права за само за четене. Препоръчително е да създадете сигнал за уведомяване за да бъдете осведомени при проблем; Пример: alertnotify=echo %%s | mail -s "DarkSilk Alert" admin@foo.com 
+        <translation>За използване на dynamicd, или the -server опция към dynamic-qt, трябва да зададете rpcpassword в конфигурационния файл: %s Препоръчително е да използвате следната произволна парола: rpcuser=dynamicrpc rpcpassword=%s (не е нужно да запомняте тази парола) Потребителя и паролата НЕ ТРЯБВА да са еднакви. Ако файла не съществува , създайте го с права за само за четене. Препоръчително е да създадете сигнал за уведомяване за да бъдете осведомени при проблем; Пример: alertnotify=echo %%s | mail -s "Dynamic Alert" admin@foo.com 
 </translation>
     </message>
     <message>
-        <source>Unable to locate enough funds for this transaction that are not equal 1000 DSLK.</source>
-        <translation>Не са намерени достатъчно  средства за тази транзакция, които не са равни на 1000 DSLK.</translation>
+        <source>Unable to locate enough funds for this transaction that are not equal 1000 DYN.</source>
+        <translation>Не са намерени достатъчно  средства за тази транзакция, които не са равни на 1000 DYN.</translation>
     </message>
     <message>
         <source>Use separate SOCKS5 proxy to reach peers via Tor hidden services (default: %s)</source>
@@ -3737,8 +3737,8 @@ for example: alertnotify=echo %%s | mail -s "DarkSilk Alert" admin@foo.com
         <translation>Внимание: -maxtxfee  е с много голяма зададена стойност! Това е транзакционната такса, която ще платите ако направите единична транзакция.</translation>
     </message>
     <message>
-        <source>Warning: Please check that your computer's date and time are correct! If your clock is wrong DarkSilk Core will not work properly.</source>
-        <translation>Внимание: Моля проверете дали датата и часът на вашият компютър са верни! Ако часовникът ви не е сверен, DarkSilk Core няма да работи правилно.</translation>
+        <source>Warning: Please check that your computer's date and time are correct! If your clock is wrong Dynamic Core will not work properly.</source>
+        <translation>Внимание: Моля проверете дали датата и часът на вашият компютър са верни! Ако часовникът ви не е сверен, Dynamic Core няма да работи правилно.</translation>
     </message>
     <message>
         <source>Whitelist peers connecting from the given netmask or IP address. Can be specified multiple times.</source>
@@ -3791,40 +3791,40 @@ for example: alertnotify=echo %%s | mail -s "DarkSilk Alert" admin@foo.com
         <translation>Запазени права (C) 2009-%i Bitcoin Core разработчици</translation>
     </message>
     <message>
-        <source>Copyright (C) 2014-%i The DarkSilk Core Developers</source>
-        <translation>Запазени права (C) 2014-%i DarkSilk Core разработчиците</translation>
+        <source>Copyright (C) 2014-%i The Dynamic Core Developers</source>
+        <translation>Запазени права (C) 2014-%i Dynamic Core разработчиците</translation>
     </message>
     <message>
         <source>Could not parse -rpcbind value %s as network address</source>
         <translation>Не успя да се анализира -rpcbind стойност %s като мрежов адрес</translation>
     </message>
     <message>
-        <source>Sandstorm is idle.</source>
-        <translation>Sandstorm бездейства.</translation>
+        <source>Privatesend is idle.</source>
+        <translation>Privatesend бездейства.</translation>
     </message>
     <message>
-        <source>Sandstorm request complete:</source>
-        <translation>Sandstorm заявката е завършена:</translation>
+        <source>Privatesend request complete:</source>
+        <translation>Privatesend заявката е завършена:</translation>
     </message>
     <message>
-        <source>Sandstorm request incomplete:</source>
-        <translation>Sandstorm заявката незавършена:</translation>
+        <source>Privatesend request incomplete:</source>
+        <translation>Privatesend заявката незавършена:</translation>
     </message>
     <message>
         <source>Disable safemode, override a real safe mode event (default: %u)</source>
         <translation>Деактивирай безопасен режим, замени събитието за истинския безопасен режим (по подразбиране: %u)</translation>
     </message>
     <message>
-        <source>Enable the client to act as a stormnode (0-1, default: %u)</source>
-        <translation>Активиране на клиента да работи като stormnode (0-1, по подразбиране: %u)</translation>
+        <source>Enable the client to act as a dynode (0-1, default: %u)</source>
+        <translation>Активиране на клиента да работи като dynode (0-1, по подразбиране: %u)</translation>
     </message>
     <message>
-        <source>Error connecting to Stormnode.</source>
-        <translation>Грешка при свързване с Stormnode.</translation>
+        <source>Error connecting to Dynode.</source>
+        <translation>Грешка при свързване с Dynode.</translation>
     </message>
     <message>
-        <source>Error loading wallet.dat: Wallet requires newer version of DarkSilk Core</source>
-        <translation>Грешка при зареждане на wallet.dat: портфейлът изисква по-нова версия на DarkSilk Core</translation>
+        <source>Error loading wallet.dat: Wallet requires newer version of Dynamic Core</source>
+        <translation>Грешка при зареждане на wallet.dat: портфейлът изисква по-нова версия на Dynamic Core</translation>
     </message>
     <message>
         <source>Error: A fatal internal error occured, see debug.log for details</source>
@@ -3839,8 +3839,8 @@ for example: alertnotify=echo %%s | mail -s "DarkSilk Alert" admin@foo.com
         <translation>Грешка:Открит е неподдържан аргумент -tor, моля използвай -onion.</translation>
     </message>
     <message>
-        <source>Fee (in DSLK/kB) to add to transactions you send (default: %s)</source>
-        <translation>Такси (в DSLK/Kb) добавена към направената транзакция(по подразбиране: %s)</translation>
+        <source>Fee (in DYN/kB) to add to transactions you send (default: %s)</source>
+        <translation>Такси (в DYN/Kb) добавена към направената транзакция(по подразбиране: %s)</translation>
     </message>
     <message>
         <source>Finalizing transaction.</source>
@@ -3895,8 +3895,8 @@ for example: alertnotify=echo %%s | mail -s "DarkSilk Alert" admin@foo.com
         <translation>Информация</translation>
     </message>
     <message>
-        <source>Initialization sanity check failed. DarkSilk Core is shutting down.</source>
-        <translation>Инициализационната проверка не успешна. DarkSilk ядрото се изключва.</translation>
+        <source>Initialization sanity check failed. Dynamic Core is shutting down.</source>
+        <translation>Инициализационната проверка не успешна. Dynamic ядрото се изключва.</translation>
     </message>
     <message>
         <source>Input is not valid.</source>
@@ -3939,8 +3939,8 @@ for example: alertnotify=echo %%s | mail -s "DarkSilk Alert" admin@foo.com
         <translation>Невалидна сума за -paytxfee=&lt;amount&gt;: '%s'</translation>
     </message>
     <message>
-        <source>Last successful Sandstorm action was too recent.</source>
-        <translation>Последното успешно Sandstorm действие беше твърде скоро.</translation>
+        <source>Last successful Privatesend action was too recent.</source>
+        <translation>Последното успешно Privatesend действие беше твърде скоро.</translation>
     </message>
     <message>
         <source>Limit size of signature cache to &lt;n&gt; entries (default: %u)</source>
@@ -3959,20 +3959,20 @@ for example: alertnotify=echo %%s | mail -s "DarkSilk Alert" admin@foo.com
         <translation>Зареждане на бюджетния кеш...</translation>
     </message>
     <message>
-        <source>Loading stormnode cache...</source>
-        <translation>Зареждане на stormnode кеш...</translation>
+        <source>Loading dynode cache...</source>
+        <translation>Зареждане на dynode кеш...</translation>
     </message>
     <message>
-        <source>Loading stormnode payment cache...</source>
-        <translation>Зараждане на stormnode кеш за плащане</translation>
+        <source>Loading dynode payment cache...</source>
+        <translation>Зараждане на dynode кеш за плащане</translation>
     </message>
     <message>
         <source>Lock is already in place.</source>
         <translation>Заключването е вече налично.</translation>
     </message>
     <message>
-        <source>Lock stormnodes from stormnode configuration file (default: %u)</source>
-        <translation>Заключване на stormnodes от конфигурационния файл(по подразбиране: %u)</translation>
+        <source>Lock dynodes from dynode configuration file (default: %u)</source>
+        <translation>Заключване на dynodes от конфигурационния файл(по подразбиране: %u)</translation>
     </message>
     <message>
         <source>Maintain at most &lt;n&gt; connections to peers (default: %u)</source>
@@ -3995,16 +3995,16 @@ for example: alertnotify=echo %%s | mail -s "DarkSilk Alert" admin@foo.com
         <translation>Нужно е определяне на порта с -whitebind: '%s'</translation>
     </message>
     <message>
-        <source>No Stormnodes detected.</source>
-        <translation>Не са открити Stormnodes.</translation>
+        <source>No Dynodes detected.</source>
+        <translation>Не са открити Dynodes.</translation>
     </message>
     <message>
-        <source>No compatible Stormnode found.</source>
-        <translation>Не e намерен съвместим Stormnode.</translation>
+        <source>No compatible Dynode found.</source>
+        <translation>Не e намерен съвместим Dynode.</translation>
     </message>
     <message>
-        <source>Not in the Stormnode list.</source>
-        <translation>Не е в Stormnode списъка.</translation>
+        <source>Not in the Dynode list.</source>
+        <translation>Не е в Dynode списъка.</translation>
     </message>
     <message>
         <source>Number of automatic wallet backups (default: 10)</source>
@@ -4043,8 +4043,8 @@ for example: alertnotify=echo %%s | mail -s "DarkSilk Alert" admin@foo.com
         <translation>Частен ключ за сървъра (по подразбиране %s)</translation>
     </message>
     <message>
-        <source>Set external address:port to get to this stormnode (example: %s)</source>
-        <translation>Задаване на външен address:port на този stormnode (пример: %s)</translation>
+        <source>Set external address:port to get to this dynode (example: %s)</source>
+        <translation>Задаване на външен address:port на този dynode (пример: %s)</translation>
     </message>
     <message>
         <source>Set key pool size to &lt;n&gt; (default: %u)</source>
@@ -4075,7 +4075,7 @@ for example: alertnotify=echo %%s | mail -s "DarkSilk Alert" admin@foo.com
         <translation>Определете таймаут за свързване в милисекунди (минимум: 1, подразбиране: %d)</translation>
     </message>
     <message>
-        <source>Specify stormnode configuration file (default: %s)</source>
+        <source>Specify dynode configuration file (default: %s)</source>
         <translation>Посочете конфигурационен файл (по подразбиране: %s)</translation>
     </message>
     <message>
@@ -4091,15 +4091,15 @@ for example: alertnotify=echo %%s | mail -s "DarkSilk Alert" admin@foo.com
         <translation>Спри работата след импортиране на блоковете от диска (по подразбиране: %u)</translation>
     </message>
     <message>
-        <source>Submitted following entries to stormnode: %u / %d</source>
-        <translation>Изпратени са следните записи към stormnode: %u / %d</translation>
+        <source>Submitted following entries to dynode: %u / %d</source>
+        <translation>Изпратени са следните записи към dynode: %u / %d</translation>
     </message>
     <message>
-        <source>Submitted to stormnode, waiting for more entries ( %u / %d ) %s</source>
-        <translation>Изпратено към stormnode, чака за още записи ( %u / %d ) %s</translation>
+        <source>Submitted to dynode, waiting for more entries ( %u / %d ) %s</source>
+        <translation>Изпратено към dynode, чака за още записи ( %u / %d ) %s</translation>
     </message>
     <message>
-        <source>Submitted to stormnode, waiting in queue %s</source>
+        <source>Submitted to dynode, waiting in queue %s</source>
         <translation>Изпратено към Мастернода, чака в опашката %s</translation>
     </message>
     <message>
@@ -4115,20 +4115,20 @@ for example: alertnotify=echo %%s | mail -s "DarkSilk Alert" admin@foo.com
         <translation>Синхронизиране на бюджетите ...</translation>
     </message>
     <message>
-        <source>Synchronizing stormnode winners...</source>
-        <translation>Синхронизиране на stormnode победителите ...</translation>
+        <source>Synchronizing dynode winners...</source>
+        <translation>Синхронизиране на dynode победителите ...</translation>
     </message>
     <message>
-        <source>Synchronizing stormnodes...</source>
-        <translation>Синхронизиране на stormnodes ...</translation>
+        <source>Synchronizing dynodes...</source>
+        <translation>Синхронизиране на dynodes ...</translation>
     </message>
     <message>
         <source>Synchronizing sporks...</source>
         <translation>Синхронизиране на sporks...</translation>
     </message>
     <message>
-        <source>This is not a Stormnode.</source>
-        <translation>Това не е Stormnode.</translation>
+        <source>This is not a Dynode.</source>
+        <translation>Това не е Dynode.</translation>
     </message>
     <message>
         <source>Threshold for disconnecting misbehaving peers (default: %u)</source>
@@ -4139,16 +4139,16 @@ for example: alertnotify=echo %%s | mail -s "DarkSilk Alert" admin@foo.com
         <translation>Използвай KeePass 2 интеграция чрез плъгина KeePassHttp (по подразбиране: %u)</translation>
     </message>
     <message>
-        <source>Use N separate stormnodes to anonymize funds  (2-8, default: %u)</source>
-        <translation>Използвай N отделни Stormnode за анонимизиране на средствата (2-8, по подразбиране: %u)</translation>
+        <source>Use N separate dynodes to anonymize funds  (2-8, default: %u)</source>
+        <translation>Използвай N отделни Dynode за анонимизиране на средствата (2-8, по подразбиране: %u)</translation>
     </message>
     <message>
         <source>Use UPnP to map the listening port (default: %u)</source>
         <translation>Използвай UPnP за определяне на порта за слушане (по подразбиране: %u)</translation>
     </message>
     <message>
-        <source>Wallet needed to be rewritten: restart DarkSilk Core to complete</source>
-        <translation>Портфейлът трябва да бъде презаписан: рестартирайте DarkSilk за да завършите</translation>
+        <source>Wallet needed to be rewritten: restart Dynamic Core to complete</source>
+        <translation>Портфейлът трябва да бъде презаписан: рестартирайте Dynamic за да завършите</translation>
     </message>
     <message>
         <source>Warning: Unsupported argument -benchmark ignored, use -debug=bench.</source>
@@ -4163,32 +4163,32 @@ for example: alertnotify=echo %%s | mail -s "DarkSilk Alert" admin@foo.com
         <translation>Ще опита отново...</translation>
     </message>
     <message>
-        <source>Invalid stormnodeprivkey. Please see documenation.</source>
-        <translation>Невалиден частен ключ на Stormnode. Моля вижте документацията.</translation>
+        <source>Invalid dynodeprivkey. Please see documenation.</source>
+        <translation>Невалиден частен ключ на Dynode. Моля вижте документацията.</translation>
     </message>
     <message>
         <source>(must be 31000 for mainnet)</source>
         <translation>(трябва да е 31000 за основната мрежа)</translation>
     </message>
     <message>
-        <source>Can't find random Stormnode.</source>
-        <translation>Не можете да намери случаен Stormnode.</translation>
+        <source>Can't find random Dynode.</source>
+        <translation>Не можете да намери случаен Dynode.</translation>
     </message>
     <message>
         <source>Can't mix while sync in progress.</source>
         <translation>Не може да се смесват, докато се синхронизира.</translation>
     </message>
     <message>
-        <source>Could not parse stormnode.conf</source>
-        <translation>Несъвместимост в stormnode.conf</translation>
+        <source>Could not parse dynode.conf</source>
+        <translation>Несъвместимост в dynode.conf</translation>
     </message>
     <message>
         <source>Invalid netmask specified in -whitelist: '%s'</source>
         <translation>Невалидна мрежова маска в -whitelist: '%s'</translation>
     </message>
     <message>
-        <source>Invalid port detected in stormnode.conf</source>
-        <translation>Открит е невалиден порт в stormnode.conf</translation>
+        <source>Invalid port detected in dynode.conf</source>
+        <translation>Открит е невалиден порт в dynode.conf</translation>
     </message>
     <message>
         <source>Invalid private key.</source>
@@ -4207,15 +4207,15 @@ for example: alertnotify=echo %%s | mail -s "DarkSilk Alert" admin@foo.com
         <translation>KeePassHttp ключ за  AES криптирана връзка с KeePass</translation>
     </message>
     <message>
-        <source>Keep N DSLK anonymized (default: %u)</source>
-        <translation>Поддържай N DarkSilk анонимизирани (по подразбиране: %u)</translation>
+        <source>Keep N DYN anonymized (default: %u)</source>
+        <translation>Поддържай N Dynamic анонимизирани (по подразбиране: %u)</translation>
     </message>
     <message>
         <source>Keep at most &lt;n&gt; unconnectable transactions in memory (default: %u)</source>
         <translation>Пази поне &lt;n&gt; неосъществени транзакции в паметта (по подразбиране: %u)</translation>
     </message>
     <message>
-        <source>Last Sandstorm was too recent.</source>
+        <source>Last Privatesend was too recent.</source>
         <translation>Последния Derksend беше твърде скоро.</translation>
     </message>
     <message>
@@ -4239,16 +4239,16 @@ for example: alertnotify=echo %%s | mail -s "DarkSilk Alert" admin@foo.com
         <translation>Зареждане на портфейла...</translation>
     </message>
     <message>
-        <source>Stormnode options:</source>
-        <translation>Stormnode опции:</translation>
+        <source>Dynode options:</source>
+        <translation>Dynode опции:</translation>
     </message>
     <message>
-        <source>Stormnode queue is full.</source>
-        <translation>Опашката с задачи на Stormnode е пълна.</translation>
+        <source>Dynode queue is full.</source>
+        <translation>Опашката с задачи на Dynode е пълна.</translation>
     </message>
     <message>
-        <source>Stormnode:</source>
-        <translation>Stormnode:</translation>
+        <source>Dynode:</source>
+        <translation>Dynode:</translation>
     </message>
     <message>
         <source>Missing input transaction information.</source>
@@ -4351,8 +4351,8 @@ for example: alertnotify=echo %%s | mail -s "DarkSilk Alert" admin@foo.com
         <translation>Определи максималния размер на блока в байтове (по подразбиране: %d)</translation>
     </message>
     <message>
-        <source>Set the stormnode private key</source>
-        <translation>Задаване на личен ключ на Stormnode</translation>
+        <source>Set the dynode private key</source>
+        <translation>Задаване на личен ключ на Dynode</translation>
     </message>
     <message>
         <source>Show all debugging options (usage: --help -help-debug)</source>
@@ -4467,8 +4467,8 @@ for example: alertnotify=echo %%s | mail -s "DarkSilk Alert" admin@foo.com
         <translation>Потребителско име за JSON-RPC връзките</translation>
     </message>
     <message>
-        <source>Value more than Sandstorm pool maximum allows.</source>
-        <translation>Стойност повече от максимално позволената в Sandstorm басейна.</translation>
+        <source>Value more than Privatesend pool maximum allows.</source>
+        <translation>Стойност повече от максимално позволената в Privatesend басейна.</translation>
     </message>
     <message>
         <source>Verifying blocks...</source>

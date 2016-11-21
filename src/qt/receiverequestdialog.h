@@ -5,8 +5,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_QT_RECEIVEREQUESTDIALOG_H
-#define DARKSILK_QT_RECEIVEREQUESTDIALOG_H
+#ifndef DYNAMIC_QT_RECEIVEREQUESTDIALOG_H
+#define DYNAMIC_QT_RECEIVEREQUESTDIALOG_H
 
 #include "walletmodel.h"
 
@@ -70,4 +70,4 @@ private:
     SendCoinsRecipient info;
 };
 
-#endif // DARKSILK_QT_RECEIVEREQUESTDIALOG_H
+#endif // DYNAMIC_QT_RECEIVEREQUESTDIALOG_H

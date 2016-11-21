@@ -58,12 +58,12 @@
         <translation>Mottagaradresser</translation>
     </message>
     <message>
-        <source>These are your DarkSilk addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>De här är dina DarkSilk-adresser för att skicka betalningar. Kontrollera alltid mängden och mottagaradressen innan du skickar mynt.</translation>
+        <source>These are your Dynamic addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation>De här är dina Dynamic-adresser för att skicka betalningar. Kontrollera alltid mängden och mottagaradressen innan du skickar mynt.</translation>
     </message>
     <message>
-        <source>These are your DarkSilk addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>De här är dina DarkSilk-adresser för betalningsmottagningar. Det rekommenderas att använda en ny mottagaradress för varje transaktion.</translation>
+        <source>These are your Dynamic addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
+        <translation>De här är dina Dynamic-adresser för betalningsmottagningar. Det rekommenderas att använda en ny mottagaradress för varje transaktion.</translation>
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -164,8 +164,8 @@
         <translation>Bekräfta plånbokskryptering</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR DSLK&lt;/b&gt;!</source>
-        <translation>Varning: Om du krypterar din plånbok och förlorar din lösenfras kommer du att &lt;b&gt;FÖRLORA ALLA DINA DSLK&lt;/b&gt;!</translation>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR DYN&lt;/b&gt;!</source>
+        <translation>Varning: Om du krypterar din plånbok och förlorar din lösenfras kommer du att &lt;b&gt;FÖRLORA ALLA DINA DYN&lt;/b&gt;!</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
@@ -176,8 +176,8 @@
         <translation>Plånbok krypterad</translation>
     </message>
     <message>
-        <source>DarkSilk will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your darksilks from being stolen by malware infecting your computer.</source>
-        <translation>DarkSilk kommer nu att färdigställa krypteringsprocessen. Kom ihåg att krypteringen av din plånbok inte kan skydda dig helt och hållet från att dina DarkSilk stjäls av skadeprogram som har infekterat din dator.</translation>
+        <source>Dynamic will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your dynamics from being stolen by malware infecting your computer.</source>
+        <translation>Dynamic kommer nu att färdigställa krypteringsprocessen. Kom ihåg att krypteringen av din plånbok inte kan skydda dig helt och hållet från att dina Dynamic stjäls av skadeprogram som har infekterat din dator.</translation>
     </message>
     <message>
         <source>IMPORTANT: Any previous backups you have made of your wallet file should be replaced with the newly generated, encrypted wallet file. For security reasons, previous backups of the unencrypted wallet file will become useless as soon as you start using the new, encrypted wallet.</source>
@@ -217,10 +217,10 @@
     </message>
 </context>
 <context>
-    <name>DarkSilkGUI</name>
+    <name>DynamicGUI</name>
     <message>
-        <source>DarkSilk Core</source>
-        <translation>DarkSilk Core
+        <source>Dynamic Core</source>
+        <translation>Dynamic Core
 </translation>
     </message>
     <message>
@@ -244,16 +244,16 @@
         <translation>&amp;Skicka</translation>
     </message>
     <message>
-        <source>Send coins to a DarkSilk address</source>
-        <translation>Skicka mynt till en DarkSilk-adress</translation>
+        <source>Send coins to a Dynamic address</source>
+        <translation>Skicka mynt till en Dynamic-adress</translation>
     </message>
     <message>
         <source>&amp;Receive</source>
         <translation>&amp;Motta</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and darksilk: URIs)</source>
-        <translation>Begär betalningar (genererar QR-koder och DarkSilk:-URI:s)</translation>
+        <source>Request payments (generates QR codes and dynamic: URIs)</source>
+        <translation>Begär betalningar (genererar QR-koder och Dynamic:-URI:s)</translation>
     </message>
     <message>
         <source>&amp;Transactions</source>
@@ -272,8 +272,8 @@
         <translation>Avsluta applikationen</translation>
     </message>
     <message>
-        <source>&amp;About DarkSilk Core</source>
-        <translation>&amp;Om DarkSilk Core</translation>
+        <source>&amp;About Dynamic Core</source>
+        <translation>&amp;Om Dynamic Core</translation>
     </message>
     <message>
         <source>About &amp;Qt</source>
@@ -288,8 +288,8 @@
         <translation>&amp;Alternativ...</translation>
     </message>
     <message>
-        <source>Modify configuration options for DarkSilk</source>
-        <translation>Anpassa konfigurationsalternatv för DarkSilk</translation>
+        <source>Modify configuration options for Dynamic</source>
+        <translation>Anpassa konfigurationsalternatv för Dynamic</translation>
     </message>
     <message>
         <source>&amp;Show / Hide</source>
@@ -340,16 +340,16 @@
         <translation>Signera &amp;meddelande...</translation>
     </message>
     <message>
-        <source>Sign messages with your DarkSilk addresses to prove you own them</source>
-        <translation>Signera meddelanden med dina DarkSilk-adresser för att bevisa att du äger dem</translation>
+        <source>Sign messages with your Dynamic addresses to prove you own them</source>
+        <translation>Signera meddelanden med dina Dynamic-adresser för att bevisa att du äger dem</translation>
     </message>
     <message>
         <source>&amp;Verify message...</source>
         <translation>&amp;Bekräfta meddelande...</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified DarkSilk addresses</source>
-        <translation>Bekräfta meddelanden för att garantera att de signerades med de angivna DarkSilk-adresserna</translation>
+        <source>Verify messages to ensure they were signed with specified Dynamic addresses</source>
+        <translation>Bekräfta meddelanden för att garantera att de signerades med de angivna Dynamic-adresserna</translation>
     </message>
     <message>
         <source>&amp;Information</source>
@@ -404,16 +404,16 @@
         <translation>Öppna &amp;URI...</translation>
     </message>
     <message>
-        <source>Open a darksilk: URI or payment request</source>
-        <translation>Öppna en DarkSilk-URI eller betalningsbegäran</translation>
+        <source>Open a dynamic: URI or payment request</source>
+        <translation>Öppna en Dynamic-URI eller betalningsbegäran</translation>
     </message>
     <message>
         <source>&amp;Command-line options</source>
         <translation>&amp;Kommandoradalternativ</translation>
     </message>
     <message>
-        <source>Show the DarkSilk Core help message to get a list with possible DarkSilk command-line options</source>
-        <translation>Visa DarkSilk Core-hjälpmeddelandet för att få en lista med möjliga DarkSilk-kommandoradalternativ</translation>
+        <source>Show the Dynamic Core help message to get a list with possible Dynamic command-line options</source>
+        <translation>Visa Dynamic Core-hjälpmeddelandet för att få en lista med möjliga Dynamic-kommandoradalternativ</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -736,10 +736,10 @@ Adress: %4
     </message>
 </context>
 <context>
-    <name>SandstormConfig</name>
+    <name>PrivatesendConfig</name>
     <message>
-        <source>Configure Sandstorm</source>
-        <translation>Konfigurera Sandstorm</translation>
+        <source>Configure Privatesend</source>
+        <translation>Konfigurera Privatesend</translation>
     </message>
     <message>
         <source>Basic Privacy</source>
@@ -758,48 +758,48 @@ Adress: %4
         <translation>Vänligen välj en integritetsnivå.</translation>
     </message>
     <message>
-        <source>Use 2 separate stormnodes to mix funds up to 1000 DSLK</source>
-        <translation>Använd 2 enskilda stormnoder för att mixa medel upp till 1000 DSLK</translation>
+        <source>Use 2 separate dynodes to mix funds up to 1000 DYN</source>
+        <translation>Använd 2 enskilda dynoder för att mixa medel upp till 1000 DYN</translation>
     </message>
     <message>
-        <source>Use 8 separate stormnodes to mix funds up to 1000 DSLK</source>
-        <translation>Använd 8 enskilda stormnoder för att mixa medel upp till 1000 DSLK.</translation>
+        <source>Use 8 separate dynodes to mix funds up to 1000 DYN</source>
+        <translation>Använd 8 enskilda dynoder för att mixa medel upp till 1000 DYN.</translation>
     </message>
     <message>
-        <source>Use 16 separate stormnodes</source>
-        <translation>Använd 16 enskilda stormnoder</translation>
+        <source>Use 16 separate dynodes</source>
+        <translation>Använd 16 enskilda dynoder</translation>
     </message>
     <message>
-        <source>This option is the quickest and will cost about ~0.025 DSLK to anonymize 1000 DSLK</source>
-        <translation>Detta alternativ är det snabbaste och kommer att kosta omkring ~0,025 DSLK för att anonymisera 1000 DSLK</translation>
+        <source>This option is the quickest and will cost about ~0.025 DYN to anonymize 1000 DYN</source>
+        <translation>Detta alternativ är det snabbaste och kommer att kosta omkring ~0,025 DYN för att anonymisera 1000 DYN</translation>
     </message>
     <message>
-        <source>This option is moderately fast and will cost about 0.05 DSLK to anonymize 1000 DSLK</source>
-        <translation>Detta alternativ är relativt snabbt och kommer att kosta omkring 0,05 DSLK för att anonymisera 1000 DSLK</translation>
+        <source>This option is moderately fast and will cost about 0.05 DYN to anonymize 1000 DYN</source>
+        <translation>Detta alternativ är relativt snabbt och kommer att kosta omkring 0,05 DYN för att anonymisera 1000 DYN</translation>
     </message>
     <message>
-        <source>0.1 DSLK per 1000 DSLK you anonymize.</source>
-        <translation>0,1 DSLK per 1000 DSLK du anonymiserar.</translation>
+        <source>0.1 DYN per 1000 DYN you anonymize.</source>
+        <translation>0,1 DYN per 1000 DYN du anonymiserar.</translation>
     </message>
     <message>
         <source>This is the slowest and most secure option. Using maximum anonymity will cost</source>
         <translation>Detta är det långsammaste och det säkraste alternativet. Användning av maximal anonymitet kommer att kosta</translation>
     </message>
     <message>
-        <source>Sandstorm Configuration</source>
-        <translation>Sandstorm-konfiguration</translation>
+        <source>Privatesend Configuration</source>
+        <translation>Privatesend-konfiguration</translation>
     </message>
     <message>
-        <source>Sandstorm was successfully set to basic (%1 and 2 rounds). You can change this at any time by opening DarkSilk's configuration screen.</source>
-        <translation>Sandstorm ställdes framgångsrikt om till grundläggande (%1 och 2 omgångar). Du kan ändra detta när som helst genom att öppna DarkSilk:s konfigurationsskärm.</translation>
+        <source>Privatesend was successfully set to basic (%1 and 2 rounds). You can change this at any time by opening Dynamic's configuration screen.</source>
+        <translation>Privatesend ställdes framgångsrikt om till grundläggande (%1 och 2 omgångar). Du kan ändra detta när som helst genom att öppna Dynamic:s konfigurationsskärm.</translation>
     </message>
     <message>
-        <source>Sandstorm was successfully set to high (%1 and 8 rounds). You can change this at any time by opening DarkSilk's configuration screen.</source>
-        <translation>Sandstorm ställdes framgångsrikt in på hög (%1 och 8 omgångar). Du kan ändra detta när som helst genom att öppna DarkSilk:s konfigurationsskärm.</translation>
+        <source>Privatesend was successfully set to high (%1 and 8 rounds). You can change this at any time by opening Dynamic's configuration screen.</source>
+        <translation>Privatesend ställdes framgångsrikt in på hög (%1 och 8 omgångar). Du kan ändra detta när som helst genom att öppna Dynamic:s konfigurationsskärm.</translation>
     </message>
     <message>
-        <source>Sandstorm was successfully set to maximum (%1 and 16 rounds). You can change this at any time by opening DarkSilk's configuration screen.</source>
-        <translation>Sandstorm ställdes framgångsrikt in på maximal (%1 och 16 omgångar). Du kan ändra detta när som helst genom att öppna DarkSilk:s konfigurationsskärm</translation>
+        <source>Privatesend was successfully set to maximum (%1 and 16 rounds). You can change this at any time by opening Dynamic's configuration screen.</source>
+        <translation>Privatesend ställdes framgångsrikt in på maximal (%1 och 16 omgångar). Du kan ändra detta när som helst genom att öppna Dynamic:s konfigurationsskärm</translation>
     </message>
 </context>
 <context>
@@ -841,8 +841,8 @@ Adress: %4
         <translation>Redigera avsändaradress</translation>
     </message>
     <message>
-        <source>The entered address "%1" is not a valid DarkSilk address.</source>
-        <translation>Den angivna adressen "%1" är inte en giltig DarkSilk-adress.</translation>
+        <source>The entered address "%1" is not a valid Dynamic address.</source>
+        <translation>Den angivna adressen "%1" är inte en giltig Dynamic-adress.</translation>
     </message>
     <message>
         <source>The entered address "%1" is already in the address book.</source>
@@ -883,8 +883,8 @@ Adress: %4
 <context>
     <name>HelpMessageDialog</name>
     <message>
-        <source>DarkSilk Core</source>
-        <translation>DarkSilk Core
+        <source>Dynamic Core</source>
+        <translation>Dynamic Core
 </translation>
     </message>
     <message>
@@ -931,16 +931,16 @@ Adress: %4
         <translation>Välkommen</translation>
     </message>
     <message>
-        <source>Welcome to DarkSilk Core.</source>
-        <translation>Välkommen till DarkSilk Core.</translation>
+        <source>Welcome to Dynamic Core.</source>
+        <translation>Välkommen till Dynamic Core.</translation>
     </message>
     <message>
-        <source>As this is the first time the program is launched, you can choose where DarkSilk Core will store its data.</source>
-        <translation>Då detta är första gången programmet startas kan du välja var DarkSilk Core ska lagra sin data.</translation>
+        <source>As this is the first time the program is launched, you can choose where Dynamic Core will store its data.</source>
+        <translation>Då detta är första gången programmet startas kan du välja var Dynamic Core ska lagra sin data.</translation>
     </message>
     <message>
-        <source>DarkSilk Core will download and store a copy of the DarkSilk block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
-        <translation>DarkSilk Core kommer att laddas ned och lagra en kopia av DarkSilk:s blockkedja. Minst %1 GB data kommer att lagras i denna katalog och den kommer att växa med tiden. Plånboken kommer också att lagras i denna katalog.</translation>
+        <source>Dynamic Core will download and store a copy of the Dynamic block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
+        <translation>Dynamic Core kommer att laddas ned och lagra en kopia av Dynamic:s blockkedja. Minst %1 GB data kommer att lagras i denna katalog och den kommer att växa med tiden. Plånboken kommer också att lagras i denna katalog.</translation>
     </message>
     <message>
         <source>Use the default data directory</source>
@@ -989,12 +989,12 @@ Adress: %4
         <translation>&amp;Huvud</translation>
     </message>
     <message>
-        <source>Automatically start DarkSilk after logging in to the system.</source>
-        <translation>Starta DarkSilk automatiskt efter systeminloggning.</translation>
+        <source>Automatically start Dynamic after logging in to the system.</source>
+        <translation>Starta Dynamic automatiskt efter systeminloggning.</translation>
     </message>
     <message>
-        <source>&amp;Start DarkSilk on system login</source>
-        <translation>&amp;Starta DarkSilk vid systeminloggning</translation>
+        <source>&amp;Start Dynamic on system login</source>
+        <translation>&amp;Starta Dynamic vid systeminloggning</translation>
     </message>
     <message>
         <source>Size of &amp;database cache</source>
@@ -1013,16 +1013,16 @@ Adress: %4
         <translation>(0 = auto, &lt;0 = lämna så många kärnor lediga)</translation>
     </message>
     <message>
-        <source>Sandstorm rounds to use</source>
-        <translation>Sandstorm-omgångar att använda</translation>
+        <source>Privatesend rounds to use</source>
+        <translation>Privatesend-omgångar att använda</translation>
     </message>
     <message>
-        <source>This amount acts as a threshold to turn off Sandstorm once it's reached.</source>
-        <translation>Denna mängd fungerar som en tröskel att stänga av Sandstorm då det har uppnåtts.</translation>
+        <source>This amount acts as a threshold to turn off Privatesend once it's reached.</source>
+        <translation>Denna mängd fungerar som en tröskel att stänga av Privatesend då det har uppnåtts.</translation>
     </message>
     <message>
-        <source>Amount of DarkSilk to keep anonymized</source>
-        <translation>Mängd DarkSilk att bibehålla anonymiserade</translation>
+        <source>Amount of Dynamic to keep anonymized</source>
+        <translation>Mängd Dynamic att bibehålla anonymiserade</translation>
     </message>
     <message>
         <source>W&amp;allet</source>
@@ -1049,8 +1049,8 @@ Adress: %4
         <translation>&amp;Nätverk</translation>
     </message>
     <message>
-        <source>Automatically open the DarkSilk client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Öppna DarkSilk:s klientport automatiskt på routern. Detta fungerar bara om din router stöder UPnP och är aktiverad.</translation>
+        <source>Automatically open the Dynamic client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation>Öppna Dynamic:s klientport automatiskt på routern. Detta fungerar bara om din router stöder UPnP och är aktiverad.</translation>
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>
@@ -1101,14 +1101,14 @@ Adress: %4
         <translation>Användargränssnitt&amp;språk: </translation>
     </message>
     <message>
-        <source>The user interface language can be set here. This setting will take effect after restarting DarkSilk.</source>
-        <translation>Användargränssnittspråket kan ställas in här. Denna inställning träder i kraft efter att DarkSilk startats om.</translation>
+        <source>The user interface language can be set here. This setting will take effect after restarting Dynamic.</source>
+        <translation>Användargränssnittspråket kan ställas in här. Denna inställning träder i kraft efter att Dynamic startats om.</translation>
     </message>
     <message>
         <source>Language missing or translation incomplete? Help contributing translations here:
-https://www.transifex.com/projects/p/darksilk/</source>
+https://www.transifex.com/projects/p/dynamic/</source>
         <translation>Fattas språk eller är det en ofullständig översättning? Hjälp till att bidra med översättningar här:
-https://www.transifex.com/projects/p/darksilk/</translation>
+https://www.transifex.com/projects/p/dynamic/</translation>
     </message>
     <message>
         <source>&amp;Unit to show amounts in:</source>
@@ -1182,8 +1182,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Formulär</translation>
     </message>
     <message>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the DarkSilk network after a connection is established, but this process has not completed yet.</source>
-        <translation>Den visade informationen kan vara utdaterad. Din plånbok synkroniseras automatiskt med DarkSilk-nätverket efter att en anslutning har etablerats men denna process har ännu inte slutförts.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Dynamic network after a connection is established, but this process has not completed yet.</source>
+        <translation>Den visade informationen kan vara utdaterad. Din plånbok synkroniseras automatiskt med Dynamic-nätverket efter att en anslutning har etablerats men denna process har ännu inte slutförts.</translation>
     </message>
     <message>
         <source>Available:</source>
@@ -1230,16 +1230,16 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Förlopp:</translation>
     </message>
     <message>
-        <source>Sandstorm Balance:</source>
-        <translation>Sandstorm-medel:</translation>
+        <source>Privatesend Balance:</source>
+        <translation>Privatesend-medel:</translation>
     </message>
     <message>
         <source>Amount and Rounds:</source>
         <translation>Mängd och omgångar:</translation>
     </message>
     <message>
-        <source>0 DSLK / 0 Rounds</source>
-        <translation>0 DSLK/0 omgångar</translation>
+        <source>0 DYN / 0 Rounds</source>
+        <translation>0 DYN/0 omgångar</translation>
     </message>
     <message>
         <source>Submitted Denom:</source>
@@ -1250,8 +1250,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>E/t</translation>
     </message>
     <message>
-        <source>Sandstorm</source>
-        <translation>Sandstorm</translation>
+        <source>Privatesend</source>
+        <translation>Privatesend</translation>
     </message>
     <message>
         <source>Start/Stop Mixing</source>
@@ -1262,16 +1262,16 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>(Senaste meddelande)</translation>
     </message>
     <message>
-        <source>Try to manually submit a Sandstorm request.</source>
-        <translation>Försök att lämna in en Sandstorm-begäran manuellt.</translation>
+        <source>Try to manually submit a Privatesend request.</source>
+        <translation>Försök att lämna in en Privatesend-begäran manuellt.</translation>
     </message>
     <message>
         <source>Try Mix</source>
         <translation>Försök att mixa</translation>
     </message>
     <message>
-        <source>Reset the current status of Sandstorm (can interrupt Sandstorm if it's in the process of Mixing, which can cost you money!)</source>
-        <translation>Återställ den nuvarande Sandstorm-statusen (kan störa Sandstorm om den håller på att mixa vilket kan kosta dig pengar!)</translation>
+        <source>Reset the current status of Privatesend (can interrupt Privatesend if it's in the process of Mixing, which can cost you money!)</source>
+        <translation>Återställ den nuvarande Privatesend-statusen (kan störa Privatesend om den håller på att mixa vilket kan kosta dig pengar!)</translation>
     </message>
     <message>
         <source>Reset</source>
@@ -1286,12 +1286,12 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Inaktiverad</translation>
     </message>
     <message>
-        <source>Start Sandstorm Mixing</source>
-        <translation>Påbörja Sandstorm-mixning</translation>
+        <source>Start Privatesend Mixing</source>
+        <translation>Påbörja Privatesend-mixning</translation>
     </message>
     <message>
-        <source>Stop Sandstorm Mixing</source>
-        <translation>Stoppa Sandstorm-mixning</translation>
+        <source>Stop Privatesend Mixing</source>
+        <translation>Stoppa Privatesend-mixning</translation>
     </message>
     <message>
         <source>No inputs detected</source>
@@ -1302,9 +1302,9 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Aktiverad</translation>
     </message>
     <message>
-        <source>Last Sandstorm message:
+        <source>Last Privatesend message:
 </source>
-        <translation>Senaste Sandstorm-meddelande:
+        <translation>Senaste Privatesend-meddelande:
 
 
 
@@ -1316,16 +1316,16 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>E/t</translation>
     </message>
     <message>
-        <source>Sandstorm was successfully reset.</source>
-        <translation>Sandstorm återställdes framgångsrikt.</translation>
+        <source>Privatesend was successfully reset.</source>
+        <translation>Privatesend återställdes framgångsrikt.</translation>
     </message>
     <message>
-        <source>Sandstorm requires at least %1 to use.</source>
-        <translation>Sandstorm kräver åtminstone %1 att använda.</translation>
+        <source>Privatesend requires at least %1 to use.</source>
+        <translation>Privatesend kräver åtminstone %1 att använda.</translation>
     </message>
     <message>
-        <source>Wallet is locked and user declined to unlock. Disabling Sandstorm.</source>
-        <translation>Plånboken är låst och användaren avböjde upplåsning. Inaktiverar Sandstorm.</translation>
+        <source>Wallet is locked and user declined to unlock. Disabling Privatesend.</source>
+        <translation>Plånboken är låst och användaren avböjde upplåsning. Inaktiverar Privatesend.</translation>
     </message>
 </context>
 <context>
@@ -1335,8 +1335,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Fel vid betalningsbegäran</translation>
     </message>
     <message>
-        <source>Cannot start darksilk: click-to-pay handler</source>
-        <translation>Kan inte starta darksilk: klicka-för-att-betala hanterare</translation>
+        <source>Cannot start dynamic: click-to-pay handler</source>
+        <translation>Kan inte starta dynamic: klicka-för-att-betala hanterare</translation>
     </message>
     <message>
         <source>URI handling</source>
@@ -1435,8 +1435,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Antal anslutningar</translation>
     </message>
     <message>
-        <source>Open the DarkSilk debug log file from the current data directory. This can take a few seconds for large log files.</source>
-        <translation>Öppna DarkSilks avsökningsloggfil från den nuvarande datakatalogen. Detta kan ta ett par sekunder för stora loggfiler.</translation>
+        <source>Open the Dynamic debug log file from the current data directory. This can take a few seconds for large log files.</source>
+        <translation>Öppna Dynamics avsökningsloggfil från den nuvarande datakatalogen. Detta kan ta ett par sekunder för stora loggfiler.</translation>
     </message>
     <message>
         <source>&amp;Open</source>
@@ -1507,8 +1507,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Ut:</translation>
     </message>
     <message>
-        <source>Welcome to the DarkSilk RPC console.</source>
-        <translation>Välkommen till DarkSilks RPC-konsol.</translation>
+        <source>Welcome to the Dynamic RPC console.</source>
+        <translation>Välkommen till Dynamics RPC-konsol.</translation>
     </message>
     <message>
         <source>Use up and down arrows to navigate history, and &lt;b&gt;Ctrl-L&lt;/b&gt; to clear screen.</source>
@@ -1542,8 +1542,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Åt&amp;eranvänd en befintlig mottagaradress (rekommenderas inte)</translation>
     </message>
     <message>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the DarkSilk network.</source>
-        <translation>Ett valfritt meddelande att bifoga betalningsbegärandet vilket kommer att visas när begärandet öppnas. Observera: Meddelandet kommer inte att skickas med betalningen över DarkSilk-nätverket.</translation>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Dynamic network.</source>
+        <translation>Ett valfritt meddelande att bifoga betalningsbegärandet vilket kommer att visas när begärandet öppnas. Observera: Meddelandet kommer inte att skickas med betalningen över Dynamic-nätverket.</translation>
     </message>
     <message>
         <source>&amp;Message:</source>
@@ -1791,8 +1791,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Lägg till &amp;mottagare</translation>
     </message>
     <message>
-        <source>Sandstorm</source>
-        <translation>Sandstorm</translation>
+        <source>Privatesend</source>
+        <translation>Privatesend</translation>
     </message>
     <message>
         <source>InstantX</source>
@@ -1839,8 +1839,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>anonyma medel</translation>
     </message>
     <message>
-        <source>(sandstorm requires this amount to be rounded up to the nearest %1).</source>
-        <translation>(sandstorm kräver att denna mängd avrundas uppåt till närmaste %1)</translation>
+        <source>(privatesend requires this amount to be rounded up to the nearest %1).</source>
+        <translation>(privatesend kräver att denna mängd avrundas uppåt till närmaste %1)</translation>
     </message>
     <message>
         <source>any available funds (not recommended)</source>
@@ -1899,8 +1899,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Fel: Plånboken låstes upp enbart för att anonymisera mynt.</translation>
     </message>
     <message>
-        <source>Warning: Invalid DarkSilk address</source>
-        <translation>Varning: Ogiltig DarkSilk-adress</translation>
+        <source>Warning: Invalid Dynamic address</source>
+        <translation>Varning: Ogiltig Dynamic-adress</translation>
     </message>
     <message>
         <source>Warning: Unknown change address</source>
@@ -1958,8 +1958,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Meddelande:</translation>
     </message>
     <message>
-        <source>A message that was attached to the darksilk: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the DarkSilk network.</source>
-        <translation>Ett meddelande som bifogades till DarkSilk: URI vilket kommer att lagras med transaktionen så att du vet. Observera: Meddelandet kommer inte att skickas över DarkSilk-nätverket.</translation>
+        <source>A message that was attached to the dynamic: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Dynamic network.</source>
+        <translation>Ett meddelande som bifogades till Dynamic: URI vilket kommer att lagras med transaktionen så att du vet. Observera: Meddelandet kommer inte att skickas över Dynamic-nätverket.</translation>
     </message>
     <message>
         <source>This is an unverified payment request.</source>
@@ -1985,8 +1985,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
 <context>
     <name>ShutdownWindow</name>
     <message>
-        <source>DarkSilk Core is shutting down...</source>
-        <translation>DarkSilk Core stängs ned...</translation>
+        <source>Dynamic Core is shutting down...</source>
+        <translation>Dynamic Core stängs ned...</translation>
     </message>
     <message>
         <source>Do not shut down the computer until this window disappears.</source>
@@ -2036,8 +2036,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Kopiera den nuvarande valda signaturen till systemurklippet</translation>
     </message>
     <message>
-        <source>Sign the message to prove you own this DarkSilk address</source>
-        <translation>Signera meddelandet för att bevisa att du äger denna DarkSilk-adress</translation>
+        <source>Sign the message to prove you own this Dynamic address</source>
+        <translation>Signera meddelandet för att bevisa att du äger denna Dynamic-adress</translation>
     </message>
     <message>
         <source>Sign &amp;Message</source>
@@ -2060,8 +2060,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Skriv in signeringsadressen, meddelandet, (försäkra dig om att du kopierar linjeavbrott, mellanslag, flikar med mera) och signera nedtill för att verifiera meddelandet. Var försiktig med att inte läsa in mer i signaturen än vad som finns i det signerade meddelandet för att undvika att bli lurad av en mellanhandattack.</translation>
     </message>
     <message>
-        <source>Verify the message to ensure it was signed with the specified DarkSilk address</source>
-        <translation>Bekräfta meddelandet för att försäkra dig om att den signerades med den angivna DarkSilk-adressen</translation>
+        <source>Verify the message to ensure it was signed with the specified Dynamic address</source>
+        <translation>Bekräfta meddelandet för att försäkra dig om att den signerades med den angivna Dynamic-adressen</translation>
     </message>
     <message>
         <source>Verify &amp;Message</source>
@@ -2127,8 +2127,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
 <context>
     <name>SplashScreen</name>
     <message>
-        <source>DarkSilk Core</source>
-        <translation>DarkSilk Core
+        <source>Dynamic Core</source>
+        <translation>Dynamic Core
 </translation>
     </message>
     <message>
@@ -2140,8 +2140,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Bitcoin Core-utvecklarna</translation>
     </message>
     <message>
-        <source>The DarkSilk Core developers</source>
-        <translation>DarkSilk Core-utvecklarna</translation>
+        <source>The Dynamic Core developers</source>
+        <translation>Dynamic Core-utvecklarna</translation>
     </message>
     <message>
         <source>[testnet]</source>
@@ -2384,8 +2384,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Mottagen från</translation>
     </message>
     <message>
-        <source>Received via Sandstorm</source>
-        <translation>Mottagen genom Sandstorm</translation>
+        <source>Received via Privatesend</source>
+        <translation>Mottagen genom Privatesend</translation>
     </message>
     <message>
         <source>Sent to</source>
@@ -2400,24 +2400,24 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Utvunnen</translation>
     </message>
     <message>
-        <source>Sandstorm Denominate</source>
-        <translation>Sandstorm-denomination</translation>
+        <source>Privatesend Denominate</source>
+        <translation>Privatesend-denomination</translation>
     </message>
     <message>
-        <source>Sandstorm Collateral Payment</source>
+        <source>Privatesend Collateral Payment</source>
         <translation>Darskends-säkerhetsbetalning</translation>
     </message>
     <message>
-        <source>Sandstorm Make Collateral Inputs</source>
-        <translation>Sandstorm-skapa säkerhetsinmatningar</translation>
+        <source>Privatesend Make Collateral Inputs</source>
+        <translation>Privatesend-skapa säkerhetsinmatningar</translation>
     </message>
     <message>
-        <source>Sandstorm Create Denominations</source>
-        <translation>Sandstorm-skapa denominationer</translation>
+        <source>Privatesend Create Denominations</source>
+        <translation>Privatesend-skapa denominationer</translation>
     </message>
     <message>
-        <source>Sandstormed</source>
-        <translation>Sandstormed-(skickat)</translation>
+        <source>Privatesended</source>
+        <translation>Privatesended-(skickat)</translation>
     </message>
     <message>
         <source>(n/a)</source>
@@ -2483,23 +2483,23 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Skickad till</translation>
     </message>
     <message>
-        <source>Sandstormed</source>
-        <translation>Sandstormed-(skickat)</translation>
+        <source>Privatesended</source>
+        <translation>Privatesended-(skickat)</translation>
     </message>
     <message>
-        <source>Sandstorm Make Collateral Inputs</source>
-        <translation>Sandstorm-skapa säkerhetsinmatningar</translation>
+        <source>Privatesend Make Collateral Inputs</source>
+        <translation>Privatesend-skapa säkerhetsinmatningar</translation>
     </message>
     <message>
-        <source>Sandstorm Create Denominations</source>
-        <translation>Sandstorm-skapa denominationer</translation>
+        <source>Privatesend Create Denominations</source>
+        <translation>Privatesend-skapa denominationer</translation>
     </message>
     <message>
-        <source>Sandstorm Denominate</source>
-        <translation>Sandstorm-denomination</translation>
+        <source>Privatesend Denominate</source>
+        <translation>Privatesend-denomination</translation>
     </message>
     <message>
-        <source>Sandstorm Collateral Payment</source>
+        <source>Privatesend Collateral Payment</source>
         <translation>Darskends-säkerhetsbetalning</translation>
     </message>
     <message>
@@ -2656,18 +2656,18 @@ https://www.transifex.com/projects/p/darksilk/</translation>
     </message>
 </context>
 <context>
-    <name>darksilk-core</name>
+    <name>dynamic-core</name>
     <message>
         <source>Bind to given address and always listen on it. Use [host]:port notation for IPv6</source>
         <translation>Sammanbind till fastställd adress och avlyssna alltid den. Använd [host]:port-notation för IPv6</translation>
     </message>
     <message>
-        <source>Cannot obtain a lock on data directory %s. DarkSilk Core is probably already running.</source>
-        <translation>Kan inte erhålla ett lås på datakatalog %s. DarkSilk Core körs förmodligen redan.</translation>
+        <source>Cannot obtain a lock on data directory %s. Dynamic Core is probably already running.</source>
+        <translation>Kan inte erhålla ett lås på datakatalog %s. Dynamic Core körs förmodligen redan.</translation>
     </message>
     <message>
-        <source>Sandstorm uses exact denominated amounts to send funds, you might simply need to anonymize some more coins.</source>
-        <translation>Sandstorm använder exakta denominationsmängder för att skicka medel, du kanske måste anonymisera fler mynt.</translation>
+        <source>Privatesend uses exact denominated amounts to send funds, you might simply need to anonymize some more coins.</source>
+        <translation>Privatesend använder exakta denominationsmängder för att skicka medel, du kanske måste anonymisera fler mynt.</translation>
     </message>
     <message>
         <source>Enter regression test mode, which uses a special chain in which blocks can be solved instantly.</source>
@@ -2718,16 +2718,16 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Detta är en förhandsutgiven testkompilering - använd på egen risk - använd inte för utvinning eller handlarapplikationer.</translation>
     </message>
     <message>
-        <source>Unable to bind to %s on this computer. DarkSilk Core is probably already running.</source>
-        <translation>Det går inte att binda till %s till denna dator. DarkSilk Core körs förmodligen redan.</translation>
+        <source>Unable to bind to %s on this computer. Dynamic Core is probably already running.</source>
+        <translation>Det går inte att binda till %s till denna dator. Dynamic Core körs förmodligen redan.</translation>
     </message>
     <message>
-        <source>Unable to locate enough Sandstorm denominated funds for this transaction.</source>
-        <translation>Kunde inte hitta tillräckliga Sandstorm-denominationsmedel för denna transaktion.</translation>
+        <source>Unable to locate enough Privatesend denominated funds for this transaction.</source>
+        <translation>Kunde inte hitta tillräckliga Privatesend-denominationsmedel för denna transaktion.</translation>
     </message>
     <message>
-        <source>Unable to locate enough Sandstorm non-denominated funds for this transaction that are not equal 1000 DSLK.</source>
-        <translation>Kunde inte hitta tillräckliga Sandstorm-icke-denominationsmedel för denna transaktion som inte är likvärdiga 1000 DSLK.</translation>
+        <source>Unable to locate enough Privatesend non-denominated funds for this transaction that are not equal 1000 DYN.</source>
+        <translation>Kunde inte hitta tillräckliga Privatesend-icke-denominationsmedel för denna transaktion som inte är likvärdiga 1000 DYN.</translation>
     </message>
     <message>
         <source>Warning: -paytxfee is set very high! This is the transaction fee you will pay if you send a transaction.</source>
@@ -2750,8 +2750,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Varning: wallet.dat är korrumperad, data räddad! Den ursprungliga wallet.dat är sparad som wallet.{timestamp}.bak i %s; om ditt saldo eller transaktioner är felaktiga kanske du måste återställa från en säkerhetskopia.</translation>
     </message>
     <message>
-        <source>You must specify a stormnodeprivkey in the configuration. Please see documentation for help.</source>
-        <translation>Du måste specificera en stormnodepriv-nyckel i konfigurationen. Vänligen se dokumentationen för hjälp.</translation>
+        <source>You must specify a dynodeprivkey in the configuration. Please see documentation for help.</source>
+        <translation>Du måste specificera en dynodepriv-nyckel i konfigurationen. Vänligen se dokumentationen för hjälp.</translation>
     </message>
     <message>
         <source>(default: 1)</source>
@@ -2826,8 +2826,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Korrumperad blockdatabas upptäcktes</translation>
     </message>
     <message>
-        <source>Sandstorm options:</source>
-        <translation>Sandstorm-alternativ:</translation>
+        <source>Privatesend options:</source>
+        <translation>Privatesend-alternativ:</translation>
     </message>
     <message>
         <source>Debugging/Testing options:</source>
@@ -2898,8 +2898,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Fel: Plånbok låst, kan inte skapa en transaktion!</translation>
     </message>
     <message>
-        <source>Error: You already have pending entries in the Sandstorm pool</source>
-        <translation>Fel: Du har redan väntande inmatningar i Sandstorm-poolen</translation>
+        <source>Error: You already have pending entries in the Privatesend pool</source>
+        <translation>Fel: Du har redan väntande inmatningar i Privatesend-poolen</translation>
     </message>
     <message>
         <source>Failed to listen on any port. Use -listen=0 if you want this.</source>
@@ -2942,8 +2942,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Information</translation>
     </message>
     <message>
-        <source>Initialization sanity check failed. DarkSilk Core is shutting down.</source>
-        <translation>Initialiseringstillståndkontroll misslyckades. DarkSilk Core stängs ned.</translation>
+        <source>Initialization sanity check failed. Dynamic Core is shutting down.</source>
+        <translation>Initialiseringstillståndkontroll misslyckades. Dynamic Core stängs ned.</translation>
     </message>
     <message>
         <source>Input is not valid.</source>
@@ -2978,8 +2978,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Ogiltig mängd för -paytxfee=&lt;amount&gt;: '%s'</translation>
     </message>
     <message>
-        <source>Invalid stormnodeprivkey. Please see documenation.</source>
-        <translation>Ogiltig stormnodepriv-nyckel. Vänligen se dokumentationen.</translation>
+        <source>Invalid dynodeprivkey. Please see documenation.</source>
+        <translation>Ogiltig dynodepriv-nyckel. Vänligen se dokumentationen.</translation>
     </message>
     <message>
         <source>Invalid private key.</source>
@@ -3002,8 +3002,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Bibehåll som mest &lt;n&gt; icke-anslutningsbara transaktioner i minnet (standardvärde: %u)</translation>
     </message>
     <message>
-        <source>Last Sandstorm was too recent.</source>
-        <translation>Senaste Sandstorm gjordes för inte alltför länge sedan.</translation>
+        <source>Last Privatesend was too recent.</source>
+        <translation>Senaste Privatesend gjordes för inte alltför länge sedan.</translation>
     </message>
     <message>
         <source>Loading addresses...</source>
@@ -3022,16 +3022,16 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Laddar plånbok...</translation>
     </message>
     <message>
-        <source>Stormnode options:</source>
-        <translation>Stormnode-alternativ:</translation>
+        <source>Dynode options:</source>
+        <translation>Dynode-alternativ:</translation>
     </message>
     <message>
-        <source>Stormnode queue is full.</source>
-        <translation>Stormnode-kön är uppfylld.</translation>
+        <source>Dynode queue is full.</source>
+        <translation>Dynode-kön är uppfylld.</translation>
     </message>
     <message>
-        <source>Stormnode:</source>
-        <translation>Stormnode:</translation>
+        <source>Dynode:</source>
+        <translation>Dynode:</translation>
     </message>
     <message>
         <source>Missing input transaction information.</source>
@@ -3110,7 +3110,7 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Ställ in maximal blockstorlek i bytes (standardvärde: %d)</translation>
     </message>
     <message>
-        <source>Set the stormnode private key</source>
+        <source>Set the dynode private key</source>
         <translation>Ställ in masternodprivatnyckeln</translation>
     </message>
     <message>
@@ -3206,8 +3206,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Användarnamn för JSON-RPC-anslutningar</translation>
     </message>
     <message>
-        <source>Value more than Sandstorm pool maximum allows.</source>
-        <translation>Värdera mer än vad Sandstorms poolmaximum tillåter.</translation>
+        <source>Value more than Privatesend pool maximum allows.</source>
+        <translation>Värdera mer än vad Privatesends poolmaximum tillåter.</translation>
     </message>
     <message>
         <source>Verifying blocks...</source>

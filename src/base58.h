@@ -13,8 +13,8 @@
  * - E-mail usually won't line-break if there's no punctuation to break at.
  * - Double-clicking selects the whole string as one word if it's all alphanumeric.
  */
-#ifndef DARKSILK_BASE58_H
-#define DARKSILK_BASE58_H
+#ifndef DYNAMIC_BASE58_H
+#define DYNAMIC_BASE58_H
 
 #include "chainparams.h"
 #include "key.h"
@@ -103,7 +103,7 @@ public:
  * Script-hash-addresses have version 16 (or 19 testnet).
  * The data vector contains RIPEMD160(SHA256(cscript)), where cscript is the serialized redemption script.
  */
-class CDarkSilkAddress : public CBase58Data {
+class CDynamicAddress : public CBase58Data {
 public:
     bool Set(const CKeyID &id);
     bool Set(const CScriptID &id);
@@ -111,10 +111,10 @@ public:
     bool IsValid() const;
     bool IsValid(const CChainParams &params) const;
 
-    CDarkSilkAddress() {}
-    CDarkSilkAddress(const CTxDestination &dest) { Set(dest); }
-    CDarkSilkAddress(const std::string& strAddress) { SetString(strAddress); }
-    CDarkSilkAddress(const char* pszAddress) { SetString(pszAddress); }
+    CDynamicAddress() {}
+    CDynamicAddress(const CTxDestination &dest) { Set(dest); }
+    CDynamicAddress(const std::string& strAddress) { SetString(strAddress); }
+    CDynamicAddress(const char* pszAddress) { SetString(pszAddress); }
 
     CTxDestination Get() const;
     bool GetKeyID(CKeyID &keyID) const;
@@ -125,7 +125,7 @@ public:
 /**
  * A base58-encoded secret key
  */
-class CDarkSilkSecret : public CBase58Data
+class CDynamicSecret : public CBase58Data
 {
 public:
     void SetKey(const CKey& vchSecret);
@@ -134,11 +134,11 @@ public:
     bool SetString(const char* pszSecret);
     bool SetString(const std::string& strSecret);
 
-    CDarkSilkSecret(const CKey& vchSecret) { SetKey(vchSecret); }
-    CDarkSilkSecret() {}
+    CDynamicSecret(const CKey& vchSecret) { SetKey(vchSecret); }
+    CDynamicSecret() {}
 };
 
-template<typename K, int Size, CChainParams::Base58Type Type> class CDarkSilkExtKeyBase : public CBase58Data
+template<typename K, int Size, CChainParams::Base58Type Type> class CDynamicExtKeyBase : public CBase58Data
 {
 public:
     void SetKey(const K &key) {
@@ -156,18 +156,18 @@ public:
         return ret;
     }
 
-    CDarkSilkExtKeyBase(const K &key) {
+    CDynamicExtKeyBase(const K &key) {
         SetKey(key);
     }
 
-    CDarkSilkExtKeyBase(const std::string& strBase58c) {
+    CDynamicExtKeyBase(const std::string& strBase58c) {
         SetString(strBase58c.c_str(), Params().Base58Prefix(Type).size());
     }
 
-    CDarkSilkExtKeyBase() {}
+    CDynamicExtKeyBase() {}
 };
 
-typedef CDarkSilkExtKeyBase<CExtKey, 74, CChainParams::EXT_SECRET_KEY> CDarkSilkExtKey;
-typedef CDarkSilkExtKeyBase<CExtPubKey, 74, CChainParams::EXT_PUBLIC_KEY> CDarkSilkExtPubKey;
+typedef CDynamicExtKeyBase<CExtKey, 74, CChainParams::EXT_SECRET_KEY> CDynamicExtKey;
+typedef CDynamicExtKeyBase<CExtPubKey, 74, CChainParams::EXT_PUBLIC_KEY> CDynamicExtPubKey;
 
-#endif // DARKSILK_BASE58_H
+#endif // DYNAMIC_BASE58_H

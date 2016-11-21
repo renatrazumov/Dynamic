@@ -7,7 +7,7 @@
 
 #include "recentrequeststablemodel.h"
 
-#include "darksilkunits.h"
+#include "dynamicunits.h"
 #include "guiutil.h"
 #include "optionsmodel.h"
 
@@ -97,9 +97,9 @@ QVariant RecentRequestsTableModel::data(const QModelIndex &index, int role) cons
             if (rec->recipient.amount == 0 && role == Qt::DisplayRole)
                 return tr("(no amount)");
             else if (role == Qt::EditRole)
-                return DarkSilkUnits::format(walletModel->getOptionsModel()->getDisplayUnit(), rec->recipient.amount, false, DarkSilkUnits::separatorNever);
+                return DynamicUnits::format(walletModel->getOptionsModel()->getDisplayUnit(), rec->recipient.amount, false, DynamicUnits::separatorNever);
             else
-                return DarkSilkUnits::format(walletModel->getOptionsModel()->getDisplayUnit(), rec->recipient.amount);
+                return DynamicUnits::format(walletModel->getOptionsModel()->getDisplayUnit(), rec->recipient.amount);
         }
     }
     else if (role == Qt::TextAlignmentRole)
@@ -140,7 +140,7 @@ QString RecentRequestsTableModel::getAmountTitle()
     QString amountTitle = tr("Amount");
     if (this->walletModel->getOptionsModel() != NULL)
     {
-        amountTitle += " ("+DarkSilkUnits::name(this->walletModel->getOptionsModel()->getDisplayUnit()) + ")";
+        amountTitle += " ("+DynamicUnits::name(this->walletModel->getOptionsModel()->getDisplayUnit()) + ")";
     }
     return amountTitle;
 }

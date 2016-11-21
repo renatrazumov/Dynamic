@@ -5,8 +5,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_TXMEMPOOL_H
-#define DARKSILK_TXMEMPOOL_H
+#ifndef DYNAMIC_TXMEMPOOL_H
+#define DYNAMIC_TXMEMPOOL_H
 
 #include <list>
 #include <set>
@@ -660,4 +660,4 @@ struct TxCoinAgePriorityCompare
     }
 };
 
-#endif // DARKSILK_TXMEMPOOL_H
+#endif // DYNAMIC_TXMEMPOOL_H

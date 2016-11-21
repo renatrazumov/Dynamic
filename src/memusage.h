@@ -5,8 +5,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_MEMUSAGE_H
-#define DARKSILK_MEMUSAGE_H
+#ifndef DYNAMIC_MEMUSAGE_H
+#define DYNAMIC_MEMUSAGE_H
 
 #include <stdlib.h>
 
@@ -132,4 +132,4 @@ static inline size_t DynamicUsage(const boost::unordered_map<X, Y, Z>& m)
 
 }
 
-#endif // DARKSILK_MEMUSAGE_H
+#endif // DYNAMIC_MEMUSAGE_H

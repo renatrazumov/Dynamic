@@ -5,85 +5,85 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include "activestormnode.h"
-#include "stormnode.h"
-#include "stormnode-sync.h"
-#include "stormnodeman.h"
+#include "activedynode.h"
+#include "dynode.h"
+#include "dynode-sync.h"
+#include "dynodeman.h"
 #include "protocol.h"
 
 extern CWallet* pwalletMain;
 
-// Keep track of the active Stormnode
-CActiveStormnode activeStormnode;
+// Keep track of the active Dynode
+CActiveDynode activeDynode;
 
-void CActiveStormnode::ManageState()
+void CActiveDynode::ManageState()
 {
-    LogPrint("stormnode", "CActiveStormnode::ManageState -- Start\n");
-    if(!fStormNode) {
-        LogPrint("stormnode", "CActiveStormnode::ManageState -- Not a stormnode, returning\n");
+    LogPrint("dynode", "CActiveDynode::ManageState -- Start\n");
+    if(!fDyNode) {
+        LogPrint("dynode", "CActiveDynode::ManageState -- Not a dynode, returning\n");
         return;
     }
 
-    if(Params().NetworkIDString() != CBaseChainParams::REGTEST && !stormnodeSync.IsBlockchainSynced()) {
-        nState = ACTIVE_STORMNODE_SYNC_IN_PROCESS;
-        LogPrintf("CActiveStormnode::ManageState -- %s: %s\n", GetStateString(), GetStatus());
+    if(Params().NetworkIDString() != CBaseChainParams::REGTEST && !dynodeSync.IsBlockchainSynced()) {
+        nState = ACTIVE_DYNODE_SYNC_IN_PROCESS;
+        LogPrintf("CActiveDynode::ManageState -- %s: %s\n", GetStateString(), GetStatus());
         return;
     }
 
-    if(nState == ACTIVE_STORMNODE_SYNC_IN_PROCESS) {
-        nState = ACTIVE_STORMNODE_INITIAL;
+    if(nState == ACTIVE_DYNODE_SYNC_IN_PROCESS) {
+        nState = ACTIVE_DYNODE_INITIAL;
     }
 
-    LogPrint("stormnode", "CActiveStormnode::ManageState -- status = %s, type = %s, pinger enabled = %d\n", GetStatus(), GetTypeString(), fPingerEnabled);
+    LogPrint("dynode", "CActiveDynode::ManageState -- status = %s, type = %s, pinger enabled = %d\n", GetStatus(), GetTypeString(), fPingerEnabled);
 
-    if(eType == STORMNODE_UNKNOWN) {
+    if(eType == DYNODE_UNKNOWN) {
         ManageStateInitial();
     }
 
-    if(eType == STORMNODE_REMOTE) {
+    if(eType == DYNODE_REMOTE) {
         ManageStateRemote();
-    } else if(eType == STORMNODE_LOCAL) {
+    } else if(eType == DYNODE_LOCAL) {
         ManageStateLocal();
     }
 
-    SendStormnodePing();
+    SendDynodePing();
 }
 
-std::string CActiveStormnode::GetStateString() const
+std::string CActiveDynode::GetStateString() const
 {
     switch (nState) {
-        case ACTIVE_STORMNODE_INITIAL:         return "INITIAL";
-        case ACTIVE_STORMNODE_SYNC_IN_PROCESS: return "SYNC_IN_PROCESS";
-        case ACTIVE_STORMNODE_INPUT_TOO_NEW:   return "INPUT_TOO_NEW";
-        case ACTIVE_STORMNODE_NOT_CAPABLE:     return "NOT_CAPABLE";
-        case ACTIVE_STORMNODE_STARTED:         return "STARTED";
+        case ACTIVE_DYNODE_INITIAL:         return "INITIAL";
+        case ACTIVE_DYNODE_SYNC_IN_PROCESS: return "SYNC_IN_PROCESS";
+        case ACTIVE_DYNODE_INPUT_TOO_NEW:   return "INPUT_TOO_NEW";
+        case ACTIVE_DYNODE_NOT_CAPABLE:     return "NOT_CAPABLE";
+        case ACTIVE_DYNODE_STARTED:         return "STARTED";
         default:                                return "UNKNOWN";
     }
 }
 
-std::string CActiveStormnode::GetStatus() const
+std::string CActiveDynode::GetStatus() const
 {
     switch (nState) {
-        case ACTIVE_STORMNODE_INITIAL:         return "Node just started, not yet activated";
-        case ACTIVE_STORMNODE_SYNC_IN_PROCESS: return "Sync in progress. Must wait until sync is complete to start Stormnode";
-        case ACTIVE_STORMNODE_INPUT_TOO_NEW:   return strprintf("Stormnode input must have at least %d confirmations", Params().GetConsensus().nStormnodeMinimumConfirmations);
-        case ACTIVE_STORMNODE_NOT_CAPABLE:     return "Not capable stormnode: " + strNotCapableReason;
-        case ACTIVE_STORMNODE_STARTED:         return "Stormnode successfully started";
+        case ACTIVE_DYNODE_INITIAL:         return "Node just started, not yet activated";
+        case ACTIVE_DYNODE_SYNC_IN_PROCESS: return "Sync in progress. Must wait until sync is complete to start Dynode";
+        case ACTIVE_DYNODE_INPUT_TOO_NEW:   return strprintf("Dynode input must have at least %d confirmations", Params().GetConsensus().nDynodeMinimumConfirmations);
+        case ACTIVE_DYNODE_NOT_CAPABLE:     return "Not capable dynode: " + strNotCapableReason;
+        case ACTIVE_DYNODE_STARTED:         return "Dynode successfully started";
         default:                                return "Unknown";
     }
 }
 
-std::string CActiveStormnode::GetTypeString() const
+std::string CActiveDynode::GetTypeString() const
 {
     std::string strType;
     switch(eType) {
-    case STORMNODE_UNKNOWN:
+    case DYNODE_UNKNOWN:
         strType = "UNKNOWN";
         break;
-    case STORMNODE_REMOTE:
+    case DYNODE_REMOTE:
         strType = "REMOTE";
         break;
-    case STORMNODE_LOCAL:
+    case DYNODE_LOCAL:
         strType = "LOCAL";
         break;
     default:
@@ -93,48 +93,48 @@ std::string CActiveStormnode::GetTypeString() const
     return strType;
 }
 
-bool CActiveStormnode::SendStormnodePing()
+bool CActiveDynode::SendDynodePing()
 {
     if(!fPingerEnabled) {
-        LogPrint("stormnode", "CActiveStormnode::SendStormnodePing -- %s: stormnode ping service is disabled, skipping...\n", GetStateString());
+        LogPrint("dynode", "CActiveDynode::SendDynodePing -- %s: dynode ping service is disabled, skipping...\n", GetStateString());
         return false;
     }
 
     if(!snodeman.Has(vin)) {
-        strNotCapableReason = "Stormnode not in stormnode list";
-        nState = ACTIVE_STORMNODE_NOT_CAPABLE;
-        LogPrintf("CActiveStormnode::SendStormnodePing -- %s: %s\n", GetStateString(), strNotCapableReason);
+        strNotCapableReason = "Dynode not in dynode list";
+        nState = ACTIVE_DYNODE_NOT_CAPABLE;
+        LogPrintf("CActiveDynode::SendDynodePing -- %s: %s\n", GetStateString(), strNotCapableReason);
         return false;
     }
 
-    CStormnodePing snp(vin);
-    if(!snp.Sign(keyStormnode, pubKeyStormnode)) {
-        LogPrintf("CActiveStormnode::SendStormnodePing -- ERROR: Couldn't sign Stormnode Ping\n");
+    CDynodePing snp(vin);
+    if(!snp.Sign(keyDynode, pubKeyDynode)) {
+        LogPrintf("CActiveDynode::SendDynodePing -- ERROR: Couldn't sign Dynode Ping\n");
         return false;
     }
 
-    // Update lastPing for our stormnode in Stormnode list
-    if(snodeman.IsStormnodePingedWithin(vin, STORMNODE_MIN_SNP_SECONDS, snp.sigTime)) {
-        LogPrintf("CActiveStormnode::SendStormnodePing -- Too early to send Stormnode Ping\n");
+    // Update lastPing for our dynode in Dynode list
+    if(snodeman.IsDynodePingedWithin(vin, DYNODE_MIN_SNP_SECONDS, snp.sigTime)) {
+        LogPrintf("CActiveDynode::SendDynodePing -- Too early to send Dynode Ping\n");
         return false;
     }
 
-    snodeman.SetStormnodeLastPing(vin, snp);
+    snodeman.SetDynodeLastPing(vin, snp);
 
-    LogPrintf("CActiveStormnode::SendStormnodePing -- Relaying ping, collateral=%s\n", vin.ToString());
+    LogPrintf("CActiveDynode::SendDynodePing -- Relaying ping, collateral=%s\n", vin.ToString());
     snp.Relay();
 
     return true;
 }
 
-void CActiveStormnode::ManageStateInitial()
+void CActiveDynode::ManageStateInitial()
 {
-    LogPrint("stormnode", "CActiveStormnode::ManageStateInitial -- status = %s, type = %s, pinger enabled = %d\n", GetStatus(), GetTypeString(), fPingerEnabled);
+    LogPrint("dynode", "CActiveDynode::ManageStateInitial -- status = %s, type = %s, pinger enabled = %d\n", GetStatus(), GetTypeString(), fPingerEnabled);
     // Check that our local network configuration is correct
     if(!GetLocal(service)) {
-        nState = ACTIVE_STORMNODE_NOT_CAPABLE;
+        nState = ACTIVE_DYNODE_NOT_CAPABLE;
         strNotCapableReason = "Can't detect external address. Please consider using the externalip configuration option if problem persists.";
-        LogPrintf("CActiveStormnode::ManageStateInitial -- %s: %s\n", GetStateString(), strNotCapableReason);
+        LogPrintf("CActiveDynode::ManageStateInitial -- %s: %s\n", GetStateString(), strNotCapableReason);
         return;
     }
 
@@ -142,47 +142,47 @@ void CActiveStormnode::ManageStateInitial()
     
     if(Params().NetworkIDString() == CBaseChainParams::MAIN) {
         if(service.GetPort() != mainnetDefaultPort) {
-            nState = ACTIVE_STORMNODE_NOT_CAPABLE;
+            nState = ACTIVE_DYNODE_NOT_CAPABLE;
             strNotCapableReason = strprintf("Invalid port: %u - only 31000 is supported on mainnet.", service.GetPort());
-            LogPrintf("CActiveStormnode::ManageStatus() - not capable: %s\n", strNotCapableReason);
+            LogPrintf("CActiveDynode::ManageStatus() - not capable: %s\n", strNotCapableReason);
             return;
         }
     }
 
     if(Params().NetworkIDString() != CBaseChainParams::MAIN) {
         if(service.GetPort() == mainnetDefaultPort) {
-            nState = ACTIVE_STORMNODE_NOT_CAPABLE;
+            nState = ACTIVE_DYNODE_NOT_CAPABLE;
             strNotCapableReason = strprintf("Invalid port: %u - 31000 is only supported on mainnet.", service.GetPort());
-            LogPrintf("CActiveStormnode::ManageStatus() - not capable: %s\n", strNotCapableReason);
+            LogPrintf("CActiveDynode::ManageStatus() - not capable: %s\n", strNotCapableReason);
             return;
         }
     }
 
-    LogPrintf("CActiveStormnode::ManageState -- Checking inbound connection to '%s'\n", service.ToString());
+    LogPrintf("CActiveDynode::ManageState -- Checking inbound connection to '%s'\n", service.ToString());
 
     if(!ConnectNode((CAddress)service, NULL, true)) {
-        nState = ACTIVE_STORMNODE_NOT_CAPABLE;
+        nState = ACTIVE_DYNODE_NOT_CAPABLE;
         strNotCapableReason = "Could not connect to " + service.ToString();
-        LogPrintf("CActiveStormnode::ManageStateInitial -- %s: %s\n", GetStateString(), strNotCapableReason);
+        LogPrintf("CActiveDynode::ManageStateInitial -- %s: %s\n", GetStateString(), strNotCapableReason);
         return;
     }
 
     // Default to REMOTE
-    eType = STORMNODE_REMOTE;
+    eType = DYNODE_REMOTE;
 
     // Check if wallet funds are available
     if(!pwalletMain) {
-        LogPrintf("CActiveStormnode::ManageStateInitial -- %s: Wallet not available\n", GetStateString());
+        LogPrintf("CActiveDynode::ManageStateInitial -- %s: Wallet not available\n", GetStateString());
         return;
     }
 
     if(pwalletMain->IsLocked()) {
-        LogPrintf("CActiveStormnode::ManageStateInitial -- %s: Wallet is locked\n", GetStateString());
+        LogPrintf("CActiveDynode::ManageStateInitial -- %s: Wallet is locked\n", GetStateString());
         return;
     }
 
     if(pwalletMain->GetBalance() < 1000*COIN) {
-        LogPrintf("CActiveStormnode::ManageStateInitial -- %s: Wallet balance is < 1000 DSLK", GetStateString());
+        LogPrintf("CActiveDynode::ManageStateInitial -- %s: Wallet balance is < 1000 DYN", GetStateString());
         return;
     }
 
@@ -191,61 +191,61 @@ void CActiveStormnode::ManageStateInitial()
     CKey keyCollateral;
 
     // If collateral is found switch to LOCAL mode
-    if(pwalletMain->GetStormnodeVinAndKeys(vin, pubKeyCollateral, keyCollateral)) {
-        eType = STORMNODE_LOCAL;
+    if(pwalletMain->GetDynodeVinAndKeys(vin, pubKeyCollateral, keyCollateral)) {
+        eType = DYNODE_LOCAL;
     }
 
-    LogPrint("stormnode", "CActiveStormnode::ManageStateInitial -- End status = %s, type = %s, pinger enabled = %d\n", GetStatus(), GetTypeString(), fPingerEnabled);
+    LogPrint("dynode", "CActiveDynode::ManageStateInitial -- End status = %s, type = %s, pinger enabled = %d\n", GetStatus(), GetTypeString(), fPingerEnabled);
 }
 
-void CActiveStormnode::ManageStateRemote()
+void CActiveDynode::ManageStateRemote()
 {
-    LogPrint("stormnode", "CActiveStormnode::ManageStateRemote -- Start status = %s, type = %s, pinger enabled = %d, pubKeyStormnode.GetID() = %s\n", 
-             GetStatus(), fPingerEnabled, GetTypeString(), pubKeyStormnode.GetID().ToString());
+    LogPrint("dynode", "CActiveDynode::ManageStateRemote -- Start status = %s, type = %s, pinger enabled = %d, pubKeyDynode.GetID() = %s\n", 
+             GetStatus(), fPingerEnabled, GetTypeString(), pubKeyDynode.GetID().ToString());
 
-    snodeman.CheckStormnode(pubKeyStormnode);
-    stormnode_info_t infoSn = snodeman.GetStormnodeInfo(pubKeyStormnode);
+    snodeman.CheckDynode(pubKeyDynode);
+    dynode_info_t infoSn = snodeman.GetDynodeInfo(pubKeyDynode);
     if(infoSn.fInfoValid) {
         if(infoSn.nProtocolVersion != PROTOCOL_VERSION) {
-            nState = ACTIVE_STORMNODE_NOT_CAPABLE;
+            nState = ACTIVE_DYNODE_NOT_CAPABLE;
             strNotCapableReason = "Invalid protocol version";
-            LogPrintf("CActiveStormnode::ManageStateRemote -- %s: %s\n", GetStateString(), strNotCapableReason);
+            LogPrintf("CActiveDynode::ManageStateRemote -- %s: %s\n", GetStateString(), strNotCapableReason);
             return;
         }
         if(service != infoSn.addr) {
-            nState = ACTIVE_STORMNODE_NOT_CAPABLE;
+            nState = ACTIVE_DYNODE_NOT_CAPABLE;
             strNotCapableReason = "Specified IP doesn't match our external address.";
-            LogPrintf("CActiveStormnode::ManageStateRemote -- %s: %s\n", GetStateString(), strNotCapableReason);
+            LogPrintf("CActiveDynode::ManageStateRemote -- %s: %s\n", GetStateString(), strNotCapableReason);
             return;
         }
         vin = infoSn.vin;
         service = infoSn.addr;
         fPingerEnabled = true;
-        if(((infoSn.nActiveState == CStormnode::STORMNODE_ENABLED) ||
-            (infoSn.nActiveState == CStormnode::STORMNODE_PRE_ENABLED) ||
-            (infoSn.nActiveState == CStormnode::STORMNODE_WATCHDOG_EXPIRED))) {
-            if(nState != ACTIVE_STORMNODE_STARTED) {
-                LogPrintf("CActiveStormnode::ManageStateRemote -- STARTED!\n");
+        if(((infoSn.nActiveState == CDynode::DYNODE_ENABLED) ||
+            (infoSn.nActiveState == CDynode::DYNODE_PRE_ENABLED) ||
+            (infoSn.nActiveState == CDynode::DYNODE_WATCHDOG_EXPIRED))) {
+            if(nState != ACTIVE_DYNODE_STARTED) {
+                LogPrintf("CActiveDynode::ManageStateRemote -- STARTED!\n");
             }
-            nState = ACTIVE_STORMNODE_STARTED;
+            nState = ACTIVE_DYNODE_STARTED;
         }
         else {
-            nState = ACTIVE_STORMNODE_NOT_CAPABLE;
-            strNotCapableReason = strprintf("Stormnode in %s state", CStormnode::StateToString(infoSn.nActiveState));
-            LogPrintf("CActiveStormnode::ManageStateRemote -- %s: %s\n", GetStateString(), strNotCapableReason);
+            nState = ACTIVE_DYNODE_NOT_CAPABLE;
+            strNotCapableReason = strprintf("Dynode in %s state", CDynode::StateToString(infoSn.nActiveState));
+            LogPrintf("CActiveDynode::ManageStateRemote -- %s: %s\n", GetStateString(), strNotCapableReason);
         }
     }
     else {
-        nState = ACTIVE_STORMNODE_NOT_CAPABLE;
-        strNotCapableReason = "Stormnode not in stormnode list";
-        LogPrintf("CActiveStormnode::ManageStateRemote -- %s: %s\n", GetStateString(), strNotCapableReason);
+        nState = ACTIVE_DYNODE_NOT_CAPABLE;
+        strNotCapableReason = "Dynode not in dynode list";
+        LogPrintf("CActiveDynode::ManageStateRemote -- %s: %s\n", GetStateString(), strNotCapableReason);
     }
 }
 
-void CActiveStormnode::ManageStateLocal()
+void CActiveDynode::ManageStateLocal()
 {
-    LogPrint("stormnode", "CActiveStormnode::ManageStateLocal -- status = %s, type = %s, pinger enabled = %d\n", GetStatus(), GetTypeString(), fPingerEnabled);
-    if(nState == ACTIVE_STORMNODE_STARTED) {
+    LogPrint("dynode", "CActiveDynode::ManageStateLocal -- status = %s, type = %s, pinger enabled = %d\n", GetStatus(), GetTypeString(), fPingerEnabled);
+    if(nState == ACTIVE_DYNODE_STARTED) {
         return;
     }
 
@@ -253,12 +253,12 @@ void CActiveStormnode::ManageStateLocal()
     CPubKey pubKeyCollateral;
     CKey keyCollateral;
 
-    if(pwalletMain->GetStormnodeVinAndKeys(vin, pubKeyCollateral, keyCollateral)) {
+    if(pwalletMain->GetDynodeVinAndKeys(vin, pubKeyCollateral, keyCollateral)) {
         int nInputAge = GetInputAge(vin);
-        if(nInputAge < Params().GetConsensus().nStormnodeMinimumConfirmations){
-            nState = ACTIVE_STORMNODE_INPUT_TOO_NEW;
+        if(nInputAge < Params().GetConsensus().nDynodeMinimumConfirmations){
+            nState = ACTIVE_DYNODE_INPUT_TOO_NEW;
             strNotCapableReason = strprintf(_("%s - %d confirmations"), GetStatus(), nInputAge);
-            LogPrintf("CActiveStormnode::ManageStateLocal -- %s: %s\n", GetStateString(), strNotCapableReason);
+            LogPrintf("CActiveDynode::ManageStateLocal -- %s: %s\n", GetStateString(), strNotCapableReason);
             return;
         }
 
@@ -267,24 +267,24 @@ void CActiveStormnode::ManageStateLocal()
             pwalletMain->LockCoin(vin.prevout);
         }
 
-        CStormnodeBroadcast snb;
+        CDynodeBroadcast snb;
         std::string strError;
-        if(!CStormnodeBroadcast::Create(vin, service, keyCollateral, pubKeyCollateral, keyStormnode, pubKeyStormnode, strError, snb)) {
-            nState = ACTIVE_STORMNODE_NOT_CAPABLE;
-            strNotCapableReason = "Error creating stormnode broadcast: " + strError;
-            LogPrintf("CActiveStormnode::ManageStateLocal -- %s: %s\n", GetStateString(), strNotCapableReason);
+        if(!CDynodeBroadcast::Create(vin, service, keyCollateral, pubKeyCollateral, keyDynode, pubKeyDynode, strError, snb)) {
+            nState = ACTIVE_DYNODE_NOT_CAPABLE;
+            strNotCapableReason = "Error creating dynode broadcast: " + strError;
+            LogPrintf("CActiveDynode::ManageStateLocal -- %s: %s\n", GetStateString(), strNotCapableReason);
             return;
         }
 
-        //update to stormnode list
-        LogPrintf("CActiveStormnode::ManageStateLocal -- Update Stormnode List\n");
-        snodeman.UpdateStormnodeList(snb);
-        snodeman.NotifyStormnodeUpdates();
+        //update to dynode list
+        LogPrintf("CActiveDynode::ManageStateLocal -- Update Dynode List\n");
+        snodeman.UpdateDynodeList(snb);
+        snodeman.NotifyDynodeUpdates();
 
         //send to all peers
-        LogPrintf("CActiveStormnode::ManageStateLocal -- Relay broadcast, vin=%s\n", vin.ToString());
+        LogPrintf("CActiveDynode::ManageStateLocal -- Relay broadcast, vin=%s\n", vin.ToString());
         snb.Relay();
         fPingerEnabled = true;
-        nState = ACTIVE_STORMNODE_STARTED;
+        nState = ACTIVE_DYNODE_STARTED;
     }
 }

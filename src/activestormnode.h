@@ -5,63 +5,63 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_ACTIVESTORMNODE_H
-#define DARKSILK_ACTIVESTORMNODE_H
+#ifndef DYNAMIC_ACTIVEDYNODE_H
+#define DYNAMIC_ACTIVEDYNODE_H
 
 #include "net.h"
 #include "key.h"
 #include "wallet/wallet.h"
 
-class CActiveStormnode;
+class CActiveDynode;
 
-static const int ACTIVE_STORMNODE_INITIAL          = 0; // initial state
-static const int ACTIVE_STORMNODE_SYNC_IN_PROCESS  = 1;
-static const int ACTIVE_STORMNODE_INPUT_TOO_NEW    = 2;
-static const int ACTIVE_STORMNODE_NOT_CAPABLE      = 3;
-static const int ACTIVE_STORMNODE_STARTED          = 4;
+static const int ACTIVE_DYNODE_INITIAL          = 0; // initial state
+static const int ACTIVE_DYNODE_SYNC_IN_PROCESS  = 1;
+static const int ACTIVE_DYNODE_INPUT_TOO_NEW    = 2;
+static const int ACTIVE_DYNODE_NOT_CAPABLE      = 3;
+static const int ACTIVE_DYNODE_STARTED          = 4;
 
-extern CActiveStormnode activeStormnode;
+extern CActiveDynode activeDynode;
 
-// Responsible for activating the Stormnode and pinging the network
-class CActiveStormnode
+// Responsible for activating the Dynode and pinging the network
+class CActiveDynode
 {
 public:
-    enum stormnode_type_enum_t {
-        STORMNODE_UNKNOWN = 0,
-        STORMNODE_REMOTE  = 1,
-        STORMNODE_LOCAL   = 2
+    enum dynode_type_enum_t {
+        DYNODE_UNKNOWN = 0,
+        DYNODE_REMOTE  = 1,
+        DYNODE_LOCAL   = 2
     };
 
 private:
     // critical section to protect the inner data structures
     mutable CCriticalSection cs;
 
-    stormnode_type_enum_t eType;
+    dynode_type_enum_t eType;
 
     bool fPingerEnabled;
 
-    /// Ping Stormnode
-    bool SendStormnodePing();
+    /// Ping Dynode
+    bool SendDynodePing();
 
 public:
-    // Keys for the active Stormnode
-    CPubKey pubKeyStormnode;
-    CKey keyStormnode;
+    // Keys for the active Dynode
+    CPubKey pubKeyDynode;
+    CKey keyDynode;
 
-    // Initialized while registering Stormnode
+    // Initialized while registering Dynode
     CTxIn vin;
     CService service;
 
-    int nState; // should be one of ACTIVE_STORMNODE_XXXX
+    int nState; // should be one of ACTIVE_DYNODE_XXXX
     std::string strNotCapableReason;
 
-    CActiveStormnode()
-        : eType(STORMNODE_UNKNOWN),
+    CActiveDynode()
+        : eType(DYNODE_UNKNOWN),
           fPingerEnabled(false),
-          nState(ACTIVE_STORMNODE_INITIAL)
+          nState(ACTIVE_DYNODE_INITIAL)
     {}
 
-    /// Manage state of active Stormnode
+    /// Manage state of active Dynode
     void ManageState();
 
     std::string GetStateString() const;
@@ -74,4 +74,4 @@ private:
     void ManageStateLocal();
 };
 
-#endif // DARKSILK_ACTIVESTORMNODE_H
+#endif // DYNAMIC_ACTIVEDYNODE_H

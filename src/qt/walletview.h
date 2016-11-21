@@ -5,15 +5,15 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_QT_WALLETVIEW_H
-#define DARKSILK_QT_WALLETVIEW_H
+#ifndef DYNAMIC_QT_WALLETVIEW_H
+#define DYNAMIC_QT_WALLETVIEW_H
 
 #include "amount.h"
-#include "stormnodelist.h"
+#include "dynodelist.h"
 
 #include <QStackedWidget>
 
-class DarkSilkGUI;
+class DynamicGUI;
 class ClientModel;
 class OverviewPage;
 class PlatformStyle;
@@ -44,13 +44,13 @@ public:
     explicit WalletView(const PlatformStyle *platformStyle, QWidget *parent);
     ~WalletView();
 
-    void setDarkSilkGUI(DarkSilkGUI *gui);
+    void setDynamicGUI(DynamicGUI *gui);
     /** Set the client model.
         The client model represents the part of the core that communicates with the P2P network, and is wallet-agnostic.
     */
     void setClientModel(ClientModel *clientModel);
     /** Set the wallet model.
-        The wallet model represents a darksilk wallet, and offers access to the list of transactions, address book and sending
+        The wallet model represents a dynamic wallet, and offers access to the list of transactions, address book and sending
         functionality.
     */
     void setWalletModel(WalletModel *walletModel);
@@ -69,7 +69,7 @@ private:
     SendCoinsDialog *sendCoinsPage;
     AddressBookPage *usedSendingAddressesPage;
     AddressBookPage *usedReceivingAddressesPage;
-    StormnodeList *stormnodeListPage;
+    DynodeList *dynodeListPage;
 
     TransactionView *transactionView;
 
@@ -82,8 +82,8 @@ public Q_SLOTS:
     void gotoOverviewPage();
     /** Switch to history (transactions) page */
     void gotoHistoryPage();
-    /** Switch to stormnode page */
-    void gotoStormnodePage();
+    /** Switch to dynode page */
+    void gotoDynodePage();
     /** Switch to receive coins page */
     void gotoReceiveCoinsPage();
     /** Switch to send coins page */
@@ -121,7 +121,7 @@ public Q_SLOTS:
     /** Show progress dialog e.g. for rescan */
     void showProgress(const QString &title, int nProgress);
 
-    /** Update selected DSLK amount from transactionview */
+    /** Update selected DYN amount from transactionview */
     void trxAmount(QString amount);
 
 Q_SIGNALS:
@@ -135,4 +135,4 @@ Q_SIGNALS:
     void incomingTransaction(const QString& date, int unit, const CAmount& amount, const QString& type, const QString& address, const QString& label);
 };
 
-#endif // DARKSILK_QT_WALLETVIEW_H
+#endif // DYNAMIC_QT_WALLETVIEW_H

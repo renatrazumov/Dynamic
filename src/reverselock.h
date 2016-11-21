@@ -5,8 +5,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_REVERSELOCK_H
-#define DARKSILK_REVERSELOCK_H
+#ifndef DYNAMIC_REVERSELOCK_H
+#define DYNAMIC_REVERSELOCK_H
 
 /**
  * An RAII-style reverse lock. Unlocks on construction and locks on destruction.
@@ -31,4 +31,4 @@ private:
     Lock& lock;
 };
 
-#endif // DARKSILK_REVERSELOCK_H
+#endif // DYNAMIC_REVERSELOCK_H

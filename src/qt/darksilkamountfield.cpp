@@ -5,9 +5,9 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include "darksilkamountfield.h"
+#include "dynamicamountfield.h"
 
-#include "darksilkunits.h"
+#include "dynamicunits.h"
 #include "guiconstants.h"
 #include "qvaluecombobox.h"
 
@@ -27,7 +27,7 @@ class AmountSpinBox: public QAbstractSpinBox
 public:
     explicit AmountSpinBox(QWidget *parent):
         QAbstractSpinBox(parent),
-        currentUnit(DarkSilkUnits::DSLK),
+        currentUnit(DynamicUnits::DYN),
         singleStep(100000) // satoshis
     {
         setAlignment(Qt::AlignRight);
@@ -51,7 +51,7 @@ public:
         CAmount val = parse(input, &valid);
         if(valid)
         {
-            input = DarkSilkUnits::format(currentUnit, val, false, DarkSilkUnits::separatorAlways);
+            input = DynamicUnits::format(currentUnit, val, false, DynamicUnits::separatorAlways);
             lineEdit()->setText(input);
         }
     }
@@ -63,7 +63,7 @@ public:
 
     void setValue(const CAmount& value)
     {
-        lineEdit()->setText(DarkSilkUnits::format(currentUnit, value, false, DarkSilkUnits::separatorAlways));
+        lineEdit()->setText(DynamicUnits::format(currentUnit, value, false, DynamicUnits::separatorAlways));
         Q_EMIT valueChanged();
     }
 
@@ -72,7 +72,7 @@ public:
         bool valid = false;
         CAmount val = value(&valid);
         val = val + steps * singleStep;
-        val = qMin(qMax(val, CAmount(0)), DarkSilkUnits::maxMoney());
+        val = qMin(qMax(val, CAmount(0)), DynamicUnits::maxMoney());
         setValue(val);
     }
 
@@ -102,7 +102,7 @@ public:
 
             const QFontMetrics fm(fontMetrics());
             int h = lineEdit()->minimumSizeHint().height();
-            int w = fm.width(DarkSilkUnits::format(DarkSilkUnits::DSLK, DarkSilkUnits::maxMoney(), false, DarkSilkUnits::separatorAlways));
+            int w = fm.width(DynamicUnits::format(DynamicUnits::DYN, DynamicUnits::maxMoney(), false, DynamicUnits::separatorAlways));
             w += 2; // cursor blinking space
 
             QStyleOptionSpinBox opt;
@@ -140,10 +140,10 @@ private:
     CAmount parse(const QString &text, bool *valid_out=0) const
     {
         CAmount val = 0;
-        bool valid = DarkSilkUnits::parse(currentUnit, text, &val);
+        bool valid = DynamicUnits::parse(currentUnit, text, &val);
         if(valid)
         {
-            if(val < 0 || val > DarkSilkUnits::maxMoney())
+            if(val < 0 || val > DynamicUnits::maxMoney())
                 valid = false;
         }
         if(valid_out)
@@ -181,7 +181,7 @@ protected:
         {
             if(val > 0)
                 rv |= StepDownEnabled;
-            if(val < DarkSilkUnits::maxMoney())
+            if(val < DynamicUnits::maxMoney())
                 rv |= StepUpEnabled;
         }
         return rv;
@@ -191,9 +191,9 @@ Q_SIGNALS:
     void valueChanged();
 };
 
-#include "darksilkamountfield.moc"
+#include "dynamicamountfield.moc"
 
-DarkSilkAmountField::DarkSilkAmountField(QWidget *parent) :
+DynamicAmountField::DynamicAmountField(QWidget *parent) :
     QWidget(parent),
     amount(0)
 {
@@ -205,7 +205,7 @@ DarkSilkAmountField::DarkSilkAmountField(QWidget *parent) :
     QHBoxLayout *layout = new QHBoxLayout(this);
     layout->addWidget(amount);
     unit = new QValueComboBox(this);
-    unit->setModel(new DarkSilkUnits(this));
+    unit->setModel(new DynamicUnits(this));
     layout->addWidget(unit);
     layout->addStretch(1);
     layout->setContentsMargins(0,0,0,0);
@@ -223,19 +223,19 @@ DarkSilkAmountField::DarkSilkAmountField(QWidget *parent) :
     unitChanged(unit->currentIndex());
 }
 
-void DarkSilkAmountField::clear()
+void DynamicAmountField::clear()
 {
     amount->clear();
     unit->setCurrentIndex(0);
 }
 
-void DarkSilkAmountField::setEnabled(bool fEnabled)
+void DynamicAmountField::setEnabled(bool fEnabled)
 {
     amount->setEnabled(fEnabled);
     unit->setEnabled(fEnabled);
 }
 
-bool DarkSilkAmountField::validate()
+bool DynamicAmountField::validate()
 {
     bool valid = false;
     value(&valid);
@@ -243,7 +243,7 @@ bool DarkSilkAmountField::validate()
     return valid;
 }
 
-void DarkSilkAmountField::setValid(bool valid)
+void DynamicAmountField::setValid(bool valid)
 {
     if (valid)
         amount->setStyleSheet("");
@@ -251,7 +251,7 @@ void DarkSilkAmountField::setValid(bool valid)
         amount->setStyleSheet(STYLE_INVALID);
 }
 
-bool DarkSilkAmountField::eventFilter(QObject *object, QEvent *event)
+bool DynamicAmountField::eventFilter(QObject *object, QEvent *event)
 {
     if (event->type() == QEvent::FocusIn)
     {
@@ -261,45 +261,45 @@ bool DarkSilkAmountField::eventFilter(QObject *object, QEvent *event)
     return QWidget::eventFilter(object, event);
 }
 
-QWidget *DarkSilkAmountField::setupTabChain(QWidget *prev)
+QWidget *DynamicAmountField::setupTabChain(QWidget *prev)
 {
     QWidget::setTabOrder(prev, amount);
     QWidget::setTabOrder(amount, unit);
     return unit;
 }
 
-CAmount DarkSilkAmountField::value(bool *valid_out) const
+CAmount DynamicAmountField::value(bool *valid_out) const
 {
     return amount->value(valid_out);
 }
 
-void DarkSilkAmountField::setValue(const CAmount& value)
+void DynamicAmountField::setValue(const CAmount& value)
 {
     amount->setValue(value);
 }
 
-void DarkSilkAmountField::setReadOnly(bool fReadOnly)
+void DynamicAmountField::setReadOnly(bool fReadOnly)
 {
     amount->setReadOnly(fReadOnly);
 }
 
-void DarkSilkAmountField::unitChanged(int idx)
+void DynamicAmountField::unitChanged(int idx)
 {
     // Use description tooltip for current unit for the combobox
     unit->setToolTip(unit->itemData(idx, Qt::ToolTipRole).toString());
 
     // Determine new unit ID
-    int newUnit = unit->itemData(idx, DarkSilkUnits::UnitRole).toInt();
+    int newUnit = unit->itemData(idx, DynamicUnits::UnitRole).toInt();
 
     amount->setDisplayUnit(newUnit);
 }
 
-void DarkSilkAmountField::setDisplayUnit(int newUnit)
+void DynamicAmountField::setDisplayUnit(int newUnit)
 {
     unit->setValue(newUnit);
 }
 
-void DarkSilkAmountField::setSingleStep(const CAmount& step)
+void DynamicAmountField::setSingleStep(const CAmount& step)
 {
     amount->setSingleStep(step);
 }

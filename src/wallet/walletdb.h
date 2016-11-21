@@ -5,8 +5,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_WALLET_WALLETDB_H
-#define DARKSILK_WALLET_WALLETDB_H
+#ifndef DYNAMIC_WALLET_WALLETDB_H
+#define DYNAMIC_WALLET_WALLETDB_H
 
 #include "amount.h"
 #include "wallet/db.h"
@@ -147,4 +147,4 @@ void ThreadFlushWalletDB(const std::string& strFile);
 
 bool AutoBackupWallet (CWallet* wallet, std::string strWalletFile, std::string& strBackupWarning, std::string& strBackupError);
 
-#endif // DARKSILK_WALLET_WALLETDB_H
+#endif // DYNAMIC_WALLET_WALLETDB_H

@@ -5,7 +5,7 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-//#define ENABLE_DARKSILK_DEBUG
+//#define ENABLE_DYNAMIC_DEBUG
 
 #include "governance-classes.h"
 
@@ -19,7 +19,7 @@
 #include "consensus/validation.h"
 
 #include "governance.h"
-#include "stormnode.h"
+#include "dynode.h"
 #include <boost/lexical_cast.hpp>
 #include <univalue.h>
 
@@ -455,9 +455,9 @@ void CSuperblockManager::CreateSuperblock(CMutableTransaction& txNewRet, int nBl
 
             CTxDestination address1;
             ExtractDestination(payment.script, address1);
-            CDarkSilkAddress address2(address1);
+            CDynamicAddress address2(address1);
 
-            // TODO: PRINT NICE N.N DARKSILK OUTPUT
+            // TODO: PRINT NICE N.N DYNAMIC OUTPUT
 
             DBG( cout << "CSuperblockManager::CreateSuperblock Before LogPrintf call, nAmount = " << payment.nAmount << endl; );
             LogPrintf("NEW Superblock : output %d (addr %s, amount %d)\n", i, address2.ToString(), payment.nAmount);
@@ -598,10 +598,10 @@ void CSuperblock::ParsePaymentSchedule(std::string& strPaymentAddresses, std::st
     DBG( cout << "CSuperblock::ParsePaymentSchedule vecParsed1.size() = " << vecParsed1.size() << endl; );
 
     for (int i = 0; i < (int)vecParsed1.size(); i++) {
-        CDarkSilkAddress address(vecParsed1[i]);
+        CDynamicAddress address(vecParsed1[i]);
         if (!address.IsValid()) {
             std::ostringstream ostr;
-            ostr << "CSuperblock::ParsePaymentSchedule -- Invalid DarkSilk Address : " <<  vecParsed1[i];
+            ostr << "CSuperblock::ParsePaymentSchedule -- Invalid Dynamic Address : " <<  vecParsed1[i];
             LogPrintf("%s\n", ostr.str());
             throw std::runtime_error(ostr.str());
         }
@@ -729,7 +729,7 @@ bool CSuperblock::IsValid(const CTransaction& txNew, int nBlockHeight, CAmount b
 
             CTxDestination address1;
             ExtractDestination(payment.script, address1);
-            CDarkSilkAddress address2(address1);
+            CDynamicAddress address2(address1);
             LogPrintf("CSuperblock::IsValid -- ERROR: Block invalid: output n %d payment %d to %s\n", nVoutIndex, payment.nAmount, address2.ToString());
 
             return false;
@@ -767,7 +767,7 @@ std::string CSuperblockManager::GetRequiredPaymentsString(int nBlockHeight)
 
             CTxDestination address1;
             ExtractDestination(payment.script, address1);
-            CDarkSilkAddress address2(address1);
+            CDynamicAddress address2(address1);
 
             // RETURN NICE OUTPUT FOR CONSOLE
 

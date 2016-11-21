@@ -5,7 +5,7 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include "darksilkaddressvalidator.h"
+#include "dynamicaddressvalidator.h"
 
 #include "base58.h"
 
@@ -18,12 +18,12 @@
   - All lower-case letters except for 'l'
 */
 
-DarkSilkAddressEntryValidator::DarkSilkAddressEntryValidator(QObject *parent) :
+DynamicAddressEntryValidator::DynamicAddressEntryValidator(QObject *parent) :
     QValidator(parent)
 {
 }
 
-QValidator::State DarkSilkAddressEntryValidator::validate(QString &input, int &pos) const
+QValidator::State DynamicAddressEntryValidator::validate(QString &input, int &pos) const
 {
     Q_UNUSED(pos);
 
@@ -83,16 +83,16 @@ QValidator::State DarkSilkAddressEntryValidator::validate(QString &input, int &p
     return state;
 }
 
-DarkSilkAddressCheckValidator::DarkSilkAddressCheckValidator(QObject *parent) :
+DynamicAddressCheckValidator::DynamicAddressCheckValidator(QObject *parent) :
     QValidator(parent)
 {
 }
 
-QValidator::State DarkSilkAddressCheckValidator::validate(QString &input, int &pos) const
+QValidator::State DynamicAddressCheckValidator::validate(QString &input, int &pos) const
 {
     Q_UNUSED(pos);
-    // Validate the passed DarkSilk address
-    CDarkSilkAddress addr(input.toStdString());
+    // Validate the passed Dynamic address
+    CDynamicAddress addr(input.toStdString());
     if (addr.IsValid())
         return QValidator::Acceptable;
 

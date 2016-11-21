@@ -5,8 +5,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_RPCSERVER_H
-#define DARKSILK_RPCSERVER_H
+#ifndef DYNAMIC_RPCSERVER_H
+#define DYNAMIC_RPCSERVER_H
 
 #include "amount.h"
 #include "rpcprotocol.h"
@@ -125,7 +125,7 @@ public:
 };
 
 /**
- * DarkSilk RPC command dispatcher.
+ * Dynamic RPC command dispatcher.
  */
 class CRPCTable
 {
@@ -270,9 +270,9 @@ extern UniValue verifytxoutproof(const UniValue& params, bool fHelp);
 extern UniValue privatesend(const UniValue& params, bool fHelp);
 extern UniValue getpoolinfo(const UniValue& params, bool fHelp);
 extern UniValue spork(const UniValue& params, bool fHelp);
-extern UniValue stormnode(const UniValue& params, bool fHelp);
-extern UniValue stormnodelist(const UniValue& params, bool fHelp);
-extern UniValue stormnodebroadcast(const UniValue& params, bool fHelp);
+extern UniValue dynode(const UniValue& params, bool fHelp);
+extern UniValue dynodelist(const UniValue& params, bool fHelp);
+extern UniValue dynodebroadcast(const UniValue& params, bool fHelp);
 extern UniValue gobject(const UniValue& params, bool fHelp);
 extern UniValue getgovernanceinfo(const UniValue& params, bool fHelp);
 extern UniValue getsuperblockbudget(const UniValue& params, bool fHelp);
@@ -303,4 +303,4 @@ void InterruptRPC();
 void StopRPC();
 std::string JSONRPCExecBatch(const UniValue& vReq);
 
-#endif // DARKSILK_RPCSERVER_H
+#endif // DYNAMIC_RPCSERVER_H

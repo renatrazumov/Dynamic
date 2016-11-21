@@ -5,8 +5,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_PUBKEY_H
-#define DARKSILK_PUBKEY_H
+#ifndef DYNAMIC_PUBKEY_H
+#define DYNAMIC_PUBKEY_H
 
 #include "hash.h"
 #include "serialize.h"
@@ -223,4 +223,4 @@ public:
     ~ECCVerifyHandle();
 };
 
-#endif // DARKSILK_PUBKEY_H
+#endif // DYNAMIC_PUBKEY_H

@@ -12,7 +12,7 @@
 #include "noui.h"
 #include "scheduler.h"
 #include "util.h"
-#include "stormnodeconfig.h"
+#include "dynodeconfig.h"
 #include "httpserver.h"
 #include "httprpc.h"
 #include "rpcserver.h"
@@ -29,8 +29,8 @@
  *
  * \section intro_sec Introduction
  *
- * This is the developer documentation of the reference client for an experimental new digital currency called DarkSilk (https://www.silknetwork.org/),
- * which enables instant payments to anyone, anywhere in the world. DarkSilk uses peer-to-peer technology to operate
+ * This is the developer documentation of the reference client for an experimental new digital currency called Dynamic (https://www.silknetwork.org/),
+ * which enables instant payments to anyone, anywhere in the world. Dynamic uses peer-to-peer technology to operate
  * with no central authority: managing transactions and issuing money are carried out collectively by the network.
  *
  * The software is a community-driven open source project, released under the MIT license.
@@ -71,13 +71,13 @@ bool AppInit(int argc, char* argv[])
     //
     // Parameters
     //
-    // If Qt is used, parameters/darksilk.conf are parsed in qt/darksilk.cpp's main()
+    // If Qt is used, parameters/dynamic.conf are parsed in qt/dynamic.cpp's main()
     ParseParameters(argc, argv);
 
     // Process help and version before taking care about datadir
     if (mapArgs.count("-?") || mapArgs.count("-h") ||  mapArgs.count("-help") || mapArgs.count("-version"))
     {
-        std::string strUsage = _("DarkSilk Core Daemon") + " " + _("version") + " " + FormatFullVersion() + "\n";
+        std::string strUsage = _("Dynamic Core Daemon") + " " + _("version") + " " + FormatFullVersion() + "\n";
 
         if (mapArgs.count("-version"))
         {
@@ -86,9 +86,9 @@ bool AppInit(int argc, char* argv[])
         else
         {
             strUsage += "\n" + _("Usage:") + "\n" +
-                  "  darksilkd [options]                     " + _("Start DarkSilk Core Daemon") + "\n";
+                  "  dynamicd [options]                     " + _("Start Dynamic Core Daemon") + "\n";
 
-            strUsage += "\n" + HelpMessage(HMM_DARKSILKD);
+            strUsage += "\n" + HelpMessage(HMM_DYNAMICD);
         }
 
         fprintf(stdout, "%s", strUsage.c_str());
@@ -117,29 +117,29 @@ bool AppInit(int argc, char* argv[])
             return false;
         }
 
-        // parse stormnode.conf
+        // parse dynode.conf
         std::string strErr;
-        if(!stormnodeConfig.read(strErr)) {
-            fprintf(stderr,"Error reading stormnode configuration file: %s\n", strErr.c_str());
+        if(!dynodeConfig.read(strErr)) {
+            fprintf(stderr,"Error reading dynode configuration file: %s\n", strErr.c_str());
             return false;
         }
 
         // Command-line RPC
         bool fCommandLine = false;
         for (int i = 1; i < argc; i++)
-            if (!IsSwitchChar(argv[i][0]) && !boost::algorithm::istarts_with(argv[i], "darksilk:"))
+            if (!IsSwitchChar(argv[i][0]) && !boost::algorithm::istarts_with(argv[i], "dynamic:"))
                 fCommandLine = true;
 
         if (fCommandLine)
         {
-            fprintf(stderr, "Error: There is no RPC client functionality in darksilkd anymore. Use the darksilk-cli utility instead.\n");
+            fprintf(stderr, "Error: There is no RPC client functionality in dynamicd anymore. Use the dynamic-cli utility instead.\n");
             exit(EXIT_FAILURE);
         }
 #ifndef WIN32
         fDaemon = GetBoolArg("-daemon", false);
         if (fDaemon)
         {
-            fprintf(stdout, "DarkSilk Core server starting\n");
+            fprintf(stdout, "Dynamic Core server starting\n");
 
             // Daemonize
             pid_t pid = fork();
@@ -190,7 +190,7 @@ int main(int argc, char* argv[])
 {
     SetupEnvironment();
 
-    // Connect darksilkd signal handlers
+    // Connect dynamicd signal handlers
     noui_connect();
 
     return (AppInit(argc, argv) ? EXIT_SUCCESS : EXIT_FAILURE);

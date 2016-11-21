@@ -5,10 +5,10 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_QT_TRANSACTIONTABLEMODEL_H
-#define DARKSILK_QT_TRANSACTIONTABLEMODEL_H
+#ifndef DYNAMIC_QT_TRANSACTIONTABLEMODEL_H
+#define DYNAMIC_QT_TRANSACTIONTABLEMODEL_H
 
-#include "darksilkunits.h"
+#include "dynamicunits.h"
 
 #include <QAbstractTableModel>
 #include <QStringList>
@@ -99,7 +99,7 @@ private:
     QString formatTxDate(const TransactionRecord *wtx) const;
     QString formatTxType(const TransactionRecord *wtx) const;
     QString formatTxToAddress(const TransactionRecord *wtx, bool tooltip) const;
-    QString formatTxAmount(const TransactionRecord *wtx, bool showUnconfirmed=true, DarkSilkUnits::SeparatorStyle separators=DarkSilkUnits::separatorStandard) const;
+    QString formatTxAmount(const TransactionRecord *wtx, bool showUnconfirmed=true, DynamicUnits::SeparatorStyle separators=DynamicUnits::separatorStandard) const;
     QString formatTooltip(const TransactionRecord *rec) const;
     QVariant txStatusDecoration(const TransactionRecord *wtx) const;
     QVariant txWatchonlyDecoration(const TransactionRecord *wtx) const;
@@ -118,4 +118,4 @@ public Q_SLOTS:
     friend class TransactionTablePriv;
 };
 
-#endif // DARKSILK_QT_TRANSACTIONTABLEMODEL_H
+#endif // DYNAMIC_QT_TRANSACTIONTABLEMODEL_H

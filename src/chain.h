@@ -5,8 +5,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_CHAIN_H
-#define DARKSILK_CHAIN_H
+#ifndef DYNAMIC_CHAIN_H
+#define DYNAMIC_CHAIN_H
 
 #include "arith_uint256.h"
 #include "primitives/block.h"
@@ -410,4 +410,4 @@ public:
     const CBlockIndex *FindFork(const CBlockIndex *pindex) const;
 };
 
-#endif // DARKSILK_CHAIN_H
+#endif // DYNAMIC_CHAIN_H

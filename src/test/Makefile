@@ -1,6 +1,6 @@
 all:
-	$(MAKE) -C .. darksilk_test
+	$(MAKE) -C .. dynamic_test
 clean:
-	$(MAKE) -C .. darksilk_test_clean
+	$(MAKE) -C .. dynamic_test_clean
 check:
-	$(MAKE) -C .. darksilk_test_check
+	$(MAKE) -C .. dynamic_test_check

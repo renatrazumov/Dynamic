@@ -37,14 +37,14 @@ const char *FILTERADD="filteradd";
 const char *FILTERCLEAR="filterclear";
 const char *REJECT="reject";
 const char *SENDHEADERS="sendheaders";
-// DarkSilk message types
+// Dynamic message types
 const char *TXLOCKREQUEST="ix";
 const char *TXLOCKVOTE="txlvote";
 const char *SPORK="spork";
 const char *GETSPORKS="getsporks";
-const char *STORMNODEPAYMENTVOTE="snw";
-const char *STORMNODEPAYMENTBLOCK="snwb";
-const char *STORMNODEPAYMENTSYNC="snget";
+const char *DYNODEPAYMENTVOTE="snw";
+const char *DYNODEPAYMENTBLOCK="snwb";
+const char *DYNODEPAYMENTSYNC="snget";
 const char *SNBUDGETSYNC="snvs"; // depreciated since 12.1
 const char *SNBUDGETVOTE="svote"; // depreciated since 12.1
 const char *SNBUDGETPROPOSAL="sprop"; // depreciated since 12.1
@@ -75,13 +75,13 @@ static const char* ppszTypeName[] =
     NetMsgType::TX,
     NetMsgType::BLOCK,
     "filtered block", // Should never occur
-    // DarkSilk message types
+    // Dynamic message types
     // NOTE: include non-implmented here, we must keep this list in sync with enum in protocol.h
     NetMsgType::TXLOCKREQUEST,
     NetMsgType::TXLOCKVOTE,
     NetMsgType::SPORK,
-    NetMsgType::STORMNODEPAYMENTVOTE,
-    NetMsgType::STORMNODEPAYMENTBLOCK, // reusing, was SNSCANERROR previousely, was NOT used in 12.0, we need this for inv
+    NetMsgType::DYNODEPAYMENTVOTE,
+    NetMsgType::DYNODEPAYMENTBLOCK, // reusing, was SNSCANERROR previousely, was NOT used in 12.0, we need this for inv
     NetMsgType::SNBUDGETVOTE, // depreciated since 12.1
     NetMsgType::SNBUDGETPROPOSAL, // depreciated since 12.1
     NetMsgType::SNBUDGETFINAL, // depreciated since 12.1
@@ -121,15 +121,15 @@ const static std::string allNetMessageTypes[] = {
     NetMsgType::FILTERCLEAR,
     NetMsgType::REJECT,
     NetMsgType::SENDHEADERS,
-    // DarkSilk message types
+    // Dynamic message types
     // NOTE: do NOT include non-implmented here, we want them to be "Unknown command" in ProcessMessage()
     NetMsgType::TXLOCKREQUEST,
     NetMsgType::TXLOCKVOTE,
     NetMsgType::SPORK,
     NetMsgType::GETSPORKS,
-    NetMsgType::STORMNODEPAYMENTVOTE,
-    // NetMsgType::STORMNODEPAYMENTBLOCK, // there is no message for this, only inventory
-    NetMsgType::STORMNODEPAYMENTSYNC,
+    NetMsgType::DYNODEPAYMENTVOTE,
+    // NetMsgType::DYNODEPAYMENTBLOCK, // there is no message for this, only inventory
+    NetMsgType::DYNODEPAYMENTSYNC,
     NetMsgType::SNANNOUNCE,
     NetMsgType::SNPING,
     NetMsgType::SSACCEPT,

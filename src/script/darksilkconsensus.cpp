@@ -5,7 +5,7 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include "darksilkconsensus.h"
+#include "dynamicconsensus.h"
 
 #include "primitives/transaction.h"
 #include "pubkey.h"
@@ -56,7 +56,7 @@ private:
     size_t m_remaining;
 };
 
-inline int set_error(darksilkconsensus_error* ret, darksilkconsensus_error serror)
+inline int set_error(dynamicconsensus_error* ret, dynamicconsensus_error serror)
 {
     if (ret)
         *ret = serror;
@@ -71,30 +71,30 @@ struct ECCryptoClosure
 ECCryptoClosure instance_of_eccryptoclosure;
 }
 
-int darksilkconsensus_verify_script(const unsigned char *scriptPubKey, unsigned int scriptPubKeyLen,
+int dynamicconsensus_verify_script(const unsigned char *scriptPubKey, unsigned int scriptPubKeyLen,
                                     const unsigned char *txTo        , unsigned int txToLen,
-                                    unsigned int nIn, unsigned int flags, darksilkconsensus_error* err)
+                                    unsigned int nIn, unsigned int flags, dynamicconsensus_error* err)
 {
     try {
         TxInputStream stream(SER_NETWORK, PROTOCOL_VERSION, txTo, txToLen);
         CTransaction tx;
         stream >> tx;
         if (nIn >= tx.vin.size())
-            return set_error(err, darksilkconsensus_ERR_TX_INDEX);
+            return set_error(err, dynamicconsensus_ERR_TX_INDEX);
         if (tx.GetSerializeSize(SER_NETWORK, PROTOCOL_VERSION) != txToLen)
-            return set_error(err, darksilkconsensus_ERR_TX_SIZE_MISMATCH);
+            return set_error(err, dynamicconsensus_ERR_TX_SIZE_MISMATCH);
 
          // Regardless of the verification result, the tx did not error.
-         set_error(err, darksilkconsensus_ERR_OK);
+         set_error(err, dynamicconsensus_ERR_OK);
 
         return VerifyScript(tx.vin[nIn].scriptSig, CScript(scriptPubKey, scriptPubKey + scriptPubKeyLen), flags, TransactionSignatureChecker(&tx, nIn), NULL);
     } catch (const std::exception&) {
-        return set_error(err, darksilkconsensus_ERR_TX_DESERIALIZE); // Error deserializing
+        return set_error(err, dynamicconsensus_ERR_TX_DESERIALIZE); // Error deserializing
     }
 }
 
-unsigned int darksilkconsensus_version()
+unsigned int dynamicconsensus_version()
 {
     // Just use the API version for now
-    return DARKSILKCONSENSUS_API_VER;
+    return DYNAMICCONSENSUS_API_VER;
 }

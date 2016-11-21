@@ -5,11 +5,11 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_DARKSILKCONSENSUS_H
-#define DARKSILK_DARKSILKCONSENSUS_H
+#ifndef DYNAMIC_DYNAMICCONSENSUS_H
+#define DYNAMIC_DYNAMICCONSENSUS_H
 
-#if defined(BUILD_DARKSILK_INTERNAL) && defined(HAVE_CONFIG_H)
-#include "config/darksilk-config.h"
+#if defined(BUILD_DYNAMIC_INTERNAL) && defined(HAVE_CONFIG_H)
+#include "config/dynamic-config.h"
   #if defined(_WIN32)
     #if defined(DLL_EXPORT)
       #if defined(HAVE_FUNC_ATTRIBUTE_DLLEXPORT)
@@ -21,7 +21,7 @@
   #elif defined(HAVE_FUNC_ATTRIBUTE_VISIBILITY)
     #define EXPORT_SYMBOL __attribute__ ((visibility ("default")))
   #endif
-#elif defined(MSC_VER) && !defined(STATIC_LIBDARKSILKCONSENSUS)
+#elif defined(MSC_VER) && !defined(STATIC_LIBDYNAMICCONSENSUS)
   #define EXPORT_SYMBOL __declspec(dllimport)
 #endif
 
@@ -33,34 +33,34 @@
 extern "C" {
 #endif
 
-#define DARKSILKCONSENSUS_API_VER 0
+#define DYNAMICCONSENSUS_API_VER 0
 
-typedef enum darksilkconsensus_error_t
+typedef enum dynamicconsensus_error_t
 {
-    darksilkconsensus_ERR_OK = 0,
-    darksilkconsensus_ERR_TX_INDEX,
-    darksilkconsensus_ERR_TX_SIZE_MISMATCH,
-    darksilkconsensus_ERR_TX_DESERIALIZE,
-} darksilkconsensus_error;
+    dynamicconsensus_ERR_OK = 0,
+    dynamicconsensus_ERR_TX_INDEX,
+    dynamicconsensus_ERR_TX_SIZE_MISMATCH,
+    dynamicconsensus_ERR_TX_DESERIALIZE,
+} dynamicconsensus_error;
 
 /** Script verification flags */
 enum
 {
-    darksilkconsensus_SCRIPT_FLAGS_VERIFY_NONE                = 0,
-    darksilkconsensus_SCRIPT_FLAGS_VERIFY_P2SH                = (1U << 0), // evaluate P2SH (BIP16) subscripts
-    darksilkconsensus_SCRIPT_FLAGS_VERIFY_DERSIG              = (1U << 2), // enforce strict DER (BIP66) compliance
-    darksilkconsensus_SCRIPT_FLAGS_VERIFY_CHECKLOCKTIMEVERIFY = (1U << 9), // enable CHECKLOCKTIMEVERIFY (BIP65)
+    dynamicconsensus_SCRIPT_FLAGS_VERIFY_NONE                = 0,
+    dynamicconsensus_SCRIPT_FLAGS_VERIFY_P2SH                = (1U << 0), // evaluate P2SH (BIP16) subscripts
+    dynamicconsensus_SCRIPT_FLAGS_VERIFY_DERSIG              = (1U << 2), // enforce strict DER (BIP66) compliance
+    dynamicconsensus_SCRIPT_FLAGS_VERIFY_CHECKLOCKTIMEVERIFY = (1U << 9), // enable CHECKLOCKTIMEVERIFY (BIP65)
 };
 
 /// Returns 1 if the input nIn of the serialized transaction pointed to by
 /// txTo correctly spends the scriptPubKey pointed to by scriptPubKey under
 /// the additional constraints specified by flags.
 /// If not NULL, err will contain an error/success code for the operation
-EXPORT_SYMBOL int darksilkconsensus_verify_script(const unsigned char *scriptPubKey, unsigned int scriptPubKeyLen,
+EXPORT_SYMBOL int dynamicconsensus_verify_script(const unsigned char *scriptPubKey, unsigned int scriptPubKeyLen,
                                     const unsigned char *txTo        , unsigned int txToLen,
-                                    unsigned int nIn, unsigned int flags, darksilkconsensus_error* err);
+                                    unsigned int nIn, unsigned int flags, dynamicconsensus_error* err);
 
-EXPORT_SYMBOL unsigned int darksilkconsensus_version();
+EXPORT_SYMBOL unsigned int dynamicconsensus_version();
 
 #ifdef __cplusplus
 } // extern "C"
@@ -68,4 +68,4 @@ EXPORT_SYMBOL unsigned int darksilkconsensus_version();
 
 #undef EXPORT_SYMBOL
 
-#endif // DARKSILK_DARKSILKCONSENSUS_H
+#endif // DYNAMIC_DYNAMICCONSENSUS_H

@@ -5,8 +5,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_QT_EDITADDRESSDIALOG_H
-#define DARKSILK_QT_EDITADDRESSDIALOG_H
+#ifndef DYNAMIC_QT_EDITADDRESSDIALOG_H
+#define DYNAMIC_QT_EDITADDRESSDIALOG_H
 
 #include <QDialog>
 
@@ -57,4 +57,4 @@ private:
     QString address;
 };
 
-#endif // DARKSILK_QT_EDITADDRESSDIALOG_H
+#endif // DYNAMIC_QT_EDITADDRESSDIALOG_H

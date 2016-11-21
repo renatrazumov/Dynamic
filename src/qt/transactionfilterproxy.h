@@ -5,8 +5,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_QT_TRANSACTIONFILTERPROXY_H
-#define DARKSILK_QT_TRANSACTIONFILTERPROXY_H
+#ifndef DYNAMIC_QT_TRANSACTIONFILTERPROXY_H
+#define DYNAMIC_QT_TRANSACTIONFILTERPROXY_H
 
 #include "amount.h"
 
@@ -27,7 +27,7 @@ public:
     static const QDateTime MAX_DATE;
     /** Type filter bit field (all types) */
     static const quint32 ALL_TYPES = 0xFFFFFFFF;
-    /** Type filter bit field (all types but Sandstorm-SPAM) */
+    /** Type filter bit field (all types but Privatesend-SPAM) */
     static const quint32 COMMON_TYPES = 4223;
 
     static quint32 TYPE(int type) { return 1<<type; }
@@ -70,4 +70,4 @@ private:
     bool showInactive;
 };
 
-#endif // DARKSILK_QT_TRANSACTIONFILTERPROXY_H
+#endif // DYNAMIC_QT_TRANSACTIONFILTERPROXY_H

@@ -6,10 +6,10 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #if defined(HAVE_CONFIG_H)
-#include "config/darksilk-config.h"
+#include "config/dynamic-config.h"
 #endif
 
-#include "darksilkgui.h"
+#include "dynamicgui.h"
 
 #include "chainparams.h"
 #include "clientmodel.h"
@@ -28,7 +28,7 @@
 #include "paymentserver.h"
 #include "walletmodel.h"
 #endif
-#include "stormnodeconfig.h"
+#include "dynodeconfig.h"
 
 #include "init.h"
 #include "rpcserver.h"
@@ -97,7 +97,7 @@ static void InitMessage(const std::string &message)
  */
 static std::string Translate(const char* psz)
 {
-    return QCoreApplication::translate("darksilk-core", psz).toStdString();
+    return QCoreApplication::translate("dynamic-core", psz).toStdString();
 }
 
 static QString GetLangTerritory()
@@ -144,11 +144,11 @@ static void initTranslations(QTranslator &qtTranslatorBase, QTranslator &qtTrans
     if (qtTranslator.load("qt_" + lang_territory, QLibraryInfo::location(QLibraryInfo::TranslationsPath)))
         QApplication::installTranslator(&qtTranslator);
 
-    // Load e.g. darksilk_de.qm (shortcut "de" needs to be defined in darksilk.qrc)
+    // Load e.g. dynamic_de.qm (shortcut "de" needs to be defined in dynamic.qrc)
     if (translatorBase.load(lang, ":/translations/"))
         QApplication::installTranslator(&translatorBase);
 
-    // Load e.g. darksilk_de_DE.qm (shortcut "de_DE" needs to be defined in darksilk.qrc)
+    // Load e.g. dynamic_de_DE.qm (shortcut "de_DE" needs to be defined in dynamic.qrc)
     if (translator.load(lang_territory, ":/translations/"))
         QApplication::installTranslator(&translator);
 }
@@ -169,14 +169,14 @@ void DebugMessageHandler(QtMsgType type, const QMessageLogContext& context, cons
 }
 #endif
 
-/** Class encapsulating DarkSilk Core startup and shutdown.
+/** Class encapsulating Dynamic Core startup and shutdown.
  * Allows running startup and shutdown in a different thread from the UI thread.
  */
-class DarkSilkCore: public QObject
+class DynamicCore: public QObject
 {
     Q_OBJECT
 public:
-    explicit DarkSilkCore();
+    explicit DynamicCore();
 
 public Q_SLOTS:
     void initialize();
@@ -199,13 +199,13 @@ private:
     void handleRunawayException(const std::exception *e);
 };
 
-/** Main DarkSilk application object */
-class DarkSilkApplication: public QApplication
+/** Main Dynamic application object */
+class DynamicApplication: public QApplication
 {
     Q_OBJECT
 public:
-    explicit DarkSilkApplication(int &argc, char **argv);
-    ~DarkSilkApplication();
+    explicit DynamicApplication(int &argc, char **argv);
+    ~DynamicApplication();
 
 #ifdef ENABLE_WALLET
     /// Create payment server
@@ -228,7 +228,7 @@ public:
     /// Get process return value
     int getReturnValue() { return returnValue; }
 
-    /// Get window identifier of QMainWindow (DarkSilkGUI)
+    /// Get window identifier of QMainWindow (DynamicGUI)
     WId getMainWinId() const;
 
 public Q_SLOTS:
@@ -248,7 +248,7 @@ private:
     QThread *coreThread;
     OptionsModel *optionsModel;
     ClientModel *clientModel;
-    DarkSilkGUI *window;
+    DynamicGUI *window;
     QTimer *pollShutdownTimer;
 #ifdef ENABLE_WALLET
     PaymentServer* paymentServer;
@@ -260,20 +260,20 @@ private:
     void startThread();
 };
 
-#include "darksilk.moc"
+#include "dynamic.moc"
 
-DarkSilkCore::DarkSilkCore():
+DynamicCore::DynamicCore():
     QObject()
 {
 }
 
-void DarkSilkCore::handleRunawayException(const std::exception *e)
+void DynamicCore::handleRunawayException(const std::exception *e)
 {
     PrintExceptionContinue(e, "Runaway exception");
     Q_EMIT runawayException(QString::fromStdString(strMiscWarning));
 }
 
-void DarkSilkCore::initialize()
+void DynamicCore::initialize()
 {
     execute_restart = true;
 
@@ -289,7 +289,7 @@ void DarkSilkCore::initialize()
     }
 }
 
-void DarkSilkCore::restart(QStringList args)
+void DynamicCore::restart(QStringList args)
 {
     if(execute_restart) { // Only restart 1x, no matter how often a user clicks on a restart-button
         execute_restart = false;
@@ -313,7 +313,7 @@ void DarkSilkCore::restart(QStringList args)
     }
 }
 
-void DarkSilkCore::shutdown()
+void DynamicCore::shutdown()
 {
     try
     {
@@ -330,7 +330,7 @@ void DarkSilkCore::shutdown()
     }
 }
 
-DarkSilkApplication::DarkSilkApplication(int &argc, char **argv):
+DynamicApplication::DynamicApplication(int &argc, char **argv):
     QApplication(argc, argv),
     coreThread(0),
     optionsModel(0),
@@ -346,17 +346,17 @@ DarkSilkApplication::DarkSilkApplication(int &argc, char **argv):
     setQuitOnLastWindowClosed(false);
 
     // UI per-platform customization
-    // This must be done inside the DarkSilkApplication constructor, or after it, because
+    // This must be done inside the DynamicApplication constructor, or after it, because
     // PlatformStyle::instantiate requires a QApplication
     std::string platformName;
-    platformName = GetArg("-uiplatform", DarkSilkGUI::DEFAULT_UIPLATFORM);
+    platformName = GetArg("-uiplatform", DynamicGUI::DEFAULT_UIPLATFORM);
     platformStyle = PlatformStyle::instantiate(QString::fromStdString(platformName));
     if (!platformStyle) // Fall back to "other" if specified name not found
         platformStyle = PlatformStyle::instantiate("other");
     assert(platformStyle);
 }
 
-DarkSilkApplication::~DarkSilkApplication()
+DynamicApplication::~DynamicApplication()
 {
     if(coreThread)
     {
@@ -385,27 +385,27 @@ DarkSilkApplication::~DarkSilkApplication()
 }
 
 #ifdef ENABLE_WALLET
-void DarkSilkApplication::createPaymentServer()
+void DynamicApplication::createPaymentServer()
 {
     paymentServer = new PaymentServer(this);
 }
 #endif
 
-void DarkSilkApplication::createOptionsModel(bool resetSettings)
+void DynamicApplication::createOptionsModel(bool resetSettings)
 {
     optionsModel = new OptionsModel(NULL, resetSettings);
 }
 
-void DarkSilkApplication::createWindow(const NetworkStyle *networkStyle)
+void DynamicApplication::createWindow(const NetworkStyle *networkStyle)
 {
-    window = new DarkSilkGUI(platformStyle, networkStyle, 0);
+    window = new DynamicGUI(platformStyle, networkStyle, 0);
 
     pollShutdownTimer = new QTimer(window);
     connect(pollShutdownTimer, SIGNAL(timeout()), window, SLOT(detectShutdown()));
     pollShutdownTimer->start(200);
 }
 
-void DarkSilkApplication::createSplashScreen(const NetworkStyle *networkStyle)
+void DynamicApplication::createSplashScreen(const NetworkStyle *networkStyle)
 {
     SplashScreen *splash = new SplashScreen(0, networkStyle);
     // We don't hold a direct pointer to the splash screen after creation, so use
@@ -415,12 +415,12 @@ void DarkSilkApplication::createSplashScreen(const NetworkStyle *networkStyle)
     connect(this, SIGNAL(splashFinished(QWidget*)), splash, SLOT(slotFinish(QWidget*)));
 }
 
-void DarkSilkApplication::startThread()
+void DynamicApplication::startThread()
 {
     if(coreThread)
         return;
     coreThread = new QThread(this);
-    DarkSilkCore *executor = new DarkSilkCore();
+    DynamicCore *executor = new DynamicCore();
     executor->moveToThread(coreThread);
 
     /*  communication to and from thread */
@@ -437,20 +437,20 @@ void DarkSilkApplication::startThread()
     coreThread->start();
 }
 
-void DarkSilkApplication::parameterSetup()
+void DynamicApplication::parameterSetup()
 {
     InitLogging();
     InitParameterInteraction();
 }
 
-void DarkSilkApplication::requestInitialize()
+void DynamicApplication::requestInitialize()
 {
     qDebug() << __func__ << ": Requesting initialize";
     startThread();
     Q_EMIT requestedInitialize();
 }
 
-void DarkSilkApplication::requestShutdown()
+void DynamicApplication::requestShutdown()
 {
     qDebug() << __func__ << ": Requesting shutdown";
     startThread();
@@ -473,7 +473,7 @@ void DarkSilkApplication::requestShutdown()
     Q_EMIT requestedShutdown();
 }
 
-void DarkSilkApplication::initializeResult(int retval)
+void DynamicApplication::initializeResult(int retval)
 {
     qDebug() << __func__ << ": Initialization result: " << retval;
     // Set exit result: 0 if successful, 1 if failure
@@ -495,8 +495,8 @@ void DarkSilkApplication::initializeResult(int retval)
         {
             walletModel = new WalletModel(platformStyle, pwalletMain, optionsModel);
 
-            window->addWallet(DarkSilkGUI::DEFAULT_WALLET, walletModel);
-            window->setCurrentWallet(DarkSilkGUI::DEFAULT_WALLET);
+            window->addWallet(DynamicGUI::DEFAULT_WALLET, walletModel);
+            window->setCurrentWallet(DynamicGUI::DEFAULT_WALLET);
 
             connect(walletModel, SIGNAL(coinsSent(CWallet*,SendCoinsRecipient,QByteArray)),
                              paymentServer, SLOT(fetchPaymentACK(CWallet*,const SendCoinsRecipient&,QByteArray)));
@@ -516,7 +516,7 @@ void DarkSilkApplication::initializeResult(int retval)
 
 #ifdef ENABLE_WALLET
         // Now that initialization/startup is done, process any command-line
-        // darksilk: URIs or payment requests:
+        // dynamic: URIs or payment requests:
         connect(paymentServer, SIGNAL(receivedPaymentRequest(SendCoinsRecipient)),
                          window, SLOT(handlePaymentRequest(SendCoinsRecipient)));
         connect(window, SIGNAL(receivedURI(QString)),
@@ -530,19 +530,19 @@ void DarkSilkApplication::initializeResult(int retval)
     }
 }
 
-void DarkSilkApplication::shutdownResult(int retval)
+void DynamicApplication::shutdownResult(int retval)
 {
     qDebug() << __func__ << ": Shutdown result: " << retval;
     quit(); // Exit main loop after shutdown finished
 }
 
-void DarkSilkApplication::handleRunawayException(const QString &message)
+void DynamicApplication::handleRunawayException(const QString &message)
 {
-    QMessageBox::critical(0, "Runaway exception", DarkSilkGUI::tr("A fatal error occurred. DarkSilk Core can no longer continue safely and will quit.") + QString("\n\n") + message);
+    QMessageBox::critical(0, "Runaway exception", DynamicGUI::tr("A fatal error occurred. Dynamic Core can no longer continue safely and will quit.") + QString("\n\n") + message);
     ::exit(EXIT_FAILURE);
 }
 
-WId DarkSilkApplication::getMainWinId() const
+WId DynamicApplication::getMainWinId() const
 {
     if (!window)
         return 0;
@@ -550,7 +550,7 @@ WId DarkSilkApplication::getMainWinId() const
     return window->winId();
 }
 
-#ifndef DARKSILK_QT_TEST
+#ifndef DYNAMIC_QT_TEST
 int main(int argc, char *argv[])
 {
     SetupEnvironment();
@@ -568,10 +568,10 @@ int main(int argc, char *argv[])
     QTextCodec::setCodecForCStrings(QTextCodec::codecForTr());
 #endif
 
-    Q_INIT_RESOURCE(darksilk);
-    Q_INIT_RESOURCE(darksilk_locale);
+    Q_INIT_RESOURCE(dynamic);
+    Q_INIT_RESOURCE(dynamic_locale);
 
-    DarkSilkApplication app(argc, argv);
+    DynamicApplication app(argc, argv);
 #if QT_VERSION > 0x050100
     // Generate high-dpi pixmaps
     QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
@@ -620,18 +620,18 @@ int main(int argc, char *argv[])
     // User language is set up: pick a data directory
     Intro::pickDataDirectory();
 
-    /// 6. Determine availability of data directory and parse darksilk.conf
+    /// 6. Determine availability of data directory and parse dynamic.conf
     /// - Do not call GetDataDir(true) before this step finishes
     if (!boost::filesystem::is_directory(GetDataDir(false)))
     {
-        QMessageBox::critical(0, QObject::tr("DarkSilk Core"),
+        QMessageBox::critical(0, QObject::tr("Dynamic Core"),
                               QObject::tr("Error: Specified data directory \"%1\" does not exist.").arg(QString::fromStdString(mapArgs["-datadir"])));
         return EXIT_FAILURE;
     }
     try {
         ReadConfigFile(mapArgs, mapMultiArgs);
     } catch (const std::exception& e) {
-        QMessageBox::critical(0, QObject::tr("DarkSilk Core"),
+        QMessageBox::critical(0, QObject::tr("Dynamic Core"),
                               QObject::tr("Error: Cannot parse configuration file: %1. Only use key=value syntax.").arg(e.what()));
         return EXIT_FAILURE;
     }
@@ -646,7 +646,7 @@ int main(int argc, char *argv[])
     try {
         SelectParams(ChainNameFromCommandLine());
     } catch(std::exception &e) {
-        QMessageBox::critical(0, QObject::tr("DarkSilk Core"), QObject::tr("Error: %1").arg(e.what()));
+        QMessageBox::critical(0, QObject::tr("Dynamic Core"), QObject::tr("Error: %1").arg(e.what()));
         return EXIT_FAILURE;
     }
 #ifdef ENABLE_WALLET
@@ -662,11 +662,11 @@ int main(int argc, char *argv[])
     initTranslations(qtTranslatorBase, qtTranslator, translatorBase, translator);
 
 #ifdef ENABLE_WALLET
-    /// 7a. parse stormnode.conf
+    /// 7a. parse dynode.conf
     std::string strErr;
-    if(!stormnodeConfig.read(strErr)) {
-        QMessageBox::critical(0, QObject::tr("DarkSilk Core"),
-                              QObject::tr("Error reading stormnode configuration file: %1").arg(strErr.c_str()));
+    if(!dynodeConfig.read(strErr)) {
+        QMessageBox::critical(0, QObject::tr("Dynamic Core"),
+                              QObject::tr("Error reading dynode configuration file: %1").arg(strErr.c_str()));
         return EXIT_FAILURE;
     }
 
@@ -680,7 +680,7 @@ int main(int argc, char *argv[])
         exit(EXIT_SUCCESS);
 
     // Start up the payment server early, too, so impatient users that click on
-    // darksilk: links repeatedly have their payment requests routed to this process:
+    // dynamic: links repeatedly have their payment requests routed to this process:
     app.createPaymentServer();
 #endif
 
@@ -714,7 +714,7 @@ int main(int argc, char *argv[])
         app.createWindow(networkStyle.data());
         app.requestInitialize();
 #if defined(Q_OS_WIN) && QT_VERSION >= 0x050000
-        WinShutdownMonitor::registerShutdownBlockReason(QObject::tr("DarkSilk Core didn't yet exit safely..."), (HWND)app.getMainWinId());
+        WinShutdownMonitor::registerShutdownBlockReason(QObject::tr("Dynamic Core didn't yet exit safely..."), (HWND)app.getMainWinId());
 #endif
         app.exec();
         app.requestShutdown();
@@ -728,4 +728,4 @@ int main(int argc, char *argv[])
     }
     return app.getReturnValue();
 }
-#endif // DARKSILK_QT_TEST
+#endif // DYNAMIC_QT_TEST

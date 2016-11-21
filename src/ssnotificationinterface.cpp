@@ -4,11 +4,11 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include "ssnotificationinterface.h"
-#include "sandstorm.h"
+#include "privatesend.h"
 #include "governance.h"
-#include "stormnodeman.h"
-#include "stormnode-payments.h"
-#include "stormnode-sync.h"
+#include "dynodeman.h"
+#include "dynode-payments.h"
+#include "dynode-sync.h"
 
 CSSNotificationInterface::CSSNotificationInterface()
 {
@@ -21,8 +21,8 @@ CSSNotificationInterface::~CSSNotificationInterface()
 void CSSNotificationInterface::UpdatedBlockTip(const CBlockIndex *pindex)
 {
     snodeman.UpdatedBlockTip(pindex);
-    sandStormPool.UpdatedBlockTip(pindex);
+    privateSendPool.UpdatedBlockTip(pindex);
     snpayments.UpdatedBlockTip(pindex);
     governance.UpdatedBlockTip(pindex);
-    stormnodeSync.UpdatedBlockTip(pindex);
+    dynodeSync.UpdatedBlockTip(pindex);
 }

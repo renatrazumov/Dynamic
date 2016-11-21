@@ -5,8 +5,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_QT_TRANSACTIONVIEW_H
-#define DARKSILK_QT_TRANSACTIONVIEW_H
+#ifndef DYNAMIC_QT_TRANSACTIONVIEW_H
+#define DYNAMIC_QT_TRANSACTIONVIEW_H
 
 #include "guiutil.h"
 
@@ -120,4 +120,4 @@ public Q_SLOTS:
     void computeSum();
 };
 
-#endif // DARKSILK_QT_TRANSACTIONVIEW_H
+#endif // DYNAMIC_QT_TRANSACTIONVIEW_H

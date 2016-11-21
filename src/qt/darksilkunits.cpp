@@ -5,36 +5,36 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include "darksilkunits.h"
+#include "dynamicunits.h"
 #include "chainparams.h"
 #include "primitives/transaction.h"
 
 #include <QSettings>
 #include <QStringList>
 
-DarkSilkUnits::DarkSilkUnits(QObject *parent):
+DynamicUnits::DynamicUnits(QObject *parent):
         QAbstractListModel(parent),
         unitlist(availableUnits())
 {
 }
 
-QList<DarkSilkUnits::Unit> DarkSilkUnits::availableUnits()
+QList<DynamicUnits::Unit> DynamicUnits::availableUnits()
 {
-    QList<DarkSilkUnits::Unit> unitlist;
-    unitlist.append(DSLK);
-    unitlist.append(mDSLK);
-    unitlist.append(uDSLK);
+    QList<DynamicUnits::Unit> unitlist;
+    unitlist.append(DYN);
+    unitlist.append(mDYN);
+    unitlist.append(uDYN);
     unitlist.append(satoshis);
     return unitlist;
 }
 
-bool DarkSilkUnits::valid(int unit)
+bool DynamicUnits::valid(int unit)
 {
     switch(unit)
     {
-    case DSLK:
-    case mDSLK:
-    case uDSLK:
+    case DYN:
+    case mDYN:
+    case uDYN:
     case satoshis:
         return true;
     default:
@@ -42,15 +42,15 @@ bool DarkSilkUnits::valid(int unit)
     }
 }
 
-QString DarkSilkUnits::name(int unit)
+QString DynamicUnits::name(int unit)
 {
     if(Params().NetworkIDString() == CBaseChainParams::MAIN)
     {
         switch(unit)
         {
-            case DSLK: return QString("DSLK");
-            case mDSLK: return QString("mDSLK");
-            case uDSLK: return QString::fromUtf8("μDSLK");
+            case DYN: return QString("DYN");
+            case mDYN: return QString("mDYN");
+            case uDYN: return QString::fromUtf8("μDYN");
             case satoshis: return QString("satoshis");
             default: return QString("???");
         }
@@ -59,25 +59,25 @@ QString DarkSilkUnits::name(int unit)
     {
         switch(unit)
         {
-            case DSLK: return QString("tDSLK");
-            case mDSLK: return QString("mtDSLK");
-            case uDSLK: return QString::fromUtf8("μtDSLK");
+            case DYN: return QString("tDYN");
+            case mDYN: return QString("mtDYN");
+            case uDYN: return QString::fromUtf8("μtDYN");
             case satoshis: return QString("tsatoshis");
             default: return QString("???");
         }
     }
 }
 
-QString DarkSilkUnits::description(int unit)
+QString DynamicUnits::description(int unit)
 {
     if(Params().NetworkIDString() == CBaseChainParams::MAIN)
     {
         switch(unit)
         {
-            case DSLK: return QString("DarkSilk");
-            case mDSLK: return QString("Milli-DarkSilk (1 / 1" THIN_SP_UTF8 "000)");
-            case uDSLK: return QString("Micro-DarkSilk (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
-            case satoshis: return QString("Ten Nano-DarkSilk (1 / 100" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+            case DYN: return QString("Dynamic");
+            case mDYN: return QString("Milli-Dynamic (1 / 1" THIN_SP_UTF8 "000)");
+            case uDYN: return QString("Micro-Dynamic (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+            case satoshis: return QString("Ten Nano-Dynamic (1 / 100" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
             default: return QString("???");
         }
     }
@@ -85,40 +85,40 @@ QString DarkSilkUnits::description(int unit)
     {
         switch(unit)
         {
-            case DSLK: return QString("TestDarkSilks");
-            case mDSLK: return QString("Milli-TestDarkSilk (1 / 1" THIN_SP_UTF8 "000)");
-            case uDSLK: return QString("Micro-TestDarkSilk (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
-            case satoshis: return QString("Ten Nano-TestDarkSilk (1 / 100" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+            case DYN: return QString("TestDynamics");
+            case mDYN: return QString("Milli-TestDynamic (1 / 1" THIN_SP_UTF8 "000)");
+            case uDYN: return QString("Micro-TestDynamic (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+            case satoshis: return QString("Ten Nano-TestDynamic (1 / 100" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
             default: return QString("???");
         }
     }
 }
 
-qint64 DarkSilkUnits::factor(int unit)
+qint64 DynamicUnits::factor(int unit)
 {
     switch(unit)
     {
-    case DSLK:  return 100000000;
-    case mDSLK: return 100000;
-    case uDSLK: return 100;
+    case DYN:  return 100000000;
+    case mDYN: return 100000;
+    case uDYN: return 100;
     case satoshis: return 1;
     default:   return 100000000;
     }
 }
 
-int DarkSilkUnits::decimals(int unit)
+int DynamicUnits::decimals(int unit)
 {
     switch(unit)
     {
-    case DSLK: return 8;
-    case mDSLK: return 5;
-    case uDSLK: return 2;
+    case DYN: return 8;
+    case mDYN: return 5;
+    case uDYN: return 2;
     case satoshis: return 0;
     default: return 0;
     }
 }
 
-QString DarkSilkUnits::format(int unit, const CAmount& nIn, bool fPlus, SeparatorStyle separators)
+QString DynamicUnits::format(int unit, const CAmount& nIn, bool fPlus, SeparatorStyle separators)
 {
     // Note: not using straight sprintf here because we do NOT want
     // localized number formatting.
@@ -161,19 +161,19 @@ QString DarkSilkUnits::format(int unit, const CAmount& nIn, bool fPlus, Separato
 // Please take care to use formatHtmlWithUnit instead, when
 // appropriate.
 
-QString DarkSilkUnits::formatWithUnit(int unit, const CAmount& amount, bool plussign, SeparatorStyle separators)
+QString DynamicUnits::formatWithUnit(int unit, const CAmount& amount, bool plussign, SeparatorStyle separators)
 {
     return format(unit, amount, plussign, separators) + QString(" ") + name(unit);
 }
 
-QString DarkSilkUnits::formatHtmlWithUnit(int unit, const CAmount& amount, bool plussign, SeparatorStyle separators)
+QString DynamicUnits::formatHtmlWithUnit(int unit, const CAmount& amount, bool plussign, SeparatorStyle separators)
 {
     QString str(formatWithUnit(unit, amount, plussign, separators));
     str.replace(QChar(THIN_SP_CP), QString(THIN_SP_HTML));
     return QString("<span style='white-space: nowrap;'>%1</span>").arg(str);
 }
 
-QString DarkSilkUnits::floorWithUnit(int unit, const CAmount& amount, bool plussign, SeparatorStyle separators)
+QString DynamicUnits::floorWithUnit(int unit, const CAmount& amount, bool plussign, SeparatorStyle separators)
 {
     QSettings settings;
     int digits = settings.value("digits").toInt();
@@ -184,14 +184,14 @@ QString DarkSilkUnits::floorWithUnit(int unit, const CAmount& amount, bool pluss
     return result + QString(" ") + name(unit);
 }
 
-QString DarkSilkUnits::floorHtmlWithUnit(int unit, const CAmount& amount, bool plussign, SeparatorStyle separators)
+QString DynamicUnits::floorHtmlWithUnit(int unit, const CAmount& amount, bool plussign, SeparatorStyle separators)
 {
     QString str(floorWithUnit(unit, amount, plussign, separators));
     str.replace(QChar(THIN_SP_CP), QString(THIN_SP_HTML));
     return QString("<span style='white-space: nowrap;'>%1</span>").arg(str);
 }
 
-bool DarkSilkUnits::parse(int unit, const QString &value, CAmount *val_out)
+bool DynamicUnits::parse(int unit, const QString &value, CAmount *val_out)
 {
     if(!valid(unit) || value.isEmpty())
         return false; // Refuse to parse invalid unit or empty string
@@ -230,23 +230,23 @@ bool DarkSilkUnits::parse(int unit, const QString &value, CAmount *val_out)
     return ok;
 }
 
-QString DarkSilkUnits::getAmountColumnTitle(int unit)
+QString DynamicUnits::getAmountColumnTitle(int unit)
 {
     QString amountTitle = QObject::tr("Amount");
-    if (DarkSilkUnits::valid(unit))
+    if (DynamicUnits::valid(unit))
     {
-        amountTitle += " ("+DarkSilkUnits::name(unit) + ")";
+        amountTitle += " ("+DynamicUnits::name(unit) + ")";
     }
     return amountTitle;
 }
 
-int DarkSilkUnits::rowCount(const QModelIndex &parent) const
+int DynamicUnits::rowCount(const QModelIndex &parent) const
 {
     Q_UNUSED(parent);
     return unitlist.size();
 }
 
-QVariant DarkSilkUnits::data(const QModelIndex &index, int role) const
+QVariant DynamicUnits::data(const QModelIndex &index, int role) const
 {
     int row = index.row();
     if(row >= 0 && row < unitlist.size())
@@ -266,7 +266,7 @@ QVariant DarkSilkUnits::data(const QModelIndex &index, int role) const
     return QVariant();
 }
 
-CAmount DarkSilkUnits::maxMoney()
+CAmount DynamicUnits::maxMoney()
 {
     return MAX_MONEY;
 }

@@ -43,11 +43,11 @@
     </message>
     <message>
         <source>Choose the address to send coins to</source>
-        <translation>Elija la dirección a la cual enviar los darksilk</translation>
+        <translation>Elija la dirección a la cual enviar los dynamic</translation>
     </message>
     <message>
         <source>Choose the address to receive coins with</source>
-        <translation>Elija la dirección donde recibirá los darksilk</translation>
+        <translation>Elija la dirección donde recibirá los dynamic</translation>
     </message>
     <message>
         <source>C&amp;hoose</source>
@@ -62,12 +62,12 @@
         <translation>Direcciones de recepción</translation>
     </message>
     <message>
-        <source>These are your DarkSilk addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>Estas son sus direcciones DarkSilk para enviar pagos. Compruebe siempre la cantidad y la dirección receptora antes de enviar darksilks.</translation>
+        <source>These are your Dynamic addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation>Estas son sus direcciones Dynamic para enviar pagos. Compruebe siempre la cantidad y la dirección receptora antes de enviar dynamics.</translation>
     </message>
     <message>
-        <source>These are your DarkSilk addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>Estas son sus direcciones de DarkSilk para recibir pagos. Se recomienda utilizar una nueva dirección de recepción para cada transacción.</translation>
+        <source>These are your Dynamic addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
+        <translation>Estas son sus direcciones de Dynamic para recibir pagos. Se recomienda utilizar una nueva dirección de recepción para cada transacción.</translation>
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -176,8 +176,8 @@
         <translation>Confirmar cifrado del monedero</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR DSLK&lt;/b&gt;!</source>
-        <translation>Advertencia: Si cifra la cartera y pierde su contraseña, ¡&lt;b&gt;PERDERÁ TODOS SUS DSLK&lt;/b&gt;!</translation>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR DYN&lt;/b&gt;!</source>
+        <translation>Advertencia: Si cifra la cartera y pierde su contraseña, ¡&lt;b&gt;PERDERÁ TODOS SUS DYN&lt;/b&gt;!</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
@@ -188,8 +188,8 @@
         <translation>Monedero cifrado</translation>
     </message>
     <message>
-        <source>DarkSilk will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your darksilks from being stolen by malware infecting your computer.</source>
-        <translation>DarkSilk se cerrará ahora para finalizar el proceso de cifrado. Recuerde que el cifrado de su monedero no puede proteger totalmente sus darksilks del robo por un malware que infecte su sistema.</translation>
+        <source>Dynamic will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your dynamics from being stolen by malware infecting your computer.</source>
+        <translation>Dynamic se cerrará ahora para finalizar el proceso de cifrado. Recuerde que el cifrado de su monedero no puede proteger totalmente sus dynamics del robo por un malware que infecte su sistema.</translation>
     </message>
     <message>
         <source>IMPORTANT: Any previous backups you have made of your wallet file should be replaced with the newly generated, encrypted wallet file. For security reasons, previous backups of the unencrypted wallet file will become useless as soon as you start using the new, encrypted wallet.</source>
@@ -229,10 +229,10 @@
     </message>
 </context>
 <context>
-    <name>DarkSilkGUI</name>
+    <name>DynamicGUI</name>
     <message>
-        <source>DarkSilk Core</source>
-        <translation>DarkSilk Core</translation>
+        <source>Dynamic Core</source>
+        <translation>Dynamic Core</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -255,16 +255,16 @@
         <translation>&amp;Enviar</translation>
     </message>
     <message>
-        <source>Send coins to a DarkSilk address</source>
-        <translation>Enviar cuantía a una dirección DarkSilk</translation>
+        <source>Send coins to a Dynamic address</source>
+        <translation>Enviar cuantía a una dirección Dynamic</translation>
     </message>
     <message>
         <source>&amp;Receive</source>
         <translation>&amp;Recibir</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and darksilk: URIs)</source>
-        <translation>Solicitar pagos (genera códigos QR y URIs de DarkSilk)</translation>
+        <source>Request payments (generates QR codes and dynamic: URIs)</source>
+        <translation>Solicitar pagos (genera códigos QR y URIs de Dynamic)</translation>
     </message>
     <message>
         <source>&amp;Transactions</source>
@@ -283,12 +283,12 @@
         <translation>Salir de la aplicación</translation>
     </message>
     <message>
-        <source>&amp;About DarkSilk Core</source>
-        <translation>&amp;Acerca de DarkSilk Core</translation>
+        <source>&amp;About Dynamic Core</source>
+        <translation>&amp;Acerca de Dynamic Core</translation>
     </message>
     <message>
-        <source>Show information about DarkSilk Core</source>
-        <translation>Mostrar información acerca de DarkSilk Core</translation>
+        <source>Show information about Dynamic Core</source>
+        <translation>Mostrar información acerca de Dynamic Core</translation>
     </message>
     <message>
         <source>About &amp;Qt</source>
@@ -303,8 +303,8 @@
         <translation>&amp;Opciones...</translation>
     </message>
     <message>
-        <source>Modify configuration options for DarkSilk</source>
-        <translation>Modificar las opciones de configuración de DarkSilk</translation>
+        <source>Modify configuration options for Dynamic</source>
+        <translation>Modificar las opciones de configuración de Dynamic</translation>
     </message>
     <message>
         <source>&amp;Show / Hide</source>
@@ -355,16 +355,16 @@
         <translation>Firmar &amp;mensaje...</translation>
     </message>
     <message>
-        <source>Sign messages with your DarkSilk addresses to prove you own them</source>
-        <translation>Firmar mensajes con sus direcciones DarkSilk para demostrar su posesión</translation>
+        <source>Sign messages with your Dynamic addresses to prove you own them</source>
+        <translation>Firmar mensajes con sus direcciones Dynamic para demostrar su posesión</translation>
     </message>
     <message>
         <source>&amp;Verify message...</source>
         <translation>&amp;Verificar el mensaje...</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified DarkSilk addresses</source>
-        <translation>Verificar mensajes para comprobar que fueron firmados con la dirección DarkSilk indicada</translation>
+        <source>Verify messages to ensure they were signed with specified Dynamic addresses</source>
+        <translation>Verificar mensajes para comprobar que fueron firmados con la dirección Dynamic indicada</translation>
     </message>
     <message>
         <source>&amp;Information</source>
@@ -443,16 +443,16 @@
         <translation>Abrir &amp;URI...</translation>
     </message>
     <message>
-        <source>Open a darksilk: URI or payment request</source>
-        <translation>Abrir un darksilk: URI o petición de pago</translation>
+        <source>Open a dynamic: URI or payment request</source>
+        <translation>Abrir un dynamic: URI o petición de pago</translation>
     </message>
     <message>
         <source>&amp;Command-line options</source>
         <translation>&amp;Opciones de consola de comandos</translation>
     </message>
     <message>
-        <source>DarkSilk Core client</source>
-        <translation>Cliente DarkSilk Core</translation>
+        <source>Dynamic Core client</source>
+        <translation>Cliente Dynamic Core</translation>
     </message>
     <message numerus="yes">
         <source>Processed %n blocks of transaction history.</source>
@@ -463,8 +463,8 @@
         <translation>Sincronizando datos adicionales: %p%</translation>
     </message>
     <message>
-        <source>Show the DarkSilk Core help message to get a list with possible DarkSilk command-line options</source>
-        <translation>Mostrar el mensaje de ayuda de DarkSilk Core para obtener una lista con las posibles opciones de la consola de comandos</translation>
+        <source>Show the Dynamic Core help message to get a list with possible Dynamic command-line options</source>
+        <translation>Mostrar el mensaje de ayuda de Dynamic Core para obtener una lista con las posibles opciones de la consola de comandos</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -487,8 +487,8 @@
         <translation>Barra de pestañas</translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to DarkSilk network</source>
-        <translation><numerusform>%n conexion(es) activa a la red DarkSilk</numerusform><numerusform>%n conexion(es) activas a la red DarkSilk</numerusform></translation>
+        <source>%n active connection(s) to Dynamic network</source>
+        <translation><numerusform>%n conexion(es) activa a la red Dynamic</numerusform><numerusform>%n conexion(es) activas a la red Dynamic</numerusform></translation>
     </message>
     <message>
         <source>Synchronizing with network...</source>
@@ -626,7 +626,7 @@ Dirección: %4
     </message>
     <message>
         <source>Coin Selection</source>
-        <translation>Selección de DarkSilk</translation>
+        <translation>Selección de Dynamic</translation>
     </message>
     <message>
         <source>Dust:</source>
@@ -741,8 +741,8 @@ Dirección: %4
         <translation>Copiar cambio</translation>
     </message>
     <message>
-        <source>Non-anonymized input selected. &lt;b&gt;Sandstorm will be disabled.&lt;/b&gt;&lt;br&gt;&lt;br&gt;If you still want to use Sandstorm, please deselect all non-nonymized inputs first and then check Sandstorm checkbox again.</source>
-        <translation>Se seleccionó alguna entrada no anónima. &lt;b&gt;Sandstorm se desactivará.&lt;/b&gt;&lt;br&gt;&lt;br&gt;Si aún desea usar Sandstorm, por favor desmarque primero todas las entradas que no son anónimas y luego active de nuevo la casilla de Sandstorm.</translation>
+        <source>Non-anonymized input selected. &lt;b&gt;Privatesend will be disabled.&lt;/b&gt;&lt;br&gt;&lt;br&gt;If you still want to use Privatesend, please deselect all non-nonymized inputs first and then check Privatesend checkbox again.</source>
+        <translation>Se seleccionó alguna entrada no anónima. &lt;b&gt;Privatesend se desactivará.&lt;/b&gt;&lt;br&gt;&lt;br&gt;Si aún desea usar Privatesend, por favor desmarque primero todas las entradas que no son anónimas y luego active de nuevo la casilla de Privatesend.</translation>
     </message>
     <message>
         <source>highest</source>
@@ -842,10 +842,10 @@ Dirección: %4
     </message>
 </context>
 <context>
-    <name>SandstormConfig</name>
+    <name>PrivatesendConfig</name>
     <message>
-        <source>Configure Sandstorm</source>
-        <translation>Configurar Sandstorm</translation>
+        <source>Configure Privatesend</source>
+        <translation>Configurar Privatesend</translation>
     </message>
     <message>
         <source>Basic Privacy</source>
@@ -864,48 +864,48 @@ Dirección: %4
         <translation>Por favor, seleccione el nivel de privacidad.</translation>
     </message>
     <message>
-        <source>Use 2 separate stormnodes to mix funds up to 1000 DSLK</source>
-        <translation>Usar 2 nodos maestros distintos para mezclar fondos hasta 1000 DSLK</translation>
+        <source>Use 2 separate dynodes to mix funds up to 1000 DYN</source>
+        <translation>Usar 2 nodos maestros distintos para mezclar fondos hasta 1000 DYN</translation>
     </message>
     <message>
-        <source>Use 8 separate stormnodes to mix funds up to 1000 DSLK</source>
-        <translation>Usar 8 nodos maestros diferentes para mezclar fondos hasta 1000 DSLK</translation>
+        <source>Use 8 separate dynodes to mix funds up to 1000 DYN</source>
+        <translation>Usar 8 nodos maestros diferentes para mezclar fondos hasta 1000 DYN</translation>
     </message>
     <message>
-        <source>Use 16 separate stormnodes</source>
+        <source>Use 16 separate dynodes</source>
         <translation>Usar 16 nodos maestros diferentes</translation>
     </message>
     <message>
-        <source>This option is the quickest and will cost about ~0.025 DSLK to anonymize 1000 DSLK</source>
-        <translation>Esta es la opción más rápida y anonimizar 1000 DSLK costará alrededor de 0.025 DSLK</translation>
+        <source>This option is the quickest and will cost about ~0.025 DYN to anonymize 1000 DYN</source>
+        <translation>Esta es la opción más rápida y anonimizar 1000 DYN costará alrededor de 0.025 DYN</translation>
     </message>
     <message>
-        <source>This option is moderately fast and will cost about 0.05 DSLK to anonymize 1000 DSLK</source>
-        <translation>Esta opción es moderadamente rápida y anonimizar 1000 DSLK costará alrededor de 0.05 DSLK</translation>
+        <source>This option is moderately fast and will cost about 0.05 DYN to anonymize 1000 DYN</source>
+        <translation>Esta opción es moderadamente rápida y anonimizar 1000 DYN costará alrededor de 0.05 DYN</translation>
     </message>
     <message>
-        <source>0.1 DSLK per 1000 DSLK you anonymize.</source>
-        <translation>0.1 DSLK por cada 1000 DSLK que anonimice.</translation>
+        <source>0.1 DYN per 1000 DYN you anonymize.</source>
+        <translation>0.1 DYN por cada 1000 DYN que anonimice.</translation>
     </message>
     <message>
         <source>This is the slowest and most secure option. Using maximum anonymity will cost</source>
         <translation>Esta es la opción más lenta y segura de todas. Usar la anonimización máxima costará</translation>
     </message>
     <message>
-        <source>Sandstorm Configuration</source>
-        <translation>Configuración de Sandstorm</translation>
+        <source>Privatesend Configuration</source>
+        <translation>Configuración de Privatesend</translation>
     </message>
     <message>
-        <source>Sandstorm was successfully set to basic (%1 and 2 rounds). You can change this at any time by opening DarkSilk's configuration screen.</source>
-        <translation>Sandstorm fue configurado con éxito en la básica (%1 y 2 rondas). Puede cambiarlo en cualquier momento abriendo la pantalla de configuración de DarkSilk.</translation>
+        <source>Privatesend was successfully set to basic (%1 and 2 rounds). You can change this at any time by opening Dynamic's configuration screen.</source>
+        <translation>Privatesend fue configurado con éxito en la básica (%1 y 2 rondas). Puede cambiarlo en cualquier momento abriendo la pantalla de configuración de Dynamic.</translation>
     </message>
     <message>
-        <source>Sandstorm was successfully set to high (%1 and 8 rounds). You can change this at any time by opening DarkSilk's configuration screen.</source>
-        <translation>Sandstorm fue configurado con éxito en la alta (%1 y 8 rondas). Puede cambiarlo en cualquier momento abriendo la pantalla de configuración de DarkSilk.</translation>
+        <source>Privatesend was successfully set to high (%1 and 8 rounds). You can change this at any time by opening Dynamic's configuration screen.</source>
+        <translation>Privatesend fue configurado con éxito en la alta (%1 y 8 rondas). Puede cambiarlo en cualquier momento abriendo la pantalla de configuración de Dynamic.</translation>
     </message>
     <message>
-        <source>Sandstorm was successfully set to maximum (%1 and 16 rounds). You can change this at any time by opening DarkSilk's configuration screen.</source>
-        <translation>Sandstorm fue configurado con éxito en la máxima (%1 y 16 rondas). Puede cambiarlo en cualquier momento abriendo la pantalla de configuración de DarkSilk.</translation>
+        <source>Privatesend was successfully set to maximum (%1 and 16 rounds). You can change this at any time by opening Dynamic's configuration screen.</source>
+        <translation>Privatesend fue configurado con éxito en la máxima (%1 y 16 rondas). Puede cambiarlo en cualquier momento abriendo la pantalla de configuración de Dynamic.</translation>
     </message>
 </context>
 <context>
@@ -947,8 +947,8 @@ Dirección: %4
         <translation>Editar dirección de envío</translation>
     </message>
     <message>
-        <source>The entered address "%1" is not a valid DarkSilk address.</source>
-        <translation>La dirección introducida "%1" no es una dirección DarkSilk válida.</translation>
+        <source>The entered address "%1" is not a valid Dynamic address.</source>
+        <translation>La dirección introducida "%1" no es una dirección Dynamic válida.</translation>
     </message>
     <message>
         <source>The entered address "%1" is already in the address book.</source>
@@ -989,8 +989,8 @@ Dirección: %4
 <context>
     <name>HelpMessageDialog</name>
     <message>
-        <source>DarkSilk Core</source>
-        <translation>DarkSilk Core</translation>
+        <source>Dynamic Core</source>
+        <translation>Dynamic Core</translation>
     </message>
     <message>
         <source>version</source>
@@ -1001,8 +1001,8 @@ Dirección: %4
         <translation>(%1-bit)</translation>
     </message>
     <message>
-        <source>About DarkSilk Core</source>
-        <translation>Acerca de DarkSilk Core</translation>
+        <source>About Dynamic Core</source>
+        <translation>Acerca de Dynamic Core</translation>
     </message>
     <message>
         <source>Command-line options</source>
@@ -1048,16 +1048,16 @@ Dirección: %4
         <translation>Bienvenido</translation>
     </message>
     <message>
-        <source>Welcome to DarkSilk Core.</source>
-        <translation>Bienvenido a DarkSilk Core</translation>
+        <source>Welcome to Dynamic Core.</source>
+        <translation>Bienvenido a Dynamic Core</translation>
     </message>
     <message>
-        <source>As this is the first time the program is launched, you can choose where DarkSilk Core will store its data.</source>
-        <translation>Al ser la primera vez que se ejecuta el programa, puede elegir dónde almacenará sus datos DarkSilk Core.</translation>
+        <source>As this is the first time the program is launched, you can choose where Dynamic Core will store its data.</source>
+        <translation>Al ser la primera vez que se ejecuta el programa, puede elegir dónde almacenará sus datos Dynamic Core.</translation>
     </message>
     <message>
-        <source>DarkSilk Core will download and store a copy of the DarkSilk block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
-        <translation>DarkSilk Core va a descargar y guardar una copia de la cadena de bloques de DarkSilk. Se almacenará al menos %1GB de datos en este directorio, que irá creciendo con el tiempo. El monedero se guardará también en este directorio.</translation>
+        <source>Dynamic Core will download and store a copy of the Dynamic block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
+        <translation>Dynamic Core va a descargar y guardar una copia de la cadena de bloques de Dynamic. Se almacenará al menos %1GB de datos en este directorio, que irá creciendo con el tiempo. El monedero se guardará también en este directorio.</translation>
     </message>
     <message>
         <source>Use the default data directory</source>
@@ -1068,8 +1068,8 @@ Dirección: %4
         <translation>Utilizar un directorio de datos personalizado:</translation>
     </message>
     <message>
-        <source>DarkSilk Core</source>
-        <translation>DarkSilk Core</translation>
+        <source>Dynamic Core</source>
+        <translation>Dynamic Core</translation>
     </message>
     <message>
         <source>Error: Specified data directory "%1" cannot be created.</source>
@@ -1122,12 +1122,12 @@ Dirección: %4
         <translation>&amp;Principal</translation>
     </message>
     <message>
-        <source>Automatically start DarkSilk after logging in to the system.</source>
-        <translation>Iniciar DarkSilk automáticamente al ingresar en el sistema.</translation>
+        <source>Automatically start Dynamic after logging in to the system.</source>
+        <translation>Iniciar Dynamic automáticamente al ingresar en el sistema.</translation>
     </message>
     <message>
-        <source>&amp;Start DarkSilk on system login</source>
-        <translation>&amp;Iniciar DarkSilk al ingresar en el sistema</translation>
+        <source>&amp;Start Dynamic on system login</source>
+        <translation>&amp;Iniciar Dynamic al ingresar en el sistema</translation>
     </message>
     <message>
         <source>Size of &amp;database cache</source>
@@ -1146,16 +1146,16 @@ Dirección: %4
         <translation>(0 = automático, &lt;0 = dejar libres ese número de núcleos)</translation>
     </message>
     <message>
-        <source>Sandstorm rounds to use</source>
-        <translation>Rondas de Sandstorm a usar</translation>
+        <source>Privatesend rounds to use</source>
+        <translation>Rondas de Privatesend a usar</translation>
     </message>
     <message>
-        <source>This amount acts as a threshold to turn off Sandstorm once it's reached.</source>
-        <translation>Esta cuantía sirve de umbral para que Sandstorm se apague, una vez sea alcanzada.</translation>
+        <source>This amount acts as a threshold to turn off Privatesend once it's reached.</source>
+        <translation>Esta cuantía sirve de umbral para que Privatesend se apague, una vez sea alcanzada.</translation>
     </message>
     <message>
-        <source>Amount of DarkSilk to keep anonymized</source>
-        <translation>Cuantía de DarkSilk a mantener anónima</translation>
+        <source>Amount of Dynamic to keep anonymized</source>
+        <translation>Cuantía de Dynamic a mantener anónima</translation>
     </message>
     <message>
         <source>W&amp;allet</source>
@@ -1174,8 +1174,8 @@ Dirección: %4
         <translation>Permitir conexiones entrantes</translation>
     </message>
     <message>
-        <source>Connect to the DarkSilk network through a SOCKS5 proxy.</source>
-        <translation>Conectarse a la red DarkSilk a través de un proxy SOCKS5.</translation>
+        <source>Connect to the Dynamic network through a SOCKS5 proxy.</source>
+        <translation>Conectarse a la red Dynamic a través de un proxy SOCKS5.</translation>
     </message>
     <message>
         <source>&amp;Connect through SOCKS5 proxy (default proxy):</source>
@@ -1186,7 +1186,7 @@ Dirección: %4
         <translation>Experto</translation>
     </message>
     <message>
-        <source>This setting determines the amount of individual stormnodes that an input will be anonymized through.&lt;br/&gt;More rounds of anonymization gives a higher degree of privacy, but also costs more in fees.</source>
+        <source>This setting determines the amount of individual dynodes that an input will be anonymized through.&lt;br/&gt;More rounds of anonymization gives a higher degree of privacy, but also costs more in fees.</source>
         <translation>Esta opción determina la cuantía de nodos maestros distintos a través de los cuales circulará una entrada para hacerla anónima.&lt;br/&gt;Cuantas más rondas se realicen para su anonimato mayor será el grado de privacidad, pero cuesta a su vez más comisiones.</translation>
     </message>
     <message>
@@ -1206,8 +1206,8 @@ Dirección: %4
         <translation>&amp;Red</translation>
     </message>
     <message>
-        <source>Automatically open the DarkSilk client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Abrir automáticamente el puerto del cliente DarkSilk en el router. Esta opción solo funciona si el router admite UPnP y está activado.</translation>
+        <source>Automatically open the Dynamic client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation>Abrir automáticamente el puerto del cliente Dynamic en el router. Esta opción solo funciona si el router admite UPnP y está activado.</translation>
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>
@@ -1258,14 +1258,14 @@ Dirección: %4
         <translation>I&amp;dioma de la interfaz de usuario</translation>
     </message>
     <message>
-        <source>The user interface language can be set here. This setting will take effect after restarting DarkSilk.</source>
-        <translation>El idioma de la interfaz de usuario puede establecerse aquí. Este ajuste se aplicará después de reiniciar DarkSilk.</translation>
+        <source>The user interface language can be set here. This setting will take effect after restarting Dynamic.</source>
+        <translation>El idioma de la interfaz de usuario puede establecerse aquí. Este ajuste se aplicará después de reiniciar Dynamic.</translation>
     </message>
     <message>
         <source>Language missing or translation incomplete? Help contributing translations here:
-https://www.transifex.com/projects/p/darksilk/</source>
+https://www.transifex.com/projects/p/dynamic/</source>
         <translation>¿Idioma no disponible o traducción incompleta? Contribuye a la traducción aquí:
-https://www.transifex.com/projects/p/darksilk/</translation>
+https://www.transifex.com/projects/p/dynamic/</translation>
     </message>
     <message>
         <source>User Interface Theme:</source>
@@ -1277,7 +1277,7 @@ https://www.transifex.com/projects/p/darksilk/</translation>
     </message>
     <message>
         <source>Choose the default subdivision unit to show in the interface and when sending coins.</source>
-        <translation>Elegir la subdivisión predeterminada para mostrar las cuantías en la interfaz y cuando se envían darksilks.</translation>
+        <translation>Elegir la subdivisión predeterminada para mostrar las cuantías en la interfaz y cuando se envían dynamics.</translation>
     </message>
     <message>
         <source>Decimal digits</source>
@@ -1347,8 +1347,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Formulario</translation>
     </message>
     <message>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the DarkSilk network after a connection is established, but this process has not completed yet.</source>
-        <translation>La información mostrada puede estar desactualizada. Su monedero se sincroniza automáticamente con la red DarkSilk después de que se haya establecido una conexión, pero este proceso aún no se ha completado.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Dynamic network after a connection is established, but this process has not completed yet.</source>
+        <translation>La información mostrada puede estar desactualizada. Su monedero se sincroniza automáticamente con la red Dynamic después de que se haya establecido una conexión, pero este proceso aún no se ha completado.</translation>
     </message>
     <message>
         <source>Available:</source>
@@ -1423,16 +1423,16 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Completado:</translation>
     </message>
     <message>
-        <source>Sandstorm Balance:</source>
-        <translation>Saldo de Sandstorm:</translation>
+        <source>Privatesend Balance:</source>
+        <translation>Saldo de Privatesend:</translation>
     </message>
     <message>
         <source>Amount and Rounds:</source>
         <translation>Cuantía y Rondas:</translation>
     </message>
     <message>
-        <source>0 DSLK / 0 Rounds</source>
-        <translation>0 DSLK / 0 Rondas</translation>
+        <source>0 DYN / 0 Rounds</source>
+        <translation>0 DYN / 0 Rondas</translation>
     </message>
     <message>
         <source>Submitted Denom:</source>
@@ -1443,8 +1443,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>n/d</translation>
     </message>
     <message>
-        <source>Sandstorm</source>
-        <translation>Sandstorm</translation>
+        <source>Privatesend</source>
+        <translation>Privatesend</translation>
     </message>
     <message>
         <source>Recent transactions</source>
@@ -1455,7 +1455,7 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Comenzar/Parar Mezclado</translation>
     </message>
     <message>
-        <source>The denominations you submitted to the Stormnode.&lt;br&gt;To mix, other users must submit the exact same denominations.</source>
+        <source>The denominations you submitted to the Dynode.&lt;br&gt;To mix, other users must submit the exact same denominations.</source>
         <translation>Las denominaciones que envió al Nodo Maestro.&lt;br&gt;Para poder mezclar, otros usuarios deben enviar exactamente las mismas denominaciones.</translation>
     </message>
     <message>
@@ -1463,16 +1463,16 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>(Último Mensaje)</translation>
     </message>
     <message>
-        <source>Try to manually submit a Sandstorm request.</source>
-        <translation>Intentar enviar manualmente una solicitud Sandstorm.</translation>
+        <source>Try to manually submit a Privatesend request.</source>
+        <translation>Intentar enviar manualmente una solicitud Privatesend.</translation>
     </message>
     <message>
         <source>Try Mix</source>
         <translation>Probar</translation>
     </message>
     <message>
-        <source>Reset the current status of Sandstorm (can interrupt Sandstorm if it's in the process of Mixing, which can cost you money!)</source>
-        <translation>Reiniciar el estado actual de Sandstorm (¡puede interrumpir Sandstorm si está en el proceso de Mezcla, lo cual puede costarle dinero!)</translation>
+        <source>Reset the current status of Privatesend (can interrupt Privatesend if it's in the process of Mixing, which can cost you money!)</source>
+        <translation>Reiniciar el estado actual de Privatesend (¡puede interrumpir Privatesend si está en el proceso de Mezcla, lo cual puede costarle dinero!)</translation>
     </message>
     <message>
         <source>Reset</source>
@@ -1487,12 +1487,12 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Desactivado</translation>
     </message>
     <message>
-        <source>Start Sandstorm Mixing</source>
-        <translation>Iniciar Mezclador Sandstorm</translation>
+        <source>Start Privatesend Mixing</source>
+        <translation>Iniciar Mezclador Privatesend</translation>
     </message>
     <message>
-        <source>Stop Sandstorm Mixing</source>
-        <translation>Parar Mezclador Sandstorm</translation>
+        <source>Stop Privatesend Mixing</source>
+        <translation>Parar Mezclador Privatesend</translation>
     </message>
     <message>
         <source>No inputs detected</source>
@@ -1535,9 +1535,9 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Activado</translation>
     </message>
     <message>
-        <source>Last Sandstorm message:
+        <source>Last Privatesend message:
 </source>
-        <translation>Último mensaje de Sandstorm:
+        <translation>Último mensaje de Privatesend:
 </translation>
     </message>
     <message>
@@ -1545,20 +1545,20 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>N/D</translation>
     </message>
     <message>
-        <source>Sandstorm was successfully reset.</source>
-        <translation>Sandstorm se reinició correctamente.</translation>
+        <source>Privatesend was successfully reset.</source>
+        <translation>Privatesend se reinició correctamente.</translation>
     </message>
     <message>
-        <source>If you don't want to see internal Sandstorm fees/transactions select "Most Common" as Type on the "Transactions" tab.</source>
-        <translation>Si no desea ver las comisiones/transacciones internas de Sandstorm seleccione "Más Habitual" como Tipo en la pestaña de "Transacciones".</translation>
+        <source>If you don't want to see internal Privatesend fees/transactions select "Most Common" as Type on the "Transactions" tab.</source>
+        <translation>Si no desea ver las comisiones/transacciones internas de Privatesend seleccione "Más Habitual" como Tipo en la pestaña de "Transacciones".</translation>
     </message>
     <message>
-        <source>Sandstorm requires at least %1 to use.</source>
-        <translation>Sandstorm requiere al menos %1 para su uso.</translation>
+        <source>Privatesend requires at least %1 to use.</source>
+        <translation>Privatesend requiere al menos %1 para su uso.</translation>
     </message>
     <message>
-        <source>Wallet is locked and user declined to unlock. Disabling Sandstorm.</source>
-        <translation>El monedero está bloqueado y el usuario rechazó desbloquearlo. Desactivando Sandstorm.</translation>
+        <source>Wallet is locked and user declined to unlock. Disabling Privatesend.</source>
+        <translation>El monedero está bloqueado y el usuario rechazó desbloquearlo. Desactivando Privatesend.</translation>
     </message>
 </context>
 <context>
@@ -1568,8 +1568,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Error en solicitud de pago</translation>
     </message>
     <message>
-        <source>Cannot start darksilk: click-to-pay handler</source>
-        <translation>No se pudo iniciar darksilk: manejador de pago-al-clic</translation>
+        <source>Cannot start dynamic: click-to-pay handler</source>
+        <translation>No se pudo iniciar dynamic: manejador de pago-al-clic</translation>
     </message>
     <message>
         <source>URI handling</source>
@@ -1588,8 +1588,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Dirección de pago no válida %1</translation>
     </message>
     <message>
-        <source>URI cannot be parsed! This can be caused by an invalid DarkSilk address or malformed URI parameters.</source>
-        <translation>¡No se puede interpretar la URI! Esto puede deberse a una dirección DarkSilk inválida o a parámetros de URI mal formados.</translation>
+        <source>URI cannot be parsed! This can be caused by an invalid Dynamic address or malformed URI parameters.</source>
+        <translation>¡No se puede interpretar la URI! Esto puede deberse a una dirección Dynamic inválida o a parámetros de URI mal formados.</translation>
     </message>
     <message>
         <source>Payment request file cannot be read! This can be caused by an invalid payment request file.</source>
@@ -1674,8 +1674,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Cuantía</translation>
     </message>
     <message>
-        <source>Enter a DarkSilk address (e.g. %1)</source>
-        <translation>Introduzca una dirección DarkSilk (e.g. %1)</translation>
+        <source>Enter a Dynamic address (e.g. %1)</source>
+        <translation>Introduzca una dirección Dynamic (e.g. %1)</translation>
     </message>
     <message>
         <source>%1 d</source>
@@ -1764,7 +1764,7 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Número de conexiones</translation>
     </message>
     <message>
-        <source>Open the DarkSilk debug log file from the current data directory. This can take a few seconds for large log files.</source>
+        <source>Open the Dynamic debug log file from the current data directory. This can take a few seconds for large log files.</source>
         <translation>Abrir el archivo de registro de depuración en el directorio actual de datos. Esto puede requerir varios segundos para archivos de registro grandes.</translation>
     </message>
     <message>
@@ -1812,7 +1812,7 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Cadena de bloques</translation>
     </message>
     <message>
-        <source>Number of Stormnodes</source>
+        <source>Number of Dynodes</source>
         <translation>Número de Nodos Maestros</translation>
     </message>
     <message>
@@ -1972,8 +1972,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Salientes:</translation>
     </message>
     <message>
-        <source>Welcome to the DarkSilk RPC console.</source>
-        <translation>Bienvenido a la consola RPC de DarkSilk</translation>
+        <source>Welcome to the Dynamic RPC console.</source>
+        <translation>Bienvenido a la consola RPC de Dynamic</translation>
     </message>
     <message>
         <source>Use up and down arrows to navigate history, and &lt;b&gt;Ctrl-L&lt;/b&gt; to clear screen.</source>
@@ -2035,8 +2035,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>&amp;Reutilizar una dirección receptora existente (no recomendado)</translation>
     </message>
     <message>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the DarkSilk network.</source>
-        <translation>Un mensaje opcional para adjuntar a la solicitud de pago, el cual se muestra cuando se abre la solicitud. Nota: El mensaje no se enviará con el pago por la red DarkSilk.</translation>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Dynamic network.</source>
+        <translation>Un mensaje opcional para adjuntar a la solicitud de pago, el cual se muestra cuando se abre la solicitud. Nota: El mensaje no se enviará con el pago por la red Dynamic.</translation>
     </message>
     <message>
         <source>&amp;Message:</source>
@@ -2047,8 +2047,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Etiqueta opcional para asociar con la nueva dirección de recepción.</translation>
     </message>
     <message>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened.&lt;br&gt;Note: The message will not be sent with the payment over the DarkSilk network.</source>
-        <translation>Un mensaje opcional para adjuntar con la solicitud de pago, el cual aparecerá cuando ésta sea abierta.&lt;br&gt;Nota: El mensaje no se enviará con el pago a la red DarkSilk.</translation>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened.&lt;br&gt;Note: The message will not be sent with the payment over the Dynamic network.</source>
+        <translation>Un mensaje opcional para adjuntar con la solicitud de pago, el cual aparecerá cuando ésta sea abierta.&lt;br&gt;Nota: El mensaje no se enviará con el pago a la red Dynamic.</translation>
     </message>
     <message>
         <source>Use this form to request payments. All fields are &lt;b&gt;optional&lt;/b&gt;.</source>
@@ -2201,7 +2201,7 @@ https://www.transifex.com/projects/p/darksilk/</translation>
     <name>SendCoinsDialog</name>
     <message>
         <source>Send Coins</source>
-        <translation>Enviar DarkSilk</translation>
+        <translation>Enviar Dynamic</translation>
     </message>
     <message>
         <source>Coin Control Features</source>
@@ -2292,8 +2292,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Si la comisión personalizada se establece en 1000 duffs y la transacción sólo ocupa 250 bytes, entonces "por kilobyte" sólo se pagan 250 duffs de comisión,&lt;br /&gt;mientras que "total como mínimo" paga 1000 duffs. Para transacciones mayores de un kilobyte ambas pagan por kilobyte.</translation>
     </message>
     <message>
-        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks.&lt;br /&gt;But be aware that this can end up in a never confirming transaction once there is more demand for darksilk transactions than the network can process.</source>
-        <translation>Pagar sólo la comisión mínima está bien mientras el volumen de transacciones sea menor al espacio en los bloques.&lt;br /&gt;No obstante, tenga en cuenta que esto puede acabar en una transacción que nunca se confirme una vez haya más demanda de transacciones darksilk a la procesable por la red.</translation>
+        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks.&lt;br /&gt;But be aware that this can end up in a never confirming transaction once there is more demand for dynamic transactions than the network can process.</source>
+        <translation>Pagar sólo la comisión mínima está bien mientras el volumen de transacciones sea menor al espacio en los bloques.&lt;br /&gt;No obstante, tenga en cuenta que esto puede acabar en una transacción que nunca se confirme una vez haya más demanda de transacciones dynamic a la procesable por la red.</translation>
     </message>
     <message>
         <source>per kilobyte</source>
@@ -2364,8 +2364,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Añadir &amp;Destinatario</translation>
     </message>
     <message>
-        <source>Sandstorm</source>
-        <translation>Sandstorm</translation>
+        <source>Privatesend</source>
+        <translation>Privatesend</translation>
     </message>
     <message>
         <source>InstantX</source>
@@ -2416,8 +2416,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>fondos anónimos</translation>
     </message>
     <message>
-        <source>(sandstorm requires this amount to be rounded up to the nearest %1).</source>
-        <translation>(sandstorm requiere que esta cantidad sea redondeada al %1 más cercano).</translation>
+        <source>(privatesend requires this amount to be rounded up to the nearest %1).</source>
+        <translation>(privatesend requiere que esta cantidad sea redondeada al %1 más cercano).</translation>
     </message>
     <message>
         <source>any available funds (not recommended)</source>
@@ -2445,7 +2445,7 @@ https://www.transifex.com/projects/p/darksilk/</translation>
     </message>
     <message>
         <source>Confirm send coins</source>
-        <translation>Confirmar el envío de darksilks</translation>
+        <translation>Confirmar el envío de dynamics</translation>
     </message>
     <message>
         <source>A fee %1 times higher than %2 per kB is considered an insanely high fee.</source>
@@ -2485,19 +2485,19 @@ https://www.transifex.com/projects/p/darksilk/</translation>
     </message>
     <message>
         <source>The transaction was rejected! This might happen if some of the coins in your wallet were already spent, such as if you used a copy of wallet.dat and coins were spent in the copy but not marked as spent here.</source>
-        <translation>¡La transacción fue rechazada! Esto puede suceder si alguno de los darksilks de su monedero ya se habían gastado, por ejemplo si usó una copia de wallet.dat y los darksilk se gastaron en dicha copia pero no se aparecen como gastados aqui.</translation>
+        <translation>¡La transacción fue rechazada! Esto puede suceder si alguno de los dynamics de su monedero ya se habían gastado, por ejemplo si usó una copia de wallet.dat y los dynamic se gastaron en dicha copia pero no se aparecen como gastados aqui.</translation>
     </message>
     <message>
         <source>Error: The wallet was unlocked only to anonymize coins.</source>
-        <translation>Error: El monedero se desbloqueó solo para anonimizar darksilks.</translation>
+        <translation>Error: El monedero se desbloqueó solo para anonimizar dynamics.</translation>
     </message>
     <message>
         <source>Pay only the minimum fee of %1</source>
         <translation>Pagar sólo la comisión mínima de %1</translation>
     </message>
     <message>
-        <source>Warning: Invalid DarkSilk address</source>
-        <translation>Aviso: Dirección de DarkSilk no válida</translation>
+        <source>Warning: Invalid Dynamic address</source>
+        <translation>Aviso: Dirección de Dynamic no válida</translation>
     </message>
     <message>
         <source>Warning: Unknown change address</source>
@@ -2519,8 +2519,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Pagar &amp;a:</translation>
     </message>
     <message>
-        <source>The DarkSilk address to send the payment to</source>
-        <translation>La dirección DarkSilk a la cual enviar el pago</translation>
+        <source>The Dynamic address to send the payment to</source>
+        <translation>La dirección Dynamic a la cual enviar el pago</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -2559,8 +2559,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Mensaje:</translation>
     </message>
     <message>
-        <source>A message that was attached to the darksilk: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the DarkSilk network.</source>
-        <translation>Un mensaje que se adjuntó al darksilk: URI que será almacenada con la transacción para su referencia. Nota: Este mensaje no se enviará a través de la red DarkSilk.</translation>
+        <source>A message that was attached to the dynamic: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Dynamic network.</source>
+        <translation>Un mensaje que se adjuntó al dynamic: URI que será almacenada con la transacción para su referencia. Nota: Este mensaje no se enviará a través de la red Dynamic.</translation>
     </message>
     <message>
         <source>This is an unverified payment request.</source>
@@ -2586,8 +2586,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
 <context>
     <name>ShutdownWindow</name>
     <message>
-        <source>DarkSilk Core is shutting down...</source>
-        <translation>DarkSilk Core se está cerrando...</translation>
+        <source>Dynamic Core is shutting down...</source>
+        <translation>Dynamic Core se está cerrando...</translation>
     </message>
     <message>
         <source>Do not shut down the computer until this window disappears.</source>
@@ -2609,8 +2609,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Puede firmar mensajes con sus direcciones para demostrar que las posee. Tenga cuidado de no firmar cualquier cosa vaga, ya que los ataques de phishing pueden tratar de engañarle para suplantar su identidad. Firme solo declaraciones totalmente detalladas con las que usted esté de acuerdo.</translation>
     </message>
     <message>
-        <source>The DarkSilk address to sign the message with</source>
-        <translation>La dirección DarkSilk con la cual se firma el mensaje</translation>
+        <source>The Dynamic address to sign the message with</source>
+        <translation>La dirección Dynamic con la cual se firma el mensaje</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -2641,8 +2641,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Copiar la firma actual al portapapeles del sistema</translation>
     </message>
     <message>
-        <source>Sign the message to prove you own this DarkSilk address</source>
-        <translation>Firmar el mensaje para demostrar que se posee esta dirección DarkSilk</translation>
+        <source>Sign the message to prove you own this Dynamic address</source>
+        <translation>Firmar el mensaje para demostrar que se posee esta dirección Dynamic</translation>
     </message>
     <message>
         <source>Sign &amp;Message</source>
@@ -2665,12 +2665,12 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Introduzca la dirección para la firma, el mensaje (asegurándose de copiar tal cual los saltos de línea, espacios, tabulaciones, etc.) y la firma a continuación para verificar el mensaje. Tenga cuidado de no asumir más información de lo que dice el propio mensaje firmado para evitar fraudes basados en ataques de tipo man-in-the-middle.</translation>
     </message>
     <message>
-        <source>The DarkSilk address the message was signed with</source>
-        <translation>La dirección DarkSilk con la cual se firmó el mensaje</translation>
+        <source>The Dynamic address the message was signed with</source>
+        <translation>La dirección Dynamic con la cual se firmó el mensaje</translation>
     </message>
     <message>
-        <source>Verify the message to ensure it was signed with the specified DarkSilk address</source>
-        <translation>Verificar el mensaje para garantizar que fue firmado con la dirección DarkSilk indicada</translation>
+        <source>Verify the message to ensure it was signed with the specified Dynamic address</source>
+        <translation>Verificar el mensaje para garantizar que fue firmado con la dirección Dynamic indicada</translation>
     </message>
     <message>
         <source>Verify &amp;Message</source>
@@ -2736,8 +2736,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
 <context>
     <name>SplashScreen</name>
     <message>
-        <source>DarkSilk Core</source>
-        <translation>DarkSilk Core</translation>
+        <source>Dynamic Core</source>
+        <translation>Dynamic Core</translation>
     </message>
     <message>
         <source>Version %1</source>
@@ -2748,8 +2748,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Los desarrolladores de Bitcoin Core</translation>
     </message>
     <message>
-        <source>The DarkSilk Core developers</source>
-        <translation>Los desarrolladores del DarkSilk Core</translation>
+        <source>The Dynamic Core developers</source>
+        <translation>Los desarrolladores del Dynamic Core</translation>
     </message>
     <message>
         <source>[testnet]</source>
@@ -2919,7 +2919,7 @@ https://www.transifex.com/projects/p/darksilk/</translation>
     </message>
     <message>
         <source>Generated coins must mature %1 blocks before they can be spent. When you generated this block, it was broadcast to the network to be added to the block chain. If it fails to get into the chain, its state will change to "not accepted" and it won't be spendable. This may occasionally happen if another node generates a block within a few seconds of yours.</source>
-        <translation>Los darksilks generados deben madurar %1 bloques antes de que puedan gastarse. Cuando generó este bloque, se transmitió a la red para que se añadiera a la cadena de bloques. Si no consigue entrar en la cadena, su estado cambiará a "no aceptado" y ya no se podrá gastar. Esto puede ocurrir ocasionalmente si otro nodo genera un bloque a pocos segundos del suyo.</translation>
+        <translation>Los dynamics generados deben madurar %1 bloques antes de que puedan gastarse. Cuando generó este bloque, se transmitió a la red para que se añadiera a la cadena de bloques. Si no consigue entrar en la cadena, su estado cambiará a "no aceptado" y ya no se podrá gastar. Esto puede ocurrir ocasionalmente si otro nodo genera un bloque a pocos segundos del suyo.</translation>
     </message>
     <message>
         <source>Debug information</source>
@@ -3020,8 +3020,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Recibido desde</translation>
     </message>
     <message>
-        <source>Received via Sandstorm</source>
-        <translation>Recibido mediante Sandstorm</translation>
+        <source>Received via Privatesend</source>
+        <translation>Recibido mediante Privatesend</translation>
     </message>
     <message>
         <source>Sent to</source>
@@ -3036,24 +3036,24 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Minado</translation>
     </message>
     <message>
-        <source>Sandstorm Denominate</source>
-        <translation>Denominación Sandstorm</translation>
+        <source>Privatesend Denominate</source>
+        <translation>Denominación Privatesend</translation>
     </message>
     <message>
-        <source>Sandstorm Collateral Payment</source>
-        <translation>Sandstorm - Pago de Colateral</translation>
+        <source>Privatesend Collateral Payment</source>
+        <translation>Privatesend - Pago de Colateral</translation>
     </message>
     <message>
-        <source>Sandstorm Make Collateral Inputs</source>
-        <translation>Sandstorm - Efectuar Entradas de Colateral</translation>
+        <source>Privatesend Make Collateral Inputs</source>
+        <translation>Privatesend - Efectuar Entradas de Colateral</translation>
     </message>
     <message>
-        <source>Sandstorm Create Denominations</source>
-        <translation>Sandstorm - Crear Denominaciones</translation>
+        <source>Privatesend Create Denominations</source>
+        <translation>Privatesend - Crear Denominaciones</translation>
     </message>
     <message>
-        <source>Sandstormed</source>
-        <translation>Sandstormed</translation>
+        <source>Privatesended</source>
+        <translation>Privatesended</translation>
     </message>
     <message>
         <source>watch-only</source>
@@ -3131,24 +3131,24 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Enviado a</translation>
     </message>
     <message>
-        <source>Sandstormed</source>
-        <translation>Sandstormed</translation>
+        <source>Privatesended</source>
+        <translation>Privatesended</translation>
     </message>
     <message>
-        <source>Sandstorm Make Collateral Inputs</source>
-        <translation>Sandstorm - Efectuar Entradas de Colateral</translation>
+        <source>Privatesend Make Collateral Inputs</source>
+        <translation>Privatesend - Efectuar Entradas de Colateral</translation>
     </message>
     <message>
-        <source>Sandstorm Create Denominations</source>
-        <translation>Sandstorm - Crear Denominaciones</translation>
+        <source>Privatesend Create Denominations</source>
+        <translation>Privatesend - Crear Denominaciones</translation>
     </message>
     <message>
-        <source>Sandstorm Denominate</source>
-        <translation>Sandstorm - Denominar</translation>
+        <source>Privatesend Denominate</source>
+        <translation>Privatesend - Denominar</translation>
     </message>
     <message>
-        <source>Sandstorm Collateral Payment</source>
-        <translation>Sandstorm - Pago de Colateral</translation>
+        <source>Privatesend Collateral Payment</source>
+        <translation>Privatesend - Pago de Colateral</translation>
     </message>
     <message>
         <source>To yourself</source>
@@ -3273,11 +3273,11 @@ https://www.transifex.com/projects/p/darksilk/</translation>
     <name>WalletModel</name>
     <message>
         <source>Send Coins</source>
-        <translation>Enviar DarkSilk</translation>
+        <translation>Enviar Dynamic</translation>
     </message>
     <message>
-        <source>InstantX doesn't support sending values that high yet. Transactions are currently limited to %1 DSLK.</source>
-        <translation>InstantX aún no soporta el envío de valores tan elevados. Las transacciones están limitadas actualmente a %1 DSLK.</translation>
+        <source>InstantX doesn't support sending values that high yet. Transactions are currently limited to %1 DYN.</source>
+        <translation>InstantX aún no soporta el envío de valores tan elevados. Las transacciones están limitadas actualmente a %1 DYN.</translation>
     </message>
 </context>
 <context>
@@ -3320,18 +3320,18 @@ https://www.transifex.com/projects/p/darksilk/</translation>
     </message>
 </context>
 <context>
-    <name>darksilk-core</name>
+    <name>dynamic-core</name>
     <message>
         <source>Bind to given address and always listen on it. Use [host]:port notation for IPv6</source>
         <translation>Vincular a la dirección dada y escuchar siempre en ella. Utilice la notación [host]:port para IPv6</translation>
     </message>
     <message>
-        <source>Cannot obtain a lock on data directory %s. DarkSilk Core is probably already running.</source>
-        <translation>No se ha podido bloquear el directorio de datos %s. Probablemente ya se está ejecutando DarkSilk Core.</translation>
+        <source>Cannot obtain a lock on data directory %s. Dynamic Core is probably already running.</source>
+        <translation>No se ha podido bloquear el directorio de datos %s. Probablemente ya se está ejecutando Dynamic Core.</translation>
     </message>
     <message>
-        <source>Sandstorm uses exact denominated amounts to send funds, you might simply need to anonymize some more coins.</source>
-        <translation>Sandstorm utiliza cuantías denominadas exactas para enviar fondos, simplemente necesita anonimizar algunos darksilks más. </translation>
+        <source>Privatesend uses exact denominated amounts to send funds, you might simply need to anonymize some more coins.</source>
+        <translation>Privatesend utiliza cuantías denominadas exactas para enviar fondos, simplemente necesita anonimizar algunos dynamics más. </translation>
     </message>
     <message>
         <source>Enter regression test mode, which uses a special chain in which blocks can be solved instantly.</source>
@@ -3382,16 +3382,16 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Esta es una versión de pre-prueba - utilícela bajo su propio riesgo. No la utilice para usos comerciales o de minería.</translation>
     </message>
     <message>
-        <source>Unable to bind to %s on this computer. DarkSilk Core is probably already running.</source>
-        <translation>No se puede enlazar a %s en este equipo. DarkSilk Core probablemente ya está en funcionamiento.</translation>
+        <source>Unable to bind to %s on this computer. Dynamic Core is probably already running.</source>
+        <translation>No se puede enlazar a %s en este equipo. Dynamic Core probablemente ya está en funcionamiento.</translation>
     </message>
     <message>
-        <source>Unable to locate enough Sandstorm denominated funds for this transaction.</source>
-        <translation>No se pueden localizar fondos denominados de Sandstorm suficientes para esta transacción.</translation>
+        <source>Unable to locate enough Privatesend denominated funds for this transaction.</source>
+        <translation>No se pueden localizar fondos denominados de Privatesend suficientes para esta transacción.</translation>
     </message>
     <message>
-        <source>Unable to locate enough Sandstorm non-denominated funds for this transaction that are not equal 1000 DSLK.</source>
-        <translation>No se pueden localizar fondos no denominados de Sandstorm suficientes para esta transacción que no sean iguales a 1000 DSLK.</translation>
+        <source>Unable to locate enough Privatesend non-denominated funds for this transaction that are not equal 1000 DYN.</source>
+        <translation>No se pueden localizar fondos no denominados de Privatesend suficientes para esta transacción que no sean iguales a 1000 DYN.</translation>
     </message>
     <message>
         <source>Warning: -paytxfee is set very high! This is the transaction fee you will pay if you send a transaction.</source>
@@ -3414,8 +3414,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Aviso: ¡Recuperados datos de wallet.dat corrupto! El wallet.dat original se ha guardado como wallet.{timestamp}.bak en %s; si hubiera errores en su saldo o transacciones, deberá restaurar una copia de seguridad.</translation>
     </message>
     <message>
-        <source>You must specify a stormnodeprivkey in the configuration. Please see documentation for help.</source>
-        <translation>Debe declarar la variable stormnodeprivkey o clave privada para el nodo maestro en la configuración. Por favor, consulte la documentación para obtener ayuda.</translation>
+        <source>You must specify a dynodeprivkey in the configuration. Please see documentation for help.</source>
+        <translation>Debe declarar la variable dynodeprivkey o clave privada para el nodo maestro en la configuración. Por favor, consulte la documentación para obtener ayuda.</translation>
     </message>
     <message>
         <source>(default: 1)</source>
@@ -3491,8 +3491,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Corrupción de base de datos de bloques detectada.</translation>
     </message>
     <message>
-        <source>Sandstorm options:</source>
-        <translation>Opciones de Sandstorm:</translation>
+        <source>Privatesend options:</source>
+        <translation>Opciones de Privatesend:</translation>
     </message>
     <message>
         <source>Debugging/Testing options:</source>
@@ -3563,8 +3563,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Error: ¡El monedero está bloqueado; no se puede crear la transacción!</translation>
     </message>
     <message>
-        <source>Error: You already have pending entries in the Sandstorm pool</source>
-        <translation>Error: Ya tiene entradas pendientes en el pool de Sandstorm</translation>
+        <source>Error: You already have pending entries in the Privatesend pool</source>
+        <translation>Error: Ya tiene entradas pendientes en el pool de Privatesend</translation>
     </message>
     <message>
         <source>Failed to listen on any port. Use -listen=0 if you want this.</source>
@@ -3615,8 +3615,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Borrar todas las transacciones del monedero y recuperar únicamente aquellas partes de la cadena de bloques a través de -rescan en el inicio</translation>
     </message>
     <message>
-        <source>Disable all DarkSilk specific functionality (Stormnodes, Sandstorm, InstantX, Budgeting) (0-1, default: %u)</source>
-        <translation>Desactivar todas las funciones asociadas a DarkSilk (Nodos Maestros, Sandstorm, InstantX, Presupuesto) (0-1, predeterminado: %u)</translation>
+        <source>Disable all Dynamic specific functionality (Dynodes, Privatesend, InstantX, Budgeting) (0-1, default: %u)</source>
+        <translation>Desactivar todas las funciones asociadas a Dynamic (Nodos Maestros, Privatesend, InstantX, Presupuesto) (0-1, predeterminado: %u)</translation>
     </message>
     <message>
         <source>Distributed under the MIT software license, see the accompanying file COPYING or &lt;http://www.opensource.org/licenses/mit-license.php&gt;.</source>
@@ -3627,20 +3627,20 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Activar InstantX, mostrar las confirmaciones de transacciones bloqueadas (booleano, predeterminado: %s)</translation>
     </message>
     <message>
-        <source>Enable use of automated sandstorm for funds stored in this wallet (0-1, default: %u)</source>
-        <translation>Activar uso automatizado de Sandstorm para los fondos almacenados en este monedero (0-1, predeterminado: %u)</translation>
+        <source>Enable use of automated privatesend for funds stored in this wallet (0-1, default: %u)</source>
+        <translation>Activar uso automatizado de Privatesend para los fondos almacenados en este monedero (0-1, predeterminado: %u)</translation>
     </message>
     <message>
         <source>Error: Unsupported argument -socks found. Setting SOCKS version isn't possible anymore, only SOCKS5 proxies are supported.</source>
         <translation>Error: Se encontró el argumento no permitido -socks. Ajustar la versión de SOCKS ya no es posible, sólo se admiten proxies SOCKS5</translation>
     </message>
     <message>
-        <source>Fees (in DSLK/Kb) smaller than this are considered zero fee for relaying (default: %s)</source>
-        <translation>Las comisiones (en DSLK/Kb) menores a ésta se consideran como cero a efectos de transmisión (predeterminado: %s)</translation>
+        <source>Fees (in DYN/Kb) smaller than this are considered zero fee for relaying (default: %s)</source>
+        <translation>Las comisiones (en DYN/Kb) menores a ésta se consideran como cero a efectos de transmisión (predeterminado: %s)</translation>
     </message>
     <message>
-        <source>Fees (in DSLK/Kb) smaller than this are considered zero fee for transaction creation (default: %s)</source>
-        <translation>Las comisiones (en DSLK/Kb) menores a ésta se consideran como cero a efectos de creación de transacciones (predeterminado: %s)</translation>
+        <source>Fees (in DYN/Kb) smaller than this are considered zero fee for transaction creation (default: %s)</source>
+        <translation>Las comisiones (en DYN/Kb) menores a ésta se consideran como cero a efectos de creación de transacciones (predeterminado: %s)</translation>
     </message>
     <message>
         <source>Flush database activity from memory pool to disk log every &lt;n&gt; megabytes (default: %u)</source>
@@ -3687,8 +3687,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Información de salida para depuración (predeterminado: %u, proporcionar una &lt;category&gt; es opcional)</translation>
     </message>
     <message>
-        <source>Provide liquidity to Sandstorm by infrequently mixing coins on a continual basis (0-100, default: %u, 1=very frequent, high fees, 100=very infrequent, low fees)</source>
-        <translation>Ofrecer liquidez a Sandstorm mezclando darksilk con poca frecuencia y de forma continua (0-100, predeterminado: %u, 1=muy frecuente, comisiones altas, 100=muy pocas veces, comisiones bajas)</translation>
+        <source>Provide liquidity to Privatesend by infrequently mixing coins on a continual basis (0-100, default: %u, 1=very frequent, high fees, 100=very infrequent, low fees)</source>
+        <translation>Ofrecer liquidez a Privatesend mezclando dynamic con poca frecuencia y de forma continua (0-100, predeterminado: %u, 1=muy frecuente, comisiones altas, 100=muy pocas veces, comisiones bajas)</translation>
     </message>
     <message>
         <source>Require high priority for relaying free or low-fee transactions (default:%u)</source>
@@ -3700,7 +3700,7 @@ https://www.transifex.com/projects/p/darksilk/</translation>
     </message>
     <message>
         <source>Set the number of threads for coin generation if enabled (-1 = all cores, default: %d)</source>
-        <translation>Establecer el número de hilos para la generación de darksilk cuando ésta se encuentra activada (-1 = todos los núcleos, predeterminado: %d)</translation>
+        <translation>Establecer el número de hilos para la generación de dynamic cuando ésta se encuentra activada (-1 = todos los núcleos, predeterminado: %d)</translation>
     </message>
     <message>
         <source>Show N confirmations for a successfully locked transaction (0-9999, default: %u)</source>
@@ -3711,32 +3711,32 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <translation>Este producto incluye software desarrollado por el Proyecto OpenSSL para su uso en el Toolkit OpenSSL &lt;https://www.openssl.org/&gt; y software criptográfico escrito por Eric Young y software UPnP escrito por Thomas Bernard.</translation>
     </message>
     <message>
-        <source>To use darksilkd, or the -server option to darksilk-qt, you must set an rpcpassword in the configuration file:
+        <source>To use dynamicd, or the -server option to dynamic-qt, you must set an rpcpassword in the configuration file:
 %s
 It is recommended you use the following random password:
-rpcuser=darksilkrpc
+rpcuser=dynamicrpc
 rpcpassword=%s
 (you do not need to remember this password)
 The username and password MUST NOT be the same.
 If the file does not exist, create it with owner-readable-only file permissions.
 It is also recommended to set alertnotify so you are notified of problems;
-for example: alertnotify=echo %%s | mail -s "DarkSilk Alert" admin@foo.com
+for example: alertnotify=echo %%s | mail -s "Dynamic Alert" admin@foo.com
 </source>
-        <translation>Para usar darksilkd, o la opción -server de darksilk-qt, debe establecer rpcpassword en el archivo de configuración:
+        <translation>Para usar dynamicd, o la opción -server de dynamic-qt, debe establecer rpcpassword en el archivo de configuración:
 %s
 Es recomendable que use la contraseña aleatoria siguiente:
-rpcuser=darksilkrpc
+rpcuser=dynamicrpc
 rpcpassword=%s
 (no necesita recordar esta contraseña)
 El nombre de usuario y la contraseña NO DEBEN ser iguales.
 Si el archivo no existe, créelo con permisos de sólo lectura para su propietario.
 También resulta recomendable establecer alertnotify para que se le notifique de posibles problemas;
-por ejemplo: alertnotify=echo %%s | mail -s "Alerta de DarkSilk" admin@foo.com
+por ejemplo: alertnotify=echo %%s | mail -s "Alerta de Dynamic" admin@foo.com
 </translation>
     </message>
     <message>
-        <source>Unable to locate enough funds for this transaction that are not equal 1000 DSLK.</source>
-        <translation>No se pueden localizar fondos suficientes para esta transacción que no sean iguales a 1000 DSLK.</translation>
+        <source>Unable to locate enough funds for this transaction that are not equal 1000 DYN.</source>
+        <translation>No se pueden localizar fondos suficientes para esta transacción que no sean iguales a 1000 DYN.</translation>
     </message>
     <message>
         <source>Use separate SOCKS5 proxy to reach peers via Tor hidden services (default: %s)</source>
@@ -3747,8 +3747,8 @@ por ejemplo: alertnotify=echo %%s | mail -s "Alerta de DarkSilk" admin@foo.com
         <translation>Aviso: ¡-maxtxfee se estableció en un valor muy alto! Comisiones tan grandes no se podrían pagar en una única transacción.</translation>
     </message>
     <message>
-        <source>Warning: Please check that your computer's date and time are correct! If your clock is wrong DarkSilk Core will not work properly.</source>
-        <translation>Aviso: ¡Por favor compruebe que la fecha y hora de su computadora son correctas! Si su reloj está mal ajustado, DarkSilk Core no funcionará correctamente.</translation>
+        <source>Warning: Please check that your computer's date and time are correct! If your clock is wrong Dynamic Core will not work properly.</source>
+        <translation>Aviso: ¡Por favor compruebe que la fecha y hora de su computadora son correctas! Si su reloj está mal ajustado, Dynamic Core no funcionará correctamente.</translation>
     </message>
     <message>
         <source>Whitelist peers connecting from the given netmask or IP address. Can be specified multiple times.</source>
@@ -3801,40 +3801,40 @@ por ejemplo: alertnotify=echo %%s | mail -s "Alerta de DarkSilk" admin@foo.com
         <translation>Copyright (C) 2009-%i Los Desarrolladores de Bitcoin Core</translation>
     </message>
     <message>
-        <source>Copyright (C) 2014-%i The DarkSilk Core Developers</source>
-        <translation>Copyright (C) 2014-%i Los Desarrolladores de DarkSilk Core</translation>
+        <source>Copyright (C) 2014-%i The Dynamic Core Developers</source>
+        <translation>Copyright (C) 2014-%i Los Desarrolladores de Dynamic Core</translation>
     </message>
     <message>
         <source>Could not parse -rpcbind value %s as network address</source>
         <translation>No se pudo intrepretar el valor -rpcbind %s como una dirección de red</translation>
     </message>
     <message>
-        <source>Sandstorm is idle.</source>
-        <translation>Sandstorm está parado.</translation>
+        <source>Privatesend is idle.</source>
+        <translation>Privatesend está parado.</translation>
     </message>
     <message>
-        <source>Sandstorm request complete:</source>
-        <translation>Solicitud Sandstorm completada:</translation>
+        <source>Privatesend request complete:</source>
+        <translation>Solicitud Privatesend completada:</translation>
     </message>
     <message>
-        <source>Sandstorm request incomplete:</source>
-        <translation>Petición de Sandstorm incompleta:</translation>
+        <source>Privatesend request incomplete:</source>
+        <translation>Petición de Privatesend incompleta:</translation>
     </message>
     <message>
         <source>Disable safemode, override a real safe mode event (default: %u)</source>
         <translation>Desactivar el modo seguro, no considerar un suceso real de modo seguro (predeterminado: %u)</translation>
     </message>
     <message>
-        <source>Enable the client to act as a stormnode (0-1, default: %u)</source>
+        <source>Enable the client to act as a dynode (0-1, default: %u)</source>
         <translation>Activar el cliente para que se comporte como un nodo maestro (0-1, predeterminado: %u)</translation>
     </message>
     <message>
-        <source>Error connecting to Stormnode.</source>
+        <source>Error connecting to Dynode.</source>
         <translation>Error al conectar al Nodo Maestro.</translation>
     </message>
     <message>
-        <source>Error loading wallet.dat: Wallet requires newer version of DarkSilk Core</source>
-        <translation>Error al cargar wallet.dat: El monedero requiere una versión más reciente de DarkSilk Core</translation>
+        <source>Error loading wallet.dat: Wallet requires newer version of Dynamic Core</source>
+        <translation>Error al cargar wallet.dat: El monedero requiere una versión más reciente de Dynamic Core</translation>
     </message>
     <message>
         <source>Error: A fatal internal error occured, see debug.log for details</source>
@@ -3849,8 +3849,8 @@ por ejemplo: alertnotify=echo %%s | mail -s "Alerta de DarkSilk" admin@foo.com
         <translation>Error: Se encontró el argumento no soportado -tor, use -onion.</translation>
     </message>
     <message>
-        <source>Fee (in DSLK/kB) to add to transactions you send (default: %s)</source>
-        <translation>Comisión (en DSLK/kB) a añadir sobre las transacciones que envíe (predeterminado: %s)</translation>
+        <source>Fee (in DYN/kB) to add to transactions you send (default: %s)</source>
+        <translation>Comisión (en DYN/kB) a añadir sobre las transacciones que envíe (predeterminado: %s)</translation>
     </message>
     <message>
         <source>Finalizing transaction.</source>
@@ -3870,7 +3870,7 @@ por ejemplo: alertnotify=echo %%s | mail -s "Alerta de DarkSilk" admin@foo.com
     </message>
     <message>
         <source>Generate coins (default: %u)</source>
-        <translation>Generar darksilk (predeterminado: %u)</translation>
+        <translation>Generar dynamic (predeterminado: %u)</translation>
     </message>
     <message>
         <source>How many blocks to check at startup (default: %u, 0 = all)</source>
@@ -3905,8 +3905,8 @@ por ejemplo: alertnotify=echo %%s | mail -s "Alerta de DarkSilk" admin@foo.com
         <translation>Información</translation>
     </message>
     <message>
-        <source>Initialization sanity check failed. DarkSilk Core is shutting down.</source>
-        <translation>La comprobación de validez de inicio falló. DarkSilk Core se está cerrando.</translation>
+        <source>Initialization sanity check failed. Dynamic Core is shutting down.</source>
+        <translation>La comprobación de validez de inicio falló. Dynamic Core se está cerrando.</translation>
     </message>
     <message>
         <source>Input is not valid.</source>
@@ -3949,8 +3949,8 @@ por ejemplo: alertnotify=echo %%s | mail -s "Alerta de DarkSilk" admin@foo.com
         <translation>Cuantía inválida para -paytxfee=&lt;amount&gt;: '%s'</translation>
     </message>
     <message>
-        <source>Last successful Sandstorm action was too recent.</source>
-        <translation>La última acción de Sandstorm exitosa era demasiado reciente.</translation>
+        <source>Last successful Privatesend action was too recent.</source>
+        <translation>La última acción de Privatesend exitosa era demasiado reciente.</translation>
     </message>
     <message>
         <source>Limit size of signature cache to &lt;n&gt; entries (default: %u)</source>
@@ -3969,11 +3969,11 @@ por ejemplo: alertnotify=echo %%s | mail -s "Alerta de DarkSilk" admin@foo.com
         <translation>Cargando caché del presupuesto...</translation>
     </message>
     <message>
-        <source>Loading stormnode cache...</source>
+        <source>Loading dynode cache...</source>
         <translation>Cargando caché de nodos maestros...</translation>
     </message>
     <message>
-        <source>Loading stormnode payment cache...</source>
+        <source>Loading dynode payment cache...</source>
         <translation>Cargando caché de pago del nodo maestro...</translation>
     </message>
     <message>
@@ -3981,7 +3981,7 @@ por ejemplo: alertnotify=echo %%s | mail -s "Alerta de DarkSilk" admin@foo.com
         <translation>El bloqueo ya está activo.</translation>
     </message>
     <message>
-        <source>Lock stormnodes from stormnode configuration file (default: %u)</source>
+        <source>Lock dynodes from dynode configuration file (default: %u)</source>
         <translation>Asegurar nodos maestros a partir del archivo de configuración del nodo maestro (predeterminado: %u)</translation>
     </message>
     <message>
@@ -4005,15 +4005,15 @@ por ejemplo: alertnotify=echo %%s | mail -s "Alerta de DarkSilk" admin@foo.com
         <translation>Ha de indicar un puerto con -whitebind: '%s'</translation>
     </message>
     <message>
-        <source>No Stormnodes detected.</source>
+        <source>No Dynodes detected.</source>
         <translation>No se detectaron Nodos Maestros.</translation>
     </message>
     <message>
-        <source>No compatible Stormnode found.</source>
+        <source>No compatible Dynode found.</source>
         <translation>No se encontró un Nodo Maestro compatible.</translation>
     </message>
     <message>
-        <source>Not in the Stormnode list.</source>
+        <source>Not in the Dynode list.</source>
         <translation>Ausente de la lista de Nodos Maestros.</translation>
     </message>
     <message>
@@ -4053,7 +4053,7 @@ por ejemplo: alertnotify=echo %%s | mail -s "Alerta de DarkSilk" admin@foo.com
         <translation>Clave privada del servidor (predeterminado: %s)</translation>
     </message>
     <message>
-        <source>Set external address:port to get to this stormnode (example: %s)</source>
+        <source>Set external address:port to get to this dynode (example: %s)</source>
         <translation>Establecer dirección:puerto externos para acceder a este nodo maestro (ejemplo: %s)</translation>
     </message>
     <message>
@@ -4085,7 +4085,7 @@ por ejemplo: alertnotify=echo %%s | mail -s "Alerta de DarkSilk" admin@foo.com
         <translation>Indicar tiempo máximo de desconexión en milisegundos (mínimo: 1, predeterminado: %d)</translation>
     </message>
     <message>
-        <source>Specify stormnode configuration file (default: %s)</source>
+        <source>Specify dynode configuration file (default: %s)</source>
         <translation>Indicar archivo de configuración del nodo maestro (predeterminado: %s)</translation>
     </message>
     <message>
@@ -4101,15 +4101,15 @@ por ejemplo: alertnotify=echo %%s | mail -s "Alerta de DarkSilk" admin@foo.com
         <translation>Detener la ejecución después de importar los bloques desde el disco (predeterminado: %u)</translation>
     </message>
     <message>
-        <source>Submitted following entries to stormnode: %u / %d</source>
+        <source>Submitted following entries to dynode: %u / %d</source>
         <translation>Se han enviado la entradas siguientes al nodo maestro: %u / %d</translation>
     </message>
     <message>
-        <source>Submitted to stormnode, waiting for more entries ( %u / %d ) %s</source>
+        <source>Submitted to dynode, waiting for more entries ( %u / %d ) %s</source>
         <translation>Enviado al nodo maestro, esperando a más entradas ( %u / %d ) %s</translation>
     </message>
     <message>
-        <source>Submitted to stormnode, waiting in queue %s</source>
+        <source>Submitted to dynode, waiting in queue %s</source>
         <translation>Enviado al nodo maestro, esperando en cola %s</translation>
     </message>
     <message>
@@ -4125,11 +4125,11 @@ por ejemplo: alertnotify=echo %%s | mail -s "Alerta de DarkSilk" admin@foo.com
         <translation>Sincronizando presupuestos...</translation>
     </message>
     <message>
-        <source>Synchronizing stormnode winners...</source>
+        <source>Synchronizing dynode winners...</source>
         <translation>Sincronizando ganadores de los nodos maestros...</translation>
     </message>
     <message>
-        <source>Synchronizing stormnodes...</source>
+        <source>Synchronizing dynodes...</source>
         <translation>Sincronizando nodos maestros...</translation>
     </message>
     <message>
@@ -4137,7 +4137,7 @@ por ejemplo: alertnotify=echo %%s | mail -s "Alerta de DarkSilk" admin@foo.com
         <translation>Sincronizando sporks...</translation>
     </message>
     <message>
-        <source>This is not a Stormnode.</source>
+        <source>This is not a Dynode.</source>
         <translation>Esto no es un Nodo Maestro.</translation>
     </message>
     <message>
@@ -4149,7 +4149,7 @@ por ejemplo: alertnotify=echo %%s | mail -s "Alerta de DarkSilk" admin@foo.com
         <translation>sar la integración de KeePass2 con el conector KeePassHttp (predeterminado: %u)</translation>
     </message>
     <message>
-        <source>Use N separate stormnodes to anonymize funds  (2-8, default: %u)</source>
+        <source>Use N separate dynodes to anonymize funds  (2-8, default: %u)</source>
         <translation>Usar N nodos maestros distintos para generar fondos anónimos (2-8, predeterminado: %u)</translation>
     </message>
     <message>
@@ -4157,8 +4157,8 @@ por ejemplo: alertnotify=echo %%s | mail -s "Alerta de DarkSilk" admin@foo.com
         <translation>Usar UPnP para asignar el puerto de escucha (predeterminado: %u)</translation>
     </message>
     <message>
-        <source>Wallet needed to be rewritten: restart DarkSilk Core to complete</source>
-        <translation>El monedero se ha de reescribir: reinicie DarkSilk Core para completarlo</translation>
+        <source>Wallet needed to be rewritten: restart Dynamic Core to complete</source>
+        <translation>El monedero se ha de reescribir: reinicie Dynamic Core para completarlo</translation>
     </message>
     <message>
         <source>Warning: Unsupported argument -benchmark ignored, use -debug=bench.</source>
@@ -4173,7 +4173,7 @@ por ejemplo: alertnotify=echo %%s | mail -s "Alerta de DarkSilk" admin@foo.com
         <translation>Se volverá a intentar...</translation>
     </message>
     <message>
-        <source>Invalid stormnodeprivkey. Please see documenation.</source>
+        <source>Invalid dynodeprivkey. Please see documenation.</source>
         <translation>La clave prinvada del nodo maestro no es válida. Por favor, consulte la  documentación.</translation>
     </message>
     <message>
@@ -4181,7 +4181,7 @@ por ejemplo: alertnotify=echo %%s | mail -s "Alerta de DarkSilk" admin@foo.com
         <translation>(debe ser 31000 para la red principal)</translation>
     </message>
     <message>
-        <source>Can't find random Stormnode.</source>
+        <source>Can't find random Dynode.</source>
         <translation>No se pudo encontrar un Nodo Maestro aleatorio.</translation>
     </message>
     <message>
@@ -4189,16 +4189,16 @@ por ejemplo: alertnotify=echo %%s | mail -s "Alerta de DarkSilk" admin@foo.com
         <translation>No se puede mezclar mientras la sincronización esté en curso.</translation>
     </message>
     <message>
-        <source>Could not parse stormnode.conf</source>
-        <translation>No se pudo interpretar stormnode.conf</translation>
+        <source>Could not parse dynode.conf</source>
+        <translation>No se pudo interpretar dynode.conf</translation>
     </message>
     <message>
         <source>Invalid netmask specified in -whitelist: '%s'</source>
         <translation>La máscara de red especificada en -whitelist no es válida: '%s' </translation>
     </message>
     <message>
-        <source>Invalid port detected in stormnode.conf</source>
-        <translation>Se detectó un puerto no válido en stormnode.conf</translation>
+        <source>Invalid port detected in dynode.conf</source>
+        <translation>Se detectó un puerto no válido en dynode.conf</translation>
     </message>
     <message>
         <source>Invalid private key.</source>
@@ -4217,16 +4217,16 @@ por ejemplo: alertnotify=echo %%s | mail -s "Alerta de DarkSilk" admin@foo.com
         <translation>Clave KeePassHttp para la comunicación cifrada AES con KeePass</translation>
     </message>
     <message>
-        <source>Keep N DSLK anonymized (default: %u)</source>
-        <translation>Conservar N DSLK anónimos (predeterminado: %u)</translation>
+        <source>Keep N DYN anonymized (default: %u)</source>
+        <translation>Conservar N DYN anónimos (predeterminado: %u)</translation>
     </message>
     <message>
         <source>Keep at most &lt;n&gt; unconnectable transactions in memory (default: %u)</source>
         <translation>Mantenga a lo sumo &lt;n&gt; transacciones no conectables en la memoria (por defecto: %u)</translation>
     </message>
     <message>
-        <source>Last Sandstorm was too recent.</source>
-        <translation>El último Sandstorm era demasiado reciente.</translation>
+        <source>Last Privatesend was too recent.</source>
+        <translation>El último Privatesend era demasiado reciente.</translation>
     </message>
     <message>
         <source>Line: %d</source>
@@ -4249,15 +4249,15 @@ por ejemplo: alertnotify=echo %%s | mail -s "Alerta de DarkSilk" admin@foo.com
         <translation>Cargando monedero...</translation>
     </message>
     <message>
-        <source>Stormnode options:</source>
+        <source>Dynode options:</source>
         <translation>Opciones del Nodo Maestro:</translation>
     </message>
     <message>
-        <source>Stormnode queue is full.</source>
+        <source>Dynode queue is full.</source>
         <translation>La cola del nodo maestro está llena.</translation>
     </message>
     <message>
-        <source>Stormnode:</source>
+        <source>Dynode:</source>
         <translation>Nodo Maestro:</translation>
     </message>
     <message>
@@ -4361,7 +4361,7 @@ por ejemplo: alertnotify=echo %%s | mail -s "Alerta de DarkSilk" admin@foo.com
         <translation>Establecer tamaño máximo de bloque en bytes (predeterminado: %d)</translation>
     </message>
     <message>
-        <source>Set the stormnode private key</source>
+        <source>Set the dynode private key</source>
         <translation>Establezca la clave privada del nodo maestro</translation>
     </message>
     <message>
@@ -4477,8 +4477,8 @@ por ejemplo: alertnotify=echo %%s | mail -s "Alerta de DarkSilk" admin@foo.com
         <translation>Nombre de usuario para las conexiones JSON-RPC</translation>
     </message>
     <message>
-        <source>Value more than Sandstorm pool maximum allows.</source>
-        <translation>El valor es mayor al máximo permitido por el pool Sandstorm. </translation>
+        <source>Value more than Privatesend pool maximum allows.</source>
+        <translation>El valor es mayor al máximo permitido por el pool Privatesend. </translation>
     </message>
     <message>
         <source>Verifying blocks...</source>

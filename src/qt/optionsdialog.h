@@ -5,8 +5,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_QT_OPTIONSDIALOG_H
-#define DARKSILK_QT_OPTIONSDIALOG_H
+#ifndef DYNAMIC_QT_OPTIONSDIALOG_H
+#define DYNAMIC_QT_OPTIONSDIALOG_H
 
 #include <QDialog>
 #include <QValidator>
@@ -68,4 +68,4 @@ private:
     QDataWidgetMapper *mapper;
 };
 
-#endif // DARKSILK_QT_OPTIONSDIALOG_H
+#endif // DYNAMIC_QT_OPTIONSDIALOG_H

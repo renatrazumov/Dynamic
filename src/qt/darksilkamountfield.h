@@ -5,8 +5,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_QT_DARKSILKAMOUNTFIELD_H
-#define DARKSILK_QT_DARKSILKAMOUNTFIELD_H
+#ifndef DYNAMIC_QT_DYNAMICAMOUNTFIELD_H
+#define DYNAMIC_QT_DYNAMICAMOUNTFIELD_H
 
 #include "amount.h"
 
@@ -18,9 +18,9 @@ QT_BEGIN_NAMESPACE
 class QValueComboBox;
 QT_END_NAMESPACE
 
-/** Widget for entering darksilk amounts.
+/** Widget for entering dynamic amounts.
   */
-class DarkSilkAmountField: public QWidget
+class DynamicAmountField: public QWidget
 {
     Q_OBJECT
 
@@ -29,7 +29,7 @@ class DarkSilkAmountField: public QWidget
     Q_PROPERTY(qint64 value READ value WRITE setValue NOTIFY valueChanged USER true)
 
 public:
-    explicit DarkSilkAmountField(QWidget *parent = 0);
+    explicit DynamicAmountField(QWidget *parent = 0);
 
     CAmount value(bool *value=0) const;
     void setValue(const CAmount& value);
@@ -75,4 +75,4 @@ private Q_SLOTS:
 
 };
 
-#endif // DARKSILK_QT_DARKSILKAMOUNTFIELD_H
+#endif // DYNAMIC_QT_DYNAMICAMOUNTFIELD_H

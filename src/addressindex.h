@@ -6,8 +6,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_ADDRESSINDEX_H
-#define DARKSILK_ADDRESSINDEX_H
+#ifndef DYNAMIC_ADDRESSINDEX_H
+#define DYNAMIC_ADDRESSINDEX_H
 
 #include "uint256.h"
 #include "amount.h"
@@ -82,4 +82,4 @@ struct CMempoolAddressDeltaKeyCompare
     }
 };
 
-#endif // DARKSILK_ADDRESSINDEX_H
+#endif // DYNAMIC_ADDRESSINDEX_H

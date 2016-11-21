@@ -55,10 +55,10 @@ static int AppInitRawTx(int argc, char* argv[])
     if (argc<2 || mapArgs.count("-?") || mapArgs.count("-h") || mapArgs.count("-help"))
     {
         // First part of help message is specific to this utility
-        std::string strUsage = _("DarkSilk Core darksilk-tx utility version") + " " + FormatFullVersion() + "\n\n" +
+        std::string strUsage = _("Dynamic Core dynamic-tx utility version") + " " + FormatFullVersion() + "\n\n" +
             _("Usage:") + "\n" +
-              "  darksilk-tx [options] <hex-tx> [commands]  " + _("Update hex-encoded darksilk transaction") + "\n" +
-              "  darksilk-tx [options] -create [commands]   " + _("Create hex-encoded darksilk transaction") + "\n" +
+              "  dynamic-tx [options] <hex-tx> [commands]  " + _("Update hex-encoded dynamic transaction") + "\n" +
+              "  dynamic-tx [options] -create [commands]   " + _("Create hex-encoded dynamic transaction") + "\n" +
               "\n";
 
         fprintf(stdout, "%s", strUsage.c_str());
@@ -233,7 +233,7 @@ static void MutateTxAddOutAddr(CMutableTransaction& tx, const string& strInput)
 
     // extract and validate ADDRESS
     string strAddr = strInput.substr(pos + 1, string::npos);
-    CDarkSilkAddress addr(strAddr);
+    CDynamicAddress addr(strAddr);
     if (!addr.IsValid())
         throw runtime_error("invalid TX output address");
 
@@ -394,7 +394,7 @@ static void MutateTxSign(CMutableTransaction& tx, const string& flagStr)
     for (unsigned int kidx = 0; kidx < keysObj.size(); kidx++) {
         if (!keysObj[kidx].isStr())
             throw runtime_error("privatekey not a string");
-        CDarkSilkSecret vchSecret;
+        CDynamicSecret vchSecret;
         bool fGood = vchSecret.SetString(keysObj[kidx].getValStr());
         if (!fGood)
             throw runtime_error("privatekey not valid");
@@ -612,7 +612,7 @@ static int CommandLineRawTx(int argc, char* argv[])
             if (argc < 2)
                 throw runtime_error("too few parameters");
 
-            // param: hex-encoded darksilk transaction
+            // param: hex-encoded dynamic transaction
             string strHexTx(argv[1]);
             if (strHexTx == "-")                 // "-" implies standard input
                 strHexTx = readStdin();

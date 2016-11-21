@@ -5,8 +5,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_KEY_H
-#define DARKSILK_KEY_H
+#ifndef DYNAMIC_KEY_H
+#define DYNAMIC_KEY_H
 
 #include "pubkey.h"
 #include "serialize.h"
@@ -182,4 +182,4 @@ void ECC_Stop(void);
 /** Check that required EC support is available at runtime. */
 bool ECC_InitSanityCheck(void);
 
-#endif // DARKSILK_KEY_H
+#endif // DYNAMIC_KEY_H

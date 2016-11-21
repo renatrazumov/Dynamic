@@ -11,7 +11,7 @@
 #include "consensus/consensus.h"
 #include "main.h"
 #include "timedata.h"
-#include "sandstorm.h"
+#include "privatesend.h"
 #include "instantx.h"
 #include "wallet/wallet.h"
 
@@ -64,9 +64,9 @@ QList<TransactionRecord> TransactionRecord::decomposeTransaction(const CWallet *
                 sub.involvesWatchAddress = mine & ISMINE_WATCH_ONLY;
                 if (ExtractDestination(txout.scriptPubKey, address) && IsMine(*wallet, address))
                 {
-                    // Received by DarkSilk Address
+                    // Received by Dynamic Address
                     sub.type = TransactionRecord::RecvWithAddress;
-                    sub.address = CDarkSilkAddress(address).ToString();
+                    sub.address = CDynamicAddress(address).ToString();
                 }
                 else
                 {
@@ -135,8 +135,8 @@ QList<TransactionRecord> TransactionRecord::decomposeTransaction(const CWallet *
                 CTxDestination address;
                 if (ExtractDestination(wtx.vout[0].scriptPubKey, address))
                 {
-                    // Sent to DarkSilk Address
-                    sub.address = CDarkSilkAddress(address).ToString();
+                    // Sent to Dynamic Address
+                    sub.address = CDynamicAddress(address).ToString();
                 }
                 else
                 {
@@ -188,9 +188,9 @@ QList<TransactionRecord> TransactionRecord::decomposeTransaction(const CWallet *
                 CTxDestination address;
                 if (ExtractDestination(txout.scriptPubKey, address))
                 {
-                    // Sent to DarkSilk Address
+                    // Sent to Dynamic Address
                     sub.type = TransactionRecord::SendToAddress;
-                    sub.address = CDarkSilkAddress(address).ToString();
+                    sub.address = CDynamicAddress(address).ToString();
                 }
                 else
                 {

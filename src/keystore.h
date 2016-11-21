@@ -5,8 +5,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_KEYSTORE_H
-#define DARKSILK_KEYSTORE_H
+#ifndef DYNAMIC_KEYSTORE_H
+#define DYNAMIC_KEYSTORE_H
 
 #include "key.h"
 #include "pubkey.h"
@@ -113,4 +113,4 @@ public:
 typedef std::vector<unsigned char, secure_allocator<unsigned char> > CKeyingMaterial;
 typedef std::map<CKeyID, std::pair<CPubKey, std::vector<unsigned char> > > CryptedKeyMap;
 
-#endif // DARKSILK_KEYSTORE_H
+#endif // DYNAMIC_KEYSTORE_H

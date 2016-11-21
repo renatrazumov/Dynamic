@@ -3,15 +3,15 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_SANDSTORM_H
-#define DARKSILK_SANDSTORM_H
+#ifndef DYNAMIC_PRIVATESEND_H
+#define DYNAMIC_PRIVATESEND_H
 
-#include "stormnode.h"
+#include "dynode.h"
 #include "wallet/wallet.h"
 
-class CSandstormPool;
-class CSandStormSigner;
-class CSandstormBroadcastTx;
+class CPrivatesendPool;
+class CPrivateSendSigner;
+class CPrivatesendBroadcastTx;
 
 // timeouts
 static const int PRIVATESEND_AUTO_TIMEOUT_MIN       = 5;
@@ -44,11 +44,11 @@ extern bool fEnablePrivateSend;
 extern bool fPrivateSendMultiSession;
 
 // The main object for accessing mixing
-extern CSandstormPool sandStormPool;
-// A helper object for signing messages from Stormnodes
-extern CSandStormSigner sandStormSigner;
+extern CPrivatesendPool privateSendPool;
+// A helper object for signing messages from Dynodes
+extern CPrivateSendSigner privateSendSigner;
 
-extern std::map<uint256, CSandstormBroadcastTx> mapSandstormBroadcastTxes;
+extern std::map<uint256, CPrivatesendBroadcastTx> mapPrivatesendBroadcastTxes;
 extern std::vector<CAmount> vecPrivateSendDenominations;
 
 /** Holds an mixing input
@@ -91,20 +91,20 @@ public:
 };
 
 // A clients transaction in the mixing pool
-class CSandStormEntry
+class CPrivateSendEntry
 {
 public:
     std::vector<CTxSSIn> vecTxSSIn;
     std::vector<CTxSSOut> vecTxSSOut;
     CTransaction txCollateral;
 
-    CSandStormEntry() :
+    CPrivateSendEntry() :
         vecTxSSIn(std::vector<CTxSSIn>()),
         vecTxSSOut(std::vector<CTxSSOut>()),
         txCollateral(CTransaction())
         {}
 
-    CSandStormEntry(const std::vector<CTxIn>& vecTxIn, const std::vector<CTxOut>& vecTxOut, const CTransaction& txCollateral) :
+    CPrivateSendEntry(const std::vector<CTxIn>& vecTxIn, const std::vector<CTxOut>& vecTxOut, const CTransaction& txCollateral) :
         txCollateral(txCollateral)
     {
         BOOST_FOREACH(CTxIn txin, vecTxIn)
@@ -129,7 +129,7 @@ public:
 /**
  * A currently inprogress mixing merge and denomination information
  */
-class CSandstormQueue
+class CPrivatesendQueue
 {
 public:
     int nDenom;
@@ -140,7 +140,7 @@ public:
     // memory only
     bool fTried;
 
-    CSandstormQueue() :
+    CPrivatesendQueue() :
         nDenom(0),
         vin(CTxIn()),
         nTime(0),
@@ -149,7 +149,7 @@ public:
         fTried(false)
         {}
 
-    CSandstormQueue(int nDenom, CTxIn vin, int64_t nTime, bool fReady) :
+    CPrivatesendQueue(int nDenom, CTxIn vin, int64_t nTime, bool fReady) :
         nDenom(nDenom),
         vin(vin),
         nTime(nTime),
@@ -171,14 +171,14 @@ public:
 
     /** Sign this mixing transaction
      *  \return true if all conditions are met:
-     *     1) we have an active Stormnode,
-     *     2) we have a valid Stormnode private key,
+     *     1) we have an active Dynode,
+     *     2) we have a valid Dynode private key,
      *     3) we signed the message successfully, and
      *     4) we verified the message successfully
      */
     bool Sign();
-    /// Check if we have a valid Stormnode address
-    bool CheckSignature(const CPubKey& pubKeyStormnode);
+    /// Check if we have a valid Dynode address
+    bool CheckSignature(const CPubKey& pubKeyDynode);
 
     bool Relay();
 
@@ -187,11 +187,11 @@ public:
 
     std::string ToString()
     {
-        return strprintf("nDenom=%d, nTime=%lld, fReady=%s, fTried=%s, stormnode=%s",
+        return strprintf("nDenom=%d, nTime=%lld, fReady=%s, fTried=%s, dynode=%s",
                         nDenom, nTime, fReady ? "true" : "false", fTried ? "true" : "false", vin.prevout.ToStringShort());
     }
 
-    friend bool operator==(const CSandstormQueue& a, const CSandstormQueue& b)
+    friend bool operator==(const CPrivatesendQueue& a, const CPrivatesendQueue& b)
     {
         return a.nDenom == b.nDenom && a.vin.prevout == b.vin.prevout && a.nTime == b.nTime && a.fReady == b.fReady;
     }
@@ -199,7 +199,7 @@ public:
 
 /** Helper class to store mixing transaction (tx) information.
  */
-class CSandstormBroadcastTx
+class CPrivatesendBroadcastTx
 {
 public:
     CTransaction tx;
@@ -207,14 +207,14 @@ public:
     std::vector<unsigned char> vchSig;
     int64_t sigTime;
 
-    CSandstormBroadcastTx() :
+    CPrivatesendBroadcastTx() :
         tx(CTransaction()),
         vin(CTxIn()),
         vchSig(std::vector<unsigned char>()),
         sigTime(0)
         {}
 
-    CSandstormBroadcastTx(CTransaction tx, CTxIn vin, int64_t sigTime) :
+    CPrivatesendBroadcastTx(CTransaction tx, CTxIn vin, int64_t sigTime) :
         tx(tx),
         vin(vin),
         vchSig(std::vector<unsigned char>()),
@@ -232,15 +232,15 @@ public:
     }
 
     bool Sign();
-    bool CheckSignature(const CPubKey& pubKeyStormnode);
+    bool CheckSignature(const CPubKey& pubKeyDynode);
 };
 
 /** Helper object for signing and checking signatures
  */
-class CSandStormSigner
+class CPrivateSendSigner
 {
 public:
-    /// Is the input associated with this public key? (and there is 1000 DSLK - checking if valid stormnode)
+    /// Is the input associated with this public key? (and there is 1000 DYN - checking if valid dynode)
     bool IsVinAssociatedWithPubkey(const CTxIn& vin, const CPubKey& pubkey);
     /// Set the private/public key values, returns true if successful
     bool GetKeysFromSecret(std::string strSecret, CKey& keyRet, CPubKey& pubkeyRet);
@@ -252,7 +252,7 @@ public:
 
 /** Used to keep track of current status of mixing pool
  */
-class CSandstormPool
+class CPrivatesendPool
 {
 private:
     // pool responses
@@ -301,19 +301,19 @@ private:
         STATUS_ACCEPTED
     };
 
-    mutable CCriticalSection cs_sandstorm;
+    mutable CCriticalSection cs_privatesend;
 
     // The current mixing sessions in progress on the network
-    std::vector<CSandstormQueue> vecSandstormQueue;
-    // Keep track of the used Stormnodes
-    std::vector<CTxIn> vecStormnodesUsed;
+    std::vector<CPrivatesendQueue> vecPrivatesendQueue;
+    // Keep track of the used Dynodes
+    std::vector<CTxIn> vecDynodesUsed;
 
     std::vector<CAmount> vecDenominationsSkipped;
     std::vector<COutPoint> vecOutPointLocked;
     // Mixing uses collateral transactions to trust parties entering the pool
     // to behave honestly. If they don't it takes their money.
     std::vector<CTransaction> vecSessionCollaterals;
-    std::vector<CSandStormEntry> vecEntries; // Stormnodes/clients entries
+    std::vector<CPrivateSendEntry> vecEntries; // Dynodes/clients entries
 
     PoolState nState; // should be one of the POOL_STATE_XXX values
     int64_t nTimeLastSuccessfulStep; // the time when last successful mixing step was performed, in UTC milliseconds
@@ -336,7 +336,7 @@ private:
     CMutableTransaction finalMutableTransaction; // the finalized transaction ready for signing
 
     /// Add a clients entry to the pool
-    bool AddEntry(const CSandStormEntry& entryNew, PoolMessage& nMessageIDRet);
+    bool AddEntry(const CPrivateSendEntry& entryNew, PoolMessage& nMessageIDRet);
     /// Add signature to a txin
     bool AddScriptSig(const CTxIn& txin);
 
@@ -353,7 +353,7 @@ private:
 
     void CompletedTransaction(PoolMessage nMessageID);
 
-    /// Get the denominations for a specific amount of darksilk.
+    /// Get the denominations for a specific amount of dynamic.
     int GetDenominationsByAmounts(const std::vector<CAmount>& vecAmount);
 
     std::string GetMessageByID(PoolMessage nMessageID);
@@ -389,14 +389,14 @@ private:
     bool MakeCollateralAmounts();
     bool MakeCollateralAmounts(const CompactTallyItem& tallyItem);
 
-    /// As a client, submit part of a future mixing transaction to a Stormnode to start the process
+    /// As a client, submit part of a future mixing transaction to a Dynode to start the process
     bool SubmitDenominate();
     /// step 1: prepare denominated inputs and outputs
     bool PrepareDenominate(int nMinRounds, int nMaxRounds, std::string& strErrorRet, std::vector<CTxIn>& vecTxInRet, std::vector<CTxOut>& vecTxOutRet);
     /// step 2: send denominated inputs and outputs prepared in step 1
     bool SendDenominate(const std::vector<CTxIn>& vecTxIn, const std::vector<CTxOut>& vecTxOut);
 
-    /// Get Stormnode updates about the progress of mixing
+    /// Get Dynode updates about the progress of mixing
     bool CheckPoolStateUpdate(PoolState nStateNew, int nEntriesCountNew, PoolStatusUpdate nStatusUpdate, PoolMessage nMessageID, int nSessionIDNew=0);
     // Set the 'state' value, with some logging and capturing when the state changed
     void SetState(PoolState nStateNew);
@@ -408,7 +408,7 @@ private:
     void RelayFinalTransaction(const CTransaction& txFinal);
     void RelaySignaturesAnon(std::vector<CTxIn>& vin);
     void RelayInAnon(std::vector<CTxIn>& vin, std::vector<CTxOut>& vout);
-    void RelayIn(const CSandStormEntry& entry);
+    void RelayIn(const CPrivateSendEntry& entry);
     void PushStatus(CNode* pnode, PoolStatusUpdate nStatusUpdate, PoolMessage nMessageID);
     void RelayStatus(PoolStatusUpdate nStatusUpdate, PoolMessage nMessageID = MSG_NOERR);
     void RelayCompletedTransaction(PoolMessage nMessageID);
@@ -416,12 +416,12 @@ private:
     void SetNull();
 
 public:
-    CStormnode* pSubmittedToStormnode;
+    CDynode* pSubmittedToDynode;
     int nSessionDenom; //Users must submit an denom matching this
     int nCachedNumBlocks; //used for the overview screen
     bool fCreateAutoBackups; //builtin support for automatic backups
 
-    CSandstormPool() :
+    CPrivatesendPool() :
         nCachedLastSuccessBlock(0),
         nMinBlockSpacing(0),
         fUnitTest(false),
@@ -460,7 +460,7 @@ public:
 
     void UnlockCoins();
 
-    int GetQueueSize() const { return vecSandstormQueue.size(); }
+    int GetQueueSize() const { return vecPrivatesendQueue.size(); }
     int GetState() const { return nState; }
     std::string GetStatus();
 
@@ -478,6 +478,6 @@ public:
     void UpdatedBlockTip(const CBlockIndex *pindex);
 };
 
-void ThreadCheckSandStormPool();
+void ThreadCheckPrivateSendPool();
 
-#endif // DARKSILK_SANDSTORM_H
+#endif // DYNAMIC_PRIVATESEND_H

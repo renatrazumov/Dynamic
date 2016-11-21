@@ -5,34 +5,34 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_QT_DARKSILKADDRESSVALIDATOR_H
-#define DARKSILK_QT_DARKSILKADDRESSVALIDATOR_H
+#ifndef DYNAMIC_QT_DYNAMICADDRESSVALIDATOR_H
+#define DYNAMIC_QT_DYNAMICADDRESSVALIDATOR_H
 
 #include <QValidator>
 
 /** Base58 entry widget validator, checks for valid characters and
  * removes some whitespace.
  */
-class DarkSilkAddressEntryValidator : public QValidator
+class DynamicAddressEntryValidator : public QValidator
 {
     Q_OBJECT
 
 public:
-    explicit DarkSilkAddressEntryValidator(QObject *parent);
+    explicit DynamicAddressEntryValidator(QObject *parent);
 
     State validate(QString &input, int &pos) const;
 };
 
-/** DarkSilk address widget validator, checks for a valid DarkSilk address.
+/** Dynamic address widget validator, checks for a valid Dynamic address.
  */
-class DarkSilkAddressCheckValidator : public QValidator
+class DynamicAddressCheckValidator : public QValidator
 {
     Q_OBJECT
 
 public:
-    explicit DarkSilkAddressCheckValidator(QObject *parent);
+    explicit DynamicAddressCheckValidator(QObject *parent);
 
     State validate(QString &input, int &pos) const;
 };
 
-#endif // DARKSILK_QT_DARKSILKADDRESSVALIDATOR_H
+#endif // DYNAMIC_QT_DYNAMICADDRESSVALIDATOR_H

@@ -5,8 +5,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_UINT256_H
-#define DARKSILK_UINT256_H
+#ifndef DYNAMIC_UINT256_H
+#define DYNAMIC_UINT256_H
 
 #include <assert.h>
 #include <cstring>
@@ -171,4 +171,4 @@ public:
 };
 
 
-#endif // DARKSILK_UINT256_H
+#endif // DYNAMIC_UINT256_H

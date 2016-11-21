@@ -5,8 +5,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_CHAINPARAMS_H
-#define DARKSILK_CHAINPARAMS_H
+#ifndef DYNAMIC_CHAINPARAMS_H
+#define DYNAMIC_CHAINPARAMS_H
 
 #include "chainparamsbase.h"
 #include "consensus/params.h"
@@ -36,7 +36,7 @@ struct CCheckpointData {
 
 /**
  * CChainParams defines various tweakable parameters of a given instance of the
- * DarkSilk system. There are three: the main network on which people trade goods
+ * Dynamic system. There are three: the main network on which people trade goods
  * and services, the public test network which gets reset from time to time and
  * a regression test mode which is intended for private networks only. It has
  * minimal difficulty to ensure that blocks can be found instantly.
@@ -82,8 +82,8 @@ public:
     int PoolMaxTransactions() const { return nPoolMaxTransactions; }
     int FulfilledRequestExpireTime() const { return nFulfilledRequestExpireTime; }
     std::string SporkPubKey() const { return strSporkPubKey; }
-    std::string StormnodePaymentPubKey() const { return strStormnodePaymentsPubKey; }
-    int64_t StartStormnodePayments() const { return nStartStormnodePayments; }
+    std::string DynodePaymentPubKey() const { return strDynodePaymentsPubKey; }
+    int64_t StartDynodePayments() const { return nStartDynodePayments; }
 protected:
     CChainParams() {}
 
@@ -109,8 +109,8 @@ protected:
     int nPoolMaxTransactions;
     int nFulfilledRequestExpireTime;
     std::string strSporkPubKey;
-    std::string strStormnodePaymentsPubKey;
-    int64_t nStartStormnodePayments;
+    std::string strDynodePaymentsPubKey;
+    int64_t nStartDynodePayments;
 };
 
 /**
@@ -130,4 +130,4 @@ CChainParams& Params(const std::string& chain);
  */
 void SelectParams(const std::string& chain);
 
-#endif // DARKSILK_CHAINPARAMS_H
+#endif // DYNAMIC_CHAINPARAMS_H

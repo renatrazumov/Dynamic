@@ -1,12 +1,12 @@
 [Desktop Entry]
 Encoding=UTF-8
-Name=DarkSilk
-Comment=DarkSilk P2P Cryptocurrency
-Comment[fr]=DarkSilk, monnaie virtuelle cryptographique pair à pair
-Comment[tr]=DarkSilk, eşten eşe kriptografik sanal para birimi
-Exec=darksilk-qt %u
+Name=Dynamic
+Comment=Dynamic P2P Cryptocurrency
+Comment[fr]=Dynamic, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=Dynamic, eşten eşe kriptografik sanal para birimi
+Exec=dynamic-qt %u
 Terminal=false
 Type=Application
-Icon=darksilk128
-MimeType=x-scheme-handler/darksilk;
+Icon=dynamic128
+MimeType=x-scheme-handler/dynamic;
 Categories=Office;Finance;

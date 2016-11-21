@@ -5,8 +5,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_CHECKPOINTS_H
-#define DARKSILK_CHECKPOINTS_H
+#ifndef DYNAMIC_CHECKPOINTS_H
+#define DYNAMIC_CHECKPOINTS_H
 
 #include "uint256.h"
 
@@ -32,4 +32,4 @@ double GuessVerificationProgress(const CCheckpointData& data, CBlockIndex* pinde
 
 } //namespace Checkpoints
 
-#endif // DARKSILK_CHECKPOINTS_H
+#endif // DYNAMIC_CHECKPOINTS_H

@@ -5,8 +5,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_LIMITEDMAP_H
-#define DARKSILK_LIMITEDMAP_H
+#ifndef DYNAMIC_LIMITEDMAP_H
+#define DYNAMIC_LIMITEDMAP_H
 
 #include <assert.h>
 #include <map>
@@ -97,4 +97,4 @@ public:
     }
 };
 
-#endif // DARKSILK_LIMITEDMAP_H
+#endif // DYNAMIC_LIMITEDMAP_H

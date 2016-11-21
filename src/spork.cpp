@@ -3,7 +3,7 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include "sandstorm.h"
+#include "privatesend.h"
 #include "main.h"
 #include "spork.h"
 
@@ -18,7 +18,7 @@ std::map<uint256, CSporkMessage> mapSporks;
 
 void CSporkManager::ProcessSpork(CNode* pfrom, std::string& strCommand, CDataStream& vRecv)
 {
-    if(fLiteMode) return; // disable all DarkSilk specific functionality
+    if(fLiteMode) return; // disable all Dynamic specific functionality
 
     if (strCommand == NetMsgType::SPORK) {
 
@@ -108,9 +108,9 @@ bool CSporkManager::IsSporkActive(int nSporkID)
             case SPORK_2_INSTANTSEND_ENABLED:               r = SPORK_2_INSTANTSEND_ENABLED_DEFAULT; break;
             case SPORK_3_INSTANTSEND_BLOCK_FILTERING:       r = SPORK_3_INSTANTSEND_BLOCK_FILTERING_DEFAULT; break;
             case SPORK_5_INSTANTSEND_MAX_VALUE:             r = SPORK_5_INSTANTSEND_MAX_VALUE_DEFAULT; break;
-            case SPORK_8_STORMNODE_PAYMENT_ENFORCEMENT:    r = SPORK_8_STORMNODE_PAYMENT_ENFORCEMENT_DEFAULT; break;
+            case SPORK_8_DYNODE_PAYMENT_ENFORCEMENT:    r = SPORK_8_DYNODE_PAYMENT_ENFORCEMENT_DEFAULT; break;
             case SPORK_9_SUPERBLOCKS_ENABLED:               r = SPORK_9_SUPERBLOCKS_ENABLED_DEFAULT; break;
-            case SPORK_10_STORMNODE_PAY_UPDATED_NODES:     r = SPORK_10_STORMNODE_PAY_UPDATED_NODES_DEFAULT; break;
+            case SPORK_10_DYNODE_PAY_UPDATED_NODES:     r = SPORK_10_DYNODE_PAY_UPDATED_NODES_DEFAULT; break;
             case SPORK_12_RECONSIDER_BLOCKS:                r = SPORK_12_RECONSIDER_BLOCKS_DEFAULT; break;
             case SPORK_13_OLD_SUPERBLOCK_FLAG:              r = SPORK_13_OLD_SUPERBLOCK_FLAG_DEFAULT; break;
             default:
@@ -133,9 +133,9 @@ int64_t CSporkManager::GetSporkValue(int nSporkID)
         case SPORK_2_INSTANTSEND_ENABLED:               return SPORK_2_INSTANTSEND_ENABLED_DEFAULT;
         case SPORK_3_INSTANTSEND_BLOCK_FILTERING:       return SPORK_3_INSTANTSEND_BLOCK_FILTERING_DEFAULT;
         case SPORK_5_INSTANTSEND_MAX_VALUE:             return SPORK_5_INSTANTSEND_MAX_VALUE_DEFAULT;
-        case SPORK_8_STORMNODE_PAYMENT_ENFORCEMENT:    return SPORK_8_STORMNODE_PAYMENT_ENFORCEMENT_DEFAULT;
+        case SPORK_8_DYNODE_PAYMENT_ENFORCEMENT:    return SPORK_8_DYNODE_PAYMENT_ENFORCEMENT_DEFAULT;
         case SPORK_9_SUPERBLOCKS_ENABLED:               return SPORK_9_SUPERBLOCKS_ENABLED_DEFAULT;
-        case SPORK_10_STORMNODE_PAY_UPDATED_NODES:     return SPORK_10_STORMNODE_PAY_UPDATED_NODES_DEFAULT;
+        case SPORK_10_DYNODE_PAY_UPDATED_NODES:     return SPORK_10_DYNODE_PAY_UPDATED_NODES_DEFAULT;
         case SPORK_12_RECONSIDER_BLOCKS:                return SPORK_12_RECONSIDER_BLOCKS_DEFAULT;
         case SPORK_13_OLD_SUPERBLOCK_FLAG:              return SPORK_13_OLD_SUPERBLOCK_FLAG_DEFAULT;
         default:
@@ -150,9 +150,9 @@ int CSporkManager::GetSporkIDByName(std::string strName)
     if (strName == "SPORK_2_INSTANTSEND_ENABLED")               return SPORK_2_INSTANTSEND_ENABLED;
     if (strName == "SPORK_3_INSTANTSEND_BLOCK_FILTERING")       return SPORK_3_INSTANTSEND_BLOCK_FILTERING;
     if (strName == "SPORK_5_INSTANTSEND_MAX_VALUE")             return SPORK_5_INSTANTSEND_MAX_VALUE;
-    if (strName == "SPORK_8_STORMNODE_PAYMENT_ENFORCEMENT")    return SPORK_8_STORMNODE_PAYMENT_ENFORCEMENT;
+    if (strName == "SPORK_8_DYNODE_PAYMENT_ENFORCEMENT")    return SPORK_8_DYNODE_PAYMENT_ENFORCEMENT;
     if (strName == "SPORK_9_SUPERBLOCKS_ENABLED")               return SPORK_9_SUPERBLOCKS_ENABLED;
-    if (strName == "SPORK_10_STORMNODE_PAY_UPDATED_NODES")     return SPORK_10_STORMNODE_PAY_UPDATED_NODES;
+    if (strName == "SPORK_10_DYNODE_PAY_UPDATED_NODES")     return SPORK_10_DYNODE_PAY_UPDATED_NODES;
     if (strName == "SPORK_12_RECONSIDER_BLOCKS")                return SPORK_12_RECONSIDER_BLOCKS;
     if (strName == "SPORK_13_OLD_SUPERBLOCK_FLAG")              return SPORK_13_OLD_SUPERBLOCK_FLAG;
 
@@ -166,9 +166,9 @@ std::string CSporkManager::GetSporkNameByID(int nSporkID)
         case SPORK_2_INSTANTSEND_ENABLED:               return "SPORK_2_INSTANTSEND_ENABLED";
         case SPORK_3_INSTANTSEND_BLOCK_FILTERING:       return "SPORK_3_INSTANTSEND_BLOCK_FILTERING";
         case SPORK_5_INSTANTSEND_MAX_VALUE:             return "SPORK_5_INSTANTSEND_MAX_VALUE";
-        case SPORK_8_STORMNODE_PAYMENT_ENFORCEMENT:    return "SPORK_8_STORMNODE_PAYMENT_ENFORCEMENT";
+        case SPORK_8_DYNODE_PAYMENT_ENFORCEMENT:    return "SPORK_8_DYNODE_PAYMENT_ENFORCEMENT";
         case SPORK_9_SUPERBLOCKS_ENABLED:               return "SPORK_9_SUPERBLOCKS_ENABLED";
-        case SPORK_10_STORMNODE_PAY_UPDATED_NODES:     return "SPORK_10_STORMNODE_PAY_UPDATED_NODES";
+        case SPORK_10_DYNODE_PAY_UPDATED_NODES:     return "SPORK_10_DYNODE_PAY_UPDATED_NODES";
         case SPORK_12_RECONSIDER_BLOCKS:                return "SPORK_12_RECONSIDER_BLOCKS";
         case SPORK_13_OLD_SUPERBLOCK_FLAG:              return "SPORK_13_OLD_SUPERBLOCK_FLAG";
         default:
@@ -200,17 +200,17 @@ bool CSporkMessage::Sign(std::string strSignKey)
     std::string strError = "";
     std::string strMessage = boost::lexical_cast<std::string>(nSporkID) + boost::lexical_cast<std::string>(nValue) + boost::lexical_cast<std::string>(nTimeSigned);
 
-    if(!sandStormSigner.GetKeysFromSecret(strSignKey, key, pubkey)) {
+    if(!privateSendSigner.GetKeysFromSecret(strSignKey, key, pubkey)) {
         LogPrintf("CSporkMessage::Sign -- GetKeysFromSecret() failed, invalid spork key %s\n", strSignKey);
         return false;
     }
 
-    if(!sandStormSigner.SignMessage(strMessage, vchSig, key)) {
+    if(!privateSendSigner.SignMessage(strMessage, vchSig, key)) {
         LogPrintf("CSporkMessage::Sign -- SignMessage() failed\n");
         return false;
     }
 
-    if(!sandStormSigner.VerifyMessage(pubkey, vchSig, strMessage, strError)) {
+    if(!privateSendSigner.VerifyMessage(pubkey, vchSig, strMessage, strError)) {
         LogPrintf("CSporkMessage::Sign -- VerifyMessage() failed, error: %s\n", strError);
         return false;
     }
@@ -225,7 +225,7 @@ bool CSporkMessage::CheckSignature()
     std::string strMessage = boost::lexical_cast<std::string>(nSporkID) + boost::lexical_cast<std::string>(nValue) + boost::lexical_cast<std::string>(nTimeSigned);
     CPubKey pubkey(ParseHex(Params().SporkPubKey()));
 
-    if(!sandStormSigner.VerifyMessage(pubkey, vchSig, strMessage, strError)) {
+    if(!privateSendSigner.VerifyMessage(pubkey, vchSig, strMessage, strError)) {
         LogPrintf("CSporkMessage::CheckSignature -- VerifyMessage() failed, error: %s\n", strError);
         return false;
     }

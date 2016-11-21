@@ -5,8 +5,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_BLOOM_H
-#define DARKSILK_BLOOM_H
+#ifndef DYNAMIC_BLOOM_H
+#define DYNAMIC_BLOOM_H
 
 #include "serialize.h"
 
@@ -138,4 +138,4 @@ private:
 };
 
 
-#endif // DARKSILK_BLOOM_H
+#endif // DYNAMIC_BLOOM_H

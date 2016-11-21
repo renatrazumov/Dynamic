@@ -5,8 +5,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_ALERT_H
-#define DARKSILK_ALERT_H
+#ifndef DYNAMIC_ALERT_H
+#define DYNAMIC_ALERT_H
 
 #include "serialize.h"
 #include "sync.h"
@@ -112,4 +112,4 @@ public:
     static CAlert getAlertByHash(const uint256 &hash);
 };
 
-#endif // DARKSILK_ALERT_H
+#endif // DYNAMIC_ALERT_H

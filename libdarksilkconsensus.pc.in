@@ -3,9 +3,9 @@ exec_prefix=@exec_prefix@
 libdir=@libdir@
 includedir=@includedir@
 
-Name: DarkSilk Core consensus library
-Description: Library for the DarkSilk consensus protocol.
+Name: Dynamic Core consensus library
+Description: Library for the Dynamic consensus protocol.
 Version: @PACKAGE_VERSION@
-Libs: -L${libdir} -ldarksilkconsensus
+Libs: -L${libdir} -ldynamicconsensus
 Cflags: -I${includedir}
 Requires.private: libcrypto

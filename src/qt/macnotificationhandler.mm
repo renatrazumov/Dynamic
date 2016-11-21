@@ -16,7 +16,7 @@
 - (NSString *)__bundleIdentifier
 {
     if (self == [NSBundle mainBundle]) {
-        return @"org.darksilk.DarkSilk-Qt";
+        return @"org.dynamic.Dynamic-Qt";
     } else {
         return [self __bundleIdentifier];
     }

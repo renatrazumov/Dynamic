@@ -7,7 +7,7 @@
 
 #include "walletframe.h"
 
-#include "darksilkgui.h"
+#include "dynamicgui.h"
 #include "walletview.h"
 
 #include <cstdio>
@@ -15,7 +15,7 @@
 #include <QHBoxLayout>
 #include <QLabel>
 
-WalletFrame::WalletFrame(const PlatformStyle *platformStyle, DarkSilkGUI *_gui) :
+WalletFrame::WalletFrame(const PlatformStyle *platformStyle, DynamicGUI *_gui) :
     QFrame(_gui),
     gui(_gui),
     platformStyle(platformStyle)
@@ -47,7 +47,7 @@ bool WalletFrame::addWallet(const QString& name, WalletModel *walletModel)
         return false;
 
     WalletView *walletView = new WalletView(platformStyle, this);
-    walletView->setDarkSilkGUI(gui);
+    walletView->setDynamicGUI(gui);
     walletView->setClientModel(clientModel);
     walletView->setWalletModel(walletModel);
     walletView->showOutOfSyncWarning(bOutOfSync);
@@ -123,11 +123,11 @@ void WalletFrame::gotoHistoryPage()
         i.value()->gotoHistoryPage();
 }
 
-void WalletFrame::gotoStormnodePage()
+void WalletFrame::gotoDynodePage()
 {
     QMap<QString, WalletView*>::const_iterator i;
     for (i = mapWalletViews.constBegin(); i != mapWalletViews.constEnd(); ++i)
-        i.value()->gotoStormnodePage();
+        i.value()->gotoDynodePage();
 }
 
 void WalletFrame::gotoReceiveCoinsPage()

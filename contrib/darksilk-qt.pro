@@ -1,5 +1,5 @@
 TEMPLATE = app
-TARGET = darksilk
+TARGET = dynamic
 VERSION = 1.0.0.0
 INCLUDEPATH += src \
                src/crypto \
@@ -103,8 +103,8 @@ contains(USE_DBUS, 1) {
     QT += dbus
 }
 
-contains(DARKSILK_NEED_QT_PLUGINS, 1) {
-    DEFINES += DARKSILK_NEED_QT_PLUGINS
+contains(DYNAMIC_NEED_QT_PLUGINS, 1) {
+    DEFINES += DYNAMIC_NEED_QT_PLUGINS
     QTPLUGIN += qcncodecs qjpcodecs qtwcodecs qkrcodecs qtaccessiblewidgets
 }
 
@@ -211,8 +211,8 @@ FORMS += src/qt/forms/qrcodedialog.ui
 CODECFORTR = UTF-8
 
 # for lrelease/lupdate
-# also add new translations to src/qt/darksilk.qrc under translations/
-TRANSLATIONS = $$files(src/qt/locale/darksilk_*.ts)
+# also add new translations to src/qt/dynamic.qrc under translations/
+TRANSLATIONS = $$files(src/qt/locale/dynamic_*.ts)
 
 isEmpty(QMAKE_LRELEASE) {
     win32:QMAKE_LRELEASE = $$[QT_INSTALL_BINS]\\lrelease.exe
@@ -260,7 +260,7 @@ isEmpty(BOOST_INCLUDE_PATH) {
 }
 
 windows:DEFINES += WIN32
-windows:RC_FILE = src/qt/res/darksilk-qt.rc
+windows:RC_FILE = src/qt/res/dynamic-qt.rc
 
 windows:!contains(MINGW_THREAD_BUGFIX, 0) {
     # At least qmake's win32-g++-cross profile is missing the -lmingwthrd
@@ -277,7 +277,7 @@ macx:HEADERS += src/qt/macdockiconhandler.h
 macx:OBJECTIVE_SOURCES += src/qt/macdockiconhandler.mm
 macx:LIBS += -framework Foundation -framework ApplicationServices -framework AppKit
 macx:DEFINES += MAC_OSX MSG_NOSIGNAL=0
-macx:ICON = src/qt/res/icons/darksilk.icns
+macx:ICON = src/qt/res/icons/dynamic.icns
 macx:TARGET = "Crave-Qt"
 macx:QMAKE_CFLAGS_THREAD += -pthread
 macx:QMAKE_LFLAGS_THREAD += -pthread
@@ -312,7 +312,7 @@ system($$QMAKE_LRELEASE -silent $$_PRO_FILE_)
 
 HEADERS += \
     src/qt/paymentrequest.pb.h \ 
-    src/qt/addeditstormnode.h \
+    src/qt/addeditdynode.h \
     src/qt/addressbookpage.h \
     src/qt/addresstablemodel.h \
     src/qt/askpassphrasedialog.h \
@@ -320,10 +320,10 @@ HEADERS += \
     src/qt/coincontroldialog.h \
     src/qt/coincontroltreewidget.h \
     src/qt/csvmodelwriter.h \
-    src/qt/darksilkaddressvalidator.h \
-    src/qt/darksilkamountfield.h \
-    src/qt/darksilkgui.h \
-    src/qt/darksilkunits.h \
+    src/qt/dynamicaddressvalidator.h \
+    src/qt/dynamicamountfield.h \
+    src/qt/dynamicgui.h \
+    src/qt/dynamicunits.h \
     src/qt/dnspage.h \
     src/qt/editaddressdialog.h \
     src/qt/guiconstants.h \
@@ -350,13 +350,13 @@ HEADERS += \
     src/qt/receiverequestdialog.h \
     src/qt/recentrequeststablemodel.h \
     src/qt/rpcconsole.h \
-    src/qt/sandstormconfig.h \
+    src/qt/privatesendconfig.h \
     src/qt/sendcoinsdialog.h \
     src/qt/sendcoinsentry.h \
     src/qt/signverifymessagedialog.h \
     src/qt/splashscreen.h \
-    src/qt/stormnodeconfigdialog.h \
-    src/qt/stormnodemanager.h \
+    src/qt/dynodeconfigdialog.h \
+    src/qt/dynodemanager.h \
     src/qt/trafficgraphwidget.h \
     src/qt/transactiondesc.h \
     src/qt/transactiondescdialog.h \
@@ -395,10 +395,10 @@ HEADERS += \
     src/crypto/blake2/blake2.h \
     src/crypto/blake2/blake2-impl.h \
     src/incognito/instantx.h \
-    src/incognito/sandstorm/sandstorm-relay.h \
-    src/incognito/sandstorm/sandstorm.h \
-    src/incognito/dns/dns.h \
-    src/incognito/dns/dslkdns.h \
+    src/incognito/privatesend/privatesend-relay.h \
+    src/incognito/privatesend/privatesend.h \
+    src/incognito/dns/dyndns.h \
+    src/incognito/dns/dyndns.h \
     src/incognito/dns/hooks.h \
     src/primitives/block.h \
     src/primitives/transaction.h \
@@ -406,21 +406,21 @@ HEADERS += \
     src/rpc/rpcprotocol.h \
     src/rpc/rpcregister.h \
     src/rpc/rpcserver.h \
-    src/script/darksilkconsensus.h \
+    src/script/dynamicconsensus.h \
     src/script/interpreter.h \
     src/script/script_error.h \
     src/script/script.h \
     src/script/sigcache.h \
     src/script/sign.h \
     src/script/standard.h \
-    src/stormnode/stormnodeman.h \
-    src/stormnode/stormnodeconfig.h \
-    src/stormnode/stormnode.h \
-    src/stormnode/stormnode-sync.h \
-    src/stormnode/stormnode-payments.h \
-    src/stormnode/stormnode-budget.h \
-    src/stormnode/spork.h \
-    src/stormnode/activestormnode.h \
+    src/dynode/dynodeman.h \
+    src/dynode/dynodeconfig.h \
+    src/dynode/dynode.h \
+    src/dynode/dynode-sync.h \
+    src/dynode/dynode-payments.h \
+    src/dynode/dynode-budget.h \
+    src/dynode/spork.h \
+    src/dynode/activedynode.h \
     src/wallet/crypter.h \
     src/wallet/db.h \
     src/wallet/wallet_ismine.h \
@@ -484,7 +484,7 @@ HEADERS += \
 
 
 SOURCES += \
-    src/qt/addeditstormnode.cpp \
+    src/qt/addeditdynode.cpp \
     src/qt/addressbookpage.cpp \
     src/qt/addresstablemodel.cpp \
     src/qt/askpassphrasedialog.cpp \
@@ -492,12 +492,12 @@ SOURCES += \
     src/qt/coincontroldialog.cpp \
     src/qt/coincontroltreewidget.cpp \
     src/qt/csvmodelwriter.cpp \
-    src/qt/darksilk.cpp \
-    src/qt/darksilkaddressvalidator.cpp \
-    src/qt/darksilkamountfield.cpp \
-    src/qt/darksilkgui.cpp \
-    src/qt/darksilkstrings.cpp \
-    src/qt/darksilkunits.cpp \
+    src/qt/dynamic.cpp \
+    src/qt/dynamicaddressvalidator.cpp \
+    src/qt/dynamicamountfield.cpp \
+    src/qt/dynamicgui.cpp \
+    src/qt/dynamicstrings.cpp \
+    src/qt/dynamicunits.cpp \
     src/qt/dnspage.cpp \
     src/qt/editaddressdialog.cpp \
     src/qt/guiutil.cpp \
@@ -522,13 +522,13 @@ SOURCES += \
     src/qt/receiverequestdialog.cpp \
     src/qt/recentrequeststablemodel.cpp \
     src/qt/rpcconsole.cpp \
-    src/qt/sandstormconfig.cpp \
+    src/qt/privatesendconfig.cpp \
     src/qt/sendcoinsdialog.cpp \
     src/qt/sendcoinsentry.cpp \
     src/qt/signverifymessagedialog.cpp \
     src/qt/splashscreen.cpp \
-    src/qt/stormnodeconfigdialog.cpp \
-    src/qt/stormnodemanager.cpp \
+    src/qt/dynodeconfigdialog.cpp \
+    src/qt/dynodemanager.cpp \
     src/qt/trafficgraphwidget.cpp \
     src/qt/transactiondesc.cpp \
     src/qt/transactiondescdialog.cpp \
@@ -559,10 +559,10 @@ SOURCES += \
     src/crypto/argon2d/argon2.c \
     src/crypto/blake2/blake2b.c \
     src/incognito/instantx.cpp \
-    src/incognito/sandstorm/sandstorm-relay.cpp \
-    src/incognito/sandstorm/sandstorm.cpp \
+    src/incognito/privatesend/privatesend-relay.cpp \
+    src/incognito/privatesend/privatesend.cpp \
     src/incognito/dns/dns.cpp \
-    src/incognito/dns/dslkdns.cpp \
+    src/incognito/dns/dyndns.cpp \
     src/primitives/block.cpp \
     src/primitives/transaction.cpp \
     src/rpc/rpcblockchain.cpp \
@@ -574,24 +574,24 @@ SOURCES += \
     src/rpc/rpcprotocol.cpp \
     src/rpc/rpcrawtransaction.cpp \
     src/rpc/rpcserver.cpp \
-    src/rpc/rpcstormnode-budget.cpp \
-    src/rpc/rpcstormnode.cpp \
+    src/rpc/rpcdynode-budget.cpp \
+    src/rpc/rpcdynode.cpp \
     src/rpc/rpcwallet.cpp \
-    src/script/darksilkconsensus.cpp \
+    src/script/dynamicconsensus.cpp \
     src/script/interpreter.cpp \
     src/script/script_error.cpp \
     src/script/script.cpp \
     src/script/sigcache.cpp \
     src/script/sign.cpp \
     src/script/standard.cpp \
-    src/stormnode/stormnodeman.cpp \
-    src/stormnode/stormnodeconfig.cpp \
-    src/stormnode/stormnode.cpp \
-    src/stormnode/stormnode-sync.cpp \
-    src/stormnode/stormnode-payments.cpp \
-    src/stormnode/stormnode-budget.cpp \
-    src/stormnode/spork.cpp \
-    src/stormnode/activestormnode.cpp \
+    src/dynode/dynodeman.cpp \
+    src/dynode/dynodeconfig.cpp \
+    src/dynode/dynode.cpp \
+    src/dynode/dynode-sync.cpp \
+    src/dynode/dynode-payments.cpp \
+    src/dynode/dynode-budget.cpp \
+    src/dynode/spork.cpp \
+    src/dynode/activedynode.cpp \
     src/wallet/crypter.cpp \
     src/wallet/db.cpp \
     src/wallet/wallet_ismine.cpp \
@@ -652,7 +652,7 @@ OTHER_FILES += \
     src/Makefile.am
 
 FORMS += \
-    src/qt/forms/addeditstormnode.ui \
+    src/qt/forms/addeditdynode.ui \
     src/qt/forms/addressbookpage.ui \
     src/qt/forms/askpassphrasedialog.ui \
     src/qt/forms/coincontroldialog.ui \
@@ -665,12 +665,12 @@ FORMS += \
     src/qt/forms/receivecoinsdialog.ui \
     src/qt/forms/receiverequestdialog.ui \
     src/qt/forms/rpcconsole.ui \
-    src/qt/forms/sandstormconfig.ui \
+    src/qt/forms/privatesendconfig.ui \
     src/qt/forms/sendcoinsdialog.ui \
     src/qt/forms/sendcoinsentry.ui \
     src/qt/forms/signverifymessagedialog.ui \
-    src/qt/forms/stormnodeconfigdialog.ui \
-    src/qt/forms/stormnodemanager.ui \
+    src/qt/forms/dynodeconfigdialog.ui \
+    src/qt/forms/dynodemanager.ui \
     src/qt/forms/transactiondescdialog.ui \ 
     src/qt/forms/dnspage.ui \
     src/qt/forms/multisigaddressentry.ui \
@@ -678,6 +678,6 @@ FORMS += \
     src/qt/forms/multisiginputentry.ui
 
 RESOURCES += \
-    src/qt/darksilk.qrc \
-    src/qt/darksilk_locale.qrc
+    src/qt/dynamic.qrc \
+    src/qt/dynamic_locale.qrc
 

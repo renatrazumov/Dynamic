@@ -5,8 +5,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_RPCCLIENT_H
-#define DARKSILK_RPCCLIENT_H
+#ifndef DYNAMIC_RPCCLIENT_H
+#define DYNAMIC_RPCCLIENT_H
 
 #include <univalue.h>
 
@@ -16,4 +16,4 @@ UniValue RPCConvertValues(const std::string& strMethod, const std::vector<std::s
  */
 UniValue ParseNonRFCJSONValue(const std::string& strVal);
 
-#endif // DARKSILK_RPCCLIENT_H
+#endif // DYNAMIC_RPCCLIENT_H

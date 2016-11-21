@@ -1,4 +1,4 @@
-IDI_ICON1 ICON DISCARDABLE "icons/darksilk.ico"
+IDI_ICON1 ICON DISCARDABLE "icons/dynamic.ico"
 
 #include <windows.h>             // needed for VERSIONINFO
 #include "../../clientversion.h" // holds the needed client version information
@@ -18,14 +18,14 @@ BEGIN
     BEGIN
         BLOCK "040904E4" // U.S. English - multilingual (hex)
         BEGIN
-            VALUE "CompanyName",        "DarkSilk"
-            VALUE "FileDescription",    "DarkSilk Core (GUI node for DarkSilk)"
+            VALUE "CompanyName",        "Dynamic"
+            VALUE "FileDescription",    "Dynamic Core (GUI node for Dynamic)"
             VALUE "FileVersion",        VER_FILEVERSION_STR
-            VALUE "InternalName",       "darksilk-qt"
+            VALUE "InternalName",       "dynamic-qt"
             VALUE "LegalCopyright",     COPYRIGHT_STR
             VALUE "LegalTrademarks1",   "Distributed under the MIT software license, see the accompanying file COPYING or http://www.opensource.org/licenses/mit-license.php."
-            VALUE "OriginalFilename",   "darksilk-qt.exe"
-            VALUE "ProductName",        "DarkSilk Core"
+            VALUE "OriginalFilename",   "dynamic-qt.exe"
+            VALUE "ProductName",        "Dynamic Core"
             VALUE "ProductVersion",     VER_PRODUCTVERSION_STR
         END
     END

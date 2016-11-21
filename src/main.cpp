@@ -19,11 +19,11 @@
 #include "hash.h"
 #include "init.h"
 #include "instantx.h"
-#include "sandstorm.h"
+#include "privatesend.h"
 #include "governance.h"
-#include "stormnode-payments.h"
-#include "stormnode-sync.h"
-#include "stormnodeman.h"
+#include "dynode-payments.h"
+#include "dynode-sync.h"
+#include "dynodeman.h"
 #include "merkleblock.h"
 #include "net.h"
 #include "policy/policy.h"
@@ -57,7 +57,7 @@
 using namespace std;
 
 #if defined(NDEBUG)
-# error "DarkSilk Core cannot be compiled without assertions."
+# error "Dynamic Core cannot be compiled without assertions."
 #endif
 
 /**
@@ -1708,27 +1708,27 @@ CAmount GetPoWBlockPayment(const int& nHeight)
         LogPrint("superblock creation", "GetPoWBlockPayment() : create=%s nSubsidy=%d\n", FormatMoney(nSubsidy), nSubsidy);
         return nSubsidy;
     }
-    else if (chainActive.Height() > 0 && chainActive.Height() <= Params().StartStormnodePayments()) {
+    else if (chainActive.Height() > 0 && chainActive.Height() <= Params().StartDynodePayments()) {
         LogPrint("zero-reward block creation", "GetPoWBlockPayment() : create=%s nSubsidy=%d\n", FormatMoney(BLOCKCHAIN_INIT_REWARD), BLOCKCHAIN_INIT_REWARD);
         return BLOCKCHAIN_INIT_REWARD;
     }
-    else if (chainActive.Height() > Params().StartStormnodePayments()) {
+    else if (chainActive.Height() > Params().StartDynodePayments()) {
         LogPrint("creation", "GetPoWBlockPayment() : create=%s PoW Reward=%d\n", FormatMoney(STATIC_POW_REWARD), STATIC_POW_REWARD);
-        return STATIC_POW_REWARD; // 1 DSLK + fees
+        return STATIC_POW_REWARD; // 1 DYN + fees
     }
     else {
         return STATIC_POW_REWARD;
     }
 }
 
-CAmount GetStormnodePayment(bool fStormnode)
+CAmount GetDynodePayment(bool fDynode)
 {
-    if (fStormnode) {
-        LogPrint("creation", "GetStormnodePayment() : create=%s SN Payment=%d\n", FormatMoney(STATIC_STORMNODE_PAYMENT), STATIC_STORMNODE_PAYMENT);
-        return STATIC_STORMNODE_PAYMENT; // 0.382 DSLK
+    if (fDynode) {
+        LogPrint("creation", "GetDynodePayment() : create=%s SN Payment=%d\n", FormatMoney(STATIC_DYNODE_PAYMENT), STATIC_DYNODE_PAYMENT);
+        return STATIC_DYNODE_PAYMENT; // 0.382 DYN
     }
     else {
-        LogPrint("creation", "GetStormnodePayment() : create=%s SN Payment=%d\n", FormatMoney(BLOCKCHAIN_INIT_REWARD), BLOCKCHAIN_INIT_REWARD);
+        LogPrint("creation", "GetDynodePayment() : create=%s SN Payment=%d\n", FormatMoney(BLOCKCHAIN_INIT_REWARD), BLOCKCHAIN_INIT_REWARD);
         return BLOCKCHAIN_INIT_REWARD;
     }
 }
@@ -2332,7 +2332,7 @@ bool FindUndoPos(CValidationState &state, int nFile, CDiskBlockPos &pos, unsigne
 static CCheckQueue<CScriptCheck> scriptcheckqueue(128);
 
 void ThreadScriptCheck() {
-    RenameThread("darksilk-scriptch");
+    RenameThread("dynamic-scriptch");
     scriptcheckqueue.Thread();
 }
 
@@ -2691,17 +2691,17 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
     int64_t nTime3 = GetTimeMicros(); nTimeConnect += nTime3 - nTime2;
     LogPrint("bench", "      - Connect %u transactions: %.2fms (%.3fms/tx, %.3fms/txin) [%.2fs]\n", (unsigned)block.vtx.size(), 0.001 * (nTime3 - nTime2), 0.001 * (nTime3 - nTime2) / block.vtx.size(), nInputs <= 1 ? 0 : 0.001 * (nTime3 - nTime2) / (nInputs-1), nTimeConnect * 0.000001);
 
-    // DARKSILK : MODIFYED TO CHECK STORMNODE PAYMENTS AND SUPERBLOCKS
-   bool fStormnodePaid = false;
+    // DYNAMIC : MODIFYED TO CHECK DYNODE PAYMENTS AND SUPERBLOCKS
+   bool fDynodePaid = false;
 
-    if(chainActive.Height() > Params().StartStormnodePayments()) {
-        fStormnodePaid = true;
+    if(chainActive.Height() > Params().StartDynodePayments()) {
+        fDynodePaid = true;
     }
-    else if (chainActive.Height() <= Params().StartStormnodePayments()) {
-        fStormnodePaid = false;
+    else if (chainActive.Height() <= Params().StartDynodePayments()) {
+        fDynodePaid = false;
     }
 
-    CAmount nExpectedBlockValue = GetStormnodePayment(fStormnodePaid) + GetPoWBlockPayment(pindex->pprev->nHeight);
+    CAmount nExpectedBlockValue = GetDynodePayment(fDynodePaid) + GetPoWBlockPayment(pindex->pprev->nHeight);
    
     if(!IsBlockValueValid(block, pindex->nHeight, nExpectedBlockValue)){
         return state.DoS(100,
@@ -2712,10 +2712,10 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
 
     if (!IsBlockPayeeValid(block.vtx[0], pindex->nHeight, nExpectedBlockValue)) {
         mapRejectedBlocks.insert(make_pair(block.GetHash(), GetTime()));
-        return state.DoS(100, error("ConnectBlock(DSLK): couldn't find stormnode or superblock payments"),
+        return state.DoS(100, error("ConnectBlock(DYN): couldn't find dynode or superblock payments"),
                                 REJECT_INVALID, "bad-cb-payee");
     }
-    // END DARKSILK
+    // END DYNAMIC
 
     if (!control.Wait())
         return state.DoS(100, false);
@@ -3654,7 +3654,7 @@ bool CheckBlock(const CBlock& block, CValidationState& state, bool fCheckPOW, bo
                              REJECT_INVALID, "bad-cb-multiple");
 
 
-    // DARKSILK : CHECK TRANSACTIONS FOR INSTANT SEND
+    // DYNAMIC : CHECK TRANSACTIONS FOR INSTANT SEND
 
     if(sporkManager.IsSporkActive(SPORK_3_INSTANTSEND_BLOCK_FILTERING)) {
         BOOST_FOREACH(const CTransaction& tx, block.vtx) {
@@ -3664,17 +3664,17 @@ bool CheckBlock(const CBlock& block, CValidationState& state, bool fCheckPOW, bo
             BOOST_FOREACH(const CTxIn& txin, tx.vin) {
                 if(mapLockedInputs.count(txin.prevout) && mapLockedInputs[txin.prevout] != tx.GetHash()) {
                     mapRejectedBlocks.insert(make_pair(block.GetHash(), GetTime()));
-                    LogPrintf("CheckBlock(DSLK): found conflicting transaction with transaction lock %s %s\n", mapLockedInputs[txin.prevout].ToString(), tx.GetHash().ToString());
-                    return state.DoS(0, error("CheckBlock(DSLK): found conflicting transaction with transaction lock"),
+                    LogPrintf("CheckBlock(DYN): found conflicting transaction with transaction lock %s %s\n", mapLockedInputs[txin.prevout].ToString(), tx.GetHash().ToString());
+                    return state.DoS(0, error("CheckBlock(DYN): found conflicting transaction with transaction lock"),
                                      REJECT_INVALID, "conflicting-tx-ix");
                 }
             }
         }
     } else {
-        LogPrintf("CheckBlock(DSLK): skipping transaction locking checks\n");
+        LogPrintf("CheckBlock(DYN): skipping transaction locking checks\n");
     }
 
-    // END DARKSILK
+    // END DYNAMIC
 
     // Check transactions
     BOOST_FOREACH(const CTransaction& tx, block.vtx)
@@ -4827,7 +4827,7 @@ bool static AlreadyHave(const CInv& inv) EXCLUSIVE_LOCKS_REQUIRED(cs_main)
         return mapBlockIndex.count(inv.hash);
 
     /* 
-        DarkSilk Related Inventory Messages
+        Dynamic Related Inventory Messages
 
         --
 
@@ -4844,30 +4844,30 @@ bool static AlreadyHave(const CInv& inv) EXCLUSIVE_LOCKS_REQUIRED(cs_main)
     case MSG_SPORK:
         return mapSporks.count(inv.hash);
 
-    case MSG_STORMNODE_PAYMENT_VOTE:
-        return snpayments.mapStormnodePaymentVotes.count(inv.hash);
+    case MSG_DYNODE_PAYMENT_VOTE:
+        return snpayments.mapDynodePaymentVotes.count(inv.hash);
 
-    case MSG_STORMNODE_PAYMENT_BLOCK:
+    case MSG_DYNODE_PAYMENT_BLOCK:
         {
             BlockMap::iterator mi = mapBlockIndex.find(inv.hash);
-            return mi != mapBlockIndex.end() && snpayments.mapStormnodeBlocks.find(mi->second->nHeight) != snpayments.mapStormnodeBlocks.end();
+            return mi != mapBlockIndex.end() && snpayments.mapDynodeBlocks.find(mi->second->nHeight) != snpayments.mapDynodeBlocks.end();
         }
 
-    case MSG_STORMNODE_ANNOUNCE:
-        return snodeman.mapSeenStormnodeBroadcast.count(inv.hash);
+    case MSG_DYNODE_ANNOUNCE:
+        return snodeman.mapSeenDynodeBroadcast.count(inv.hash);
 
-    case MSG_STORMNODE_PING:
-        return snodeman.mapSeenStormnodePing.count(inv.hash);
+    case MSG_DYNODE_PING:
+        return snodeman.mapSeenDynodePing.count(inv.hash);
 
     case MSG_SSTX:
-        return mapSandstormBroadcastTxes.count(inv.hash);
+        return mapPrivatesendBroadcastTxes.count(inv.hash);
 
     case MSG_GOVERNANCE_OBJECT:
     case MSG_GOVERNANCE_OBJECT_VOTE:
         return ! governance.ConfirmInventoryRequest(inv);
 
-    case MSG_STORMNODE_VERIFY:
-        return snodeman.mapSeenStormnodeVerification.count(inv.hash);
+    case MSG_DYNODE_VERIFY:
+        return snodeman.mapSeenDynodeVerification.count(inv.hash);
     }
 
     // Don't know what it is, just say we already got one
@@ -5022,28 +5022,28 @@ void static ProcessGetData(CNode* pfrom, const Consensus::Params& consensusParam
                     }
                 }
 
-                if (!pushed && inv.type == MSG_STORMNODE_PAYMENT_VOTE) {
-                    if(snpayments.mapStormnodePaymentVotes.count(inv.hash)) {
+                if (!pushed && inv.type == MSG_DYNODE_PAYMENT_VOTE) {
+                    if(snpayments.mapDynodePaymentVotes.count(inv.hash)) {
                         CDataStream ss(SER_NETWORK, PROTOCOL_VERSION);
                         ss.reserve(1000);
-                        ss << snpayments.mapStormnodePaymentVotes[inv.hash];
-                        pfrom->PushMessage(NetMsgType::STORMNODEPAYMENTVOTE, ss);
+                        ss << snpayments.mapDynodePaymentVotes[inv.hash];
+                        pfrom->PushMessage(NetMsgType::DYNODEPAYMENTVOTE, ss);
                         pushed = true;
                     }
                 }
 
-                if (!pushed && inv.type == MSG_STORMNODE_PAYMENT_BLOCK) {
+                if (!pushed && inv.type == MSG_DYNODE_PAYMENT_BLOCK) {
                     BlockMap::iterator mi = mapBlockIndex.find(inv.hash);
-                    LOCK(cs_mapStormnodeBlocks);
-                    if (mi != mapBlockIndex.end() && snpayments.mapStormnodeBlocks.count(mi->second->nHeight)) {
-                        BOOST_FOREACH(CStormnodePayee& payee, snpayments.mapStormnodeBlocks[mi->second->nHeight].vecPayees) {
+                    LOCK(cs_mapDynodeBlocks);
+                    if (mi != mapBlockIndex.end() && snpayments.mapDynodeBlocks.count(mi->second->nHeight)) {
+                        BOOST_FOREACH(CDynodePayee& payee, snpayments.mapDynodeBlocks[mi->second->nHeight].vecPayees) {
                             std::vector<uint256> vecVoteHashes = payee.GetVoteHashes();
                             BOOST_FOREACH(uint256& hash, vecVoteHashes) {
-                                if(snpayments.mapStormnodePaymentVotes.count(hash)) {
+                                if(snpayments.mapDynodePaymentVotes.count(hash)) {
                                     CDataStream ss(SER_NETWORK, PROTOCOL_VERSION);
                                     ss.reserve(1000);
-                                    ss << snpayments.mapStormnodePaymentVotes[hash];
-                                    pfrom->PushMessage(NetMsgType::STORMNODEPAYMENTVOTE, ss);
+                                    ss << snpayments.mapDynodePaymentVotes[hash];
+                                    pfrom->PushMessage(NetMsgType::DYNODEPAYMENTVOTE, ss);
                                 }
                             }
                         }
@@ -5051,31 +5051,31 @@ void static ProcessGetData(CNode* pfrom, const Consensus::Params& consensusParam
                     }
                 }
 
-                if (!pushed && inv.type == MSG_STORMNODE_ANNOUNCE) {
-                    if(snodeman.mapSeenStormnodeBroadcast.count(inv.hash)){
+                if (!pushed && inv.type == MSG_DYNODE_ANNOUNCE) {
+                    if(snodeman.mapSeenDynodeBroadcast.count(inv.hash)){
                         CDataStream ss(SER_NETWORK, PROTOCOL_VERSION);
                         ss.reserve(1000);
-                        ss << snodeman.mapSeenStormnodeBroadcast[inv.hash];
+                        ss << snodeman.mapSeenDynodeBroadcast[inv.hash];
                         pfrom->PushMessage(NetMsgType::SNANNOUNCE, ss);
                         pushed = true;
                     }
                 }
 
-                if (!pushed && inv.type == MSG_STORMNODE_PING) {
-                    if(snodeman.mapSeenStormnodePing.count(inv.hash)) {
+                if (!pushed && inv.type == MSG_DYNODE_PING) {
+                    if(snodeman.mapSeenDynodePing.count(inv.hash)) {
                         CDataStream ss(SER_NETWORK, PROTOCOL_VERSION);
                         ss.reserve(1000);
-                        ss << snodeman.mapSeenStormnodePing[inv.hash];
+                        ss << snodeman.mapSeenDynodePing[inv.hash];
                         pfrom->PushMessage(NetMsgType::SNPING, ss);
                         pushed = true;
                     }
                 }
 
                 if (!pushed && inv.type == MSG_SSTX) {
-                    if(mapSandstormBroadcastTxes.count(inv.hash)) {
+                    if(mapPrivatesendBroadcastTxes.count(inv.hash)) {
                         CDataStream ss(SER_NETWORK, PROTOCOL_VERSION);
                         ss.reserve(1000);
-                        ss << mapSandstormBroadcastTxes[inv.hash];
+                        ss << mapPrivatesendBroadcastTxes[inv.hash];
                         pfrom->PushMessage(NetMsgType::SSTX, ss);
                         pushed = true;
                     }
@@ -5118,11 +5118,11 @@ void static ProcessGetData(CNode* pfrom, const Consensus::Params& consensusParam
                     }
                 }
 
-                if (!pushed && inv.type == MSG_STORMNODE_VERIFY) {
-                    if(snodeman.mapSeenStormnodeVerification.count(inv.hash)) {
+                if (!pushed && inv.type == MSG_DYNODE_VERIFY) {
+                    if(snodeman.mapSeenDynodeVerification.count(inv.hash)) {
                         CDataStream ss(SER_NETWORK, PROTOCOL_VERSION);
                         ss.reserve(1000);
-                        ss << snodeman.mapSeenStormnodeVerification[inv.hash];
+                        ss << snodeman.mapSeenDynodeVerification[inv.hash];
                         pfrom->PushMessage(NetMsgType::SNVERIFY, ss);
                         pushed = true;
                     }
@@ -5613,7 +5613,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
         vector<uint256> vWorkQueue;
         vector<uint256> vEraseQueue;
         CTransaction tx;
-        CSandstormBroadcastTx sstx;
+        CPrivatesendBroadcastTx sstx;
         int nInvType = MSG_TX;
 
         if(strCommand == NetMsgType::TX) {
@@ -5624,30 +5624,30 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
             uint256 hashTx = tx.GetHash();
             nInvType = MSG_SSTX;
 
-            if(mapSandstormBroadcastTxes.count(hashTx)) {
+            if(mapPrivatesendBroadcastTxes.count(hashTx)) {
                 LogPrint("privatesend", "SSTX -- Already have %s, skipping...\n", hashTx.ToString());
                 return true; // not an error
             }
 
-            CStormnode* psn = snodeman.Find(sstx.vin);
+            CDynode* psn = snodeman.Find(sstx.vin);
             if(psn == NULL) {
-                LogPrint("privatesend", "SSTX -- Can't find stormnode %s to verify %s\n", sstx.vin.prevout.ToStringShort(), hashTx.ToString());
+                LogPrint("privatesend", "SSTX -- Can't find dynode %s to verify %s\n", sstx.vin.prevout.ToStringShort(), hashTx.ToString());
                 return false;
             }
 
             if(!psn->fAllowMixingTx) {
-                LogPrint("privatesend", "SSTX -- Stormnode %s is sending too many transactions %s\n", sstx.vin.prevout.ToStringShort(), hashTx.ToString());
+                LogPrint("privatesend", "SSTX -- Dynode %s is sending too many transactions %s\n", sstx.vin.prevout.ToStringShort(), hashTx.ToString());
                 return true;
                 // TODO: Not an error? Could it be that someone is relaying old SSTXes
                 // we have no idea about (e.g we were offline)? How to handle them?
             }
 
-            if(!sstx.CheckSignature(psn->pubKeyStormnode)) {
+            if(!sstx.CheckSignature(psn->pubKeyDynode)) {
                 LogPrint("privatesend", "SSTX -- CheckSignature() failed for %s\n", hashTx.ToString());
                 return false;
             }
 
-            LogPrintf("SSTX -- Got Stormnode transaction %s\n", hashTx.ToString());
+            LogPrintf("SSTX -- Got Dynode transaction %s\n", hashTx.ToString());
             mempool.PrioritiseTransaction(hashTx, hashTx.ToString(), 1000, 0.1*COIN);
             psn->fAllowMixingTx = false;
         }
@@ -5666,7 +5666,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
         if (!AlreadyHave(inv) && AcceptToMemoryPool(mempool, state, tx, true, &fMissingInputs))
         {
             if (strCommand == NetMsgType::SSTX) {
-                mapSandstormBroadcastTxes.insert(make_pair(tx.GetHash(), sstx));
+                mapPrivatesendBroadcastTxes.insert(make_pair(tx.GetHash(), sstx));
             }
 
             mempool.check(pcoinsTip);
@@ -6159,12 +6159,12 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
         if (found)
         {
             //probably one the extensions
-            sandStormPool.ProcessMessage(pfrom, strCommand, vRecv);
+            privateSendPool.ProcessMessage(pfrom, strCommand, vRecv);
             snodeman.ProcessMessage(pfrom, strCommand, vRecv);
             snpayments.ProcessMessage(pfrom, strCommand, vRecv);
             ProcessMessageInstantSend(pfrom, strCommand, vRecv);
             sporkManager.ProcessSpork(pfrom, strCommand, vRecv);
-            stormnodeSync.ProcessMessage(pfrom, strCommand, vRecv);
+            dynodeSync.ProcessMessage(pfrom, strCommand, vRecv);
             governance.ProcessMessage(pfrom, strCommand, vRecv);
         }
         else

@@ -5,8 +5,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_QT_SENDCOINSDIALOG_H
-#define DARKSILK_QT_SENDCOINSDIALOG_H
+#ifndef DYNAMIC_QT_SENDCOINSDIALOG_H
+#define DYNAMIC_QT_SENDCOINSDIALOG_H
 
 #include "walletmodel.h"
 
@@ -31,7 +31,7 @@ QT_END_NAMESPACE
 
 const int defaultConfirmTarget = 25;
 
-/** Dialog for sending DarkSilks */
+/** Dialog for sending Dynamics */
 class SendCoinsDialog : public QDialog
 {
     Q_OBJECT
@@ -107,4 +107,4 @@ Q_SIGNALS:
     void message(const QString &title, const QString &message, unsigned int style);
 };
 
-#endif // DARKSILK_QT_SENDCOINSDIALOG_H
+#endif // DYNAMIC_QT_SENDCOINSDIALOG_H

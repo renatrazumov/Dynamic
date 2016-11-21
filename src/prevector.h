@@ -5,8 +5,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_PREVECTOR_H
-#define DARKSILK_PREVECTOR_H
+#ifndef DYNAMIC_PREVECTOR_H
+#define DYNAMIC_PREVECTOR_H
 
 #include <stdlib.h>
 #include <stdint.h>
@@ -481,4 +481,4 @@ public:
 };
 #pragma pack(pop)
 
-#endif // DARKSILK_PREVECTOR_H
+#endif // DYNAMIC_PREVECTOR_H

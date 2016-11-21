@@ -3,8 +3,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_GOVERNANCE_VOTEDB_H
-#define DARKSILK_GOVERNANCE_VOTEDB_H
+#ifndef DYNAMIC_GOVERNANCE_VOTEDB_H
+#define DYNAMIC_GOVERNANCE_VOTEDB_H
 
 #include <list>
 #include <map>
@@ -73,7 +73,7 @@ public:
 
     CGovernanceObjectVoteFile& operator=(const CGovernanceObjectVoteFile& other);
 
-    void RemoveVotesFromStormnode(const CTxIn& vinStormnode);
+    void RemoveVotesFromDynode(const CTxIn& vinDynode);
 
     ADD_SERIALIZE_METHODS;
 
@@ -91,4 +91,4 @@ private:
 
 };
 
-#endif // DARKSILK_GOVERNANCE_VOTEDB_H
+#endif // DYNAMIC_GOVERNANCE_VOTEDB_H

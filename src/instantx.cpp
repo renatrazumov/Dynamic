@@ -11,10 +11,10 @@
 #include "base58.h"
 #include "protocol.h"
 #include "instantx.h"
-#include "activestormnode.h"
-#include "sandstorm.h"
-#include "stormnode-sync.h"
-#include "stormnodeman.h"
+#include "activedynode.h"
+#include "privatesend.h"
+#include "dynode-sync.h"
+#include "dynodeman.h"
 #include "spork.h"
 
 #include <boost/algorithm/string/replace.hpp>
@@ -40,17 +40,17 @@ CCriticalSection cs_instantsend;
 //txlock - Locks transaction
 //
 //step 1.) Broadcast intention to lock transaction inputs, "txlreg", CTransaction
-//step 2.) Top INSTANTSEND_SIGNATURES_TOTAL stormnodes, open connect to top 1 stormnode.
+//step 2.) Top INSTANTSEND_SIGNATURES_TOTAL dynodes, open connect to top 1 dynode.
 //         Send "txvote", CTransaction, Signature, Approve
-//step 3.) Top 1 stormnode, waits for INSTANTSEND_SIGNATURES_REQUIRED messages. Upon success, sends "txlock'
+//step 3.) Top 1 dynode, waits for INSTANTSEND_SIGNATURES_REQUIRED messages. Upon success, sends "txlock'
 
 void ProcessMessageInstantSend(CNode* pfrom, std::string& strCommand, CDataStream& vRecv)
 {
-    if(fLiteMode) return; // disable all DarkSilk specific functionality
+    if(fLiteMode) return; // disable all Dynamic specific functionality
     if(!sporkManager.IsSporkActive(SPORK_2_INSTANTSEND_ENABLED)) return;
 
-    // Ignore any InstantSend messages until stormnode list is synced
-    if(!stormnodeSync.IsStormnodeListSynced()) return;
+    // Ignore any InstantSend messages until dynode list is synced
+    if(!dynodeSync.IsDynodeListSynced()) return;
 
     if (strCommand == NetMsgType::TXLOCKREQUEST) // InstantSend Transaction Lock Request
     {
@@ -101,7 +101,7 @@ void ProcessMessageInstantSend(CNode* pfrom, std::string& strCommand, CDataStrea
                 tx.GetHash().ToString()
             );
 
-            // Stormnodes will sometimes propagate votes before the transaction is known to the client.
+            // Dynodes will sometimes propagate votes before the transaction is known to the client.
             // If this just happened - update transaction status, try forcing external script notification,
             // lock inputs and resolve conflicting locks
             if(IsLockedInstandSendTransaction(tx.GetHash())) {
@@ -142,23 +142,23 @@ void ProcessMessageInstantSend(CNode* pfrom, std::string& strCommand, CDataStrea
         if(ProcessTxLockVote(pfrom, vote)) {
             //Spam/Dos protection
             /*
-                Stormnodes will sometimes propagate votes before the transaction is known to the client.
+                Dynodes will sometimes propagate votes before the transaction is known to the client.
                 This tracks those messages and allows it at the same rate of the rest of the network, if
                 a peer violates it, it will simply be ignored
             */
             if(!mapLockRequestAccepted.count(vote.txHash) && !mapLockRequestRejected.count(vote.txHash)) {
-                if(!mapUnknownVotes.count(vote.vinStormnode.prevout.hash))
-                    mapUnknownVotes[vote.vinStormnode.prevout.hash] = GetTime()+(60*10);
+                if(!mapUnknownVotes.count(vote.vinDynode.prevout.hash))
+                    mapUnknownVotes[vote.vinDynode.prevout.hash] = GetTime()+(60*10);
 
-                if(mapUnknownVotes[vote.vinStormnode.prevout.hash] > GetTime() &&
-                    mapUnknownVotes[vote.vinStormnode.prevout.hash] - GetAverageUnknownVoteTime() > 60*10) {
-                        LogPrintf("ProcessMessageInstantSend -- stormnode is spamming transaction votes: %s %s\n",
-                            vote.vinStormnode.ToString(),
+                if(mapUnknownVotes[vote.vinDynode.prevout.hash] > GetTime() &&
+                    mapUnknownVotes[vote.vinDynode.prevout.hash] - GetAverageUnknownVoteTime() > 60*10) {
+                        LogPrintf("ProcessMessageInstantSend -- dynode is spamming transaction votes: %s %s\n",
+                            vote.vinDynode.ToString(),
                             vote.txHash.ToString()
                         );
                         return;
                 } else {
-                    mapUnknownVotes[vote.vinStormnode.prevout.hash] = GetTime()+(60*10);
+                    mapUnknownVotes[vote.vinDynode.prevout.hash] = GetTime()+(60*10);
                 }
             }
             RelayInv(inv);
@@ -233,7 +233,7 @@ int64_t CreateTxLockCandidate(CTransaction tx)
 
     /*
         Use a blockheight newer than the input.
-        This prevents attackers from using transaction mallibility to predict which stormnodes
+        This prevents attackers from using transaction mallibility to predict which dynodes
         they'll use.
     */
     int nBlockHeight = 0;
@@ -269,17 +269,17 @@ int64_t CreateTxLockCandidate(CTransaction tx)
 // check if we need to vote on this transaction
 void CreateTxLockVote(CTransaction& tx, int64_t nBlockHeight)
 {
-    if(!fStormNode) return;
+    if(!fDyNode) return;
 
-    int n = snodeman.GetStormnodeRank(activeStormnode.vin, nBlockHeight, MIN_INSTANTSEND_PROTO_VERSION);
+    int n = snodeman.GetDynodeRank(activeDynode.vin, nBlockHeight, MIN_INSTANTSEND_PROTO_VERSION);
 
     if(n == -1) {
-        LogPrint("instantsend", "CreateTxLockVote -- Unknown Stormnode %s\n", activeStormnode.vin.prevout.ToStringShort());
+        LogPrint("instantsend", "CreateTxLockVote -- Unknown Dynode %s\n", activeDynode.vin.prevout.ToStringShort());
         return;
     }
 
     if(n > INSTANTSEND_SIGNATURES_TOTAL) {
-        LogPrint("instantsend", "CreateTxLockVote -- Stormnode not in the top %d (%d)\n", INSTANTSEND_SIGNATURES_TOTAL, n);
+        LogPrint("instantsend", "CreateTxLockVote -- Dynode not in the top %d (%d)\n", INSTANTSEND_SIGNATURES_TOTAL, n);
         return;
     }
     /*
@@ -289,7 +289,7 @@ void CreateTxLockVote(CTransaction& tx, int64_t nBlockHeight)
     LogPrint("instantsend", "CreateTxLockVote -- In the top %d (%d)\n", INSTANTSEND_SIGNATURES_TOTAL, n);
 
     CTxLockVote vote;
-    vote.vinStormnode = activeStormnode.vin;
+    vote.vinDynode = activeDynode.vin;
     vote.txHash = tx.GetHash();
     vote.nBlockHeight = nBlockHeight;
     if(!vote.Sign()) {
@@ -313,30 +313,30 @@ void CreateTxLockVote(CTransaction& tx, int64_t nBlockHeight)
 //received a consensus vote
 bool ProcessTxLockVote(CNode* pnode, CTxLockVote& vote)
 {
-    int n = snodeman.GetStormnodeRank(vote.vinStormnode, vote.nBlockHeight, MIN_INSTANTSEND_PROTO_VERSION);
+    int n = snodeman.GetDynodeRank(vote.vinDynode, vote.nBlockHeight, MIN_INSTANTSEND_PROTO_VERSION);
 
-    CStormnode* psn = snodeman.Find(vote.vinStormnode);
+    CDynode* psn = snodeman.Find(vote.vinDynode);
     if(psn != NULL)
-        LogPrint("instantsend", "ProcessTxLockVote -- Stormnode addr=%s, rank: %d\n", psn->addr.ToString(), n);
+        LogPrint("instantsend", "ProcessTxLockVote -- Dynode addr=%s, rank: %d\n", psn->addr.ToString(), n);
 
     if(n == -1) {
         //can be caused by past versions trying to vote with an invalid protocol
-        LogPrint("instantsend", "ProcessTxLockVote -- Unknown Stormnode: txin=%s\n", vote.vinStormnode.ToString());
-        snodeman.AskForSN(pnode, vote.vinStormnode);
+        LogPrint("instantsend", "ProcessTxLockVote -- Unknown Dynode: txin=%s\n", vote.vinDynode.ToString());
+        snodeman.AskForSN(pnode, vote.vinDynode);
         return false;
     }
-    LogPrint("instantsend", "ProcessTxLockVote -- Stormnode %s, rank=%d\n", vote.vinStormnode.prevout.ToStringShort(), n);
+    LogPrint("instantsend", "ProcessTxLockVote -- Dynode %s, rank=%d\n", vote.vinDynode.prevout.ToStringShort(), n);
 
     if(n > INSTANTSEND_SIGNATURES_TOTAL) {
-        LogPrint("instantsend", "ProcessTxLockVote -- Stormnode %s is not in the top %d (%d), vote hash %s\n",
-                vote.vinStormnode.prevout.ToStringShort(), INSTANTSEND_SIGNATURES_TOTAL, n, vote.GetHash().ToString());
+        LogPrint("instantsend", "ProcessTxLockVote -- Dynode %s is not in the top %d (%d), vote hash %s\n",
+                vote.vinDynode.prevout.ToStringShort(), INSTANTSEND_SIGNATURES_TOTAL, n, vote.GetHash().ToString());
         return false;
     }
 
     if(!vote.CheckSignature()) {
         LogPrintf("ProcessTxLockVote -- Signature invalid\n");
-        // don't ban, it could just be a non-synced stormnode
-        snodeman.AskForSN(pnode, vote.vinStormnode);
+        // don't ban, it could just be a non-synced dynode
+        snodeman.AskForSN(pnode, vote.vinDynode);
         return false;
     }
 
@@ -365,7 +365,7 @@ bool ProcessTxLockVote(CNode* pnode, CTxLockVote& vote)
         if(nSignatures >= INSTANTSEND_SIGNATURES_REQUIRED) {
             LogPrint("instantsend", "ProcessTxLockVote -- Transaction Lock Is Complete! txid=%s\n", vote.txHash.ToString());
 
-            // Stormnodes will sometimes propagate votes before the transaction is known to the client,
+            // Dynodes will sometimes propagate votes before the transaction is known to the client,
             // will check for conflicting locks and update transaction status on a new vote message
             // only after the lock itself has arrived
             if(!mapLockRequestAccepted.count(vote.txHash) && !mapLockRequestRejected.count(vote.txHash)) return true;
@@ -548,7 +548,7 @@ bool IsTransactionLockTimedOut(uint256 txHash)
 
 uint256 CTxLockVote::GetHash() const
 {
-    return ArithToUint256(UintToArith256(vinStormnode.prevout.hash) + vinStormnode.prevout.n + UintToArith256(txHash));
+    return ArithToUint256(UintToArith256(vinDynode.prevout.hash) + vinDynode.prevout.n + UintToArith256(txHash));
 }
 
 
@@ -557,14 +557,14 @@ bool CTxLockVote::CheckSignature()
     std::string strError;
     std::string strMessage = txHash.ToString().c_str() + boost::lexical_cast<std::string>(nBlockHeight);
 
-    CStormnode* psn = snodeman.Find(vinStormnode);
+    CDynode* psn = snodeman.Find(vinDynode);
 
     if(psn == NULL) {
-        LogPrintf("CTxLockVote::CheckSignature -- Unknown Stormnode: txin=%s\n", vinStormnode.ToString());
+        LogPrintf("CTxLockVote::CheckSignature -- Unknown Dynode: txin=%s\n", vinDynode.ToString());
         return false;
     }
 
-    if(!sandStormSigner.VerifyMessage(psn->pubKeyStormnode, vchStormNodeSignature, strMessage, strError)) {
+    if(!privateSendSigner.VerifyMessage(psn->pubKeyDynode, vchDyNodeSignature, strMessage, strError)) {
         LogPrintf("CTxLockVote::CheckSignature -- VerifyMessage() failed, error: %s\n", strError);
         return false;
     }
@@ -578,12 +578,12 @@ bool CTxLockVote::Sign()
 
     std::string strMessage = txHash.ToString().c_str() + boost::lexical_cast<std::string>(nBlockHeight);
 
-    if(!sandStormSigner.SignMessage(strMessage, vchStormNodeSignature, activeStormnode.keyStormnode)) {
+    if(!privateSendSigner.SignMessage(strMessage, vchDyNodeSignature, activeDynode.keyDynode)) {
         LogPrintf("CTxLockVote::Sign -- SignMessage() failed\n");
         return false;
     }
 
-    if(!sandStormSigner.VerifyMessage(activeStormnode.pubKeyStormnode, vchStormNodeSignature, strMessage, strError)) {
+    if(!privateSendSigner.VerifyMessage(activeDynode.pubKeyDynode, vchDyNodeSignature, strMessage, strError)) {
         LogPrintf("CTxLockVote::Sign -- VerifyMessage() failed, error: %s\n", strError);
         return false;
     }
@@ -597,15 +597,15 @@ bool CTxLockCandidate::IsAllVotesValid()
 
     BOOST_FOREACH(CTxLockVote vote, vecTxLockVotes)
     {
-        int n = snodeman.GetStormnodeRank(vote.vinStormnode, vote.nBlockHeight, MIN_INSTANTSEND_PROTO_VERSION);
+        int n = snodeman.GetDynodeRank(vote.vinDynode, vote.nBlockHeight, MIN_INSTANTSEND_PROTO_VERSION);
 
         if(n == -1) {
-            LogPrintf("CTxLockCandidate::IsAllVotesValid -- Unknown Stormnode, txin=%s\n", vote.vinStormnode.ToString());
+            LogPrintf("CTxLockCandidate::IsAllVotesValid -- Unknown Dynode, txin=%s\n", vote.vinDynode.ToString());
             return false;
         }
 
         if(n > INSTANTSEND_SIGNATURES_TOTAL) {
-            LogPrintf("CTxLockCandidate::IsAllVotesValid -- Stormnode not in the top %s\n", INSTANTSEND_SIGNATURES_TOTAL);
+            LogPrintf("CTxLockCandidate::IsAllVotesValid -- Dynode not in the top %s\n", INSTANTSEND_SIGNATURES_TOTAL);
             return false;
         }
 

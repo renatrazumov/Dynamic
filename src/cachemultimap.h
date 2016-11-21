@@ -5,8 +5,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_CACHEMULTIMAP_H
-#define DARKSILK_CACHEMULTIMAP_H
+#ifndef DYNAMIC_CACHEMULTIMAP_H
+#define DYNAMIC_CACHEMULTIMAP_H
 
 #include <cstddef>
 #include <map>
@@ -255,4 +255,4 @@ private:
     }
 };
 
-#endif // DARKSILK_CACHEMULTIMAP_H
+#endif // DYNAMIC_CACHEMULTIMAP_H

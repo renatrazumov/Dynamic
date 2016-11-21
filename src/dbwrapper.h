@@ -5,8 +5,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_DBWRAPPER_H
-#define DARKSILK_DBWRAPPER_H
+#ifndef DYNAMIC_DBWRAPPER_H
+#define DYNAMIC_DBWRAPPER_H
 
 #include "clientversion.h"
 #include "serialize.h"
@@ -279,5 +279,5 @@ public:
 
 };
 
-#endif // DARKSILK_DBWRAPPER_H
+#endif // DYNAMIC_DBWRAPPER_H
 

@@ -5,8 +5,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_CHECKQUEUE_H
-#define DARKSILK_CHECKQUEUE_H
+#ifndef DYNAMIC_CHECKQUEUE_H
+#define DYNAMIC_CHECKQUEUE_H
 
 #include <algorithm>
 #include <vector>
@@ -215,4 +215,4 @@ public:
     }
 };
 
-#endif // DARKSILK_CHECKQUEUE_H
+#endif // DYNAMIC_CHECKQUEUE_H

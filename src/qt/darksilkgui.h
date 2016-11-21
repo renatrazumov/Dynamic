@@ -5,11 +5,11 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_QT_DARKSILKGUI_H
-#define DARKSILK_QT_DARKSILKGUI_H
+#ifndef DYNAMIC_QT_DYNAMICGUI_H
+#define DYNAMIC_QT_DYNAMICGUI_H
 
 #if defined(HAVE_CONFIG_H)
-#include "config/darksilk-config.h"
+#include "config/dynamic-config.h"
 #endif
 
 #include "amount.h"
@@ -33,7 +33,7 @@ class UnitDisplayStatusBarControl;
 class WalletFrame;
 class WalletModel;
 class HelpMessageDialog;
-class StormnodeList;
+class DynodeList;
 
 class CWallet;
 
@@ -44,10 +44,10 @@ class QProgressDialog;
 QT_END_NAMESPACE
 
 /**
-  DarkSilk GUI main class. This class represents the main window of the DarkSilk UI. It communicates with both the client and
+  Dynamic GUI main class. This class represents the main window of the Dynamic UI. It communicates with both the client and
   wallet models to give the user an up-to-date view of the current core state.
 */
-class DarkSilkGUI : public QMainWindow
+class DynamicGUI : public QMainWindow
 {
     Q_OBJECT
 
@@ -55,8 +55,8 @@ public:
     static const QString DEFAULT_WALLET;
     static const std::string DEFAULT_UIPLATFORM;
 
-    explicit DarkSilkGUI(const PlatformStyle *platformStyle, const NetworkStyle *networkStyle, QWidget *parent = 0);
-    ~DarkSilkGUI();
+    explicit DynamicGUI(const PlatformStyle *platformStyle, const NetworkStyle *networkStyle, QWidget *parent = 0);
+    ~DynamicGUI();
 
     /** Set the client model.
         The client model represents the part of the core that communicates with the P2P network, and is wallet-agnostic.
@@ -65,7 +65,7 @@ public:
 
 #ifdef ENABLE_WALLET
     /** Set the wallet model.
-        The wallet model represents a DarkSilk wallet, and offers access to the list of transactions, address book and sending
+        The wallet model represents a Dynamic wallet, and offers access to the list of transactions, address book and sending
         functionality.
     */
     bool addWallet(const QString& name, WalletModel *walletModel);
@@ -97,7 +97,7 @@ private:
     QMenuBar *appMenuBar;
     QAction *overviewAction;
     QAction *historyAction;
-    QAction *stormnodeAction;
+    QAction *dynodeAction;
     QAction *quitAction;
     QAction *sendCoinsAction;
     QAction *sendCoinsMenuAction;
@@ -204,8 +204,8 @@ private Q_SLOTS:
     void gotoOverviewPage();
     /** Switch to history (transactions) page */
     void gotoHistoryPage();
-    /** Switch to stormnode page */
-    void gotoStormnodePage();
+    /** Switch to dynode page */
+    void gotoDynodePage();
     /** Switch to receive coins page */
     void gotoReceiveCoinsPage();
     /** Switch to send coins page */
@@ -233,9 +233,9 @@ private Q_SLOTS:
     void showPeers();
     void showRepair();
 
-    /** Open external (default) editor with darksilk.conf */
+    /** Open external (default) editor with dynamic.conf */
     void showConfEditor();
-    /** Open external (default) editor with stormnode.conf */
+    /** Open external (default) editor with dynode.conf */
     void showSNConfEditor();
     /** Show folder with wallet backups in default file browser */
     void showBackups();
@@ -291,4 +291,4 @@ private Q_SLOTS:
     void onMenuSelection(QAction* action);
 };
 
-#endif // DARKSILK_QT_DARKSILKGUI_H
+#endif // DYNAMIC_QT_DYNAMICGUI_H

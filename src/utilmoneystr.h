@@ -8,8 +8,8 @@
 /**
  * Money parsing/formatting utilities.
  */
-#ifndef DARKSILK_UTILMONEYSTR_H
-#define DARKSILK_UTILMONEYSTR_H
+#ifndef DYNAMIC_UTILMONEYSTR_H
+#define DYNAMIC_UTILMONEYSTR_H
 
 #include <stdint.h>
 #include <string>
@@ -20,4 +20,4 @@ std::string FormatMoney(const CAmount& n);
 bool ParseMoney(const std::string& str, CAmount& nRet);
 bool ParseMoney(const char* pszIn, CAmount& nRet);
 
-#endif // DARKSILK_UTILMONEYSTR_H
+#endif // DYNAMIC_UTILMONEYSTR_H

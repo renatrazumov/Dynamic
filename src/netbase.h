@@ -5,11 +5,11 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_NETBASE_H
-#define DARKSILK_NETBASE_H
+#ifndef DYNAMIC_NETBASE_H
+#define DYNAMIC_NETBASE_H
 
 #if defined(HAVE_CONFIG_H)
-#include "config/darksilk-config.h"
+#include "config/dynamic-config.h"
 #endif
 
 #include "compat.h"
@@ -225,4 +225,4 @@ bool SetSocketNonBlocking(SOCKET& hSocket, bool fNonBlocking);
  */
 struct timeval MillisToTimeval(int64_t nTimeout);
 
-#endif // DARKSILK_NETBASE_H
+#endif // DYNAMIC_NETBASE_H

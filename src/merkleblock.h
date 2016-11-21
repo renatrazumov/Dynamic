@@ -5,8 +5,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_MERKLEBLOCK_H
-#define DARKSILK_MERKLEBLOCK_H
+#ifndef DYNAMIC_MERKLEBLOCK_H
+#define DYNAMIC_MERKLEBLOCK_H
 
 #include "serialize.h"
 #include "uint256.h"
@@ -155,4 +155,4 @@ public:
     }
 };
 
-#endif // DARKSILK_MERKLEBLOCK_H
+#endif // DYNAMIC_MERKLEBLOCK_H

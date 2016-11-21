@@ -5,8 +5,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_QT_GUICONSTANTS_H
-#define DARKSILK_QT_GUICONSTANTS_H
+#ifndef DYNAMIC_QT_GUICONSTANTS_H
+#define DYNAMIC_QT_GUICONSTANTS_H
 
 /* Milliseconds between model updates */
 static const int MODEL_UPDATE_DELAY = 250;
@@ -14,7 +14,7 @@ static const int MODEL_UPDATE_DELAY = 250;
 /* AskPassphraseDialog -- Maximum passphrase length */
 static const int MAX_PASSPHRASE_SIZE = 1024;
 
-/* DarkSilkGUI -- Size of icons in status bar */
+/* DynamicGUI -- Size of icons in status bar */
 static const int STATUSBAR_ICONSIZE = 16;
 
 static const bool DEFAULT_SPLASHSCREEN = true;
@@ -51,7 +51,7 @@ static const int MAX_URI_LENGTH = 255;
 
 #define QAPP_ORG_NAME "Silk Network"
 #define QAPP_ORG_DOMAIN "silknetwork.org"
-#define QAPP_APP_NAME_DEFAULT "DarkSilk-Qt"
-#define QAPP_APP_NAME_TESTNET "DarkSilk-Qt-testnet"
+#define QAPP_APP_NAME_DEFAULT "Dynamic-Qt"
+#define QAPP_APP_NAME_TESTNET "Dynamic-Qt-testnet"
 
-#endif // DARKSILK_QT_GUICONSTANTS_H
+#endif // DYNAMIC_QT_GUICONSTANTS_H

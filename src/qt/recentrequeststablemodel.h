@@ -5,8 +5,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_QT_RECENTREQUESTSTABLEMODEL_H
-#define DARKSILK_QT_RECENTREQUESTSTABLEMODEL_H
+#ifndef DYNAMIC_QT_RECENTREQUESTSTABLEMODEL_H
+#define DYNAMIC_QT_RECENTREQUESTSTABLEMODEL_H
 
 #include "walletmodel.h"
 
@@ -56,7 +56,7 @@ private:
     Qt::SortOrder order;
 };
 
-/** Model for list of recently generated payment requests / darksilk: URIs.
+/** Model for list of recently generated payment requests / dynamic: URIs.
  * Part of wallet model.
  */
 class RecentRequestsTableModel: public QAbstractTableModel
@@ -109,4 +109,4 @@ private:
     QString getAmountTitle();
 };
 
-#endif // DARKSILK_QT_RECENTREQUESTSTABLEMODEL_H
+#endif // DYNAMIC_QT_RECENTREQUESTSTABLEMODEL_H

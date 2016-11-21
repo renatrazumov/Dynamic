@@ -5,10 +5,10 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_QT_STORMNODELIST_H
-#define DARKSILK_QT_STORMNODELIST_H
+#ifndef DYNAMIC_QT_DYNODELIST_H
+#define DYNAMIC_QT_DYNODELIST_H
 
-#include "stormnode.h"
+#include "dynode.h"
 #include "platformstyle.h"
 #include "sync.h"
 #include "util.h"
@@ -17,12 +17,12 @@
 #include <QTimer>
 #include <QWidget>
 
-#define MY_STORMNODELIST_UPDATE_SECONDS                 60
-#define STORMNODELIST_UPDATE_SECONDS                    15
-#define STORMNODELIST_FILTER_COOLDOWN_SECONDS            3
+#define MY_DYNODELIST_UPDATE_SECONDS                 60
+#define DYNODELIST_UPDATE_SECONDS                    15
+#define DYNODELIST_FILTER_COOLDOWN_SECONDS            3
 
 namespace Ui {
-    class StormnodeList;
+    class DynodeList;
 }
 
 class ClientModel;
@@ -32,14 +32,14 @@ QT_BEGIN_NAMESPACE
 class QModelIndex;
 QT_END_NAMESPACE
 
-/** Stormnode Manager page widget */
-class StormnodeList : public QWidget
+/** Dynode Manager page widget */
+class DynodeList : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit StormnodeList(const PlatformStyle *platformStyle, QWidget *parent = 0);
-    ~StormnodeList();
+    explicit DynodeList(const PlatformStyle *platformStyle, QWidget *parent = 0);
+    ~DynodeList();
 
     void setClientModel(ClientModel *clientModel);
     void setWalletModel(WalletModel *walletModel);
@@ -52,7 +52,7 @@ private:
     bool fFilterUpdated;
 
 public Q_SLOTS:
-    void updateMyStormnodeInfo(QString strAlias, QString strAddr, CStormnode *psn);
+    void updateMyDynodeInfo(QString strAlias, QString strAddr, CDynode *psn);
     void updateMyNodeList(bool fForce = false);
     void updateNodeList();
 
@@ -60,7 +60,7 @@ Q_SIGNALS:
 
 private:
     QTimer *timer;
-    Ui::StormnodeList *ui;
+    Ui::DynodeList *ui;
     ClientModel *clientModel;
     WalletModel *walletModel;
     CCriticalSection cs_snlistupdate;
@@ -72,7 +72,7 @@ private Q_SLOTS:
     void on_startButton_clicked();
     void on_startAllButton_clicked();
     void on_startMissingButton_clicked();
-    void on_tableWidgetMyStormnodes_itemSelectionChanged();
+    void on_tableWidgetMyDynodes_itemSelectionChanged();
     void on_UpdateButton_clicked();
 };
-#endif // DARKSILK_QT_STORMNODELIST_H
+#endif // DYNAMIC_QT_DYNODELIST_H

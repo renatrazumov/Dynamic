@@ -3,8 +3,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_CONSENSUS_PARAMS_H
-#define DARKSILK_CONSENSUS_PARAMS_H
+#ifndef DYNAMIC_CONSENSUS_PARAMS_H
+#define DYNAMIC_CONSENSUS_PARAMS_H
 
 #include "uint256.h"
 #include <map>
@@ -36,7 +36,7 @@ struct BIP9Deployment {
  */
 struct Params {
     uint256 hashGenesisBlock;
-    int nStormnodePaymentsStartBlock;
+    int nDynodePaymentsStartBlock;
     int nInstantSendKeepLock; // in blocks
     int nInstantSendReprocessBlocks;
     int nBudgetPaymentsStartBlock;
@@ -46,7 +46,7 @@ struct Params {
     int nSuperblockStartBlock;
     int nSuperblockCycle; // in blocks
     int nGovernanceMinQuorum; // Min absolute vote count to trigger an action 
-    int nStormnodeMinimumConfirmations;
+    int nDynodeMinimumConfirmations;
     /** Used to check majorities for block version upgrade */
     int nMajorityEnforceBlockUpgrade;
     int nMajorityRejectBlockOutdated;
@@ -69,4 +69,4 @@ struct Params {
 };
 } // namespace Consensus
 
-#endif // DARKSILK_CONSENSUS_PARAMS_H
+#endif // DYNAMIC_CONSENSUS_PARAMS_H

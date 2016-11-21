@@ -6,13 +6,13 @@
 #include "main.h"
 #include "db.h"
 #include "init.h"
-#include "activestormnode.h"
-#include "sandstorm.h"
+#include "activedynode.h"
+#include "privatesend.h"
 #include "governance.h"
-#include "stormnode-payments.h"
-#include "stormnode-sync.h"
-#include "stormnodeconfig.h"
-#include "stormnodeman.h"
+#include "dynode-payments.h"
+#include "dynode-sync.h"
+#include "dynodeconfig.h"
+#include "dynodeman.h"
 #include "rpcserver.h"
 #include "utilmoneystr.h"
 
@@ -40,12 +40,12 @@ UniValue privatesend(const UniValue& params, bool fHelp)
         if (pwalletMain->IsLocked(true))
             throw JSONRPCError(RPC_WALLET_UNLOCK_NEEDED, "Error: Please enter the wallet passphrase with walletpassphrase first.");
 
-        if(fStormNode)
-            return "Mixing is not supported from stormnodes";
+        if(fDyNode)
+            return "Mixing is not supported from dynodes";
 
         fEnablePrivateSend = true;
-        bool result = sandStormPool.DoAutomaticDenominating();
-        return "Mixing " + (result ? "started successfully" : ("start failed: " + sandStormPool.GetStatus() + ", will retry"));
+        bool result = privateSendPool.DoAutomaticDenominating();
+        return "Mixing " + (result ? "started successfully" : ("start failed: " + privateSendPool.GetStatus() + ", will retry"));
     }
 
     if(params[0].get_str() == "stop") {
@@ -54,13 +54,13 @@ UniValue privatesend(const UniValue& params, bool fHelp)
     }
 
     if(params[0].get_str() == "reset") {
-        sandStormPool.ResetPool();
+        privateSendPool.ResetPool();
         return "Mixing was reset";
     }
 
     if(params[0].get_str() == "status") {
         UniValue obj(UniValue::VOBJ);
-        obj.push_back(Pair("status",            sandStormPool.GetStatus()));
+        obj.push_back(Pair("status",            privateSendPool.GetStatus()));
         obj.push_back(Pair("keys_left",     pwalletMain->nKeysLeftSinceAutoBackup));
         obj.push_back(Pair("warnings",      (pwalletMain->nKeysLeftSinceAutoBackup < PRIVATESEND_KEYS_THRESHOLD_WARNING
                                                 ? "WARNING: keypool is almost depleted!" : "")));
@@ -78,16 +78,16 @@ UniValue getpoolinfo(const UniValue& params, bool fHelp)
             "Returns an object containing anonymous pool-related information.");
 
     UniValue obj(UniValue::VOBJ);
-    if (sandStormPool.pSubmittedToStormnode)
-        obj.push_back(Pair("stormnode",        sandStormPool.pSubmittedToStormnode->addr.ToString()));
-    obj.push_back(Pair("queue",                 sandStormPool.GetQueueSize()));
-    obj.push_back(Pair("state",                 sandStormPool.GetState()));
-    obj.push_back(Pair("entries",               sandStormPool.GetEntriesCount()));
+    if (privateSendPool.pSubmittedToDynode)
+        obj.push_back(Pair("dynode",        privateSendPool.pSubmittedToDynode->addr.ToString()));
+    obj.push_back(Pair("queue",                 privateSendPool.GetQueueSize()));
+    obj.push_back(Pair("state",                 privateSendPool.GetState()));
+    obj.push_back(Pair("entries",               privateSendPool.GetEntriesCount()));
     return obj;
 }
 
 
-UniValue stormnode(const UniValue& params, bool fHelp)
+UniValue dynode(const UniValue& params, bool fHelp)
 {
     std::string strCommand;
     if (params.size() >= 1) {
@@ -103,25 +103,25 @@ UniValue stormnode(const UniValue& params, bool fHelp)
          strCommand != "debug" && strCommand != "current" && strCommand != "winner" && strCommand != "winners" && strCommand != "genkey" &&
          strCommand != "connect" && strCommand != "outputs" && strCommand != "status"))
             throw std::runtime_error(
-                "stormnode \"command\"... ( \"passphrase\" )\n"
-                "Set of commands to execute stormnode-sync related actions\n"
+                "dynode \"command\"... ( \"passphrase\" )\n"
+                "Set of commands to execute dynode-sync related actions\n"
                 "\nArguments:\n"
                 "1. \"command\"        (string or set of strings, required) The command to execute\n"
                 "2. \"passphrase\"     (string, optional) The wallet passphrase\n"
                 "\nAvailable commands:\n"
-                "  count        - Print number of all known stormnodes (optional: 'ps', 'enabled', 'all', 'qualify')\n"
-                "  current      - Print info on current stormnode winner to be paid the next block (calculated locally)\n"
-                "  debug        - Print stormnode status\n"
-                "  genkey       - Generate new stormnodeprivkey\n"
-                "  outputs      - Print stormnode compatible outputs\n"
-                "  start        - Start local Hot stormnode configured in darksilk.conf\n"
-                "  start-alias  - Start single remote stormnode by assigned alias configured in stormnode.conf\n"
-                "  start-<mode> - Start remote stormnodes configured in stormnode.conf (<mode>: 'all', 'missing', 'disabled')\n"
-                "  status       - Print stormnode status information\n"
-                "  list         - Print list of all known stormnodes (see stormnodelist for more info)\n"
-                "  list-conf    - Print stormnode.conf in JSON format\n"
-                "  winner       - Print info on next stormnode winner to vote for\n"
-                "  winners      - Print list of stormnode winners\n"
+                "  count        - Print number of all known dynodes (optional: 'ps', 'enabled', 'all', 'qualify')\n"
+                "  current      - Print info on current dynode winner to be paid the next block (calculated locally)\n"
+                "  debug        - Print dynode status\n"
+                "  genkey       - Generate new dynodeprivkey\n"
+                "  outputs      - Print dynode compatible outputs\n"
+                "  start        - Start local Hot dynode configured in dynamic.conf\n"
+                "  start-alias  - Start single remote dynode by assigned alias configured in dynode.conf\n"
+                "  start-<mode> - Start remote dynodes configured in dynode.conf (<mode>: 'all', 'missing', 'disabled')\n"
+                "  status       - Print dynode status information\n"
+                "  list         - Print list of all known dynodes (see dynodelist for more info)\n"
+                "  list-conf    - Print dynode.conf in JSON format\n"
+                "  winner       - Print info on next dynode winner to vote for\n"
+                "  winners      - Print list of dynode winners\n"
                 );
 
     if (strCommand == "list")
@@ -131,13 +131,13 @@ UniValue stormnode(const UniValue& params, bool fHelp)
         for (unsigned int i = 1; i < params.size(); i++) {
             newParams.push_back(params[i]);
         }
-        return stormnodelist(newParams, fHelp);
+        return dynodelist(newParams, fHelp);
     }
 
     if(strCommand == "connect")
     {
         if (params.size() < 2)
-            throw JSONRPCError(RPC_INVALID_PARAMETER, "Stormnode address required");
+            throw JSONRPCError(RPC_INVALID_PARAMETER, "Dynode address required");
 
         std::string strAddress = params[1].get_str();
 
@@ -145,7 +145,7 @@ UniValue stormnode(const UniValue& params, bool fHelp)
 
         CNode *pnode = ConnectNode((CAddress)addr, NULL);
         if(!pnode)
-            throw JSONRPCError(RPC_INTERNAL_ERROR, strprintf("Couldn't connect to stormnode %s", strAddress));
+            throw JSONRPCError(RPC_INTERNAL_ERROR, strprintf("Couldn't connect to dynode %s", strAddress));
 
         return "successfully connected";
     }
@@ -168,7 +168,7 @@ UniValue stormnode(const UniValue& params, bool fHelp)
 
         LOCK(cs_main);
         int nCount;
-        snodeman.GetNextStormnodeInQueueForPayment(chainActive.Height(), true, nCount);
+        snodeman.GetNextDynodeInQueueForPayment(chainActive.Height(), true, nCount);
 
         if (strMode == "qualify")
             return nCount;
@@ -184,14 +184,14 @@ UniValue stormnode(const UniValue& params, bool fHelp)
         int nCount;
         int nHeight;
         CBlockIndex* pindex;
-        CStormnode* winner = NULL;
+        CDynode* winner = NULL;
         {
             LOCK(cs_main);
             nHeight = chainActive.Height() + (strCommand == "current" ? 1 : 10);
             pindex = chainActive.Tip();
         }
         snodeman.UpdateLastPaid(pindex);
-        winner = snodeman.GetNextStormnodeInQueueForPayment(nHeight, true, nCount);
+        winner = snodeman.GetNextDynodeInQueueForPayment(nHeight, true, nCount);
         if(!winner) return "unknown";
 
         UniValue obj(UniValue::VOBJ);
@@ -200,45 +200,45 @@ UniValue stormnode(const UniValue& params, bool fHelp)
         obj.push_back(Pair("IP:port",       winner->addr.ToString()));
         obj.push_back(Pair("protocol",      (int64_t)winner->nProtocolVersion));
         obj.push_back(Pair("vin",           winner->vin.prevout.ToStringShort()));
-        obj.push_back(Pair("payee",         CDarkSilkAddress(winner->pubKeyCollateralAddress.GetID()).ToString()));
-        obj.push_back(Pair("lastseen",      (winner->lastPing == CStormnodePing()) ? winner->sigTime :
+        obj.push_back(Pair("payee",         CDynamicAddress(winner->pubKeyCollateralAddress.GetID()).ToString()));
+        obj.push_back(Pair("lastseen",      (winner->lastPing == CDynodePing()) ? winner->sigTime :
                                                     winner->lastPing.sigTime));
-        obj.push_back(Pair("activeseconds", (winner->lastPing == CStormnodePing()) ? 0 :
+        obj.push_back(Pair("activeseconds", (winner->lastPing == CDynodePing()) ? 0 :
                                                     (winner->lastPing.sigTime - winner->sigTime)));
         return obj;
     }
 
     if (strCommand == "debug")
     {
-        if(activeStormnode.nState != ACTIVE_STORMNODE_INITIAL || !stormnodeSync.IsBlockchainSynced())
-            return activeStormnode.GetStatus();
+        if(activeDynode.nState != ACTIVE_DYNODE_INITIAL || !dynodeSync.IsBlockchainSynced())
+            return activeDynode.GetStatus();
 
         CTxIn vin;
         CPubKey pubkey;
         CKey key;
 
-        if(!pwalletMain || !pwalletMain->GetStormnodeVinAndKeys(vin, pubkey, key))
-            throw JSONRPCError(RPC_INVALID_PARAMETER, "Missing stormnode input, please look at the documentation for instructions on stormnode creation");
+        if(!pwalletMain || !pwalletMain->GetDynodeVinAndKeys(vin, pubkey, key))
+            throw JSONRPCError(RPC_INVALID_PARAMETER, "Missing dynode input, please look at the documentation for instructions on dynode creation");
 
-        return activeStormnode.GetStatus();
+        return activeDynode.GetStatus();
     }
 
     if (strCommand == "start")
     {
-        if(!fStormNode)
-            throw JSONRPCError(RPC_INTERNAL_ERROR, "You must set stormnode=1 in the configuration");
+        if(!fDyNode)
+            throw JSONRPCError(RPC_INTERNAL_ERROR, "You must set dynode=1 in the configuration");
 
         {
             LOCK(pwalletMain->cs_wallet);
             EnsureWalletIsUnlocked();
         }
 
-        if(activeStormnode.nState != ACTIVE_STORMNODE_STARTED){
-            activeStormnode.nState = ACTIVE_STORMNODE_INITIAL; // TODO: consider better way
-            activeStormnode.ManageState();
+        if(activeDynode.nState != ACTIVE_DYNODE_STARTED){
+            activeDynode.nState = ACTIVE_DYNODE_INITIAL; // TODO: consider better way
+            activeDynode.ManageState();
         }
 
-        return activeStormnode.GetStatus();
+        return activeDynode.GetStatus();
     }
 
     if (strCommand == "start-alias")
@@ -258,22 +258,22 @@ UniValue stormnode(const UniValue& params, bool fHelp)
         UniValue statusObj(UniValue::VOBJ);
         statusObj.push_back(Pair("alias", strAlias));
 
-        BOOST_FOREACH(CStormnodeConfig::CStormnodeEntry sne, stormnodeConfig.getEntries()) {
+        BOOST_FOREACH(CDynodeConfig::CDynodeEntry sne, dynodeConfig.getEntries()) {
             if(sne.getAlias() == strAlias) {
                 fFound = true;
                 std::string strError;
-                CStormnodeBroadcast snb;
+                CDynodeBroadcast snb;
 
-                bool fResult = CStormnodeBroadcast::Create(sne.getIp(), sne.getPrivKey(), sne.getTxHash(), sne.getOutputIndex(), strError, snb);
+                bool fResult = CDynodeBroadcast::Create(sne.getIp(), sne.getPrivKey(), sne.getTxHash(), sne.getOutputIndex(), strError, snb);
 
                 statusObj.push_back(Pair("result", fResult ? "successful" : "failed"));
                 if(fResult) {
-                    snodeman.UpdateStormnodeList(snb);
+                    snodeman.UpdateDynodeList(snb);
                     snb.Relay();
                 } else {
                     statusObj.push_back(Pair("errorMessage", strError));
                 }
-                snodeman.NotifyStormnodeUpdates();
+                snodeman.NotifyDynodeUpdates();
                 break;
             }
         }
@@ -294,8 +294,8 @@ UniValue stormnode(const UniValue& params, bool fHelp)
             EnsureWalletIsUnlocked();
         }
 
-        if((strCommand == "start-missing" || strCommand == "start-disabled") && !stormnodeSync.IsStormnodeListSynced()) {
-            throw JSONRPCError(RPC_CLIENT_IN_INITIAL_DOWNLOAD, "You can't use this command until stormnode list is synced");
+        if((strCommand == "start-missing" || strCommand == "start-disabled") && !dynodeSync.IsDynodeListSynced()) {
+            throw JSONRPCError(RPC_CLIENT_IN_INITIAL_DOWNLOAD, "You can't use this command until dynode list is synced");
         }
 
         int nSuccessful = 0;
@@ -303,17 +303,17 @@ UniValue stormnode(const UniValue& params, bool fHelp)
 
         UniValue resultsObj(UniValue::VOBJ);
 
-        BOOST_FOREACH(CStormnodeConfig::CStormnodeEntry sne, stormnodeConfig.getEntries()) {
+        BOOST_FOREACH(CDynodeConfig::CDynodeEntry sne, dynodeConfig.getEntries()) {
             std::string strError;
 
             CTxIn vin = CTxIn(uint256S(sne.getTxHash()), uint32_t(atoi(sne.getOutputIndex().c_str())));
-            CStormnode *psn = snodeman.Find(vin);
-            CStormnodeBroadcast snb;
+            CDynode *psn = snodeman.Find(vin);
+            CDynodeBroadcast snb;
 
             if(strCommand == "start-missing" && psn) continue;
             if(strCommand == "start-disabled" && psn && psn->IsEnabled()) continue;
 
-            bool fResult = CStormnodeBroadcast::Create(sne.getIp(), sne.getPrivKey(), sne.getTxHash(), sne.getOutputIndex(), strError, snb);
+            bool fResult = CDynodeBroadcast::Create(sne.getIp(), sne.getPrivKey(), sne.getTxHash(), sne.getOutputIndex(), strError, snb);
 
             UniValue statusObj(UniValue::VOBJ);
             statusObj.push_back(Pair("alias", sne.getAlias()));
@@ -321,7 +321,7 @@ UniValue stormnode(const UniValue& params, bool fHelp)
 
             if (fResult) {
                 nSuccessful++;
-                snodeman.UpdateStormnodeList(snb);
+                snodeman.UpdateDynodeList(snb);
                 snb.Relay();
             } else {
                 nFailed++;
@@ -330,10 +330,10 @@ UniValue stormnode(const UniValue& params, bool fHelp)
 
             resultsObj.push_back(Pair("status", statusObj));
         }
-        snodeman.NotifyStormnodeUpdates();
+        snodeman.NotifyDynodeUpdates();
 
         UniValue returnObj(UniValue::VOBJ);
-        returnObj.push_back(Pair("overall", strprintf("Successfully started %d stormnodes, failed to start %d, total %d", nSuccessful, nFailed, nSuccessful + nFailed)));
+        returnObj.push_back(Pair("overall", strprintf("Successfully started %d dynodes, failed to start %d, total %d", nSuccessful, nFailed, nSuccessful + nFailed)));
         returnObj.push_back(Pair("detail", resultsObj));
 
         return returnObj;
@@ -344,16 +344,16 @@ UniValue stormnode(const UniValue& params, bool fHelp)
         CKey secret;
         secret.MakeNewKey(false);
 
-        return CDarkSilkSecret(secret).ToString();
+        return CDynamicSecret(secret).ToString();
     }
 
     if (strCommand == "list-conf")
     {
         UniValue resultObj(UniValue::VOBJ);
 
-        BOOST_FOREACH(CStormnodeConfig::CStormnodeEntry sne, stormnodeConfig.getEntries()) {
+        BOOST_FOREACH(CDynodeConfig::CDynodeEntry sne, dynodeConfig.getEntries()) {
             CTxIn vin = CTxIn(uint256S(sne.getTxHash()), uint32_t(atoi(sne.getOutputIndex().c_str())));
-            CStormnode *psn = snodeman.Find(vin);
+            CDynode *psn = snodeman.Find(vin);
 
             std::string strStatus = psn ? psn->GetStatus() : "MISSING";
 
@@ -364,7 +364,7 @@ UniValue stormnode(const UniValue& params, bool fHelp)
             snObj.push_back(Pair("txHash", sne.getTxHash()));
             snObj.push_back(Pair("outputIndex", sne.getOutputIndex()));
             snObj.push_back(Pair("status", strStatus));
-            resultObj.push_back(Pair("stormnode", snObj));
+            resultObj.push_back(Pair("dynode", snObj));
         }
 
         return resultObj;
@@ -386,20 +386,20 @@ UniValue stormnode(const UniValue& params, bool fHelp)
 
     if (strCommand == "status")
     {
-        if (!fStormNode)
-            throw JSONRPCError(RPC_INTERNAL_ERROR, "This is not a stormnode");
+        if (!fDyNode)
+            throw JSONRPCError(RPC_INTERNAL_ERROR, "This is not a dynode");
 
         UniValue snObj(UniValue::VOBJ);
 
-        snObj.push_back(Pair("vin", activeStormnode.vin.ToString()));
-        snObj.push_back(Pair("service", activeStormnode.service.ToString()));
+        snObj.push_back(Pair("vin", activeDynode.vin.ToString()));
+        snObj.push_back(Pair("service", activeDynode.service.ToString()));
 
-        CStormnode sn;
-        if(snodeman.Get(activeStormnode.vin, sn)) {
-            snObj.push_back(Pair("payee", CDarkSilkAddress(sn.pubKeyCollateralAddress.GetID()).ToString()));
+        CDynode sn;
+        if(snodeman.Get(activeDynode.vin, sn)) {
+            snObj.push_back(Pair("payee", CDynamicAddress(sn.pubKeyCollateralAddress.GetID()).ToString()));
         }
 
-        snObj.push_back(Pair("status", activeStormnode.GetStatus()));
+        snObj.push_back(Pair("status", activeDynode.GetStatus()));
         return snObj;
     }
 
@@ -426,7 +426,7 @@ UniValue stormnode(const UniValue& params, bool fHelp)
         }
 
         if (params.size() > 3)
-            throw JSONRPCError(RPC_INVALID_PARAMETER, "Correct usage is 'stormnode winners ( \"count\" \"filter\" )'");
+            throw JSONRPCError(RPC_INVALID_PARAMETER, "Correct usage is 'dynode winners ( \"count\" \"filter\" )'");
 
         UniValue obj(UniValue::VOBJ);
 
@@ -442,7 +442,7 @@ UniValue stormnode(const UniValue& params, bool fHelp)
     return NullUniValue;
 }
 
-UniValue stormnodelist(const UniValue& params, bool fHelp)
+UniValue dynodelist(const UniValue& params, bool fHelp)
 {
     std::string strMode = "status";
     std::string strFilter = "";
@@ -456,26 +456,26 @@ UniValue stormnodelist(const UniValue& params, bool fHelp)
                 strMode != "protocol" && strMode != "payee" && strMode != "rank" && strMode != "status"))
     {
         throw std::runtime_error(
-                "stormnodelist ( \"mode\" \"filter\" )\n"
-                "Get a list of stormnodes in different modes\n"
+                "dynodelist ( \"mode\" \"filter\" )\n"
+                "Get a list of dynodes in different modes\n"
                 "\nArguments:\n"
                 "1. \"mode\"      (string, optional/required to use filter, defaults = status) The mode to run list in\n"
                 "2. \"filter\"    (string, optional) Filter results. Partial match by outpoint by default in all modes,\n"
                 "                                    additional matches in some modes are also available\n"
                 "\nAvailable modes:\n"
-                "  activeseconds  - Print number of seconds stormnode recognized by the network as enabled\n"
-                "                   (since latest issued \"stormnode start/start-many/start-alias\")\n"
-                "  addr           - Print ip address associated with a stormnode (can be additionally filtered, partial match)\n"
+                "  activeseconds  - Print number of seconds dynode recognized by the network as enabled\n"
+                "                   (since latest issued \"dynode start/start-many/start-alias\")\n"
+                "  addr           - Print ip address associated with a dynode (can be additionally filtered, partial match)\n"
                 "  full           - Print info in format 'status protocol payee lastseen activeseconds lastpaidtime lastpaidblock IP'\n"
                 "                   (can be additionally filtered, partial match)\n"
                 "  lastpaidblock  - Print the last block height a node was paid on the network\n"
                 "  lastpaidtime   - Print the last time a node was paid on the network\n"
-                "  lastseen       - Print timestamp of when a stormnode was last seen on the network\n"
-                "  payee          - Print DarkSilk address associated with a stormnode (can be additionally filtered,\n"
+                "  lastseen       - Print timestamp of when a dynode was last seen on the network\n"
+                "  payee          - Print Dynamic address associated with a dynode (can be additionally filtered,\n"
                 "                   partial match)\n"
-                "  protocol       - Print protocol of a stormnode (can be additionally filtered, exact match))\n"
-                "  rank           - Print rank of a stormnode based on current block\n"
-                "  status         - Print stormnode status: PRE_ENABLED / ENABLED / EXPIRED / OUTPOINT_SPENT / REMOVE\n"
+                "  protocol       - Print protocol of a dynode (can be additionally filtered, exact match))\n"
+                "  rank           - Print rank of a dynode based on current block\n"
+                "  status         - Print dynode status: PRE_ENABLED / ENABLED / EXPIRED / OUTPOINT_SPENT / REMOVE\n"
                 "                   (can be additionally filtered, partial match)\n"
                 );
     }
@@ -496,15 +496,15 @@ UniValue stormnodelist(const UniValue& params, bool fHelp)
             LOCK(cs_main);
             nHeight = chainActive.Height();
         }
-        std::vector<std::pair<int, CStormnode> > vStormnodeRanks = snodeman.GetStormnodeRanks(nHeight);
-        BOOST_FOREACH(PAIRTYPE(int, CStormnode)& s, vStormnodeRanks) {
+        std::vector<std::pair<int, CDynode> > vDynodeRanks = snodeman.GetDynodeRanks(nHeight);
+        BOOST_FOREACH(PAIRTYPE(int, CDynode)& s, vDynodeRanks) {
             std::string strOutpoint = s.second.vin.prevout.ToStringShort();
             if (strFilter !="" && strOutpoint.find(strFilter) == std::string::npos) continue;
             obj.push_back(Pair(strOutpoint, s.first));
         }
     } else {
-        std::vector<CStormnode> vStormnodes = snodeman.GetFullStormnodeVector();
-        BOOST_FOREACH(CStormnode& sn, vStormnodes) {
+        std::vector<CDynode> vDynodes = snodeman.GetFullDynodeVector();
+        BOOST_FOREACH(CDynode& sn, vDynodes) {
             std::string strOutpoint = sn.vin.prevout.ToStringShort();
             if (strMode == "activeseconds") {
                 if (strFilter !="" && strOutpoint.find(strFilter) == std::string::npos) continue;
@@ -519,7 +519,7 @@ UniValue stormnodelist(const UniValue& params, bool fHelp)
                 streamFull << std::setw(15) <<
                                sn.GetStatus() << " " <<
                                sn.nProtocolVersion << " " <<
-                               CDarkSilkAddress(sn.pubKeyCollateralAddress.GetID()).ToString() << " " <<
+                               CDynamicAddress(sn.pubKeyCollateralAddress.GetID()).ToString() << " " <<
                                (int64_t)sn.lastPing.sigTime << " " << std::setw(8) <<
                                (int64_t)(sn.lastPing.sigTime - sn.sigTime) << " " << std::setw(10) <<
                                sn.GetLastPaidTime() << " "  << std::setw(6) <<
@@ -539,7 +539,7 @@ UniValue stormnodelist(const UniValue& params, bool fHelp)
                 if (strFilter !="" && strOutpoint.find(strFilter) == std::string::npos) continue;
                 obj.push_back(Pair(strOutpoint, (int64_t)sn.lastPing.sigTime));
             } else if (strMode == "payee") {
-                CDarkSilkAddress address(sn.pubKeyCollateralAddress.GetID());
+                CDynamicAddress address(sn.pubKeyCollateralAddress.GetID());
                 std::string strPayee = address.ToString();
                 if (strFilter !="" && strPayee.find(strFilter) == std::string::npos &&
                     strOutpoint.find(strFilter) == std::string::npos) continue;
@@ -559,7 +559,7 @@ UniValue stormnodelist(const UniValue& params, bool fHelp)
     return obj;
 }
 
-bool DecodeHexVecSnb(std::vector<CStormnodeBroadcast>& vecSnb, std::string strHexSnb) {
+bool DecodeHexVecSnb(std::vector<CDynodeBroadcast>& vecSnb, std::string strHexSnb) {
 
     if (!IsHex(strHexSnb))
         return false;
@@ -576,7 +576,7 @@ bool DecodeHexVecSnb(std::vector<CStormnodeBroadcast>& vecSnb, std::string strHe
     return true;
 }
 
-UniValue stormnodebroadcast(const UniValue& params, bool fHelp)
+UniValue dynodebroadcast(const UniValue& params, bool fHelp)
 {
     std::string strCommand;
     if (params.size() >= 1)
@@ -585,16 +585,16 @@ UniValue stormnodebroadcast(const UniValue& params, bool fHelp)
     if (fHelp  ||
         (strCommand != "create-alias" && strCommand != "create-all" && strCommand != "decode" && strCommand != "relay"))
         throw std::runtime_error(
-                "stormnodebroadcast \"command\"... ( \"passphrase\" )\n"
-                "Set of commands to create and relay stormnode broadcast messages\n"
+                "dynodebroadcast \"command\"... ( \"passphrase\" )\n"
+                "Set of commands to create and relay dynode broadcast messages\n"
                 "\nArguments:\n"
                 "1. \"command\"        (string or set of strings, required) The command to execute\n"
                 "2. \"passphrase\"     (string, optional) The wallet passphrase\n"
                 "\nAvailable commands:\n"
-                "  create-alias  - Create single remote stormnode broadcast message by assigned alias configured in stormnode.conf\n"
-                "  create-all    - Create remote stormnode broadcast messages for all stormnodes configured in stormnode.conf\n"
-                "  decode        - Decode stormnode broadcast message\n"
-                "  relay         - Relay stormnode broadcast message to the network\n"
+                "  create-alias  - Create single remote dynode broadcast message by assigned alias configured in dynode.conf\n"
+                "  create-all    - Create remote dynode broadcast messages for all dynodes configured in dynode.conf\n"
+                "  decode        - Decode dynode broadcast message\n"
+                "  relay         - Relay dynode broadcast message to the network\n"
                 + HelpRequiringPassphrase());
 
     if (strCommand == "create-alias")
@@ -615,17 +615,17 @@ UniValue stormnodebroadcast(const UniValue& params, bool fHelp)
         std::string strAlias = params[1].get_str();
 
         UniValue statusObj(UniValue::VOBJ);
-        std::vector<CStormnodeBroadcast> vecSnb;
+        std::vector<CDynodeBroadcast> vecSnb;
 
         statusObj.push_back(Pair("alias", strAlias));
 
-        BOOST_FOREACH(CStormnodeConfig::CStormnodeEntry sne, stormnodeConfig.getEntries()) {
+        BOOST_FOREACH(CDynodeConfig::CDynodeEntry sne, dynodeConfig.getEntries()) {
             if(sne.getAlias() == strAlias) {
                 fFound = true;
                 std::string strError;
-                CStormnodeBroadcast snb;
+                CDynodeBroadcast snb;
 
-                bool fResult = CStormnodeBroadcast::Create(sne.getIp(), sne.getPrivKey(), sne.getTxHash(), sne.getOutputIndex(), strError, snb, true);
+                bool fResult = CDynodeBroadcast::Create(sne.getIp(), sne.getPrivKey(), sne.getTxHash(), sne.getOutputIndex(), strError, snb, true);
 
                 statusObj.push_back(Pair("result", fResult ? "successful" : "failed"));
                 if(fResult) {
@@ -660,20 +660,20 @@ UniValue stormnodebroadcast(const UniValue& params, bool fHelp)
             EnsureWalletIsUnlocked();
         }
 
-        std::vector<CStormnodeConfig::CStormnodeEntry> snEntries;
-        snEntries = stormnodeConfig.getEntries();
+        std::vector<CDynodeConfig::CDynodeEntry> snEntries;
+        snEntries = dynodeConfig.getEntries();
 
         int nSuccessful = 0;
         int nFailed = 0;
 
         UniValue resultsObj(UniValue::VOBJ);
-        std::vector<CStormnodeBroadcast> vecSnb;
+        std::vector<CDynodeBroadcast> vecSnb;
 
-        BOOST_FOREACH(CStormnodeConfig::CStormnodeEntry sne, stormnodeConfig.getEntries()) {
+        BOOST_FOREACH(CDynodeConfig::CDynodeEntry sne, dynodeConfig.getEntries()) {
             std::string strError;
-            CStormnodeBroadcast snb;
+            CDynodeBroadcast snb;
 
-            bool fResult = CStormnodeBroadcast::Create(sne.getIp(), sne.getPrivKey(), sne.getTxHash(), sne.getOutputIndex(), strError, snb, true);
+            bool fResult = CDynodeBroadcast::Create(sne.getIp(), sne.getPrivKey(), sne.getTxHash(), sne.getOutputIndex(), strError, snb, true);
 
             UniValue statusObj(UniValue::VOBJ);
             statusObj.push_back(Pair("alias", sne.getAlias()));
@@ -693,7 +693,7 @@ UniValue stormnodebroadcast(const UniValue& params, bool fHelp)
         CDataStream ssVecSnb(SER_NETWORK, PROTOCOL_VERSION);
         ssVecSnb << vecSnb;
         UniValue returnObj(UniValue::VOBJ);
-        returnObj.push_back(Pair("overall", strprintf("Successfully created broadcast messages for %d stormnodes, failed to create %d, total %d", nSuccessful, nFailed, nSuccessful + nFailed)));
+        returnObj.push_back(Pair("overall", strprintf("Successfully created broadcast messages for %d dynodes, failed to create %d, total %d", nSuccessful, nFailed, nSuccessful + nFailed)));
         returnObj.push_back(Pair("detail", resultsObj));
         returnObj.push_back(Pair("hex", HexStr(ssVecSnb.begin(), ssVecSnb.end())));
 
@@ -703,27 +703,27 @@ UniValue stormnodebroadcast(const UniValue& params, bool fHelp)
     if (strCommand == "decode")
     {
         if (params.size() != 2)
-            throw JSONRPCError(RPC_INVALID_PARAMETER, "Correct usage is 'stormnodebroadcast decode \"hexstring\"'");
+            throw JSONRPCError(RPC_INVALID_PARAMETER, "Correct usage is 'dynodebroadcast decode \"hexstring\"'");
 
-        std::vector<CStormnodeBroadcast> vecSnb;
+        std::vector<CDynodeBroadcast> vecSnb;
 
         if (!DecodeHexVecSnb(vecSnb, params[1].get_str()))
-            throw JSONRPCError(RPC_DESERIALIZATION_ERROR, "Stormnode broadcast message decode failed");
+            throw JSONRPCError(RPC_DESERIALIZATION_ERROR, "Dynode broadcast message decode failed");
 
         int nSuccessful = 0;
         int nFailed = 0;
         int nDos = 0;
         UniValue returnObj(UniValue::VOBJ);
 
-        BOOST_FOREACH(CStormnodeBroadcast& snb, vecSnb) {
+        BOOST_FOREACH(CDynodeBroadcast& snb, vecSnb) {
             UniValue resultObj(UniValue::VOBJ);
 
             if(snb.CheckSignature(nDos)) {
                 nSuccessful++;
                 resultObj.push_back(Pair("vin", snb.vin.ToString()));
                 resultObj.push_back(Pair("addr", snb.addr.ToString()));
-                resultObj.push_back(Pair("pubKeyCollateralAddress", CDarkSilkAddress(snb.pubKeyCollateralAddress.GetID()).ToString()));
-                resultObj.push_back(Pair("pubKeyStormnode", CDarkSilkAddress(snb.pubKeyStormnode.GetID()).ToString()));
+                resultObj.push_back(Pair("pubKeyCollateralAddress", CDynamicAddress(snb.pubKeyCollateralAddress.GetID()).ToString()));
+                resultObj.push_back(Pair("pubKeyDynode", CDynamicAddress(snb.pubKeyDynode.GetID()).ToString()));
                 resultObj.push_back(Pair("vchSig", EncodeBase64(&snb.vchSig[0], snb.vchSig.size())));
                 resultObj.push_back(Pair("sigTime", snb.sigTime));
                 resultObj.push_back(Pair("protocolVersion", snb.nProtocolVersion));
@@ -738,13 +738,13 @@ UniValue stormnodebroadcast(const UniValue& params, bool fHelp)
                 resultObj.push_back(Pair("lastPing", lastPingObj));
             } else {
                 nFailed++;
-                resultObj.push_back(Pair("errorMessage", "Stormnode broadcast signature verification failed"));
+                resultObj.push_back(Pair("errorMessage", "Dynode broadcast signature verification failed"));
             }
 
             returnObj.push_back(Pair(snb.GetHash().ToString(), resultObj));
         }
 
-        returnObj.push_back(Pair("overall", strprintf("Successfully decoded broadcast messages for %d stormnodes, failed to decode %d, total %d", nSuccessful, nFailed, nSuccessful + nFailed)));
+        returnObj.push_back(Pair("overall", strprintf("Successfully decoded broadcast messages for %d dynodes, failed to decode %d, total %d", nSuccessful, nFailed, nSuccessful + nFailed)));
 
         return returnObj;
     }
@@ -752,15 +752,15 @@ UniValue stormnodebroadcast(const UniValue& params, bool fHelp)
     if (strCommand == "relay")
     {
         if (params.size() < 2 || params.size() > 3)
-            throw JSONRPCError(RPC_INVALID_PARAMETER,   "stormnodebroadcast relay \"hexstring\" ( fast )\n"
+            throw JSONRPCError(RPC_INVALID_PARAMETER,   "dynodebroadcast relay \"hexstring\" ( fast )\n"
                                                         "\nArguments:\n"
                                                         "1. \"hex\"      (string, required) Broadcast messages hex string\n"
                                                         "2. fast       (string, optional) If none, using safe method\n");
 
-        std::vector<CStormnodeBroadcast> vecSnb;
+        std::vector<CDynodeBroadcast> vecSnb;
 
         if (!DecodeHexVecSnb(vecSnb, params[1].get_str()))
-            throw JSONRPCError(RPC_DESERIALIZATION_ERROR, "Stormnode broadcast message decode failed");
+            throw JSONRPCError(RPC_DESERIALIZATION_ERROR, "Dynode broadcast message decode failed");
 
         int nSuccessful = 0;
         int nFailed = 0;
@@ -768,7 +768,7 @@ UniValue stormnodebroadcast(const UniValue& params, bool fHelp)
         UniValue returnObj(UniValue::VOBJ);
 
         // verify all signatures first, bailout if any of them broken
-        BOOST_FOREACH(CStormnodeBroadcast& snb, vecSnb) {
+        BOOST_FOREACH(CDynodeBroadcast& snb, vecSnb) {
             UniValue resultObj(UniValue::VOBJ);
 
             resultObj.push_back(Pair("vin", snb.vin.ToString()));
@@ -778,13 +778,13 @@ UniValue stormnodebroadcast(const UniValue& params, bool fHelp)
             bool fResult;
             if (snb.CheckSignature(nDos)) {
                 if (fSafe) {
-                    fResult = snodeman.CheckSnbAndUpdateStormnodeList(snb, nDos);
+                    fResult = snodeman.CheckSnbAndUpdateDynodeList(snb, nDos);
                 } else {
-                    snodeman.UpdateStormnodeList(snb);
+                    snodeman.UpdateDynodeList(snb);
                     snb.Relay();
                     fResult = true;
                 }
-                snodeman.NotifyStormnodeUpdates();
+                snodeman.NotifyDynodeUpdates();
             } else fResult = false;
 
             if(fResult) {
@@ -792,13 +792,13 @@ UniValue stormnodebroadcast(const UniValue& params, bool fHelp)
                 resultObj.push_back(Pair(snb.GetHash().ToString(), "successful"));
             } else {
                 nFailed++;
-                resultObj.push_back(Pair("errorMessage", "Stormnode broadcast signature verification failed"));
+                resultObj.push_back(Pair("errorMessage", "Dynode broadcast signature verification failed"));
             }
 
             returnObj.push_back(Pair(snb.GetHash().ToString(), resultObj));
         }
 
-        returnObj.push_back(Pair("overall", strprintf("Successfully relayed broadcast messages for %d stormnodes, failed to relay %d, total %d", nSuccessful, nFailed, nSuccessful + nFailed)));
+        returnObj.push_back(Pair("overall", strprintf("Successfully relayed broadcast messages for %d dynodes, failed to relay %d, total %d", nSuccessful, nFailed, nSuccessful + nFailed)));
 
         return returnObj;
     }

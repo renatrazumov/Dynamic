@@ -5,8 +5,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_QT_DARKSILKUNITS_H
-#define DARKSILK_QT_DARKSILKUNITS_H
+#ifndef DYNAMIC_QT_DYNAMICUNITS_H
+#define DYNAMIC_QT_DYNAMICUNITS_H
 
 #include "amount.h"
 
@@ -44,24 +44,24 @@
 #define THIN_SP_UTF8 REAL_THIN_SP_UTF8
 #define THIN_SP_HTML HTML_HACK_SP
 
-/** DarkSilk unit definitions. Encapsulates parsing and formatting
+/** Dynamic unit definitions. Encapsulates parsing and formatting
    and serves as list model for drop-down selection boxes.
 */
-class DarkSilkUnits: public QAbstractListModel
+class DynamicUnits: public QAbstractListModel
 {
     Q_OBJECT
 
 public:
-    explicit DarkSilkUnits(QObject *parent);
+    explicit DynamicUnits(QObject *parent);
 
-    /** DarkSilk units.
+    /** Dynamic units.
       @note Source: https://en.bitcoin.it/wiki/Units . Please add only sensible ones
      */
     enum Unit
     {
-        DSLK,
-        mDSLK,
-        uDSLK,
+        DYN,
+        mDYN,
+        uDYN,
         satoshis
     };
 
@@ -129,8 +129,8 @@ public:
     static CAmount maxMoney();
 
 private:
-    QList<DarkSilkUnits::Unit> unitlist;
+    QList<DynamicUnits::Unit> unitlist;
 };
-typedef DarkSilkUnits::Unit DarkSilkUnit;
+typedef DynamicUnits::Unit DynamicUnit;
 
-#endif // DARKSILK_QT_DARKSILKUNITS_H
+#endif // DYNAMIC_QT_DYNAMICUNITS_H

@@ -5,8 +5,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_HTTPSERVER_H
-#define DARKSILK_HTTPSERVER_H
+#ifndef DYNAMIC_HTTPSERVER_H
+#define DYNAMIC_HTTPSERVER_H
 
 #include <string>
 #include <stdint.h>
@@ -149,4 +149,4 @@ private:
     struct event* ev;
 };
 
-#endif // DARKSILK_HTTPSERVER_H
+#endif // DYNAMIC_HTTPSERVER_H

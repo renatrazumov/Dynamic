@@ -1,7 +1,7 @@
 Protocol Documentation - 1.0.0.0
 =====================================
 
-This document describes the protocol extensions for all additional functionality build into the DarkSilk protocol. This doesn't include any of the Bitcoin procotol, which has been left in tact in the DarkSilk project. For more information about the core protocol, please see https://en.bitcoin.it/w/index.php?title#Protocol_documentation&action#edit
+This document describes the protocol extensions for all additional functionality build into the Dynamic protocol. This doesn't include any of the Bitcoin procotol, which has been left in tact in the Dynamic project. For more information about the core protocol, please see https://en.bitcoin.it/w/index.php?title#Protocol_documentation&action#edit
 
 ## Common Structures
 
@@ -53,59 +53,59 @@ Bitcoin Public Key https://bitcoin.org/en/glossary/public-key
 
 ### SNANNOUNCE - "snb"
 
-CStormnodeBroadcast
+CDynodeBroadcast
 
-Whenever a Stormnode comes online or a client is syncing, they will send this message which describes the Stormnode entry and how to validate messages from it.
+Whenever a Dynode comes online or a client is syncing, they will send this message which describes the Dynode entry and how to validate messages from it.
 
 | Field Size | Field Name | Data type | Description |
 | ---------- | ----------- | --------- | -------- |
-| 41 | vin | CTxIn | The unspent output which is holding 1000 DarkSilk
-| # | addr | CService | Address of the main 1000 DarkSilk unspent output
-| 33-65 | pubKeyCollateralAddress | CPubKey | CPubKey of the main 1000 DarkSilk unspent output
-| 33-65 | pubKeyStormnode | CPubKey | CPubKey of the secondary signing key (For all other messaging other than announce message)
+| 41 | vin | CTxIn | The unspent output which is holding 1000 Dynamic
+| # | addr | CService | Address of the main 1000 Dynamic unspent output
+| 33-65 | pubKeyCollateralAddress | CPubKey | CPubKey of the main 1000 Dynamic unspent output
+| 33-65 | pubKeyDynode | CPubKey | CPubKey of the secondary signing key (For all other messaging other than announce message)
 | 71-73 | sig | char[] | Signature of this message
 | 8 | sigTime | int64_t | Time which the signature was created
-| 4 | nProtocolVersion | int | The protocol version of the Stormnode
-| # | lastPing | CStormnodePing | The last known ping of the Stormnode
-| 8 | nLastSsq | int64_t | The last time the Stormnode sent a SSQ message (for mixing)
+| 4 | nProtocolVersion | int | The protocol version of the Dynode
+| # | lastPing | CDynodePing | The last known ping of the Dynode
+| 8 | nLastSsq | int64_t | The last time the Dynode sent a SSQ message (for mixing)
 
 ### SNPING - "snp"
 
-CStormnodePing
+CDynodePing
 
-Every few minutes, Stormnodes ping the network with a message that propagates the whole network.
+Every few minutes, Dynodes ping the network with a message that propagates the whole network.
 
 | Field Size | Field Name | Data type | Description |
 | ---------- | ----------- | --------- | -------- |
-| 41 | vin | CTxIn | The unspent output of the Stormnode which is signing the message
+| 41 | vin | CTxIn | The unspent output of the Dynode which is signing the message
 | 32 | blockHash | uint256 | Current chaintip blockhash minus 12
 | 8 | sigTime | int64_t | Signature time for this ping
-| 71-73 | vchSig | char[] | Signature of this message by Stormnode (verifiable via pubKeyStormnode)
+| 71-73 | vchSig | char[] | Signature of this message by Dynode (verifiable via pubKeyDynode)
 
-### StormnodePAYMENTVOTE - "snw"
+### DynodePAYMENTVOTE - "snw"
 
-CStormnodePaymentVote
+CDynodePaymentVote
 
-When a new block is found on the network, a Stormnode quorum will be determined and those 10 selected Stormnodes will issue a Stormnode payment vote message to pick the next winning node.
+When a new block is found on the network, a Dynode quorum will be determined and those 10 selected Dynodes will issue a Dynode payment vote message to pick the next winning node.
 
 | Field Size | Field Name | Data type | Description |
 | ---------- | ----------- | --------- | -------- |
-| 41 | vinStormnode | CTxIn | The unspent output of the Stormnode which is signing the message
+| 41 | vinDynode | CTxIn | The unspent output of the Dynode which is signing the message
 | 4 | nBlockHeight | int | The blockheight which the payee should be paid
 | ? | payeeAddress | CScript | The address to pay to
-| 71-73 | sig | char[] | Signature of the Stormnode which is signing the message
+| 71-73 | sig | char[] | Signature of the Dynode which is signing the message
 
 ### SSTX - "sstx"
 
-CSandstormBroadcastTx
+CPrivatesendBroadcastTx
 
-Stormnodes can broadcast subsidised transactions without fees for the sake of security in mixing. This is done via the SSTX message.
+Dynodes can broadcast subsidised transactions without fees for the sake of security in mixing. This is done via the SSTX message.
 
 | Field Size | Field Name | Data type | Description |
 | ---------- | ----------- | --------- | -------- |
 | # | tx | CTransaction | The transaction
-| 41 | vin | CTxIn | Stormnode unspent output
-| 71-73 | vchSig | char[] | Signature of this message by Stormnode (verifiable via pubKeyStormnode)
+| 41 | vin | CTxIn | Dynode unspent output
+| 71-73 | vchSig | char[] | Signature of this message by Dynode (verifiable via pubKeyDynode)
 | 8 | sigTime | int64_t | Time this message was signed
 
 ### SSSTATUSUPDATE - "sssu"
@@ -118,21 +118,21 @@ Mixing pool status update
 | 4 | nMsgState | int | Current state of mixing process
 | 4 | nMsgEntriesCount | int | Number of entries in the mixing pool
 | 4 | nMsgStatusUpdate | int | Update state and/or signal if entry was accepted or not
-| 4 | nMsgMessageID | int | ID of the typical Stormnode reply message
+| 4 | nMsgMessageID | int | ID of the typical Dynode reply message
 
 ### SSQUEUE - "ssq"
 
-CSandstormQueue
+CPrivatesendQueue
 
 Asks users to sign final mixing tx message.
 
 | Field Size | Field Name | Data type | Description |
 | ---------- | ----------- | --------- | -------- |
 | 4 | nDenom | int | Which denomination is allowed in this mixing session
-| 41 | vin | CTxIn | unspend output from Stormnode which is hosting this session
+| 41 | vin | CTxIn | unspend output from Dynode which is hosting this session
 | 4 | nTime | int | the time this SSQ was created
 | 4 | fReady | int | if the mixing pool is ready to be executed
-| 71-73 | vchSig | char[] | Signature of this message by Stormnode (verifiable via pubKeyStormnode)
+| 71-73 | vchSig | char[] | Signature of this message by Dynode (verifiable via pubKeyDynode)
 
 ### SSACCEPT - "ssa"
 
@@ -145,7 +145,7 @@ Response to SSQ message which allows the user to join a mixing pool
 
 ### SSVIN - "ssi"
 
-CSandstormEntry
+CPrivatesendEntry
 
 When queue is ready user is expected to send his entry to start actual mixing
 
@@ -178,20 +178,20 @@ A proposal, contract or setting.
 | 32 | nCollateralHash | uint256 | Hash of the collateral fee transaction
 | 0-16384 | strData | string | Data field - can be used for anything
 | 4 | nObjectType | int | ????
-| 41 | vinStormnode | CTxIn | Unspent output for the Stormnode which is signing this object
-| 71-73 | vchSig | char[] | Signature of the Stormnode
+| 41 | vinDynode | CTxIn | Unspent output for the Dynode which is signing this object
+| 71-73 | vchSig | char[] | Signature of the Dynode
 
 ### SNGOVERNANCEOBJECTVOTE - "govobjvote"
 
 Governance Vote
 
-Stormnodes use governance voting in response to new proposals, contracts, settings or finalized budgets.
+Dynodes use governance voting in response to new proposals, contracts, settings or finalized budgets.
 
 | Field Size | Field Name | Data type | Description |
 | ---------- | ----------- | --------- | -------- |
 | 4 | nVoteSignal | int | ???
-| 41+ | vinStormnode | CTxIn | Unspent output for the Stormnode which is voting
+| 41+ | vinDynode | CTxIn | Unspent output for the Dynode which is voting
 | 32 | nParentHash | uint256 | Object which we're voting on (proposal, contract, setting or final budget)
 | 4 | nVoteOutcome | int | ???
 | 8 | nTime | int64_t | Time which the vote was created
-| 71-73 | vchSig | char[] | Signature of the Stormnode
+| 71-73 | vchSig | char[] | Signature of the Dynode

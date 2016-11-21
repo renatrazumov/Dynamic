@@ -6,8 +6,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_ADDRMAN_H
-#define DARKSILK_ADDRMAN_H
+#ifndef DYNAMIC_ADDRMAN_H
+#define DYNAMIC_ADDRMAN_H
 
 #include "netbase.h"
 #include "protocol.h"
@@ -581,4 +581,4 @@ public:
 
 };
 
-#endif // DARKSILK_ADDRMAN_H
+#endif // DYNAMIC_ADDRMAN_H

@@ -9,5 +9,5 @@ import buildenv
 
 if __name__ == '__main__':
 	bctest.bctester(os.environ["srcdir"] + "/test/data",
-			"darksilk-util-test.json",buildenv)
+			"dynamic-util-test.json",buildenv)
 

@@ -5,8 +5,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_KEEPASS_H
-#define DARKSILK_KEEPASS_H
+#ifndef DYNAMIC_KEEPASS_H
+#define DYNAMIC_KEEPASS_H
 
 #include "support/allocators/secure.h"
 
@@ -133,4 +133,4 @@ public:
 
 };
 
-#endif // DARKSILK_KEEPASS_H
+#endif // DYNAMIC_KEEPASS_H

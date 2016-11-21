@@ -5,8 +5,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_HTTPRPC_H
-#define DARKSILK_HTTPRPC_H
+#ifndef DYNAMIC_HTTPRPC_H
+#define DYNAMIC_HTTPRPC_H
 
 #include <string>
 #include <map>
@@ -37,4 +37,4 @@ void InterruptREST();
  */
 void StopREST();
 
-#endif // DARKSILK_HTTPRPC_H
+#endif // DYNAMIC_HTTPRPC_H

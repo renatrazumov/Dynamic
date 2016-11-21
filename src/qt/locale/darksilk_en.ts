@@ -78,13 +78,13 @@
     </message>
     <message>
         <location line="+7"/>
-        <source>These are your DarkSilk addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>These are your DarkSilk addresses for sending payments. Always check the amount and the receiving address before sending coins.</translation>
+        <source>These are your Dynamic addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation>These are your Dynamic addresses for sending payments. Always check the amount and the receiving address before sending coins.</translation>
     </message>
     <message>
         <location line="+4"/>
-        <source>These are your DarkSilk addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>These are your DarkSilk addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</translation>
+        <source>These are your Dynamic addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
+        <translation>These are your Dynamic addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -219,8 +219,8 @@
     </message>
     <message>
         <location line="+1"/>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR DSLK&lt;/b&gt;!</source>
-        <translation>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR DSLK&lt;/b&gt;!</translation>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR DYN&lt;/b&gt;!</source>
+        <translation>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR DYN&lt;/b&gt;!</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -235,8 +235,8 @@
     </message>
     <message>
         <location line="-57"/>
-        <source>DarkSilk will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your darksilks from being stolen by malware infecting your computer.</source>
-        <translation>DarkSilk will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your darksilks from being stolen by malware infecting your computer.</translation>
+        <source>Dynamic will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your dynamics from being stolen by malware infecting your computer.</source>
+        <translation>Dynamic will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your dynamics from being stolen by malware infecting your computer.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -292,12 +292,12 @@
     </message>
 </context>
 <context>
-    <name>DarkSilkGUI</name>
+    <name>DynamicGUI</name>
     <message>
-        <location filename="../darksilkgui.cpp" line="+108"/>
+        <location filename="../dynamicgui.cpp" line="+108"/>
         <location line="+752"/>
-        <source>DarkSilk Core</source>
-        <translation>DarkSilk Core</translation>
+        <source>Dynamic Core</source>
+        <translation>Dynamic Core</translation>
     </message>
     <message>
         <location line="-743"/>
@@ -326,8 +326,8 @@
     </message>
     <message>
         <location line="+1"/>
-        <source>Send coins to a DarkSilk address</source>
-        <translation>Send coins to a DarkSilk address</translation>
+        <source>Send coins to a Dynamic address</source>
+        <translation>Send coins to a Dynamic address</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -336,8 +336,8 @@
     </message>
     <message>
         <location line="+1"/>
-        <source>Request payments (generates QR codes and darksilk: URIs)</source>
-        <translation>Request payments (generates QR codes and darksilk: URIs)</translation>
+        <source>Request payments (generates QR codes and dynamic: URIs)</source>
+        <translation>Request payments (generates QR codes and dynamic: URIs)</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -361,13 +361,13 @@
     </message>
     <message>
         <location line="+3"/>
-        <source>&amp;About DarkSilk Core</source>
-        <translation>&amp;About DarkSilk Core</translation>
+        <source>&amp;About Dynamic Core</source>
+        <translation>&amp;About Dynamic Core</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Show information about DarkSilk Core</source>
-        <translation>Show information about DarkSilk Core</translation>
+        <source>Show information about Dynamic Core</source>
+        <translation>Show information about Dynamic Core</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -387,8 +387,8 @@
     </message>
     <message>
         <location line="+1"/>
-        <source>Modify configuration options for DarkSilk</source>
-        <translation>Modify configuration options for DarkSilk</translation>
+        <source>Modify configuration options for Dynamic</source>
+        <translation>Modify configuration options for Dynamic</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -452,8 +452,8 @@
     </message>
     <message>
         <location line="+1"/>
-        <source>Sign messages with your DarkSilk addresses to prove you own them</source>
-        <translation>Sign messages with your DarkSilk addresses to prove you own them</translation>
+        <source>Sign messages with your Dynamic addresses to prove you own them</source>
+        <translation>Sign messages with your Dynamic addresses to prove you own them</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -462,8 +462,8 @@
     </message>
     <message>
         <location line="+1"/>
-        <source>Verify messages to ensure they were signed with specified DarkSilk addresses</source>
-        <translation>Verify messages to ensure they were signed with specified DarkSilk addresses</translation>
+        <source>Verify messages to ensure they were signed with specified Dynamic addresses</source>
+        <translation>Verify messages to ensure they were signed with specified Dynamic addresses</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -562,8 +562,8 @@
     </message>
     <message>
         <location line="+1"/>
-        <source>Open a darksilk: URI or payment request</source>
-        <translation>Open a darksilk: URI or payment request</translation>
+        <source>Open a dynamic: URI or payment request</source>
+        <translation>Open a dynamic: URI or payment request</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -572,8 +572,8 @@
     </message>
     <message>
         <location line="+196"/>
-        <source>DarkSilk Core client</source>
-        <translation>DarkSilk Core client</translation>
+        <source>Dynamic Core client</source>
+        <translation>Dynamic Core client</translation>
     </message>
     <message numerus="yes">
         <location line="+182"/>
@@ -587,8 +587,8 @@
     </message>
     <message>
         <location line="-407"/>
-        <source>Show the DarkSilk Core help message to get a list with possible DarkSilk command-line options</source>
-        <translation>Show the DarkSilk Core help message to get a list with possible DarkSilk command-line options</translation>
+        <source>Show the Dynamic Core help message to get a list with possible Dynamic command-line options</source>
+        <translation>Show the Dynamic Core help message to get a list with possible Dynamic command-line options</translation>
     </message>
     <message>
         <location line="+36"/>
@@ -617,8 +617,8 @@
     </message>
     <message numerus="yes">
         <location line="+256"/>
-        <source>%n active connection(s) to DarkSilk network</source>
-        <translation><numerusform>%n active connection to DarkSilk network</numerusform><numerusform>%n active connections to DarkSilk network</numerusform></translation>
+        <source>%n active connection(s) to Dynamic network</source>
+        <translation><numerusform>%n active connection to Dynamic network</numerusform><numerusform>%n active connections to Dynamic network</numerusform></translation>
     </message>
     <message>
         <location line="+15"/>
@@ -933,8 +933,8 @@ Address: %4
     </message>
     <message>
         <location line="+329"/>
-        <source>Non-anonymized input selected. &lt;b&gt;Sandstorm will be disabled.&lt;/b&gt;&lt;br&gt;&lt;br&gt;If you still want to use Sandstorm, please deselect all non-nonymized inputs first and then check Sandstorm checkbox again.</source>
-        <translation>Non-anonymized input selected. &lt;b&gt;Sandstorm will be disabled.&lt;/b&gt;&lt;br&gt;&lt;br&gt;If you still want to use Sandstorm, please deselect all non-nonymized inputs first and then check Sandstorm checkbox again.</translation>
+        <source>Non-anonymized input selected. &lt;b&gt;Privatesend will be disabled.&lt;/b&gt;&lt;br&gt;&lt;br&gt;If you still want to use Privatesend, please deselect all non-nonymized inputs first and then check Privatesend checkbox again.</source>
+        <translation>Non-anonymized input selected. &lt;b&gt;Privatesend will be disabled.&lt;/b&gt;&lt;br&gt;&lt;br&gt;If you still want to use Privatesend, please deselect all non-nonymized inputs first and then check Privatesend checkbox again.</translation>
     </message>
     <message>
         <location line="+32"/>
@@ -1062,11 +1062,11 @@ Address: %4
     </message>
 </context>
 <context>
-    <name>SandstormConfig</name>
+    <name>PrivatesendConfig</name>
     <message>
-        <location filename="../forms/sandstormconfig.ui" line="+14"/>
-        <source>Configure Sandstorm</source>
-        <translation>Configure Sandstorm</translation>
+        <location filename="../forms/privatesendconfig.ui" line="+14"/>
+        <source>Configure Privatesend</source>
+        <translation>Configure Privatesend</translation>
     </message>
     <message>
         <location line="+12"/>
@@ -1090,33 +1090,33 @@ Address: %4
     </message>
     <message>
         <location line="+13"/>
-        <source>Use 2 separate stormnodes to mix funds up to 1000 DSLK</source>
-        <translation>Use 2 separate stormnodes to mix funds up to 1000 DSLK</translation>
+        <source>Use 2 separate dynodes to mix funds up to 1000 DYN</source>
+        <translation>Use 2 separate dynodes to mix funds up to 1000 DYN</translation>
     </message>
     <message>
         <location line="+13"/>
-        <source>Use 8 separate stormnodes to mix funds up to 1000 DSLK</source>
-        <translation>Use 8 separate stormnodes to mix funds up to 1000 DSLK</translation>
+        <source>Use 8 separate dynodes to mix funds up to 1000 DYN</source>
+        <translation>Use 8 separate dynodes to mix funds up to 1000 DYN</translation>
     </message>
     <message>
         <location line="+13"/>
-        <source>Use 16 separate stormnodes</source>
-        <translation>Use 16 separate stormnodes</translation>
+        <source>Use 16 separate dynodes</source>
+        <translation>Use 16 separate dynodes</translation>
     </message>
     <message>
         <location line="+13"/>
-        <source>This option is the quickest and will cost about ~0.025 DSLK to anonymize 1000 DSLK</source>
-        <translation>This option is the quickest and will cost about ~0.025 DSLK to anonymize 1000 DSLK</translation>
+        <source>This option is the quickest and will cost about ~0.025 DYN to anonymize 1000 DYN</source>
+        <translation>This option is the quickest and will cost about ~0.025 DYN to anonymize 1000 DYN</translation>
     </message>
     <message>
         <location line="+13"/>
-        <source>This option is moderately fast and will cost about 0.05 DSLK to anonymize 1000 DSLK</source>
-        <translation>This option is moderately fast and will cost about 0.05 DSLK to anonymize 1000 DSLK</translation>
+        <source>This option is moderately fast and will cost about 0.05 DYN to anonymize 1000 DYN</source>
+        <translation>This option is moderately fast and will cost about 0.05 DYN to anonymize 1000 DYN</translation>
     </message>
     <message>
         <location line="+26"/>
-        <source>0.1 DSLK per 1000 DSLK you anonymize.</source>
-        <translation>0.1 DSLK per 1000 DSLK you anonymize.</translation>
+        <source>0.1 DYN per 1000 DYN you anonymize.</source>
+        <translation>0.1 DYN per 1000 DYN you anonymize.</translation>
     </message>
     <message>
         <location line="-13"/>
@@ -1124,26 +1124,26 @@ Address: %4
         <translation>This is the slowest and most secure option. Using maximum anonymity will cost</translation>
     </message>
     <message>
-        <location filename="../sandstormconfig.cpp" line="+43"/>
+        <location filename="../privatesendconfig.cpp" line="+43"/>
         <location line="+15"/>
         <location line="+15"/>
-        <source>Sandstorm Configuration</source>
-        <translation>Sandstorm Configuration</translation>
+        <source>Privatesend Configuration</source>
+        <translation>Privatesend Configuration</translation>
     </message>
     <message>
         <location line="-29"/>
-        <source>Sandstorm was successfully set to basic (%1 and 2 rounds). You can change this at any time by opening DarkSilk&apos;s configuration screen.</source>
-        <translation>Sandstorm was successfully set to basic (%1 and 2 rounds). You can change this at any time by opening DarkSilk&apos;s configuration screen.</translation>
+        <source>Privatesend was successfully set to basic (%1 and 2 rounds). You can change this at any time by opening Dynamic&apos;s configuration screen.</source>
+        <translation>Privatesend was successfully set to basic (%1 and 2 rounds). You can change this at any time by opening Dynamic&apos;s configuration screen.</translation>
     </message>
     <message>
         <location line="+15"/>
-        <source>Sandstorm was successfully set to high (%1 and 8 rounds). You can change this at any time by opening DarkSilk&apos;s configuration screen.</source>
-        <translation>Sandstorm was successfully set to high (%1 and 8 rounds). You can change this at any time by opening DarkSilk&apos;s configuration screen.</translation>
+        <source>Privatesend was successfully set to high (%1 and 8 rounds). You can change this at any time by opening Dynamic&apos;s configuration screen.</source>
+        <translation>Privatesend was successfully set to high (%1 and 8 rounds). You can change this at any time by opening Dynamic&apos;s configuration screen.</translation>
     </message>
     <message>
         <location line="+15"/>
-        <source>Sandstorm was successfully set to maximum (%1 and 16 rounds). You can change this at any time by opening DarkSilk&apos;s configuration screen.</source>
-        <translation>Sandstorm was successfully set to maximum (%1 and 16 rounds). You can change this at any time by opening DarkSilk&apos;s configuration screen.</translation>
+        <source>Privatesend was successfully set to maximum (%1 and 16 rounds). You can change this at any time by opening Dynamic&apos;s configuration screen.</source>
+        <translation>Privatesend was successfully set to maximum (%1 and 16 rounds). You can change this at any time by opening Dynamic&apos;s configuration screen.</translation>
     </message>
 </context>
 <context>
@@ -1195,8 +1195,8 @@ Address: %4
     </message>
     <message>
         <location line="+71"/>
-        <source>The entered address &quot;%1&quot; is not a valid DarkSilk address.</source>
-        <translation>The entered address &quot;%1&quot; is not a valid DarkSilk address.</translation>
+        <source>The entered address &quot;%1&quot; is not a valid Dynamic address.</source>
+        <translation>The entered address &quot;%1&quot; is not a valid Dynamic address.</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -1246,8 +1246,8 @@ Address: %4
     <name>HelpMessageDialog</name>
     <message>
         <location filename="../utilitydialog.cpp" line="+32"/>
-        <source>DarkSilk Core</source>
-        <translation>DarkSilk Core</translation>
+        <source>Dynamic Core</source>
+        <translation>Dynamic Core</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -1262,8 +1262,8 @@ Address: %4
     </message>
     <message>
         <location line="+5"/>
-        <source>About DarkSilk Core</source>
-        <translation>About DarkSilk Core</translation>
+        <source>About Dynamic Core</source>
+        <translation>About Dynamic Core</translation>
     </message>
     <message>
         <location line="+19"/>
@@ -1320,18 +1320,18 @@ Address: %4
     </message>
     <message>
         <location line="+9"/>
-        <source>Welcome to DarkSilk Core.</source>
-        <translation>Welcome to DarkSilk Core.</translation>
+        <source>Welcome to Dynamic Core.</source>
+        <translation>Welcome to Dynamic Core.</translation>
     </message>
     <message>
         <location line="+26"/>
-        <source>As this is the first time the program is launched, you can choose where DarkSilk Core will store its data.</source>
-        <translation>As this is the first time the program is launched, you can choose where DarkSilk Core will store its data.</translation>
+        <source>As this is the first time the program is launched, you can choose where Dynamic Core will store its data.</source>
+        <translation>As this is the first time the program is launched, you can choose where Dynamic Core will store its data.</translation>
     </message>
     <message>
         <location line="+10"/>
-        <source>DarkSilk Core will download and store a copy of the DarkSilk block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
-        <translation>DarkSilk Core will download and store a copy of the DarkSilk block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</translation>
+        <source>Dynamic Core will download and store a copy of the Dynamic block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
+        <translation>Dynamic Core will download and store a copy of the Dynamic block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -1345,8 +1345,8 @@ Address: %4
     </message>
     <message>
         <location filename="../intro.cpp" line="+82"/>
-        <source>DarkSilk Core</source>
-        <translation>DarkSilk Core</translation>
+        <source>Dynamic Core</source>
+        <translation>Dynamic Core</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1411,13 +1411,13 @@ Address: %4
     </message>
     <message>
         <location line="+6"/>
-        <source>Automatically start DarkSilk after logging in to the system.</source>
-        <translation>Automatically start DarkSilk after logging in to the system.</translation>
+        <source>Automatically start Dynamic after logging in to the system.</source>
+        <translation>Automatically start Dynamic after logging in to the system.</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>&amp;Start DarkSilk on system login</source>
-        <translation>&amp;Start DarkSilk on system login</translation>
+        <source>&amp;Start Dynamic on system login</source>
+        <translation>&amp;Start Dynamic on system login</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -1441,18 +1441,18 @@ Address: %4
     </message>
     <message>
         <location line="+40"/>
-        <source>Sandstorm rounds to use</source>
-        <translation>Sandstorm rounds to use</translation>
+        <source>Privatesend rounds to use</source>
+        <translation>Privatesend rounds to use</translation>
     </message>
     <message>
         <location line="+24"/>
-        <source>This amount acts as a threshold to turn off Sandstorm once it&apos;s reached.</source>
-        <translation>This amount acts as a threshold to turn off Sandstorm once it&apos;s reached.</translation>
+        <source>This amount acts as a threshold to turn off Privatesend once it&apos;s reached.</source>
+        <translation>This amount acts as a threshold to turn off Privatesend once it&apos;s reached.</translation>
     </message>
     <message>
         <location line="+15"/>
-        <source>Amount of DarkSilk to keep anonymized</source>
-        <translation>Amount of DarkSilk to keep anonymized</translation>
+        <source>Amount of Dynamic to keep anonymized</source>
+        <translation>Amount of Dynamic to keep anonymized</translation>
     </message>
     <message>
         <location line="+26"/>
@@ -1476,8 +1476,8 @@ Address: %4
     </message>
     <message>
         <location line="+7"/>
-        <source>Connect to the DarkSilk network through a SOCKS5 proxy.</source>
-        <translation>Connect to the DarkSilk network through a SOCKS5 proxy.</translation>
+        <source>Connect to the Dynamic network through a SOCKS5 proxy.</source>
+        <translation>Connect to the Dynamic network through a SOCKS5 proxy.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1491,8 +1491,8 @@ Address: %4
     </message>
     <message>
         <location line="-74"/>
-        <source>This setting determines the amount of individual stormnodes that an input will be anonymized through.&lt;br/&gt;More rounds of anonymization gives a higher degree of privacy, but also costs more in fees.</source>
-        <translation>This setting determines the amount of individual stormnodes that an input will be anonymized through.&lt;br/&gt;More rounds of anonymization gives a higher degree of privacy, but also costs more in fees.</translation>
+        <source>This setting determines the amount of individual dynodes that an input will be anonymized through.&lt;br/&gt;More rounds of anonymization gives a higher degree of privacy, but also costs more in fees.</source>
+        <translation>This setting determines the amount of individual dynodes that an input will be anonymized through.&lt;br/&gt;More rounds of anonymization gives a higher degree of privacy, but also costs more in fees.</translation>
     </message>
     <message>
         <location line="+80"/>
@@ -1516,8 +1516,8 @@ Address: %4
     </message>
     <message>
         <location line="+6"/>
-        <source>Automatically open the DarkSilk client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Automatically open the DarkSilk client port on the router. This only works when your router supports UPnP and it is enabled.</translation>
+        <source>Automatically open the Dynamic client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation>Automatically open the Dynamic client port on the router. This only works when your router supports UPnP and it is enabled.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1581,15 +1581,15 @@ Address: %4
     </message>
     <message>
         <location line="+13"/>
-        <source>The user interface language can be set here. This setting will take effect after restarting DarkSilk.</source>
-        <translation>The user interface language can be set here. This setting will take effect after restarting DarkSilk.</translation>
+        <source>The user interface language can be set here. This setting will take effect after restarting Dynamic.</source>
+        <translation>The user interface language can be set here. This setting will take effect after restarting Dynamic.</translation>
     </message>
     <message>
         <location line="+21"/>
         <source>Language missing or translation incomplete? Help contributing translations here:
-https://www.transifex.com/projects/p/darksilk/</source>
+https://www.transifex.com/projects/p/dynamic/</source>
         <translation>Language missing or translation incomplete? Help contributing translations here:
-https://www.transifex.com/projects/p/darksilk/</translation>
+https://www.transifex.com/projects/p/dynamic/</translation>
     </message>
     <message>
         <location line="+19"/>
@@ -1695,8 +1695,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <location line="+53"/>
         <location line="+1015"/>
         <location line="+77"/>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the DarkSilk network after a connection is established, but this process has not completed yet.</source>
-        <translation>The displayed information may be out of date. Your wallet automatically synchronizes with the DarkSilk network after a connection is established, but this process has not completed yet.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Dynamic network after a connection is established, but this process has not completed yet.</source>
+        <translation>The displayed information may be out of date. Your wallet automatically synchronizes with the Dynamic network after a connection is established, but this process has not completed yet.</translation>
     </message>
     <message>
         <location line="-843"/>
@@ -1790,8 +1790,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
     </message>
     <message>
         <location line="+20"/>
-        <source>Sandstorm Balance:</source>
-        <translation>Sandstorm Balance:</translation>
+        <source>Privatesend Balance:</source>
+        <translation>Privatesend Balance:</translation>
     </message>
     <message>
         <location line="+20"/>
@@ -1800,8 +1800,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
     </message>
     <message>
         <location line="+7"/>
-        <source>0 DSLK / 0 Rounds</source>
-        <translation>0 DSLK / 0 Rounds</translation>
+        <source>0 DYN / 0 Rounds</source>
+        <translation>0 DYN / 0 Rounds</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -1819,8 +1819,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <location line="+10"/>
         <location line="+10"/>
         <location line="+14"/>
-        <source>Sandstorm</source>
-        <translation>Sandstorm</translation>
+        <source>Privatesend</source>
+        <translation>Privatesend</translation>
     </message>
     <message>
         <location line="+74"/>
@@ -1834,8 +1834,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
     </message>
     <message>
         <location line="-469"/>
-        <source>The denominations you submitted to the Stormnode.&lt;br&gt;To mix, other users must submit the exact same denominations.</source>
-        <translation>The denominations you submitted to the Stormnode.&lt;br&gt;To mix, other users must submit the exact same denominations.</translation>
+        <source>The denominations you submitted to the Dynode.&lt;br&gt;To mix, other users must submit the exact same denominations.</source>
+        <translation>The denominations you submitted to the Dynode.&lt;br&gt;To mix, other users must submit the exact same denominations.</translation>
     </message>
     <message>
         <location line="+501"/>
@@ -1844,8 +1844,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
     </message>
     <message>
         <location line="+25"/>
-        <source>Try to manually submit a Sandstorm request.</source>
-        <translation>Try to manually submit a Sandstorm request.</translation>
+        <source>Try to manually submit a Privatesend request.</source>
+        <translation>Try to manually submit a Privatesend request.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1854,8 +1854,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
     </message>
     <message>
         <location line="+19"/>
-        <source>Reset the current status of Sandstorm (can interrupt Sandstorm if it&apos;s in the process of Mixing, which can cost you money!)</source>
-        <translation>Reset the current status of Sandstorm (can interrupt Sandstorm if it&apos;s in the process of Mixing, which can cost you money!)</translation>
+        <source>Reset the current status of Privatesend (can interrupt Privatesend if it&apos;s in the process of Mixing, which can cost you money!)</source>
+        <translation>Reset the current status of Privatesend (can interrupt Privatesend if it&apos;s in the process of Mixing, which can cost you money!)</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -1881,14 +1881,14 @@ https://www.transifex.com/projects/p/darksilk/</translation>
         <location line="-288"/>
         <location line="+290"/>
         <location line="+91"/>
-        <source>Start Sandstorm Mixing</source>
-        <translation>Start Sandstorm Mixing</translation>
+        <source>Start Privatesend Mixing</source>
+        <translation>Start Privatesend Mixing</translation>
     </message>
     <message>
         <location line="-379"/>
         <location line="+382"/>
-        <source>Stop Sandstorm Mixing</source>
-        <translation>Stop Sandstorm Mixing</translation>
+        <source>Stop Privatesend Mixing</source>
+        <translation>Stop Privatesend Mixing</translation>
     </message>
     <message>
         <location line="-211"/>
@@ -1945,9 +1945,9 @@ https://www.transifex.com/projects/p/darksilk/</translation>
     </message>
     <message>
         <location line="+5"/>
-        <source>Last Sandstorm message:
+        <source>Last Privatesend message:
 </source>
-        <translation>Last Sandstorm message:
+        <translation>Last Privatesend message:
 </translation>
     </message>
     <message>
@@ -1957,23 +1957,23 @@ https://www.transifex.com/projects/p/darksilk/</translation>
     </message>
     <message>
         <location line="+18"/>
-        <source>Sandstorm was successfully reset.</source>
-        <translation>Sandstorm was successfully reset.</translation>
+        <source>Privatesend was successfully reset.</source>
+        <translation>Privatesend was successfully reset.</translation>
     </message>
     <message>
         <location line="+10"/>
-        <source>If you don&apos;t want to see internal Sandstorm fees/transactions select &quot;Most Common&quot; as Type on the &quot;Transactions&quot; tab.</source>
-        <translation>If you don&apos;t want to see internal Sandstorm fees/transactions select &quot;Most Common&quot; as Type on the &quot;Transactions&quot; tab.</translation>
+        <source>If you don&apos;t want to see internal Privatesend fees/transactions select &quot;Most Common&quot; as Type on the &quot;Transactions&quot; tab.</source>
+        <translation>If you don&apos;t want to see internal Privatesend fees/transactions select &quot;Most Common&quot; as Type on the &quot;Transactions&quot; tab.</translation>
     </message>
     <message>
         <location line="+10"/>
-        <source>Sandstorm requires at least %1 to use.</source>
-        <translation>Sandstorm requires at least %1 to use.</translation>
+        <source>Privatesend requires at least %1 to use.</source>
+        <translation>Privatesend requires at least %1 to use.</translation>
     </message>
     <message>
         <location line="+14"/>
-        <source>Wallet is locked and user declined to unlock. Disabling Sandstorm.</source>
-        <translation>Wallet is locked and user declined to unlock. Disabling Sandstorm.</translation>
+        <source>Wallet is locked and user declined to unlock. Disabling Privatesend.</source>
+        <translation>Wallet is locked and user declined to unlock. Disabling Privatesend.</translation>
     </message>
 </context>
 <context>
@@ -1990,8 +1990,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
     </message>
     <message>
         <location line="-400"/>
-        <source>Cannot start darksilk: click-to-pay handler</source>
-        <translation>Cannot start darksilk: click-to-pay handler</translation>
+        <source>Cannot start dynamic: click-to-pay handler</source>
+        <translation>Cannot start dynamic: click-to-pay handler</translation>
     </message>
     <message>
         <location line="+104"/>
@@ -2017,8 +2017,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
     </message>
     <message>
         <location line="+8"/>
-        <source>URI cannot be parsed! This can be caused by an invalid DarkSilk address or malformed URI parameters.</source>
-        <translation>URI cannot be parsed! This can be caused by an invalid DarkSilk address or malformed URI parameters.</translation>
+        <source>URI cannot be parsed! This can be caused by an invalid Dynamic address or malformed URI parameters.</source>
+        <translation>URI cannot be parsed! This can be caused by an invalid Dynamic address or malformed URI parameters.</translation>
     </message>
     <message>
         <location line="+14"/>
@@ -2119,14 +2119,14 @@ https://www.transifex.com/projects/p/darksilk/</translation>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../darksilkunits.cpp" line="+252"/>
+        <location filename="../dynamicunits.cpp" line="+252"/>
         <source>Amount</source>
         <translation>Amount</translation>
     </message>
     <message>
         <location filename="../guiutil.cpp" line="+110"/>
-        <source>Enter a DarkSilk address (e.g. %1)</source>
-        <translation>Enter a DarkSilk address (e.g. %1)</translation>
+        <source>Enter a Dynamic address (e.g. %1)</source>
+        <translation>Enter a Dynamic address (e.g. %1)</translation>
     </message>
     <message>
         <location line="+760"/>
@@ -2259,8 +2259,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
     </message>
     <message>
         <location line="+76"/>
-        <source>Open the DarkSilk debug log file from the current data directory. This can take a few seconds for large log files.</source>
-        <translation>Open the DarkSilk debug log file from the current data directory. This can take a few seconds for large log files.</translation>
+        <source>Open the Dynamic debug log file from the current data directory. This can take a few seconds for large log files.</source>
+        <translation>Open the Dynamic debug log file from the current data directory. This can take a few seconds for large log files.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2319,8 +2319,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
     </message>
     <message>
         <location line="+289"/>
-        <source>Number of Stormnodes</source>
-        <translation>Number of Stormnodes</translation>
+        <source>Number of Dynodes</source>
+        <translation>Number of Dynodes</translation>
     </message>
     <message>
         <location line="+34"/>
@@ -2521,8 +2521,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
     </message>
     <message>
         <location line="-35"/>
-        <source>Welcome to the DarkSilk RPC console.</source>
-        <translation>Welcome to the DarkSilk RPC console.</translation>
+        <source>Welcome to the Dynamic RPC console.</source>
+        <translation>Welcome to the Dynamic RPC console.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2601,8 +2601,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
     </message>
     <message>
         <location line="+14"/>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the DarkSilk network.</source>
-        <translation>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the DarkSilk network.</translation>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Dynamic network.</source>
+        <translation>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Dynamic network.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2617,8 +2617,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
     </message>
     <message>
         <location line="-14"/>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened.&lt;br&gt;Note: The message will not be sent with the payment over the DarkSilk network.</source>
-        <translation>An optional message to attach to the payment request, which will be displayed when the request is opened.&lt;br&gt;Note: The message will not be sent with the payment over the DarkSilk network.</translation>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened.&lt;br&gt;Note: The message will not be sent with the payment over the Dynamic network.</source>
+        <translation>An optional message to attach to the payment request, which will be displayed when the request is opened.&lt;br&gt;Note: The message will not be sent with the payment over the Dynamic network.</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -2925,8 +2925,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
     <message>
         <location line="+33"/>
         <location line="+13"/>
-        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks.&lt;br /&gt;But be aware that this can end up in a never confirming transaction once there is more demand for darksilk transactions than the network can process.</source>
-        <translation>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks.&lt;br /&gt;But be aware that this can end up in a never confirming transaction once there is more demand for darksilk transactions than the network can process.</translation>
+        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks.&lt;br /&gt;But be aware that this can end up in a never confirming transaction once there is more demand for dynamic transactions than the network can process.</source>
+        <translation>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks.&lt;br /&gt;But be aware that this can end up in a never confirming transaction once there is more demand for dynamic transactions than the network can process.</translation>
     </message>
     <message>
         <location line="-59"/>
@@ -3015,8 +3015,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
     </message>
     <message>
         <location line="+38"/>
-        <source>Sandstorm</source>
-        <translation>Sandstorm</translation>
+        <source>Privatesend</source>
+        <translation>Privatesend</translation>
     </message>
     <message>
         <location line="+19"/>
@@ -3083,8 +3083,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
     </message>
     <message>
         <location line="+4"/>
-        <source>(sandstorm requires this amount to be rounded up to the nearest %1).</source>
-        <translation>(sandstorm requires this amount to be rounded up to the nearest %1).</translation>
+        <source>(privatesend requires this amount to be rounded up to the nearest %1).</source>
+        <translation>(privatesend requires this amount to be rounded up to the nearest %1).</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -3186,8 +3186,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
     </message>
     <message>
         <location line="+129"/>
-        <source>Warning: Invalid DarkSilk address</source>
-        <translation>Warning: Invalid DarkSilk address</translation>
+        <source>Warning: Invalid Dynamic address</source>
+        <translation>Warning: Invalid Dynamic address</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -3214,8 +3214,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
     </message>
     <message>
         <location line="+18"/>
-        <source>The DarkSilk address to send the payment to</source>
-        <translation>The DarkSilk address to send the payment to</translation>
+        <source>The Dynamic address to send the payment to</source>
+        <translation>The Dynamic address to send the payment to</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -3268,8 +3268,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
     </message>
     <message>
         <location line="+10"/>
-        <source>A message that was attached to the darksilk: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the DarkSilk network.</source>
-        <translation>A message that was attached to the darksilk: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the DarkSilk network.</translation>
+        <source>A message that was attached to the dynamic: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Dynamic network.</source>
+        <translation>A message that was attached to the dynamic: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Dynamic network.</translation>
     </message>
     <message>
         <location line="+426"/>
@@ -3303,8 +3303,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
     <name>ShutdownWindow</name>
     <message>
         <location filename="../utilitydialog.cpp" line="+43"/>
-        <source>DarkSilk Core is shutting down...</source>
-        <translation>DarkSilk Core is shutting down...</translation>
+        <source>Dynamic Core is shutting down...</source>
+        <translation>Dynamic Core is shutting down...</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3331,8 +3331,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
     </message>
     <message>
         <location line="+18"/>
-        <source>The DarkSilk address to sign the message with</source>
-        <translation>The DarkSilk address to sign the message with</translation>
+        <source>The Dynamic address to sign the message with</source>
+        <translation>The Dynamic address to sign the message with</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -3373,8 +3373,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
     </message>
     <message>
         <location line="+21"/>
-        <source>Sign the message to prove you own this DarkSilk address</source>
-        <translation>Sign the message to prove you own this DarkSilk address</translation>
+        <source>Sign the message to prove you own this Dynamic address</source>
+        <translation>Sign the message to prove you own this Dynamic address</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -3404,13 +3404,13 @@ https://www.transifex.com/projects/p/darksilk/</translation>
     </message>
     <message>
         <location line="+21"/>
-        <source>The DarkSilk address the message was signed with</source>
-        <translation>The DarkSilk address the message was signed with</translation>
+        <source>The Dynamic address the message was signed with</source>
+        <translation>The Dynamic address the message was signed with</translation>
     </message>
     <message>
         <location line="+37"/>
-        <source>Verify the message to ensure it was signed with the specified DarkSilk address</source>
-        <translation>Verify the message to ensure it was signed with the specified DarkSilk address</translation>
+        <source>Verify the message to ensure it was signed with the specified Dynamic address</source>
+        <translation>Verify the message to ensure it was signed with the specified Dynamic address</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -3498,8 +3498,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
     <name>SplashScreen</name>
     <message>
         <location filename="../splashscreen.cpp" line="+36"/>
-        <source>DarkSilk Core</source>
-        <translation>DarkSilk Core</translation>
+        <source>Dynamic Core</source>
+        <translation>Dynamic Core</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3513,8 +3513,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>The DarkSilk Core developers</source>
-        <translation>The DarkSilk Core developers</translation>
+        <source>The Dynamic Core developers</source>
+        <translation>The Dynamic Core developers</translation>
     </message>
     <message>
         <location filename="../networkstyle.cpp" line="+19"/>
@@ -3868,8 +3868,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>Received via Sandstorm</source>
-        <translation>Received via Sandstorm</translation>
+        <source>Received via Privatesend</source>
+        <translation>Received via Privatesend</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -3888,28 +3888,28 @@ https://www.transifex.com/projects/p/darksilk/</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>Sandstorm Denominate</source>
-        <translation>Sandstorm Denominate</translation>
+        <source>Privatesend Denominate</source>
+        <translation>Privatesend Denominate</translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>Sandstorm Collateral Payment</source>
-        <translation>Sandstorm Collateral Payment</translation>
+        <source>Privatesend Collateral Payment</source>
+        <translation>Privatesend Collateral Payment</translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>Sandstorm Make Collateral Inputs</source>
-        <translation>Sandstorm Make Collateral Inputs</translation>
+        <source>Privatesend Make Collateral Inputs</source>
+        <translation>Privatesend Make Collateral Inputs</translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>Sandstorm Create Denominations</source>
-        <translation>Sandstorm Create Denominations</translation>
+        <source>Privatesend Create Denominations</source>
+        <translation>Privatesend Create Denominations</translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>Sandstormed</source>
-        <translation>Sandstormed</translation>
+        <source>Privatesended</source>
+        <translation>Privatesended</translation>
     </message>
     <message>
         <location line="+30"/>
@@ -4007,28 +4007,28 @@ https://www.transifex.com/projects/p/darksilk/</translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>Sandstormed</source>
-        <translation>Sandstormed</translation>
+        <source>Privatesended</source>
+        <translation>Privatesended</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Sandstorm Make Collateral Inputs</source>
-        <translation>Sandstorm Make Collateral Inputs</translation>
+        <source>Privatesend Make Collateral Inputs</source>
+        <translation>Privatesend Make Collateral Inputs</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Sandstorm Create Denominations</source>
-        <translation>Sandstorm Create Denominations</translation>
+        <source>Privatesend Create Denominations</source>
+        <translation>Privatesend Create Denominations</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Sandstorm Denominate</source>
-        <translation>Sandstorm Denominate</translation>
+        <source>Privatesend Denominate</source>
+        <translation>Privatesend Denominate</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Sandstorm Collateral Payment</source>
-        <translation>Sandstorm Collateral Payment</translation>
+        <source>Privatesend Collateral Payment</source>
+        <translation>Privatesend Collateral Payment</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4164,7 +4164,7 @@ https://www.transifex.com/projects/p/darksilk/</translation>
 <context>
     <name>UnitDisplayStatusBarControl</name>
     <message>
-        <location filename="../darksilkgui.cpp" line="+115"/>
+        <location filename="../dynamicgui.cpp" line="+115"/>
         <source>Unit to show amounts in. Click to select another unit.</source>
         <translation>Unit to show amounts in. Click to select another unit.</translation>
     </message>
@@ -4189,8 +4189,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
     <message>
         <location line="-20"/>
         <location line="+9"/>
-        <source>InstantX doesn&apos;t support sending values that high yet. Transactions are currently limited to %1 DSLK.</source>
-        <translation>InstantX doesn&apos;t support sending values that high yet. Transactions are currently limited to %1 DSLK.</translation>
+        <source>InstantX doesn&apos;t support sending values that high yet. Transactions are currently limited to %1 DYN.</source>
+        <translation>InstantX doesn&apos;t support sending values that high yet. Transactions are currently limited to %1 DYN.</translation>
     </message>
 </context>
 <context>
@@ -4242,21 +4242,21 @@ https://www.transifex.com/projects/p/darksilk/</translation>
     </message>
 </context>
 <context>
-    <name>darksilk-core</name>
+    <name>dynamic-core</name>
     <message>
-        <location filename="../darksilkstrings.cpp" line="+22"/>
+        <location filename="../dynamicstrings.cpp" line="+22"/>
         <source>Bind to given address and always listen on it. Use [host]:port notation for IPv6</source>
         <translation>Bind to given address and always listen on it. Use [host]:port notation for IPv6</translation>
     </message>
     <message>
         <location line="+10"/>
-        <source>Cannot obtain a lock on data directory %s. DarkSilk Core is probably already running.</source>
-        <translation>Cannot obtain a lock on data directory %s. DarkSilk Core is probably already running.</translation>
+        <source>Cannot obtain a lock on data directory %s. Dynamic Core is probably already running.</source>
+        <translation>Cannot obtain a lock on data directory %s. Dynamic Core is probably already running.</translation>
     </message>
     <message>
         <location line="+12"/>
-        <source>Sandstorm uses exact denominated amounts to send funds, you might simply need to anonymize some more coins.</source>
-        <translation>Sandstorm uses exact denominated amounts to send funds, you might simply need to anonymize some more coins.</translation>
+        <source>Privatesend uses exact denominated amounts to send funds, you might simply need to anonymize some more coins.</source>
+        <translation>Privatesend uses exact denominated amounts to send funds, you might simply need to anonymize some more coins.</translation>
     </message>
     <message>
         <location line="+18"/>
@@ -4320,18 +4320,18 @@ https://www.transifex.com/projects/p/darksilk/</translation>
     </message>
     <message>
         <location line="+20"/>
-        <source>Unable to bind to %s on this computer. DarkSilk Core is probably already running.</source>
-        <translation>Unable to bind to %s on this computer. DarkSilk Core is probably already running.</translation>
+        <source>Unable to bind to %s on this computer. Dynamic Core is probably already running.</source>
+        <translation>Unable to bind to %s on this computer. Dynamic Core is probably already running.</translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>Unable to locate enough Sandstorm denominated funds for this transaction.</source>
-        <translation>Unable to locate enough Sandstorm denominated funds for this transaction.</translation>
+        <source>Unable to locate enough Privatesend denominated funds for this transaction.</source>
+        <translation>Unable to locate enough Privatesend denominated funds for this transaction.</translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>Unable to locate enough Sandstorm non-denominated funds for this transaction that are not equal 1000 DSLK.</source>
-        <translation>Unable to locate enough Sandstorm non-denominated funds for this transaction that are not equal 1000 DSLK.</translation>
+        <source>Unable to locate enough Privatesend non-denominated funds for this transaction that are not equal 1000 DYN.</source>
+        <translation>Unable to locate enough Privatesend non-denominated funds for this transaction that are not equal 1000 DYN.</translation>
     </message>
     <message>
         <location line="+12"/>
@@ -4360,8 +4360,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
     </message>
     <message>
         <location line="+10"/>
-        <source>You must specify a stormnodeprivkey in the configuration. Please see documentation for help.</source>
-        <translation>You must specify a stormnodeprivkey in the configuration. Please see documentation for help.</translation>
+        <source>You must specify a dynodeprivkey in the configuration. Please see documentation for help.</source>
+        <translation>You must specify a dynodeprivkey in the configuration. Please see documentation for help.</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -4455,8 +4455,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
     </message>
     <message>
         <location line="+4"/>
-        <source>Sandstorm options:</source>
-        <translation>Sandstorm options:</translation>
+        <source>Privatesend options:</source>
+        <translation>Privatesend options:</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -4545,8 +4545,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Error: You already have pending entries in the Sandstorm pool</source>
-        <translation>Error: You already have pending entries in the Sandstorm pool</translation>
+        <source>Error: You already have pending entries in the Privatesend pool</source>
+        <translation>Error: You already have pending entries in the Privatesend pool</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4610,8 +4610,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>Disable all DarkSilk specific functionality (Stormnodes, Sandstorm, InstantX, Budgeting) (0-1, default: %u)</source>
-        <translation>Disable all DarkSilk specific functionality (Stormnodes, Sandstorm, InstantX, Budgeting) (0-1, default: %u)</translation>
+        <source>Disable all Dynamic specific functionality (Dynodes, Privatesend, InstantX, Budgeting) (0-1, default: %u)</source>
+        <translation>Disable all Dynamic specific functionality (Dynodes, Privatesend, InstantX, Budgeting) (0-1, default: %u)</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -4625,8 +4625,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>Enable use of automated sandstorm for funds stored in this wallet (0-1, default: %u)</source>
-        <translation>Enable use of automated sandstorm for funds stored in this wallet (0-1, default: %u)</translation>
+        <source>Enable use of automated privatesend for funds stored in this wallet (0-1, default: %u)</source>
+        <translation>Enable use of automated privatesend for funds stored in this wallet (0-1, default: %u)</translation>
     </message>
     <message>
         <location line="+8"/>
@@ -4635,13 +4635,13 @@ https://www.transifex.com/projects/p/darksilk/</translation>
     </message>
     <message>
         <location line="+12"/>
-        <source>Fees (in DSLK/Kb) smaller than this are considered zero fee for relaying (default: %s)</source>
-        <translation>Fees (in DSLK/Kb) smaller than this are considered zero fee for relaying (default: %s)</translation>
+        <source>Fees (in DYN/Kb) smaller than this are considered zero fee for relaying (default: %s)</source>
+        <translation>Fees (in DYN/Kb) smaller than this are considered zero fee for relaying (default: %s)</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>Fees (in DSLK/Kb) smaller than this are considered zero fee for transaction creation (default: %s)</source>
-        <translation>Fees (in DSLK/Kb) smaller than this are considered zero fee for transaction creation (default: %s)</translation>
+        <source>Fees (in DYN/Kb) smaller than this are considered zero fee for transaction creation (default: %s)</source>
+        <translation>Fees (in DYN/Kb) smaller than this are considered zero fee for transaction creation (default: %s)</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -4700,8 +4700,8 @@ https://www.transifex.com/projects/p/darksilk/</translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>Provide liquidity to Sandstorm by infrequently mixing coins on a continual basis (0-100, default: %u, 1=very frequent, high fees, 100=very infrequent, low fees)</source>
-        <translation>Provide liquidity to Sandstorm by infrequently mixing coins on a continual basis (0-100, default: %u, 1=very frequent, high fees, 100=very infrequent, low fees)</translation>
+        <source>Provide liquidity to Privatesend by infrequently mixing coins on a continual basis (0-100, default: %u, 1=very frequent, high fees, 100=very infrequent, low fees)</source>
+        <translation>Provide liquidity to Privatesend by infrequently mixing coins on a continual basis (0-100, default: %u, 1=very frequent, high fees, 100=very infrequent, low fees)</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -4730,33 +4730,33 @@ https://www.transifex.com/projects/p/darksilk/</translation>
     </message>
     <message>
         <location line="+4"/>
-        <source>To use darksilkd, or the -server option to darksilk-qt, you must set an rpcpassword in the configuration file:
+        <source>To use dynamicd, or the -server option to dynamic-qt, you must set an rpcpassword in the configuration file:
 %s
 It is recommended you use the following random password:
-rpcuser=darksilkrpc
+rpcuser=dynamicrpc
 rpcpassword=%s
 (you do not need to remember this password)
 The username and password MUST NOT be the same.
 If the file does not exist, create it with owner-readable-only file permissions.
 It is also recommended to set alertnotify so you are notified of problems;
-for example: alertnotify=echo %%s | mail -s &quot;DarkSilk Alert&quot; admin@foo.com
+for example: alertnotify=echo %%s | mail -s &quot;Dynamic Alert&quot; admin@foo.com
 </source>
-        <translation>To use darksilkd, or the -server option to darksilk-qt, you must set an rpcpassword in the configuration file:
+        <translation>To use dynamicd, or the -server option to dynamic-qt, you must set an rpcpassword in the configuration file:
 %s
 It is recommended you use the following random password:
-rpcuser=darksilkrpc
+rpcuser=dynamicrpc
 rpcpassword=%s
 (you do not need to remember this password)
 The username and password MUST NOT be the same.
 If the file does not exist, create it with owner-readable-only file permissions.
 It is also recommended to set alertnotify so you are notified of problems;
-for example: alertnotify=echo %%s | mail -s &quot;DarkSilk Alert&quot; admin@foo.com
+for example: alertnotify=echo %%s | mail -s &quot;Dynamic Alert&quot; admin@foo.com
 </translation>
     </message>
     <message>
         <location line="+20"/>
-        <source>Unable to locate enough funds for this transaction that are not equal 1000 DSLK.</source>
-        <translation>Unable to locate enough funds for this transaction that are not equal 1000 DSLK.</translation>
+        <source>Unable to locate enough funds for this transaction that are not equal 1000 DYN.</source>
+        <translation>Unable to locate enough funds for this transaction that are not equal 1000 DYN.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -4770,8 +4770,8 @@ for example: alertnotify=echo %%s | mail -s &quot;DarkSilk Alert&quot; admin@foo
     </message>
     <message>
         <location line="+6"/>
-        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong DarkSilk Core will not work properly.</source>
-        <translation>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong DarkSilk Core will not work properly.</translation>
+        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong Dynamic Core will not work properly.</source>
+        <translation>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong Dynamic Core will not work properly.</translation>
     </message>
     <message>
         <location line="+16"/>
@@ -4837,8 +4837,8 @@ for example: alertnotify=echo %%s | mail -s &quot;DarkSilk Alert&quot; admin@foo
     </message>
     <message>
         <location line="+1"/>
-        <source>Copyright (C) 2014-%i The DarkSilk Core Developers</source>
-        <translation>Copyright (C) 2014-%i The DarkSilk Core Developers</translation>
+        <source>Copyright (C) 2014-%i The Dynamic Core Developers</source>
+        <translation>Copyright (C) 2014-%i The Dynamic Core Developers</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4847,18 +4847,18 @@ for example: alertnotify=echo %%s | mail -s &quot;DarkSilk Alert&quot; admin@foo
     </message>
     <message>
         <location line="+2"/>
-        <source>Sandstorm is idle.</source>
-        <translation>Sandstorm is idle.</translation>
+        <source>Privatesend is idle.</source>
+        <translation>Privatesend is idle.</translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>Sandstorm request complete:</source>
-        <translation>Sandstorm request complete:</translation>
+        <source>Privatesend request complete:</source>
+        <translation>Privatesend request complete:</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Sandstorm request incomplete:</source>
-        <translation>Sandstorm request incomplete:</translation>
+        <source>Privatesend request incomplete:</source>
+        <translation>Privatesend request incomplete:</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4867,18 +4867,18 @@ for example: alertnotify=echo %%s | mail -s &quot;DarkSilk Alert&quot; admin@foo
     </message>
     <message>
         <location line="+5"/>
-        <source>Enable the client to act as a stormnode (0-1, default: %u)</source>
-        <translation>Enable the client to act as a stormnode (0-1, default: %u)</translation>
+        <source>Enable the client to act as a dynode (0-1, default: %u)</source>
+        <translation>Enable the client to act as a dynode (0-1, default: %u)</translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>Error connecting to Stormnode.</source>
-        <translation>Error connecting to Stormnode.</translation>
+        <source>Error connecting to Dynode.</source>
+        <translation>Error connecting to Dynode.</translation>
     </message>
     <message>
         <location line="+6"/>
-        <source>Error loading wallet.dat: Wallet requires newer version of DarkSilk Core</source>
-        <translation>Error loading wallet.dat: Wallet requires newer version of DarkSilk Core</translation>
+        <source>Error loading wallet.dat: Wallet requires newer version of Dynamic Core</source>
+        <translation>Error loading wallet.dat: Wallet requires newer version of Dynamic Core</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -4897,8 +4897,8 @@ for example: alertnotify=echo %%s | mail -s &quot;DarkSilk Alert&quot; admin@foo
     </message>
     <message>
         <location line="+5"/>
-        <source>Fee (in DSLK/kB) to add to transactions you send (default: %s)</source>
-        <translation>Fee (in DSLK/kB) to add to transactions you send (default: %s)</translation>
+        <source>Fee (in DYN/kB) to add to transactions you send (default: %s)</source>
+        <translation>Fee (in DYN/kB) to add to transactions you send (default: %s)</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4967,8 +4967,8 @@ for example: alertnotify=echo %%s | mail -s &quot;DarkSilk Alert&quot; admin@foo
     </message>
     <message>
         <location line="+1"/>
-        <source>Initialization sanity check failed. DarkSilk Core is shutting down.</source>
-        <translation>Initialization sanity check failed. DarkSilk Core is shutting down.</translation>
+        <source>Initialization sanity check failed. Dynamic Core is shutting down.</source>
+        <translation>Initialization sanity check failed. Dynamic Core is shutting down.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -5022,8 +5022,8 @@ for example: alertnotify=echo %%s | mail -s &quot;DarkSilk Alert&quot; admin@foo
     </message>
     <message>
         <location line="+11"/>
-        <source>Last successful Sandstorm action was too recent.</source>
-        <translation>Last successful Sandstorm action was too recent.</translation>
+        <source>Last successful Privatesend action was too recent.</source>
+        <translation>Last successful Privatesend action was too recent.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -5047,13 +5047,13 @@ for example: alertnotify=echo %%s | mail -s &quot;DarkSilk Alert&quot; admin@foo
     </message>
     <message>
         <location line="+1"/>
-        <source>Loading stormnode cache...</source>
-        <translation>Loading stormnode cache...</translation>
+        <source>Loading dynode cache...</source>
+        <translation>Loading dynode cache...</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Loading stormnode payment cache...</source>
-        <translation>Loading stormnode payment cache...</translation>
+        <source>Loading dynode payment cache...</source>
+        <translation>Loading dynode payment cache...</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -5062,8 +5062,8 @@ for example: alertnotify=echo %%s | mail -s &quot;DarkSilk Alert&quot; admin@foo
     </message>
     <message>
         <location line="+1"/>
-        <source>Lock stormnodes from stormnode configuration file (default: %u)</source>
-        <translation>Lock stormnodes from stormnode configuration file (default: %u)</translation>
+        <source>Lock dynodes from dynode configuration file (default: %u)</source>
+        <translation>Lock dynodes from dynode configuration file (default: %u)</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -5092,18 +5092,18 @@ for example: alertnotify=echo %%s | mail -s &quot;DarkSilk Alert&quot; admin@foo
     </message>
     <message>
         <location line="+1"/>
-        <source>No Stormnodes detected.</source>
-        <translation>No Stormnodes detected.</translation>
+        <source>No Dynodes detected.</source>
+        <translation>No Dynodes detected.</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>No compatible Stormnode found.</source>
-        <translation>No compatible Stormnode found.</translation>
+        <source>No compatible Dynode found.</source>
+        <translation>No compatible Dynode found.</translation>
     </message>
     <message>
         <location line="+7"/>
-        <source>Not in the Stormnode list.</source>
-        <translation>Not in the Stormnode list.</translation>
+        <source>Not in the Dynode list.</source>
+        <translation>Not in the Dynode list.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -5152,8 +5152,8 @@ for example: alertnotify=echo %%s | mail -s &quot;DarkSilk Alert&quot; admin@foo
     </message>
     <message>
         <location line="+4"/>
-        <source>Set external address:port to get to this stormnode (example: %s)</source>
-        <translation>Set external address:port to get to this stormnode (example: %s)</translation>
+        <source>Set external address:port to get to this dynode (example: %s)</source>
+        <translation>Set external address:port to get to this dynode (example: %s)</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -5192,8 +5192,8 @@ for example: alertnotify=echo %%s | mail -s &quot;DarkSilk Alert&quot; admin@foo
     </message>
     <message>
         <location line="+2"/>
-        <source>Specify stormnode configuration file (default: %s)</source>
-        <translation>Specify stormnode configuration file (default: %s)</translation>
+        <source>Specify dynode configuration file (default: %s)</source>
+        <translation>Specify dynode configuration file (default: %s)</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -5212,18 +5212,18 @@ for example: alertnotify=echo %%s | mail -s &quot;DarkSilk Alert&quot; admin@foo
     </message>
     <message>
         <location line="+1"/>
-        <source>Submitted following entries to stormnode: %u / %d</source>
-        <translation>Submitted following entries to stormnode: %u / %d</translation>
+        <source>Submitted following entries to dynode: %u / %d</source>
+        <translation>Submitted following entries to dynode: %u / %d</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Submitted to stormnode, waiting for more entries ( %u / %d ) %s</source>
-        <translation>Submitted to stormnode, waiting for more entries ( %u / %d ) %s</translation>
+        <source>Submitted to dynode, waiting for more entries ( %u / %d ) %s</source>
+        <translation>Submitted to dynode, waiting for more entries ( %u / %d ) %s</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Submitted to stormnode, waiting in queue %s</source>
-        <translation>Submitted to stormnode, waiting in queue %s</translation>
+        <source>Submitted to dynode, waiting in queue %s</source>
+        <translation>Submitted to dynode, waiting in queue %s</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -5242,13 +5242,13 @@ for example: alertnotify=echo %%s | mail -s &quot;DarkSilk Alert&quot; admin@foo
     </message>
     <message>
         <location line="+1"/>
-        <source>Synchronizing stormnode winners...</source>
-        <translation>Synchronizing stormnode winners...</translation>
+        <source>Synchronizing dynode winners...</source>
+        <translation>Synchronizing dynode winners...</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Synchronizing stormnodes...</source>
-        <translation>Synchronizing stormnodes...</translation>
+        <source>Synchronizing dynodes...</source>
+        <translation>Synchronizing dynodes...</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -5257,8 +5257,8 @@ for example: alertnotify=echo %%s | mail -s &quot;DarkSilk Alert&quot; admin@foo
     </message>
     <message>
         <location line="+4"/>
-        <source>This is not a Stormnode.</source>
-        <translation>This is not a Stormnode.</translation>
+        <source>This is not a Dynode.</source>
+        <translation>This is not a Dynode.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -5272,8 +5272,8 @@ for example: alertnotify=echo %%s | mail -s &quot;DarkSilk Alert&quot; admin@foo
     </message>
     <message>
         <location line="+1"/>
-        <source>Use N separate stormnodes to anonymize funds  (2-8, default: %u)</source>
-        <translation>Use N separate stormnodes to anonymize funds  (2-8, default: %u)</translation>
+        <source>Use N separate dynodes to anonymize funds  (2-8, default: %u)</source>
+        <translation>Use N separate dynodes to anonymize funds  (2-8, default: %u)</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -5282,8 +5282,8 @@ for example: alertnotify=echo %%s | mail -s &quot;DarkSilk Alert&quot; admin@foo
     </message>
     <message>
         <location line="+9"/>
-        <source>Wallet needed to be rewritten: restart DarkSilk Core to complete</source>
-        <translation>Wallet needed to be rewritten: restart DarkSilk Core to complete</translation>
+        <source>Wallet needed to be rewritten: restart Dynamic Core to complete</source>
+        <translation>Wallet needed to be rewritten: restart Dynamic Core to complete</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -5302,8 +5302,8 @@ for example: alertnotify=echo %%s | mail -s &quot;DarkSilk Alert&quot; admin@foo
     </message>
     <message>
         <location line="-136"/>
-        <source>Invalid stormnodeprivkey. Please see documenation.</source>
-        <translation>Invalid stormnodeprivkey. Please see documenation.</translation>
+        <source>Invalid dynodeprivkey. Please see documenation.</source>
+        <translation>Invalid dynodeprivkey. Please see documenation.</translation>
     </message>
     <message>
         <location line="-88"/>
@@ -5312,8 +5312,8 @@ for example: alertnotify=echo %%s | mail -s &quot;DarkSilk Alert&quot; admin@foo
     </message>
     <message>
         <location line="+13"/>
-        <source>Can&apos;t find random Stormnode.</source>
-        <translation>Can&apos;t find random Stormnode.</translation>
+        <source>Can&apos;t find random Dynode.</source>
+        <translation>Can&apos;t find random Dynode.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -5322,8 +5322,8 @@ for example: alertnotify=echo %%s | mail -s &quot;DarkSilk Alert&quot; admin@foo
     </message>
     <message>
         <location line="+16"/>
-        <source>Could not parse stormnode.conf</source>
-        <translation>Could not parse stormnode.conf</translation>
+        <source>Could not parse dynode.conf</source>
+        <translation>Could not parse dynode.conf</translation>
     </message>
     <message>
         <location line="+59"/>
@@ -5332,8 +5332,8 @@ for example: alertnotify=echo %%s | mail -s &quot;DarkSilk Alert&quot; admin@foo
     </message>
     <message>
         <location line="+1"/>
-        <source>Invalid port detected in stormnode.conf</source>
-        <translation>Invalid port detected in stormnode.conf</translation>
+        <source>Invalid port detected in dynode.conf</source>
+        <translation>Invalid port detected in dynode.conf</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -5357,8 +5357,8 @@ for example: alertnotify=echo %%s | mail -s &quot;DarkSilk Alert&quot; admin@foo
     </message>
     <message>
         <location line="+1"/>
-        <source>Keep N DSLK anonymized (default: %u)</source>
-        <translation>Keep N DSLK anonymized (default: %u)</translation>
+        <source>Keep N DYN anonymized (default: %u)</source>
+        <translation>Keep N DYN anonymized (default: %u)</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -5367,8 +5367,8 @@ for example: alertnotify=echo %%s | mail -s &quot;DarkSilk Alert&quot; admin@foo
     </message>
     <message>
         <location line="+1"/>
-        <source>Last Sandstorm was too recent.</source>
-        <translation>Last Sandstorm was too recent.</translation>
+        <source>Last Privatesend was too recent.</source>
+        <translation>Last Privatesend was too recent.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -5397,18 +5397,18 @@ for example: alertnotify=echo %%s | mail -s &quot;DarkSilk Alert&quot; admin@foo
     </message>
     <message>
         <location line="+4"/>
-        <source>Stormnode options:</source>
-        <translation>Stormnode options:</translation>
+        <source>Dynode options:</source>
+        <translation>Dynode options:</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Stormnode queue is full.</source>
-        <translation>Stormnode queue is full.</translation>
+        <source>Dynode queue is full.</source>
+        <translation>Dynode queue is full.</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Stormnode:</source>
-        <translation>Stormnode:</translation>
+        <source>Dynode:</source>
+        <translation>Dynode:</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -5537,8 +5537,8 @@ for example: alertnotify=echo %%s | mail -s &quot;DarkSilk Alert&quot; admin@foo
     </message>
     <message>
         <location line="+2"/>
-        <source>Set the stormnode private key</source>
-        <translation>Set the stormnode private key</translation>
+        <source>Set the dynode private key</source>
+        <translation>Set the dynode private key</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -5682,8 +5682,8 @@ for example: alertnotify=echo %%s | mail -s &quot;DarkSilk Alert&quot; admin@foo
     </message>
     <message>
         <location line="+1"/>
-        <source>Value more than Sandstorm pool maximum allows.</source>
-        <translation>Value more than Sandstorm pool maximum allows.</translation>
+        <source>Value more than Privatesend pool maximum allows.</source>
+        <translation>Value more than Privatesend pool maximum allows.</translation>
     </message>
     <message>
         <location line="+1"/>

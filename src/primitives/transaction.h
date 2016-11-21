@@ -6,8 +6,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_PRIMITIVES_TRANSACTION_H
-#define DARKSILK_PRIMITIVES_TRANSACTION_H
+#ifndef DYNAMIC_PRIMITIVES_TRANSACTION_H
+#define DYNAMIC_PRIMITIVES_TRANSACTION_H
 
 #include "amount.h"
 #include "script/script.h"
@@ -341,4 +341,4 @@ struct CMutableTransaction
 
 };
 
-#endif // DARKSILK_PRIMITIVES_TRANSACTION_H
+#endif // DYNAMIC_PRIMITIVES_TRANSACTION_H

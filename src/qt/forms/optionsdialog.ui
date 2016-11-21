@@ -32,12 +32,12 @@ QTabBar { alignment: left; }</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_Main">
        <item>
-        <widget class="QCheckBox" name="darksilkAtStartup">
+        <widget class="QCheckBox" name="dynamicAtStartup">
          <property name="toolTip">
-          <string>Automatically start DarkSilk Core after logging in to the system.</string>
+          <string>Automatically start Dynamic Core after logging in to the system.</string>
          </property>
          <property name="text">
-          <string>&amp;Start DarkSilk Core on system login</string>
+          <string>&amp;Start Dynamic Core on system login</string>
          </property>
         </widget>
        </item>
@@ -158,12 +158,12 @@ QTabBar { alignment: left; }</string>
            </widget>
           </item>
           <item>
-           <widget class="QCheckBox" name="showStormnodesTab">
+           <widget class="QCheckBox" name="showDynodesTab">
             <property name="toolTip">
-             <string>Show additional tab listing all your stormnodes in first sub-tab&lt;br/&gt;and all stormnodes on the network in second sub-tab.</string>
+             <string>Show additional tab listing all your dynodes in first sub-tab&lt;br/&gt;and all dynodes on the network in second sub-tab.</string>
             </property>
             <property name="text">
-             <string>Show Stormnodes Tab</string>
+             <string>Show Dynodes Tab</string>
             </property>
            </widget>
           </item>
@@ -215,7 +215,7 @@ QTabBar { alignment: left; }</string>
          <item>
           <widget class="QLabel" name="label">
            <property name="toolTip">
-            <string>This setting determines the amount of individual stormnodes that an input will be anonymized through.&lt;br/&gt;More rounds of anonymization gives a higher degree of privacy, but also costs more in fees.</string>
+            <string>This setting determines the amount of individual dynodes that an input will be anonymized through.&lt;br/&gt;More rounds of anonymization gives a higher degree of privacy, but also costs more in fees.</string>
            </property>
            <property name="text">
             <string>PrivateSend rounds to use</string>
@@ -257,7 +257,7 @@ QTabBar { alignment: left; }</string>
             <string notr="true"/>
            </property>
            <property name="text">
-            <string>Amount of DarkSilk to keep anonymized</string>
+            <string>Amount of Dynamic to keep anonymized</string>
            </property>
           </widget>
          </item>
@@ -302,7 +302,7 @@ QTabBar { alignment: left; }</string>
        <item>
         <widget class="QCheckBox" name="mapPortUpnp">
          <property name="toolTip">
-          <string>Automatically open the DarkSilk Core client port on the router. This only works when your router supports UPnP and it is enabled.</string>
+          <string>Automatically open the Dynamic Core client port on the router. This only works when your router supports UPnP and it is enabled.</string>
          </property>
          <property name="text">
           <string>Map port using &amp;UPnP</string>
@@ -322,7 +322,7 @@ QTabBar { alignment: left; }</string>
        <item>
         <widget class="QCheckBox" name="connectSocks">
          <property name="toolTip">
-          <string>Connect to the DarkSilk network through a SOCKS5 proxy.</string>
+          <string>Connect to the Dynamic network through a SOCKS5 proxy.</string>
          </property>
          <property name="text">
           <string>&amp;Connect through SOCKS5 proxy (default proxy):</string>
@@ -509,7 +509,7 @@ QTabBar { alignment: left; }</string>
        <item>
         <widget class="QCheckBox" name="connectSocksTor">
          <property name="toolTip">
-          <string>Connect to the DarkSilk network through a separate SOCKS5 proxy for Tor hidden services.</string>
+          <string>Connect to the Dynamic network through a separate SOCKS5 proxy for Tor hidden services.</string>
          </property>
          <property name="text">
           <string>Use separate SOCKS5 proxy to reach peers via Tor hidden services:</string>
@@ -675,7 +675,7 @@ QTabBar { alignment: left; }</string>
          <item>
           <widget class="QValueComboBox" name="lang">
            <property name="toolTip">
-            <string>The user interface language can be set here. This setting will take effect after restarting DarkSilk Core.</string>
+            <string>The user interface language can be set here. This setting will take effect after restarting Dynamic Core.</string>
            </property>
           </widget>
          </item>

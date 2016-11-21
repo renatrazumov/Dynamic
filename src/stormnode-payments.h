@@ -3,55 +3,55 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_STORMNODE_PAYMENTS_H
-#define DARKSILK_STORMNODE_PAYMENTS_H
+#ifndef DYNAMIC_DYNODE_PAYMENTS_H
+#define DYNAMIC_DYNODE_PAYMENTS_H
 
 #include "util.h"
 #include "core_io.h"
 #include "key.h"
 #include "main.h"
-#include "stormnode.h"
+#include "dynode.h"
 #include "utilstrencodings.h"
 
-class CStormnodePayments;
-class CStormnodePaymentVote;
-class CStormnodeBlockPayees;
+class CDynodePayments;
+class CDynodePaymentVote;
+class CDynodeBlockPayees;
 
 static const int SNPAYMENTS_SIGNATURES_REQUIRED         = 10;
 static const int SNPAYMENTS_SIGNATURES_TOTAL            = 20;
 
-//! minimum peer version that can receive and send stormnode payment messages,
-//  vote for stormnode and be elected as a payment winner
+//! minimum peer version that can receive and send dynode payment messages,
+//  vote for dynode and be elected as a payment winner
 // V1 - Last protocol version before update
 // V2 - Newest protocol version
-static const int MIN_STORMNODE_PAYMENT_PROTO_VERSION_1 = 60700;
-static const int MIN_STORMNODE_PAYMENT_PROTO_VERSION_2 = 60800;
+static const int MIN_DYNODE_PAYMENT_PROTO_VERSION_1 = 60700;
+static const int MIN_DYNODE_PAYMENT_PROTO_VERSION_2 = 60800;
 
 extern CCriticalSection cs_vecPayees;
-extern CCriticalSection cs_mapStormnodeBlocks;
-extern CCriticalSection cs_mapStormnodePayeeVotes;
+extern CCriticalSection cs_mapDynodeBlocks;
+extern CCriticalSection cs_mapDynodePayeeVotes;
 
-extern CStormnodePayments snpayments;
+extern CDynodePayments snpayments;
 
 /// TODO: all 4 functions do not belong here really, they should be refactored/moved somewhere (main.cpp ?)
 bool IsBlockValueValid(const CBlock& block, int nBlockHeight, CAmount blockReward);
 bool IsBlockPayeeValid(const CTransaction& txNew, int nBlockHeight, CAmount blockReward);
-void FillBlockPayments(CMutableTransaction& txNew, int nBlockHeight, CAmount blockReward, CTxOut& txoutStormnodeRet, std::vector<CTxOut>& voutSuperblockRet);
+void FillBlockPayments(CMutableTransaction& txNew, int nBlockHeight, CAmount blockReward, CTxOut& txoutDynodeRet, std::vector<CTxOut>& voutSuperblockRet);
 std::string GetRequiredPaymentsString(int nBlockHeight);
 
-class CStormnodePayee
+class CDynodePayee
 {
 private:
     CScript scriptPubKey;
     std::vector<uint256> vecVoteHashes;
 
 public:
-    CStormnodePayee() :
+    CDynodePayee() :
         scriptPubKey(),
         vecVoteHashes()
         {}
 
-    CStormnodePayee(CScript payee, uint256 hashIn) :
+    CDynodePayee(CScript payee, uint256 hashIn) :
         scriptPubKey(payee),
         vecVoteHashes()
     {
@@ -73,15 +73,15 @@ public:
     int GetVoteCount() { return vecVoteHashes.size(); }
 };
 
-// Keep track of votes for payees from stormnodes
-class CStormnodeBlockPayees
+// Keep track of votes for payees from dynodes
+class CDynodeBlockPayees
 {
 public:
     int nBlockHeight;
-    std::vector<CStormnodePayee> vecPayees;
+    std::vector<CDynodePayee> vecPayees;
 
-    CStormnodeBlockPayees() : nBlockHeight(0) {}
-    CStormnodeBlockPayees(int nBlockHeightIn) : nBlockHeight(nBlockHeightIn) {}
+    CDynodeBlockPayees() : nBlockHeight(0) {}
+    CDynodeBlockPayees(int nBlockHeightIn) : nBlockHeight(nBlockHeightIn) {}
 
     ADD_SERIALIZE_METHODS;
 
@@ -91,7 +91,7 @@ public:
         READWRITE(vecPayees);
     }
 
-    void AddPayee(const CStormnodePaymentVote& vote);
+    void AddPayee(const CDynodePaymentVote& vote);
     bool GetBestPayee(CScript& payeeRet);
     bool HasPayeeWithVotes(CScript payeeIn, int nVotesReq);
 
@@ -101,24 +101,24 @@ public:
 };
 
 // vote for the winning payment
-class CStormnodePaymentVote
+class CDynodePaymentVote
 {
 public:
-    CTxIn vinStormnode;
+    CTxIn vinDynode;
 
     int nBlockHeight;
     CScript payee;
     std::vector<unsigned char> vchSig;
 
-    CStormnodePaymentVote() :
-        vinStormnode(),
+    CDynodePaymentVote() :
+        vinDynode(),
         nBlockHeight(0),
         payee(),
         vchSig()
         {}
 
-    CStormnodePaymentVote(CTxIn vinStormnode, int nBlockHeight, CScript payee) :
-        vinStormnode(vinStormnode),
+    CDynodePaymentVote(CTxIn vinDynode, int nBlockHeight, CScript payee) :
+        vinDynode(vinDynode),
         nBlockHeight(nBlockHeight),
         payee(payee),
         vchSig()
@@ -128,7 +128,7 @@ public:
 
     template <typename Stream, typename Operation>
     inline void SerializationOp(Stream& s, Operation ser_action, int nType, int nVersion) {
-        READWRITE(vinStormnode);
+        READWRITE(vinDynode);
         READWRITE(nBlockHeight);
         READWRITE(*(CScriptBase*)(&payee));
         READWRITE(vchSig);
@@ -138,7 +138,7 @@ public:
         CHashWriter ss(SER_GETHASH, PROTOCOL_VERSION);
         ss << *(CScriptBase*)(&payee);
         ss << nBlockHeight;
-        ss << vinStormnode.prevout;
+        ss << vinDynode.prevout;
         return ss.GetHash();
     }
 
@@ -152,14 +152,14 @@ public:
 };
 
 //
-// Stormnode Payments Class
+// Dynode Payments Class
 // Keeps track of who should get paid for which blocks
 //
 
-class CStormnodePayments
+class CDynodePayments
 {
 private:
-    // stormnode count times nStorageCoeff payments blocks should be stored ...
+    // dynode count times nStorageCoeff payments blocks should be stored ...
     const float nStorageCoeff;
     // ... but at least nMinBlocksToStore (payments blocks)
     const int nMinBlocksToStore;
@@ -168,23 +168,23 @@ private:
     const CBlockIndex *pCurrentBlockIndex;
 
 public:
-    std::map<uint256, CStormnodePaymentVote> mapStormnodePaymentVotes;
-    std::map<int, CStormnodeBlockPayees> mapStormnodeBlocks;
-    std::map<COutPoint, int> mapStormnodesLastVote;
+    std::map<uint256, CDynodePaymentVote> mapDynodePaymentVotes;
+    std::map<int, CDynodeBlockPayees> mapDynodeBlocks;
+    std::map<COutPoint, int> mapDynodesLastVote;
 
-    CStormnodePayments() : nStorageCoeff(1.25), nMinBlocksToStore(4000) {}
+    CDynodePayments() : nStorageCoeff(1.25), nMinBlocksToStore(4000) {}
 
     ADD_SERIALIZE_METHODS;
 
     template <typename Stream, typename Operation>
     inline void SerializationOp(Stream& s, Operation ser_action, int nType, int nVersion) {
-        READWRITE(mapStormnodePaymentVotes);
-        READWRITE(mapStormnodeBlocks);
+        READWRITE(mapDynodePaymentVotes);
+        READWRITE(mapDynodeBlocks);
     }
 
     void Clear();
 
-    bool AddPaymentVote(const CStormnodePaymentVote& vote);
+    bool AddPaymentVote(const CDynodePaymentVote& vote);
     bool ProcessBlock(int nBlockHeight);
 
     void Sync(CNode* node, int nCountNeeded);
@@ -193,18 +193,18 @@ public:
 
     bool GetBlockPayee(int nBlockHeight, CScript& payee);
     bool IsTransactionValid(const CTransaction& txNew, int nBlockHeight);
-    bool IsScheduled(CStormnode& sn, int nNotBlockHeight);
+    bool IsScheduled(CDynode& sn, int nNotBlockHeight);
 
-    bool CanVote(COutPoint outStormnode, int nBlockHeight);
+    bool CanVote(COutPoint outDynode, int nBlockHeight);
 
-    int GetMinStormnodePaymentsProto();
+    int GetMinDynodePaymentsProto();
     void ProcessMessage(CNode* pfrom, std::string& strCommand, CDataStream& vRecv);
     std::string GetRequiredPaymentsString(int nBlockHeight);
     void FillBlockPayee(CMutableTransaction& txNew);
     std::string ToString() const;
 
-    int GetBlockCount() { return mapStormnodeBlocks.size(); }
-    int GetVoteCount() { return mapStormnodePaymentVotes.size(); }
+    int GetBlockCount() { return mapDynodeBlocks.size(); }
+    int GetVoteCount() { return mapDynodePaymentVotes.size(); }
 
     bool IsEnoughData();
     int GetStorageLimit();
@@ -212,4 +212,4 @@ public:
     void UpdatedBlockTip(const CBlockIndex *pindex);
 };
 
-#endif // DARKSILK_STORMNODE_PAYMENTS_H
+#endif // DYNAMIC_DYNODE_PAYMENTS_H
