@@ -241,7 +241,7 @@ QT_TRANSLATE_NOOP("dynamic", "Connect to a node to retrieve peer addresses, and 
 QT_TRANSLATE_NOOP("dynamic", "Connection options:"),
 QT_TRANSLATE_NOOP("dynamic", "Copyright (C) 2009-%i The Bitcoin Core Developers"),
 QT_TRANSLATE_NOOP("dynamic", "Copyright (C) 2014-%i The Dash Core Developers"),
-QT_TRANSLATE_NOOP("dynamic", "Copyright (C) 2016-%i The Silk Network Developers"),
+QT_TRANSLATE_NOOP("dynamic", "Copyright (C) 2016-%i Duality Blockchain Solutions Ltd"),
 QT_TRANSLATE_NOOP("dynamic", "Corrupted block database detected"),
 QT_TRANSLATE_NOOP("dynamic", "Could not parse -rpcbind value %s as network address"),
 QT_TRANSLATE_NOOP("dynamic", "Could not parse dynode.conf"),

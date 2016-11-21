@@ -10,7 +10,7 @@ Graph on Pull Request History
 [![Throughput Graph](https://graphs.waffle.io/duality-solutions/Dynamic/throughput.svg)](https://waffle.io/duality-solutions/Dynamic/metrics/throughput)  
 Dynamic Integration/Staging Tree
 ================================
-![DYN logo](https://github.com/duality-solutions/Dynamic/blob/master/src/qt/res/images/drk/dynamic_logo_horizontal.png)
+![DYN logo]()
 
 **Copyright (c) 2015-2016 Silk Network**
 What is Dynamic?
