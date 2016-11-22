@@ -100,29 +100,29 @@ bool CActiveDynode::SendDynodePing()
         return false;
     }
 
-    if(!snodeman.Has(vin)) {
+    if(!dnodeman.Has(vin)) {
         strNotCapableReason = "Dynode not in dynode list";
         nState = ACTIVE_DYNODE_NOT_CAPABLE;
         LogPrintf("CActiveDynode::SendDynodePing -- %s: %s\n", GetStateString(), strNotCapableReason);
         return false;
     }
 
-    CDynodePing snp(vin);
-    if(!snp.Sign(keyDynode, pubKeyDynode)) {
+    CDynodePing dnp(vin);
+    if(!dnp.Sign(keyDynode, pubKeyDynode)) {
         LogPrintf("CActiveDynode::SendDynodePing -- ERROR: Couldn't sign Dynode Ping\n");
         return false;
     }
 
     // Update lastPing for our dynode in Dynode list
-    if(snodeman.IsDynodePingedWithin(vin, DYNODE_MIN_SNP_SECONDS, snp.sigTime)) {
+    if(dnodeman.IsDynodePingedWithin(vin, DYNODE_MIN_DNP_SECONDS, dnp.sigTime)) {
         LogPrintf("CActiveDynode::SendDynodePing -- Too early to send Dynode Ping\n");
         return false;
     }
 
-    snodeman.SetDynodeLastPing(vin, snp);
+    dnodeman.SetDynodeLastPing(vin, dnp);
 
     LogPrintf("CActiveDynode::SendDynodePing -- Relaying ping, collateral=%s\n", vin.ToString());
-    snp.Relay();
+    dnp.Relay();
 
     return true;
 }
@@ -203,8 +203,8 @@ void CActiveDynode::ManageStateRemote()
     LogPrint("dynode", "CActiveDynode::ManageStateRemote -- Start status = %s, type = %s, pinger enabled = %d, pubKeyDynode.GetID() = %s\n", 
              GetStatus(), fPingerEnabled, GetTypeString(), pubKeyDynode.GetID().ToString());
 
-    snodeman.CheckDynode(pubKeyDynode);
-    dynode_info_t infoSn = snodeman.GetDynodeInfo(pubKeyDynode);
+    dnodeman.CheckDynode(pubKeyDynode);
+    dynode_info_t infoSn = dnodeman.GetDynodeInfo(pubKeyDynode);
     if(infoSn.fInfoValid) {
         if(infoSn.nProtocolVersion != PROTOCOL_VERSION) {
             nState = ACTIVE_DYNODE_NOT_CAPABLE;
@@ -267,9 +267,9 @@ void CActiveDynode::ManageStateLocal()
             pwalletMain->LockCoin(vin.prevout);
         }
 
-        CDynodeBroadcast snb;
+        CDynodeBroadcast dnb;
         std::string strError;
-        if(!CDynodeBroadcast::Create(vin, service, keyCollateral, pubKeyCollateral, keyDynode, pubKeyDynode, strError, snb)) {
+        if(!CDynodeBroadcast::Create(vin, service, keyCollateral, pubKeyCollateral, keyDynode, pubKeyDynode, strError, dnb)) {
             nState = ACTIVE_DYNODE_NOT_CAPABLE;
             strNotCapableReason = "Error creating dynode broadcast: " + strError;
             LogPrintf("CActiveDynode::ManageStateLocal -- %s: %s\n", GetStateString(), strNotCapableReason);
@@ -278,12 +278,12 @@ void CActiveDynode::ManageStateLocal()
 
         //update to dynode list
         LogPrintf("CActiveDynode::ManageStateLocal -- Update Dynode List\n");
-        snodeman.UpdateDynodeList(snb);
-        snodeman.NotifyDynodeUpdates();
+        dnodeman.UpdateDynodeList(dnb);
+        dnodeman.NotifyDynodeUpdates();
 
         //send to all peers
         LogPrintf("CActiveDynode::ManageStateLocal -- Relay broadcast, vin=%s\n", vin.ToString());
-        snb.Relay();
+        dnb.Relay();
         fPingerEnabled = true;
         nState = ACTIVE_DYNODE_STARTED;
     }

@@ -121,7 +121,7 @@ namespace GUIUtil
     void openConfigfile();	
 
     // Open dynode.conf
-    void openSNConfigfile();	
+    void openDNConfigfile();	
 
     // Browse backup folder
     void showBackups();

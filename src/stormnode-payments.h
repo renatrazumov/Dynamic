@@ -17,8 +17,8 @@ class CDynodePayments;
 class CDynodePaymentVote;
 class CDynodeBlockPayees;
 
-static const int SNPAYMENTS_SIGNATURES_REQUIRED         = 10;
-static const int SNPAYMENTS_SIGNATURES_TOTAL            = 20;
+static const int DNPAYMENTS_SIGNATURES_REQUIRED         = 10;
+static const int DNPAYMENTS_SIGNATURES_TOTAL            = 20;
 
 //! minimum peer version that can receive and send dynode payment messages,
 //  vote for dynode and be elected as a payment winner
@@ -31,7 +31,7 @@ extern CCriticalSection cs_vecPayees;
 extern CCriticalSection cs_mapDynodeBlocks;
 extern CCriticalSection cs_mapDynodePayeeVotes;
 
-extern CDynodePayments snpayments;
+extern CDynodePayments dnpayments;
 
 /// TODO: all 4 functions do not belong here really, they should be refactored/moved somewhere (main.cpp ?)
 bool IsBlockValueValid(const CBlock& block, int nBlockHeight, CAmount blockReward);

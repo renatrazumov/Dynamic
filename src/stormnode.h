@@ -15,8 +15,8 @@ class CDynode;
 class CDynodeBroadcast;
 class CDynodePing;
 
-static const int DYNODE_MIN_SNP_SECONDS         = 10 * 60;
-static const int DYNODE_MIN_SNB_SECONDS         =  5 * 60;
+static const int DYNODE_MIN_DNP_SECONDS         = 10 * 60;
+static const int DYNODE_MIN_DNB_SECONDS         =  5 * 60;
 static const int DYNODE_EXPIRATION_SECONDS      = 65 * 60;
 static const int DYNODE_REMOVAL_SECONDS         = 75 * 60;
 static const int DYNODE_CHECK_SECONDS           = 5;
@@ -32,7 +32,7 @@ class CDynodePing
 public:
     CTxIn vin;
     uint256 blockHash;
-    int64_t sigTime; //snb message times
+    int64_t sigTime; //dnb message times
     std::vector<unsigned char> vchSig;
     //removed stop
 
@@ -105,7 +105,7 @@ struct dynode_info_t {
           pubKeyCollateralAddress(),
           pubKeyDynode(),
           sigTime(0),
-          nLastSsq(0),
+          nLastPsq(0),
           nTimeLastChecked(0),
           nTimeLastPaid(0),
           nTimeLastWatchdogVote(0),
@@ -118,8 +118,8 @@ struct dynode_info_t {
     CService addr;
     CPubKey pubKeyCollateralAddress;
     CPubKey pubKeyDynode;
-    int64_t sigTime; //snb message time
-    int64_t nLastSsq; //the ssq count from the last ssq broadcast of this node
+    int64_t sigTime; //dnb message time
+    int64_t nLastPsq; //the psq count from the last psq broadcast of this node
     int64_t nTimeLastChecked;
     int64_t nTimeLastPaid;
     int64_t nTimeLastWatchdogVote;
@@ -155,8 +155,8 @@ public:
     CPubKey pubKeyDynode;
     CDynodePing lastPing;
     std::vector<unsigned char> vchSig;
-    int64_t sigTime; //snb message time
-    int64_t nLastSsq; //the ssq count from the last ssq broadcast of this node
+    int64_t sigTime; //dnb message time
+    int64_t nLastPsq; //the psq count from the last psq broadcast of this node
     int64_t nTimeLastChecked;
     int64_t nTimeLastPaid;
     int64_t nTimeLastWatchdogVote;
@@ -174,7 +174,7 @@ public:
 
     CDynode();
     CDynode(const CDynode& other);
-    CDynode(const CDynodeBroadcast& snb);
+    CDynode(const CDynodeBroadcast& dnb);
     CDynode(CService addrNew, CTxIn vinNew, CPubKey pubKeyCollateralAddressNew, CPubKey pubKeyDynodeNew, int nProtocolVersionIn);
 
     ADD_SERIALIZE_METHODS;
@@ -189,7 +189,7 @@ public:
         READWRITE(lastPing);
         READWRITE(vchSig);
         READWRITE(sigTime);
-        READWRITE(nLastSsq);
+        READWRITE(nLastPsq);
         READWRITE(nTimeLastChecked);
         READWRITE(nTimeLastPaid);
         READWRITE(nTimeLastWatchdogVote);
@@ -218,7 +218,7 @@ public:
         swap(first.lastPing, second.lastPing);
         swap(first.vchSig, second.vchSig);
         swap(first.sigTime, second.sigTime);
-        swap(first.nLastSsq, second.nLastSsq);
+        swap(first.nLastPsq, second.nLastPsq);
         swap(first.nTimeLastChecked, second.nTimeLastChecked);
         swap(first.nTimeLastPaid, second.nTimeLastPaid);
         swap(first.nTimeLastWatchdogVote, second.nTimeLastWatchdogVote);
@@ -236,7 +236,7 @@ public:
     // CALCULATE A RANK AGAINST OF GIVEN BLOCK
     arith_uint256 CalculateScore(const uint256& blockHash);
 
-    bool UpdateFromNewBroadcast(CDynodeBroadcast& snb);
+    bool UpdateFromNewBroadcast(CDynodeBroadcast& dnb);
 
     void Check(bool fForce = false);
 
@@ -311,7 +311,7 @@ class CDynodeBroadcast : public CDynode
 public:
 
     CDynodeBroadcast() : CDynode() {}
-    CDynodeBroadcast(const CDynode& sn) : CDynode(sn) {}
+    CDynodeBroadcast(const CDynode& dn) : CDynode(dn) {}
     CDynodeBroadcast(CService addrNew, CTxIn vinNew, CPubKey pubKeyCollateralAddressNew, CPubKey pubKeyDynodeNew, int nProtocolVersionIn) :
         CDynode(addrNew, vinNew, pubKeyCollateralAddressNew, pubKeyDynodeNew, nProtocolVersionIn) {}
 
@@ -327,7 +327,7 @@ public:
         READWRITE(sigTime);
         READWRITE(nProtocolVersion);
         READWRITE(lastPing);
-        READWRITE(nLastSsq);
+        READWRITE(nLastPsq);
     }
 
     uint256 GetHash() const

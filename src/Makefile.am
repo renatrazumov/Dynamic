@@ -97,7 +97,7 @@ DYNAMIC_CORE_H = \
   core_io.h \
   core_memusage.h \
   privatesend.h \
-  ssnotificationinterface.h \
+  psnotificationinterface.h \
   privatesend-relay.h \
   governance.h \
   governance-classes.h \
@@ -253,7 +253,7 @@ libdynamic_wallet_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
 libdynamic_wallet_a_SOURCES = \
   activedynode.cpp \
   privatesend.cpp \
-  ssnotificationinterface.cpp \
+  psnotificationinterface.cpp \
   privatesend-relay.cpp \
   instantx.cpp \
   dynode.cpp \

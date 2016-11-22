@@ -122,7 +122,7 @@ private:
     QAction *openPeersAction;
     QAction *openRepairAction;
     QAction *openConfEditorAction;
-    QAction *openSNConfEditorAction;
+    QAction *openDNConfEditorAction;
     QAction *showBackupsAction;
     QAction *openAction;
     QAction *showHelpMessageAction;
@@ -236,7 +236,7 @@ private Q_SLOTS:
     /** Open external (default) editor with dynamic.conf */
     void showConfEditor();
     /** Open external (default) editor with dynode.conf */
-    void showSNConfEditor();
+    void showDNConfEditor();
     /** Show folder with wallet backups in default file browser */
     void showBackups();
 

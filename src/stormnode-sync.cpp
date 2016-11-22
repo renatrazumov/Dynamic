@@ -68,7 +68,7 @@ std::string CDynodeSync::GetAssetName()
         case(DYNODE_SYNC_INITIAL):      return "DYNODE_SYNC_INITIAL";
         case(DYNODE_SYNC_SPORKS):       return "DYNODE_SYNC_SPORKS";
         case(DYNODE_SYNC_LIST):         return "DYNODE_SYNC_LIST";
-        case(DYNODE_SYNC_SNW):          return "DYNODE_SYNC_SNW";
+        case(DYNODE_SYNC_DNW):          return "DYNODE_SYNC_DNW";
         case(DYNODE_SYNC_GOVERNANCE):   return "DYNODE_SYNC_GOVERNANCE";
         case(DYNODE_SYNC_FAILED):       return "DYNODE_SYNC_FAILED";
         case DYNODE_SYNC_FINISHED:      return "DYNODE_SYNC_FINISHED";
@@ -93,9 +93,9 @@ void CDynodeSync::SwitchToNextAsset()
             break;
         case(DYNODE_SYNC_LIST):
             nTimeLastPaymentVote = GetTime();
-            nRequestedDynodeAssets = DYNODE_SYNC_SNW;
+            nRequestedDynodeAssets = DYNODE_SYNC_DNW;
             break;
-        case(DYNODE_SYNC_SNW):
+        case(DYNODE_SYNC_DNW):
             nTimeLastBudgetItem = GetTime();
             nRequestedDynodeAssets = DYNODE_SYNC_GOVERNANCE;
             break;
@@ -125,7 +125,7 @@ std::string CDynodeSync::GetSyncStatus()
         case DYNODE_SYNC_INITIAL:       return _("Synchronization pending...");
         case DYNODE_SYNC_SPORKS:        return _("Synchronizing sporks...");
         case DYNODE_SYNC_LIST:          return _("Synchronizing dynodes...");
-        case DYNODE_SYNC_SNW:           return _("Synchronizing dynode payments...");
+        case DYNODE_SYNC_DNW:           return _("Synchronizing dynode payments...");
         case DYNODE_SYNC_GOVERNANCE:    return _("Synchronizing governance objects...");
         case DYNODE_SYNC_FAILED:        return _("Synchronization failed");
         case DYNODE_SYNC_FINISHED:      return _("Synchronization finished");
@@ -170,7 +170,7 @@ void CDynodeSync::ProcessTick()
     if(!pCurrentBlockIndex) return;
 
     //the actual count of dynodes we have currently
-    int nSnCount = snodeman.CountDynodes();
+    int nSnCount = dnodeman.CountDynodes();
 
     if(fDebug) LogPrintf("CDynodeSync::ProcessTick -- nTick %d nSnCount %d\n", nTick, nSnCount);
 
@@ -211,7 +211,7 @@ void CDynodeSync::ProcessTick()
         return;
     }
 
-    LOCK2(snodeman.cs, cs_vNodes);
+    LOCK2(dnodeman.cs, cs_vNodes);
 
     if(nRequestedDynodeAssets == DYNODE_SYNC_INITIAL ||
         (nRequestedDynodeAssets == DYNODE_SYNC_SPORKS && IsBlockchainSynced()))
@@ -227,12 +227,12 @@ void CDynodeSync::ProcessTick()
             if(nRequestedDynodeAttempt <= 2) {
                 pnode->PushMessage(NetMsgType::GETSPORKS); //get current network sporks
             } else if(nRequestedDynodeAttempt < 4) {
-                snodeman.SsegUpdate(pnode);
+                dnodeman.SsegUpdate(pnode);
             } else if(nRequestedDynodeAttempt < 6) {
-                int nSnCount = snodeman.CountDynodes();
+                int nSnCount = dnodeman.CountDynodes();
                 pnode->PushMessage(NetMsgType::DYNODEPAYMENTSYNC, nSnCount); //sync payment votes
                 uint256 n = uint256();
-                pnode->PushMessage(NetMsgType::SNGOVERNANCESYNC, n); //sync dynode votes
+                pnode->PushMessage(NetMsgType::DNGOVERNANCESYNC, n); //sync dynode votes
             } else {
                 nRequestedDynodeAssets = DYNODE_SYNC_FINISHED;
             }
@@ -283,7 +283,7 @@ void CDynodeSync::ProcessTick()
                 /* Note: Is this activing up? It's probably related to int CDynodeMan::GetEstimatedDynodes(int nBlock)
                    Surely doesn't work right for testnet currently */
                 // try to fetch data from at least two peers though
-                int nSnCountEstimated = snodeman.GetEstimatedDynodes(pCurrentBlockIndex->nHeight)*0.9;
+                int nSnCountEstimated = dnodeman.GetEstimatedDynodes(pCurrentBlockIndex->nHeight)*0.9;
                 LogPrintf("CDynodeSync::ProcessTick -- nTick %d nSnCount %d nSnCountEstimated %d\n",
                           nTick, nSnCount, nSnCountEstimated);
                 if(nRequestedDynodeAttempt > 1 && nSnCount > nSnCountEstimated) {
@@ -296,18 +296,18 @@ void CDynodeSync::ProcessTick()
                 if(netfulfilledman.HasFulfilledRequest(pnode->addr, "dynode-list-sync")) continue;
                 netfulfilledman.AddFulfilledRequest(pnode->addr, "dynode-list-sync");
 
-                if (pnode->nVersion < snpayments.GetMinDynodePaymentsProto()) continue;
+                if (pnode->nVersion < dnpayments.GetMinDynodePaymentsProto()) continue;
                 nRequestedDynodeAttempt++;
 
-                snodeman.SsegUpdate(pnode);
+                dnodeman.SsegUpdate(pnode);
 
                 return; //this will cause each peer to get one request each six seconds for the various assets we need
             }
 
-            // SNW : SYNC DYNODE PAYMENT VOTES FROM OTHER CONNECTED CLIENTS
+            // DNW : SYNC DYNODE PAYMENT VOTES FROM OTHER CONNECTED CLIENTS
 
-            if(nRequestedDynodeAssets == DYNODE_SYNC_SNW) {
-                LogPrint("snpayments", "CDynodeSync::ProcessTick -- nTick %d nRequestedDynodeAssets %d nTimeLastPaymentVote %lld GetTime() %lld diff %lld\n", nTick, nRequestedDynodeAssets, nTimeLastPaymentVote, GetTime(), GetTime() - nTimeLastPaymentVote);
+            if(nRequestedDynodeAssets == DYNODE_SYNC_DNW) {
+                LogPrint("dnpayments", "CDynodeSync::ProcessTick -- nTick %d nRequestedDynodeAssets %d nTimeLastPaymentVote %lld GetTime() %lld diff %lld\n", nTick, nRequestedDynodeAssets, nTimeLastPaymentVote, GetTime(), GetTime() - nTimeLastPaymentVote);
                 // check for timeout first
                 // This might take a lot longer than DYNODE_SYNC_TIMEOUT_SECONDS minutes due to new blocks,
                 // but that should be OK and it should timeout eventually.
@@ -324,9 +324,9 @@ void CDynodeSync::ProcessTick()
                 }
 
                 // check for data
-                // if snpayments already has enough blocks and votes, switch to the next asset
+                // if dnpayments already has enough blocks and votes, switch to the next asset
                 // try to fetch data from at least two peers though
-                if(nRequestedDynodeAttempt > 1 && snpayments.IsEnoughData()) {
+                if(nRequestedDynodeAttempt > 1 && dnpayments.IsEnoughData()) {
                     LogPrintf("CDynodeSync::ProcessTick -- nTick %d nRequestedDynodeAssets %d -- found enough data\n", nTick, nRequestedDynodeAssets);
                     SwitchToNextAsset();
                     return;
@@ -336,13 +336,13 @@ void CDynodeSync::ProcessTick()
                 if(netfulfilledman.HasFulfilledRequest(pnode->addr, "dynode-payment-sync")) continue;
                 netfulfilledman.AddFulfilledRequest(pnode->addr, "dynode-payment-sync");
 
-                if(pnode->nVersion < snpayments.GetMinDynodePaymentsProto()) continue;
+                if(pnode->nVersion < dnpayments.GetMinDynodePaymentsProto()) continue;
                 nRequestedDynodeAttempt++;
 
                 // ask node for all payment votes it has (new nodes will only return votes for future payments)
-                pnode->PushMessage(NetMsgType::DYNODEPAYMENTSYNC, snpayments.GetStorageLimit());
+                pnode->PushMessage(NetMsgType::DYNODEPAYMENTSYNC, dnpayments.GetStorageLimit());
                 // ask node for missing pieces only (old nodes will not be asked)
-                snpayments.RequestLowDataPaymentBlocks(pnode);
+                dnpayments.RequestLowDataPaymentBlocks(pnode);
 
                 return; //this will cause each peer to get one request each six seconds for the various assets we need
             }
@@ -350,7 +350,7 @@ void CDynodeSync::ProcessTick()
             // GOVOBJ : SYNC GOVERNANCE ITEMS FROM OUR PEERS
 
             if(nRequestedDynodeAssets == DYNODE_SYNC_GOVERNANCE) {
-                LogPrint("snpayments", "CDynodeSync::ProcessTick -- nTick %d nRequestedDynodeAssets %d nTimeLastPaymentVote %lld GetTime() %lld diff %lld\n", nTick, nRequestedDynodeAssets, nTimeLastPaymentVote, GetTime(), GetTime() - nTimeLastPaymentVote);
+                LogPrint("dnpayments", "CDynodeSync::ProcessTick -- nTick %d nRequestedDynodeAssets %d nTimeLastPaymentVote %lld GetTime() %lld diff %lld\n", nTick, nRequestedDynodeAssets, nTimeLastPaymentVote, GetTime(), GetTime() - nTimeLastPaymentVote);
 
                 // check for timeout first
                 if(nTimeLastBudgetItem < GetTime() - DYNODE_SYNC_TIMEOUT_SECONDS){
@@ -383,7 +383,7 @@ void CDynodeSync::ProcessTick()
                 if (pnode->nVersion < MIN_GOVERNANCE_PEER_PROTO_VERSION) continue;
                 nRequestedDynodeAttempt++;
 
-                pnode->PushMessage(NetMsgType::SNGOVERNANCESYNC, uint256()); //sync dynode votes
+                pnode->PushMessage(NetMsgType::DNGOVERNANCESYNC, uint256()); //sync dynode votes
 
                 return; //this will cause each peer to get one request each six seconds for the various assets we need
             }

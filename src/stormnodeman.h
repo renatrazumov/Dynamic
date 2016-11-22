@@ -13,14 +13,14 @@ using namespace std;
 
 class CDynodeMan;
 
-extern CDynodeMan snodeman;
+extern CDynodeMan dnodeman;
 
 /**
- * Provides a forward and reverse index between SN vin's and integers.
+ * Provides a forward and reverse index between DN vin's and integers.
  *
  * This mapping is normally add-only and is expected to be permanent
  * It is only rebuilt if the size of the index exceeds the expected maximum number
- * of SN's and the current number of known SN's.
+ * of DN's and the current number of known DN's.
  *
  * The external interface to this index is provided via delegation by CDynodeMan
  */
@@ -96,7 +96,7 @@ private:
 
     static const std::string SERIALIZATION_VERSION_STRING;
 
-    static const int SSEG_UPDATE_SECONDS        = 3 * 60 * 60;
+    static const int DSEG_UPDATE_SECONDS        = 3 * 60 * 60;
 
     static const int LAST_PAID_SCAN_BLOCKS      = 100;
 
@@ -150,7 +150,7 @@ public:
     std::map<uint256, CDynodePing> mapSeenDynodePing;
     // Keep track of all verifications I've seen
     std::map<uint256, CDynodeVerification> mapSeenDynodeVerification;
-    // keep track of ssq count to prevent Dynodes from gaming privatesend queue
+    // keep track of psq count to prevent Dynodes from gaming privatesend queue
     int64_t nSsqCount;
 
 
@@ -186,10 +186,10 @@ public:
     CDynodeMan();
 
     /// Add an entry
-    bool Add(CDynode &sn);
+    bool Add(CDynode &dn);
 
-    /// Ask (source) node for snb
-    void AskForSN(CNode *pnode, const CTxIn &vin);
+    /// Ask (source) node for dnb
+    void AskForDN(CNode *pnode, const CTxIn &vin);
 
     /// Check all Dynodes
     void Check();
@@ -301,9 +301,9 @@ public:
     int GetEstimatedDynodes(int nBlock);
 
     /// Update dynode list and maps using provided CDynodeBroadcast
-    void UpdateDynodeList(CDynodeBroadcast snb);
+    void UpdateDynodeList(CDynodeBroadcast dnb);
     /// Perform complete check and only then update list and maps
-    bool CheckSnbAndUpdateDynodeList(CDynodeBroadcast snb, int& nDos);
+    bool CheckSnbAndUpdateDynodeList(CDynodeBroadcast dnb, int& nDos);
 
     void UpdateLastPaid(const CBlockIndex *pindex);
 

@@ -152,8 +152,8 @@ UniValue gobject(const UniValue& params, bool fHelp)
             throw JSONRPCError(RPC_CLIENT_IN_INITIAL_DOWNLOAD, "Must wait for client to sync with dynode network. Try again in a minute or so.");
         }
 
-        CDynode sn;
-        bool snFound = snodeman.Get(activeDynode.vin, sn);
+        CDynode dn;
+        bool snFound = dnodeman.Get(activeDynode.vin, dn);
 
         DBG( cout << "gobject: submit activeDynode.pubKeyDynode = " << activeDynode.pubKeyDynode.GetHash().ToString()
              << ", vin = " << activeDynode.vin.prevout.ToStringShort()
@@ -196,11 +196,11 @@ UniValue gobject(const UniValue& params, bool fHelp)
              << ", txidFee = " << txidFee.GetHex()
              << endl; );
 
-        // Attempt to sign triggers if we are a SN
+        // Attempt to sign triggers if we are a DN
         if((govobj.GetObjectType() == GOVERNANCE_OBJECT_TRIGGER) ||
            (govobj.GetObjectType() == GOVERNANCE_OBJECT_WATCHDOG)) {
             if(snFound) {
-                govobj.SetDynodeInfo(sn.vin);
+                govobj.SetDynodeInfo(dn.vin);
                 govobj.Sign(activeDynode.keyDynode, activeDynode.pubKeyDynode);
             }
             else {
@@ -261,8 +261,8 @@ UniValue gobject(const UniValue& params, bool fHelp)
         UniValue statusObj(UniValue::VOBJ);
         UniValue returnObj(UniValue::VOBJ);
 
-        CDynode sn;
-        bool snFound = snodeman.Get(activeDynode.vin, sn);
+        CDynode dn;
+        bool snFound = dnodeman.Get(activeDynode.vin, dn);
 
         if(!snFound) {
             failed++;
@@ -274,7 +274,7 @@ UniValue gobject(const UniValue& params, bool fHelp)
             return returnObj;
         }
 
-        CGovernanceVote vote(sn.vin, hash, eVoteSignal, eVoteOutcome);
+        CGovernanceVote vote(dn.vin, hash, eVoteSignal, eVoteOutcome);
         if(!vote.Sign(activeDynode.keyDynode, activeDynode.pubKeyDynode)) {
             failed++;
             statusObj.push_back(Pair("result", "failed"));
@@ -367,8 +367,8 @@ UniValue gobject(const UniValue& params, bool fHelp)
 
             CTxIn vin(COutPoint(nTxHash, nOutputIndex));
 
-            CDynode sn;
-            bool snFound = snodeman.Get(vin, sn);
+            CDynode dn;
+            bool snFound = dnodeman.Get(vin, dn);
 
             if(!snFound) {
                 failed++;
@@ -378,7 +378,7 @@ UniValue gobject(const UniValue& params, bool fHelp)
                 continue;
             }
 
-            CGovernanceVote vote(sn.vin, hash, eVoteSignal, eVoteOutcome);
+            CGovernanceVote vote(dn.vin, hash, eVoteSignal, eVoteOutcome);
             if(!vote.Sign(keyDynode, pubKeyDynode)){
                 failed++;
                 statusObj.push_back(Pair("result", "failed"));
@@ -488,8 +488,8 @@ UniValue gobject(const UniValue& params, bool fHelp)
 
             CTxIn vin(COutPoint(nTxHash, nOutputIndex));
 
-            CDynode sn;
-            bool snFound = snodeman.Get(vin, sn);
+            CDynode dn;
+            bool snFound = dnodeman.Get(vin, dn);
 
             if(!snFound) {
                 failed++;
@@ -720,7 +720,7 @@ UniValue voteraw(const UniValue& params, bool fHelp)
                 "Compile and relay a governance vote with provided external signature instead of signing vote internally\n"
                 );
 
-    uint256 hashSnTx = ParseHashV(params[0], "sn tx hash");
+    uint256 hashSnTx = ParseHashV(params[0], "dn tx hash");
     int nSnTxIndex = params[1].get_int();
     CTxIn vin = CTxIn(hashSnTx, nSnTxIndex);
 
@@ -749,8 +749,8 @@ UniValue voteraw(const UniValue& params, bool fHelp)
         throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Malformed base64 encoding");
     }
 
-    CDynode sn;
-    bool snFound = snodeman.Get(vin, sn);
+    CDynode dn;
+    bool snFound = dnodeman.Get(vin, dn);
 
     if(!snFound) {
         throw JSONRPCError(RPC_INTERNAL_ERROR, "Failure to find dynode in list : " + vin.ToString());

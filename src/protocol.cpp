@@ -42,31 +42,31 @@ const char *TXLOCKREQUEST="ix";
 const char *TXLOCKVOTE="txlvote";
 const char *SPORK="spork";
 const char *GETSPORKS="getsporks";
-const char *DYNODEPAYMENTVOTE="snw";
-const char *DYNODEPAYMENTBLOCK="snwb";
-const char *DYNODEPAYMENTSYNC="snget";
-const char *SNBUDGETSYNC="snvs"; // depreciated since 12.1
-const char *SNBUDGETVOTE="svote"; // depreciated since 12.1
-const char *SNBUDGETPROPOSAL="sprop"; // depreciated since 12.1
-const char *SNBUDGETFINAL="fbs"; // depreciated since 12.1
-const char *SNBUDGETFINALVOTE="fbvote"; // depreciated since 12.1
-const char *SNQUORUM="sn quorum"; // not implemented
-const char *SNANNOUNCE="snb";
-const char *SNPING="snp";
-const char *SSACCEPT="ssa";
-const char *SSVIN="ssi";
-const char *SSFINALTX="ssf";
-const char *SSSIGNFINALTX="sss";
-const char *SSCOMPLETE="ssc";
-const char *SSSTATUSUPDATE="sssu";
-const char *SSTX="sstx";
-const char *SSQUEUE="ssq";
-const char *SSEG="sseg";
+const char *DYNODEPAYMENTVOTE="dnw";
+const char *DYNODEPAYMENTBLOCK="dnwb";
+const char *DYNODEPAYMENTSYNC="dnget";
+const char *DNBUDGETSYNC="dnvs"; // depreciated since 12.1
+const char *DNBUDGETVOTE="dvote"; // depreciated since 12.1
+const char *DNBUDGETPROPOSAL="dprop"; // depreciated since 12.1
+const char *DNBUDGETFINAL="fbs"; // depreciated since 12.1
+const char *DNBUDGETFINALVOTE="fbvote"; // depreciated since 12.1
+const char *DNQUORUM="dn quorum"; // not implemented
+const char *DNANNOUNCE="dnb";
+const char *DNPING="dnp";
+const char *PSACCEPT="psa";
+const char *PSVIN="psi";
+const char *PSFINALTX="psf";
+const char *PSSIGNFINALTX="pss";
+const char *PSCOMPLETE="psc";
+const char *PSSTATUSUPDATE="pssu";
+const char *PSTX="pstx";
+const char *PSQUEUE="psq";
+const char *PSEG="pseg";
 const char *SYNCSTATUSCOUNT="ssc";
-const char *SNGOVERNANCESYNC="govsync";
-const char *SNGOVERNANCEOBJECT="govobj";
-const char *SNGOVERNANCEOBJECTVOTE="govobjvote";
-const char *SNVERIFY="snv";
+const char *DNGOVERNANCESYNC="govsync";
+const char *DNGOVERNANCEOBJECT="govobj";
+const char *DNGOVERNANCEOBJECTVOTE="govobjvote";
+const char *DNVERIFY="dnv";
 };
 
 static const char* ppszTypeName[] =
@@ -81,18 +81,18 @@ static const char* ppszTypeName[] =
     NetMsgType::TXLOCKVOTE,
     NetMsgType::SPORK,
     NetMsgType::DYNODEPAYMENTVOTE,
-    NetMsgType::DYNODEPAYMENTBLOCK, // reusing, was SNSCANERROR previousely, was NOT used in 12.0, we need this for inv
-    NetMsgType::SNBUDGETVOTE, // depreciated since 12.1
-    NetMsgType::SNBUDGETPROPOSAL, // depreciated since 12.1
-    NetMsgType::SNBUDGETFINAL, // depreciated since 12.1
-    NetMsgType::SNBUDGETFINALVOTE, // depreciated since 12.1
-    NetMsgType::SNQUORUM, // not implemented
-    NetMsgType::SNANNOUNCE,
-    NetMsgType::SNPING,
-    NetMsgType::SSTX,
-    NetMsgType::SNGOVERNANCEOBJECT,
-    NetMsgType::SNGOVERNANCEOBJECTVOTE,
-    NetMsgType::SNVERIFY,
+    NetMsgType::DYNODEPAYMENTBLOCK, // reusing, was DNSCANERROR previousely, was NOT used in 12.0, we need this for inv
+    NetMsgType::DNBUDGETVOTE, // depreciated since 12.1
+    NetMsgType::DNBUDGETPROPOSAL, // depreciated since 12.1
+    NetMsgType::DNBUDGETFINAL, // depreciated since 12.1
+    NetMsgType::DNBUDGETFINALVOTE, // depreciated since 12.1
+    NetMsgType::DNQUORUM, // not implemented
+    NetMsgType::DNANNOUNCE,
+    NetMsgType::DNPING,
+    NetMsgType::PSTX,
+    NetMsgType::DNGOVERNANCEOBJECT,
+    NetMsgType::DNGOVERNANCEOBJECTVOTE,
+    NetMsgType::DNVERIFY,
 };
 
 /** All known message types. Keep this in the same order as the list of
@@ -130,22 +130,22 @@ const static std::string allNetMessageTypes[] = {
     NetMsgType::DYNODEPAYMENTVOTE,
     // NetMsgType::DYNODEPAYMENTBLOCK, // there is no message for this, only inventory
     NetMsgType::DYNODEPAYMENTSYNC,
-    NetMsgType::SNANNOUNCE,
-    NetMsgType::SNPING,
-    NetMsgType::SSACCEPT,
-    NetMsgType::SSVIN,
-    NetMsgType::SSFINALTX,
-    NetMsgType::SSSIGNFINALTX,
-    NetMsgType::SSCOMPLETE,
-    NetMsgType::SSSTATUSUPDATE,
-    NetMsgType::SSTX,
-    NetMsgType::SSQUEUE,
-    NetMsgType::SSEG,
+    NetMsgType::DNANNOUNCE,
+    NetMsgType::DNPING,
+    NetMsgType::PSACCEPT,
+    NetMsgType::PSVIN,
+    NetMsgType::PSFINALTX,
+    NetMsgType::PSSIGNFINALTX,
+    NetMsgType::PSCOMPLETE,
+    NetMsgType::PSSTATUSUPDATE,
+    NetMsgType::PSTX,
+    NetMsgType::PSQUEUE,
+    NetMsgType::PSEG,
     NetMsgType::SYNCSTATUSCOUNT,
-    NetMsgType::SNGOVERNANCESYNC,
-    NetMsgType::SNGOVERNANCEOBJECT,
-    NetMsgType::SNGOVERNANCEOBJECTVOTE,
-    NetMsgType::SNVERIFY,
+    NetMsgType::DNGOVERNANCESYNC,
+    NetMsgType::DNGOVERNANCEOBJECT,
+    NetMsgType::DNGOVERNANCEOBJECTVOTE,
+    NetMsgType::DNVERIFY,
 };
 const static std::vector<std::string> allNetMessageTypesVec(allNetMessageTypes, allNetMessageTypes+ARRAYLEN(allNetMessageTypes));
 

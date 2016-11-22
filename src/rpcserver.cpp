@@ -324,7 +324,7 @@ static const CRPCCommand vRPCCommands[] =
     { "addressindex",       "getaddressmempool",      &getaddressmempool,      true  },
     { "addressindex",       "getaddressutxos",        &getaddressutxos,        false },
     { "addressindex",       "getaddressdeltas",       &getaddressdeltas,       false },
-    { "addressindex",       "getaddresstxids",        &getaddresstxids,        false },
+    { "addressindex",       "getaddrepstxids",        &getaddrepstxids,        false },
     { "addressindex",       "getaddressbalance",      &getaddressbalance,      false },
 
     /* Utility functions */

@@ -53,7 +53,7 @@ void ProcessMessageInstantSend(CNode* pfrom, std::string& strCommand, CDataStrea
 void CreateTxLockVote(CTransaction& tx, int64_t nBlockHeight);
 
 //process consensus vote message
-bool ProcessTxLockVote(CNode *pnode, CTxLockVote& vote);
+bool ProcepsTxLockVote(CNode *pnode, CTxLockVote& vote);
 
 //update UI and notify external script if any
 void UpdateLockedTransaction(CTransaction& tx, bool fForceNotification = false);

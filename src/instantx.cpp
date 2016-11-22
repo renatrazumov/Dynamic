@@ -139,7 +139,7 @@ void ProcessMessageInstantSend(CNode* pfrom, std::string& strCommand, CDataStrea
         if(mapTxLockVotes.count(vote.GetHash())) return;
         mapTxLockVotes.insert(std::make_pair(vote.GetHash(), vote));
 
-        if(ProcessTxLockVote(pfrom, vote)) {
+        if(ProcepsTxLockVote(pfrom, vote)) {
             //Spam/Dos protection
             /*
                 Dynodes will sometimes propagate votes before the transaction is known to the client.
@@ -271,7 +271,7 @@ void CreateTxLockVote(CTransaction& tx, int64_t nBlockHeight)
 {
     if(!fDyNode) return;
 
-    int n = snodeman.GetDynodeRank(activeDynode.vin, nBlockHeight, MIN_INSTANTSEND_PROTO_VERSION);
+    int n = dnodeman.GetDynodeRank(activeDynode.vin, nBlockHeight, MIN_INSTANTSEND_PROTO_VERSION);
 
     if(n == -1) {
         LogPrint("instantsend", "CreateTxLockVote -- Unknown Dynode %s\n", activeDynode.vin.prevout.ToStringShort());
@@ -311,37 +311,37 @@ void CreateTxLockVote(CTransaction& tx, int64_t nBlockHeight)
 }
 
 //received a consensus vote
-bool ProcessTxLockVote(CNode* pnode, CTxLockVote& vote)
+bool ProcepsTxLockVote(CNode* pnode, CTxLockVote& vote)
 {
-    int n = snodeman.GetDynodeRank(vote.vinDynode, vote.nBlockHeight, MIN_INSTANTSEND_PROTO_VERSION);
+    int n = dnodeman.GetDynodeRank(vote.vinDynode, vote.nBlockHeight, MIN_INSTANTSEND_PROTO_VERSION);
 
-    CDynode* psn = snodeman.Find(vote.vinDynode);
+    CDynode* psn = dnodeman.Find(vote.vinDynode);
     if(psn != NULL)
-        LogPrint("instantsend", "ProcessTxLockVote -- Dynode addr=%s, rank: %d\n", psn->addr.ToString(), n);
+        LogPrint("instantsend", "ProcepsTxLockVote -- Dynode addr=%s, rank: %d\n", psn->addr.ToString(), n);
 
     if(n == -1) {
         //can be caused by past versions trying to vote with an invalid protocol
-        LogPrint("instantsend", "ProcessTxLockVote -- Unknown Dynode: txin=%s\n", vote.vinDynode.ToString());
-        snodeman.AskForSN(pnode, vote.vinDynode);
+        LogPrint("instantsend", "ProcepsTxLockVote -- Unknown Dynode: txin=%s\n", vote.vinDynode.ToString());
+        dnodeman.AskForDN(pnode, vote.vinDynode);
         return false;
     }
-    LogPrint("instantsend", "ProcessTxLockVote -- Dynode %s, rank=%d\n", vote.vinDynode.prevout.ToStringShort(), n);
+    LogPrint("instantsend", "ProcepsTxLockVote -- Dynode %s, rank=%d\n", vote.vinDynode.prevout.ToStringShort(), n);
 
     if(n > INSTANTSEND_SIGNATURES_TOTAL) {
-        LogPrint("instantsend", "ProcessTxLockVote -- Dynode %s is not in the top %d (%d), vote hash %s\n",
+        LogPrint("instantsend", "ProcepsTxLockVote -- Dynode %s is not in the top %d (%d), vote hash %s\n",
                 vote.vinDynode.prevout.ToStringShort(), INSTANTSEND_SIGNATURES_TOTAL, n, vote.GetHash().ToString());
         return false;
     }
 
     if(!vote.CheckSignature()) {
-        LogPrintf("ProcessTxLockVote -- Signature invalid\n");
+        LogPrintf("ProcepsTxLockVote -- Signature invalid\n");
         // don't ban, it could just be a non-synced dynode
-        snodeman.AskForSN(pnode, vote.vinDynode);
+        dnodeman.AskForDN(pnode, vote.vinDynode);
         return false;
     }
 
     if (!mapTxLockCandidates.count(vote.txHash)) {
-        LogPrintf("ProcessTxLockVote -- New Transaction Lock Candidate! txid=%s\n", vote.txHash.ToString());
+        LogPrintf("ProcepsTxLockVote -- New Transaction Lock Candidate! txid=%s\n", vote.txHash.ToString());
 
         CTxLockCandidate txLockCandidate;
         txLockCandidate.nBlockHeight = 0;
@@ -351,7 +351,7 @@ bool ProcessTxLockVote(CNode* pnode, CTxLockVote& vote)
         txLockCandidate.txHash = vote.txHash;
         mapTxLockCandidates.insert(std::make_pair(vote.txHash, txLockCandidate));
     } else {
-        LogPrint("instantsend", "ProcessTxLockVote -- Transaction Lock Exists! txid=%s\n", vote.txHash.ToString());
+        LogPrint("instantsend", "ProcepsTxLockVote -- Transaction Lock Exists! txid=%s\n", vote.txHash.ToString());
     }
 
     //compile consessus vote
@@ -360,10 +360,10 @@ bool ProcessTxLockVote(CNode* pnode, CTxLockVote& vote)
         (*i).second.AddVote(vote);
 
         int nSignatures = (*i).second.CountVotes();
-        LogPrint("instantsend", "ProcessTxLockVote -- Transaction Lock signatures count: %d, vote hash=%s\n", nSignatures, vote.GetHash().ToString());
+        LogPrint("instantsend", "ProcepsTxLockVote -- Transaction Lock signatures count: %d, vote hash=%s\n", nSignatures, vote.GetHash().ToString());
 
         if(nSignatures >= INSTANTSEND_SIGNATURES_REQUIRED) {
-            LogPrint("instantsend", "ProcessTxLockVote -- Transaction Lock Is Complete! txid=%s\n", vote.txHash.ToString());
+            LogPrint("instantsend", "ProcepsTxLockVote -- Transaction Lock Is Complete! txid=%s\n", vote.txHash.ToString());
 
             // Dynodes will sometimes propagate votes before the transaction is known to the client,
             // will check for conflicting locks and update transaction status on a new vote message
@@ -377,7 +377,7 @@ bool ProcessTxLockVote(CNode* pnode, CTxLockVote& vote)
                 } else if(mapLockRequestRejected.count(vote.txHash)) {
                     ResolveConflicts(mapLockRequestRejected[vote.txHash]); ///?????
                 } else {
-                    LogPrint("instantsend", "ProcessTxLockVote -- Transaction Lock Request is missing! nSignatures=%d, vote hash %s\n", nSignatures, vote.GetHash().ToString());
+                    LogPrint("instantsend", "ProcepsTxLockVote -- Transaction Lock Request is missing! nSignatures=%d, vote hash %s\n", nSignatures, vote.GetHash().ToString());
                 }
             }
         }
@@ -557,7 +557,7 @@ bool CTxLockVote::CheckSignature()
     std::string strError;
     std::string strMessage = txHash.ToString().c_str() + boost::lexical_cast<std::string>(nBlockHeight);
 
-    CDynode* psn = snodeman.Find(vinDynode);
+    CDynode* psn = dnodeman.Find(vinDynode);
 
     if(psn == NULL) {
         LogPrintf("CTxLockVote::CheckSignature -- Unknown Dynode: txin=%s\n", vinDynode.ToString());
@@ -597,7 +597,7 @@ bool CTxLockCandidate::IsAllVotesValid()
 
     BOOST_FOREACH(CTxLockVote vote, vecTxLockVotes)
     {
-        int n = snodeman.GetDynodeRank(vote.vinDynode, vote.nBlockHeight, MIN_INSTANTSEND_PROTO_VERSION);
+        int n = dnodeman.GetDynodeRank(vote.vinDynode, vote.nBlockHeight, MIN_INSTANTSEND_PROTO_VERSION);
 
         if(n == -1) {
             LogPrintf("CTxLockCandidate::IsAllVotesValid -- Unknown Dynode, txin=%s\n", vote.vinDynode.ToString());

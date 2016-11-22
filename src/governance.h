@@ -290,7 +290,7 @@ private:
 
     void RebuildIndexes();
 
-    /// Returns SN index, handling the case of index rebuilds
+    /// Returns DN index, handling the case of index rebuilds
     int GetDynodeIndex(const CTxIn& dynodeVin);
 
     void RebuildVoteMaps();
@@ -419,9 +419,9 @@ private:
     /// Failed to parse object data
     bool fUnparsable;
 
-    vote_m_t mapCurrentSNVotes;
+    vote_m_t mapCurrentDNVotes;
 
-    /// Limited map of votes orphaned by SN
+    /// Limited map of votes orphaned by DN
     vote_mcache_t mapOrphanVotes;
 
     CGovernanceObjectVoteFile fileVotes;
@@ -554,7 +554,7 @@ public:
         if(nType & SER_DISK) {
             // Only include these for the disk file format
             LogPrint("gobject", "CGovernanceObject::SerializationOp Reading/writing votes from/to disk\n");
-            READWRITE(mapCurrentSNVotes);
+            READWRITE(mapCurrentDNVotes);
             READWRITE(fileVotes);
             LogPrint("gobject", "CGovernanceObject::SerializationOp hash = %s, vote count = %d\n", GetHash().ToString(), fileVotes.GetVoteCount());
         }
@@ -573,7 +573,7 @@ private:
 
     void RebuildVoteMap();
 
-    /// Called when SN's which have voted on this object have been removed
+    /// Called when DN's which have voted on this object have been removed
     void ClearDynodeVotes();
 
     void CheckOrphanVotes();

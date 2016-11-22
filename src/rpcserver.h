@@ -177,7 +177,7 @@ extern UniValue getconnectioncount(const UniValue& params, bool fHelp); // in rp
 extern UniValue getaddressmempool(const UniValue& params, bool fHelp);
 extern UniValue getaddressutxos(const UniValue& params, bool fHelp);
 extern UniValue getaddressdeltas(const UniValue& params, bool fHelp);
-extern UniValue getaddresstxids(const UniValue& params, bool fHelp);
+extern UniValue getaddrepstxids(const UniValue& params, bool fHelp);
 extern UniValue getaddressbalance(const UniValue& params, bool fHelp);
 
 extern UniValue getpeerinfo(const UniValue& params, bool fHelp);

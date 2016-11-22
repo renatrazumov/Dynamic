@@ -267,10 +267,10 @@ private:
         ERR_INVALID_SCRIPT,
         ERR_INVALID_TX,
         ERR_MAXIMUM,
-        ERR_SN_LIST,
+        ERR_DN_LIST,
         ERR_MODE,
         ERR_NON_STANDARD_PUBKEY,
-        ERR_NOT_A_SN,
+        ERR_NOT_A_DN,
         ERR_QUEUE_FULL,
         ERR_RECENT,
         ERR_SESSION,
@@ -434,13 +434,13 @@ public:
      * \param strCommand lower case command string; valid values are:
      *        Command  | Description
      *        -------- | -----------------
-     *        ssa      | Acceptable
-     *        ssc      | Complete
-     *        ssf      | Final tx
-     *        ssi      | Vector of CTxIn
-     *        ssq      | Queue
-     *        sss      | Signal Final Tx
-     *        sssu     | status update
+     *        psa      | Acceptable
+     *        psc      | Complete
+     *        psf      | Final tx
+     *        psi      | Vector of CTxIn
+     *        psq      | Queue
+     *        pss      | Signal Final Tx
+     *        pssu     | status update
      * \param vRecv
      */
     void ProcessMessage(CNode* pfrom, std::string& strCommand, CDataStream& vRecv);

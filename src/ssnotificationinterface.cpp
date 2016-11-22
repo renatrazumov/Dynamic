@@ -3,26 +3,26 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include "ssnotificationinterface.h"
+#include "psnotificationinterface.h"
 #include "privatesend.h"
 #include "governance.h"
 #include "dynodeman.h"
 #include "dynode-payments.h"
 #include "dynode-sync.h"
 
-CSSNotificationInterface::CSSNotificationInterface()
+CPSNotificationInterface::CPSNotificationInterface()
 {
 }
 
-CSSNotificationInterface::~CSSNotificationInterface()
+CPSNotificationInterface::~CPSNotificationInterface()
 {
 }
 
-void CSSNotificationInterface::UpdatedBlockTip(const CBlockIndex *pindex)
+void CPSNotificationInterface::UpdatedBlockTip(const CBlockIndex *pindex)
 {
-    snodeman.UpdatedBlockTip(pindex);
+    dnodeman.UpdatedBlockTip(pindex);
     privateSendPool.UpdatedBlockTip(pindex);
-    snpayments.UpdatedBlockTip(pindex);
+    dnpayments.UpdatedBlockTip(pindex);
     governance.UpdatedBlockTip(pindex);
     dynodeSync.UpdatedBlockTip(pindex);
 }

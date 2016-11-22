@@ -3,17 +3,17 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DYNAMIC_SSNOTIFICATIONINTERFACE_H
-#define DYNAMIC_SSNOTIFICATIONINTERFACE_H
+#ifndef DYNAMIC_PSNOTIFICATIONINTERFACE_H
+#define DYNAMIC_PSNOTIFICATIONINTERFACE_H
 
 #include "validationinterface.h"
 
-class CSSNotificationInterface : public CValidationInterface
+class CPSNotificationInterface : public CValidationInterface
 {
 public:
-    // virtual CSSNotificationInterface();
-    CSSNotificationInterface();
-    virtual ~CSSNotificationInterface();
+    // virtual CPSNotificationInterface();
+    CPSNotificationInterface();
+    virtual ~CPSNotificationInterface();
 
 protected:
     // CValidationInterface
@@ -22,4 +22,4 @@ protected:
 private:
 };
 
-#endif // DYNAMIC_SSNOTIFICATIONINTERFACE_H
+#endif // DYNAMIC_PSNOTIFICATIONINTERFACE_H

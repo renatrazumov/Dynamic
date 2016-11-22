@@ -51,7 +51,7 @@ Bitcoin Public Key https://bitcoin.org/en/glossary/public-key
 
 ## Message Types
 
-### SNANNOUNCE - "snb"
+### DNANNOUNCE - "dnb"
 
 CDynodeBroadcast
 
@@ -67,9 +67,9 @@ Whenever a Dynode comes online or a client is syncing, they will send this messa
 | 8 | sigTime | int64_t | Time which the signature was created
 | 4 | nProtocolVersion | int | The protocol version of the Dynode
 | # | lastPing | CDynodePing | The last known ping of the Dynode
-| 8 | nLastSsq | int64_t | The last time the Dynode sent a SSQ message (for mixing)
+| 8 | nLastPsq | int64_t | The last time the Dynode sent a SSQ message (for mixing)
 
-### SNPING - "snp"
+### DNPING - "dnp"
 
 CDynodePing
 
@@ -82,7 +82,7 @@ Every few minutes, Dynodes ping the network with a message that propagates the w
 | 8 | sigTime | int64_t | Signature time for this ping
 | 71-73 | vchSig | char[] | Signature of this message by Dynode (verifiable via pubKeyDynode)
 
-### DynodePAYMENTVOTE - "snw"
+### DynodePAYMENTVOTE - "dnw"
 
 CDynodePaymentVote
 
@@ -95,11 +95,11 @@ When a new block is found on the network, a Dynode quorum will be determined and
 | ? | payeeAddress | CScript | The address to pay to
 | 71-73 | sig | char[] | Signature of the Dynode which is signing the message
 
-### SSTX - "sstx"
+### PSTX - "pstx"
 
 CPrivatesendBroadcastTx
 
-Dynodes can broadcast subsidised transactions without fees for the sake of security in mixing. This is done via the SSTX message.
+Dynodes can broadcast subsidised transactions without fees for the sake of security in mixing. This is done via the PSTX message.
 
 | Field Size | Field Name | Data type | Description |
 | ---------- | ----------- | --------- | -------- |
@@ -108,7 +108,7 @@ Dynodes can broadcast subsidised transactions without fees for the sake of secur
 | 71-73 | vchSig | char[] | Signature of this message by Dynode (verifiable via pubKeyDynode)
 | 8 | sigTime | int64_t | Time this message was signed
 
-### SSSTATUSUPDATE - "sssu"
+### PSSTATUSUPDATE - "pssu"
 
 Mixing pool status update
 
@@ -120,7 +120,7 @@ Mixing pool status update
 | 4 | nMsgStatusUpdate | int | Update state and/or signal if entry was accepted or not
 | 4 | nMsgMessageID | int | ID of the typical Dynode reply message
 
-### SSQUEUE - "ssq"
+### PSQUEUE - "psq"
 
 CPrivatesendQueue
 
@@ -134,7 +134,7 @@ Asks users to sign final mixing tx message.
 | 4 | fReady | int | if the mixing pool is ready to be executed
 | 71-73 | vchSig | char[] | Signature of this message by Dynode (verifiable via pubKeyDynode)
 
-### SSACCEPT - "ssa"
+### PSACCEPT - "psa"
 
 Response to SSQ message which allows the user to join a mixing pool
 
@@ -143,7 +143,7 @@ Response to SSQ message which allows the user to join a mixing pool
 | 4 | nDenom | int | denomination that will be exclusively used when submitting inputs into the pool
 | 41+ | txCollateral | int | collateral tx that will be charged if this client acts maliciousely
 
-### SSVIN - "ssi"
+### PSVIN - "psi"
 
 CPrivatesendEntry
 
@@ -156,7 +156,7 @@ When queue is ready user is expected to send his entry to start actual mixing
 | ? | txCollateral | CTransaction | Collateral transaction which is used to prevent misbehavior and also to charge fees randomly
 | ? | vecTxSSOut | CTxSSOut[] | vector of user outputs (CTxSSOut serialization is equal to CTxOut serialization)
 
-### SSSIGNFINALTX - "sss"
+### PSSIGNFINALTX - "pss"
 
 User's signed inputs for a group transaction in a mixing session
 
@@ -164,7 +164,7 @@ User's signed inputs for a group transaction in a mixing session
 | ---------- | ----------- | --------- | -------- |
 | # | inputs | CTxIn[] | signed inputs for mixing session
 
-### SNGOVERNANCEOBJECT - "govobj"
+### DNGOVERNANCEOBJECT - "govobj"
 
 Governance Object
 
@@ -181,7 +181,7 @@ A proposal, contract or setting.
 | 41 | vinDynode | CTxIn | Unspent output for the Dynode which is signing this object
 | 71-73 | vchSig | char[] | Signature of the Dynode
 
-### SNGOVERNANCEOBJECTVOTE - "govobjvote"
+### DNGOVERNANCEOBJECTVOTE - "govobjvote"
 
 Governance Vote
 

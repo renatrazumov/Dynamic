@@ -230,22 +230,22 @@ extern const char *SPORK;
 extern const char *GETSPORKS;
 extern const char *DYNODEPAYMENTVOTE;
 extern const char *DYNODEPAYMENTSYNC;
-extern const char *SNANNOUNCE;
-extern const char *SNPING;
-extern const char *SSACCEPT;
-extern const char *SSVIN;
+extern const char *DNANNOUNCE;
+extern const char *DNPING;
+extern const char *PSACCEPT;
+extern const char *PSVIN;
 extern const char *SSFINALTX;
-extern const char *SSSIGNFINALTX;
+extern const char *PSSIGNFINALTX;
 extern const char *SSCOMPLETE;
-extern const char *SSSTATUSUPDATE;
-extern const char *SSTX;
-extern const char *SSQUEUE;
-extern const char *SSEG;
+extern const char *PSSTATUSUPDATE;
+extern const char *PSTX;
+extern const char *PSQUEUE;
+extern const char *DSEG;
 extern const char *SYNCSTATUSCOUNT;
-extern const char *SNGOVERNANCESYNC;
-extern const char *SNGOVERNANCEOBJECT;
-extern const char *SNGOVERNANCEOBJECTVOTE;
-extern const char *SNVERIFY;
+extern const char *DNGOVERNANCESYNC;
+extern const char *DNGOVERNANCEOBJECT;
+extern const char *DNGOVERNANCEOBJECTVOTE;
+extern const char *DNVERIFY;
 };
 
 /* Get a vector of all valid message types (see above) */
@@ -356,7 +356,7 @@ enum {
     MSG_DYNODE_QUORUM, // not implemented
     MSG_DYNODE_ANNOUNCE,
     MSG_DYNODE_PING,
-    MSG_SSTX,
+    MSG_PSTX,
     MSG_GOVERNANCE_OBJECT,
     MSG_GOVERNANCE_OBJECT_VOTE,
     MSG_DYNODE_VERIFY,

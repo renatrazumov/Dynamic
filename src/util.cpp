@@ -277,7 +277,7 @@ bool LogAcceptCategory(const char* category)
                 ptrCategory->insert(string("dynode"));
                 ptrCategory->insert(string("spork"));
                 ptrCategory->insert(string("keepass"));
-                ptrCategory->insert(string("snpayments"));
+                ptrCategory->insert(string("dnpayments"));
                 ptrCategory->insert(string("gobject"));
             }
         }

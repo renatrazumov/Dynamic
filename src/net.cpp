@@ -385,7 +385,7 @@ CNode* ConnectNode(CAddress addrConnect, const char *pszDest, bool fConnectToDyn
 {
     if (pszDest == NULL) {
         // we clean dynode connections in CDynodeMan::ProcessDynodeConnections()
-        // so should be safe to skip this and connect to local Hot SN on CActiveDynode::ManageState()
+        // so should be safe to skip this and connect to local Hot DN on CActiveDynode::ManageState()
         if (IsLocal(addrConnect) && !fConnectToDynode)
             return NULL;
 
@@ -2067,7 +2067,7 @@ void RelayTransaction(const CTransaction& tx)
     CDataStream ss(SER_NETWORK, PROTOCOL_VERSION);
     ss.reserve(10000);
     uint256 hash = tx.GetHash();
-    if(mapPrivatesendBroadcastTxes.count(hash)) { // MSG_SSTX
+    if(mapPrivatesendBroadcastTxes.count(hash)) { // MSG_PSTX
         ss << mapPrivatesendBroadcastTxes[hash];
     } else if(mapLockRequestAccepted.count(hash)) { // MSG_TXLOCK_REQUEST
         ss << mapLockRequestAccepted[hash];
@@ -2080,7 +2080,7 @@ void RelayTransaction(const CTransaction& tx)
 void RelayTransaction(const CTransaction& tx, const CDataStream& ss)
 {
     uint256 hash = tx.GetHash();
-    int nInv = mapPrivatesendBroadcastTxes.count(hash) ? MSG_SSTX :
+    int nInv = mapPrivatesendBroadcastTxes.count(hash) ? MSG_PSTX :
                 (mapLockRequestAccepted.count(hash) ? MSG_TXLOCK_REQUEST : MSG_TX);
     CInv inv(nInv, hash);
     {

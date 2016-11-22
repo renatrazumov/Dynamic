@@ -58,7 +58,7 @@ Close your QT Wallet.
 
 ### Send 1,000 DYN to New Addresses
 
-Just like setting up a standard SN. Send exactly 1,000 DYN to each new address created above.
+Just like setting up a standard DN. Send exactly 1,000 DYN to each new address created above.
 
 ### Create New Dynode Private Keys
 

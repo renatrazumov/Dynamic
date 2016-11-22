@@ -76,7 +76,7 @@
 #include "zmq/zmqnotificationinterface.h"
 #endif
 
-#include "ssnotificationinterface.h"
+#include "psnotificationinterface.h"
 
 using namespace std;
 
@@ -94,7 +94,7 @@ static const bool DEFAULT_STOPAFTERBLOCKIMPORT = false;
 static CZMQNotificationInterface* pzmqNotificationInterface = NULL;
 #endif
 
-static CSSNotificationInterface* pssNotificationInterface = NULL;
+static CPSNotificationInterface* pssNotificationInterface = NULL;
 
 #ifdef WIN32
 // Win32 LevelDB doesn't use filedescriptors, and the ones used for
@@ -221,9 +221,9 @@ void PrepareShutdown()
 
     // STORE DATA CACHES INTO SERIALIZED DAT FILES
     CFlatDB<CDynodeMan> flatdb1("sncache.dat", "magicDynodeCache");
-    flatdb1.Dump(snodeman);
-    CFlatDB<CDynodePayments> flatdb2("snpayments.dat", "magicDynodePaymentsCache");
-    flatdb2.Dump(snpayments);
+    flatdb1.Dump(dnodeman);
+    CFlatDB<CDynodePayments> flatdb2("dnpayments.dat", "magicDynodePaymentsCache");
+    flatdb2.Dump(dnpayments);
     CFlatDB<CGovernanceManager> flatdb3("governance.dat", "magicGovernanceCache");
     flatdb3.Dump(governance);
     CFlatDB<CNetFulfilledRequestManager> flatdb4("netfulfilled.dat", "magicFulfilledCache");
@@ -521,7 +521,7 @@ std::string HelpMessage(HelpMessageMode mode)
         strUsage += HelpMessageOpt("-limitdescendantsize=<n>", strprintf("Do not accept transactions if any ancestor would have more than <n> kilobytes of in-mempool descendants (default: %u).", DEFAULT_DESCENDANT_SIZE_LIMIT));
     }
     string debugCategories = "addrman, alert, bench, coindb, db, lock, rand, rpc, selectcoins, mempool, mempoolrej, net, proxy, prune, http, libevent, tor, zmq, "
-                             "dynamic (or specifically: privatesend, instantsend, dynode, spork, keepass, snpayments, gobject)"; // Don't translate these and qt below
+                             "dynamic (or specifically: privatesend, instantsend, dynode, spork, keepass, dnpayments, gobject)"; // Don't translate these and qt below
     if (mode == HMM_DYNAMIC_QT)
         debugCategories += ", qt";
     strUsage += HelpMessageOpt("-debug=<category>", strprintf(_("Output debugging information (default: %u, supplying <category> is optional)"), 0) + ". " +
@@ -1399,7 +1399,7 @@ bool AppInit2(boost::thread_group& threadGroup, CScheduler& scheduler)
     }
 #endif
 
-    pssNotificationInterface = new CSSNotificationInterface();
+    pssNotificationInterface = new CPSNotificationInterface();
     RegisterValidationInterface(pssNotificationInterface);
 
     if (mapArgs.count("-maxuploadtarget")) {
@@ -1862,14 +1862,14 @@ bool AppInit2(boost::thread_group& threadGroup, CScheduler& scheduler)
 
     uiInterface.InitMessage(_("Loading dynode cache..."));
     CFlatDB<CDynodeMan> flatdb1("sncache.dat", "magicDynodeCache");
-    if(!flatdb1.Load(snodeman)) {
+    if(!flatdb1.Load(dnodeman)) {
         return InitError("Failed to load dynode cache from sncache.dat");
     }
 
     uiInterface.InitMessage(_("Loading dynode payment cache..."));
-    CFlatDB<CDynodePayments> flatdb2("snpayments.dat", "magicDynodePaymentsCache");
-    if(!flatdb2.Load(snpayments)) {
-        return InitError("Failed to load Dynode payments cache from snpayments.dat");
+    CFlatDB<CDynodePayments> flatdb2("dnpayments.dat", "magicDynodePaymentsCache");
+    if(!flatdb2.Load(dnpayments)) {
+        return InitError("Failed to load Dynode payments cache from dnpayments.dat");
     }
 
     uiInterface.InitMessage(_("Loading governance cache..."));
@@ -1887,12 +1887,12 @@ bool AppInit2(boost::thread_group& threadGroup, CScheduler& scheduler)
 
     // ********************************************************* Step 11c: update block tip in Dynamic modules
 
-    // force UpdatedBlockTip to initialize pCurrentBlockIndex for SS, SN payments and budgets
+    // force UpdatedBlockTip to initialize pCurrentBlockIndex for SS, DN payments and budgets
     // but don't call it directly to prevent triggering of other listeners like zmq etc.
     // GetMainSignals().UpdatedBlockTip(chainActive.Tip());
-    snodeman.UpdatedBlockTip(chainActive.Tip());
+    dnodeman.UpdatedBlockTip(chainActive.Tip());
     privateSendPool.UpdatedBlockTip(chainActive.Tip());
-    snpayments.UpdatedBlockTip(chainActive.Tip());
+    dnpayments.UpdatedBlockTip(chainActive.Tip());
     dynodeSync.UpdatedBlockTip(chainActive.Tip());
     governance.UpdatedBlockTip(chainActive.Tip());
 

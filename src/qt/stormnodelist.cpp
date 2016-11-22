@@ -105,15 +105,15 @@ void DynodeList::StartAlias(std::string strAlias)
     BOOST_FOREACH(CDynodeConfig::CDynodeEntry sne, dynodeConfig.getEntries()) {
         if(sne.getAlias() == strAlias) {
             std::string strError;
-            CDynodeBroadcast snb;
+            CDynodeBroadcast dnb;
 
-            bool fSuccess = CDynodeBroadcast::Create(sne.getIp(), sne.getPrivKey(), sne.getTxHash(), sne.getOutputIndex(), strError, snb);
+            bool fSuccess = CDynodeBroadcast::Create(sne.getIp(), sne.getPrivKey(), sne.getTxHash(), sne.getOutputIndex(), strError, dnb);
 
             if(fSuccess) {
                 strStatusHtml += "<br>Successfully started dynode.";
-                snodeman.UpdateDynodeList(snb);
-                snb.Relay();
-                snodeman.NotifyDynodeUpdates();
+                dnodeman.UpdateDynodeList(dnb);
+                dnb.Relay();
+                dnodeman.NotifyDynodeUpdates();
             } else {
                 strStatusHtml += "<br>Failed to start dynode.<br>Error: " + strError;
             }
@@ -137,20 +137,20 @@ void DynodeList::StartAll(std::string strCommand)
 
     BOOST_FOREACH(CDynodeConfig::CDynodeEntry sne, dynodeConfig.getEntries()) {
         std::string strError;
-        CDynodeBroadcast snb;
+        CDynodeBroadcast dnb;
 
         CTxIn txin = CTxIn(uint256S(sne.getTxHash()), uint32_t(atoi(sne.getOutputIndex().c_str())));
-        CDynode *psn = snodeman.Find(txin);
+        CDynode *psn = dnodeman.Find(txin);
 
         if(strCommand == "start-missing" && psn) continue;
 
-        bool fSuccess = CDynodeBroadcast::Create(sne.getIp(), sne.getPrivKey(), sne.getTxHash(), sne.getOutputIndex(), strError, snb);
+        bool fSuccess = CDynodeBroadcast::Create(sne.getIp(), sne.getPrivKey(), sne.getTxHash(), sne.getOutputIndex(), strError, dnb);
 
         if(fSuccess) {
             nCountSuccessful++;
-            snodeman.UpdateDynodeList(snb);
-            snb.Relay();
-            snodeman.NotifyDynodeUpdates();
+            dnodeman.UpdateDynodeList(dnb);
+            dnb.Relay();
+            dnodeman.NotifyDynodeUpdates();
         } else {
             nCountFailed++;
             strFailedHtml += "\nFailed to start " + sne.getAlias() + ". Error: " + strError;
@@ -222,7 +222,7 @@ void DynodeList::updateMyNodeList(bool fForce)
     ui->tableWidgetDynodes->setSortingEnabled(false);
     BOOST_FOREACH(CDynodeConfig::CDynodeEntry sne, dynodeConfig.getEntries()) {
         CTxIn txin = CTxIn(uint256S(sne.getTxHash()), uint32_t(atoi(sne.getOutputIndex().c_str())));
-        CDynode *psn = snodeman.Find(txin);
+        CDynode *psn = dnodeman.Find(txin);
 
         updateMyDynodeInfo(QString::fromStdString(sne.getAlias()), QString::fromStdString(sne.getIp()), psn);
     }
@@ -256,18 +256,18 @@ void DynodeList::updateNodeList()
     ui->tableWidgetDynodes->setSortingEnabled(false);
     ui->tableWidgetDynodes->clearContents();
     ui->tableWidgetDynodes->setRowCount(0);
-    std::vector<CDynode> vDynodes = snodeman.GetFullDynodeVector();
+    std::vector<CDynode> vDynodes = dnodeman.GetFullDynodeVector();
 
-    BOOST_FOREACH(CDynode& sn, vDynodes)
+    BOOST_FOREACH(CDynode& dn, vDynodes)
     {
         // populate list
         // Address, Protocol, Status, Active Seconds, Last Seen, Pub Key
-        QTableWidgetItem *addressItem = new QTableWidgetItem(QString::fromStdString(sn.addr.ToString()));
-        QTableWidgetItem *protocolItem = new QTableWidgetItem(QString::number(sn.nProtocolVersion));
-        QTableWidgetItem *statusItem = new QTableWidgetItem(QString::fromStdString(sn.GetStatus()));
-        QTableWidgetItem *activeSecondsItem = new QTableWidgetItem(QString::fromStdString(DurationToDHMS(sn.lastPing.sigTime - sn.sigTime)));
-        QTableWidgetItem *lastSeenItem = new QTableWidgetItem(QString::fromStdString(DateTimeStrFormat("%Y-%m-%d %H:%M", sn.lastPing.sigTime)));
-        QTableWidgetItem *pubkeyItem = new QTableWidgetItem(QString::fromStdString(CDynamicAddress(sn.pubKeyCollateralAddress.GetID()).ToString()));
+        QTableWidgetItem *addressItem = new QTableWidgetItem(QString::fromStdString(dn.addr.ToString()));
+        QTableWidgetItem *protocolItem = new QTableWidgetItem(QString::number(dn.nProtocolVersion));
+        QTableWidgetItem *statusItem = new QTableWidgetItem(QString::fromStdString(dn.GetStatus()));
+        QTableWidgetItem *activeSecondsItem = new QTableWidgetItem(QString::fromStdString(DurationToDHMS(dn.lastPing.sigTime - dn.sigTime)));
+        QTableWidgetItem *lastSeenItem = new QTableWidgetItem(QString::fromStdString(DateTimeStrFormat("%Y-%m-%d %H:%M", dn.lastPing.sigTime)));
+        QTableWidgetItem *pubkeyItem = new QTableWidgetItem(QString::fromStdString(CDynamicAddress(dn.pubKeyCollateralAddress.GetID()).ToString()));
 
         if (strCurrentFilter != "")
         {

@@ -72,13 +72,13 @@ class AddressIndexTest(DynamicTestFramework):
 
         self.sync_all()
 
-        txids = self.nodes[1].getaddresstxids("yMNJePdcKvXtWWQnFYHNeJ5u8TF2v1dfK4")
+        txids = self.nodes[1].getaddrepstxids("yMNJePdcKvXtWWQnFYHNeJ5u8TF2v1dfK4")
         assert_equal(len(txids), 3)
         assert_equal(txids[0], txid0)
         assert_equal(txids[1], txid1)
         assert_equal(txids[2], txid2)
 
-        txidsb = self.nodes[1].getaddresstxids("93bVhahvUKmQu8gu9g3QnPPa2cxFK98pMB")
+        txidsb = self.nodes[1].getaddrepstxids("93bVhahvUKmQu8gu9g3QnPPa2cxFK98pMB")
         assert_equal(len(txidsb), 3)
         assert_equal(txidsb[0], txidb0)
         assert_equal(txidsb[1], txidb1)
@@ -86,7 +86,7 @@ class AddressIndexTest(DynamicTestFramework):
 
         # Check that limiting by height works
         print "Testing querying txids by range of block heights.."
-        height_txids = self.nodes[1].getaddresstxids({
+        height_txids = self.nodes[1].getaddrepstxids({
             "addresses": ["93bVhahvUKmQu8gu9g3QnPPa2cxFK98pMB"],
             "start": 105,
             "end": 110
@@ -96,7 +96,7 @@ class AddressIndexTest(DynamicTestFramework):
         assert_equal(height_txids[1], txidb1)
 
         # Check that multiple addresses works
-        multitxids = self.nodes[1].getaddresstxids({"addresses": ["93bVhahvUKmQu8gu9g3QnPPa2cxFK98pMB", "yMNJePdcKvXtWWQnFYHNeJ5u8TF2v1dfK4"]})
+        multitxids = self.nodes[1].getaddrepstxids({"addresses": ["93bVhahvUKmQu8gu9g3QnPPa2cxFK98pMB", "yMNJePdcKvXtWWQnFYHNeJ5u8TF2v1dfK4"]})
         assert_equal(len(multitxids), 6)
         assert_equal(multitxids[0], txid0)
         assert_equal(multitxids[1], txidb0)
@@ -125,7 +125,7 @@ class AddressIndexTest(DynamicTestFramework):
         self.nodes[0].generate(1)
         self.sync_all()
 
-        txidsmany = self.nodes[1].getaddresstxids("93bVhahvUKmQu8gu9g3QnPPa2cxFK98pMB")
+        txidsmany = self.nodes[1].getaddrepstxids("93bVhahvUKmQu8gu9g3QnPPa2cxFK98pMB")
         assert_equal(len(txidsmany), 4)
         assert_equal(txidsmany[3], sent_txid)
 
