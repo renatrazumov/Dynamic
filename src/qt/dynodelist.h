@@ -52,7 +52,7 @@ private:
     bool fFilterUpdated;
 
 public Q_SLOTS:
-    void updateMyDynodeInfo(QString strAlias, QString strAddr, CDynode *psn);
+    void updateMyDynodeInfo(QString strAlias, QString strAddr, CDynode *pdn);
     void updateMyNodeList(bool fForce = false);
     void updateNodeList();
 

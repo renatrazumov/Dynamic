@@ -62,14 +62,14 @@ void CPrivatesendPool::ProcessMessage(CNode* pfrom, std::string& strCommand, CDa
 
         LogPrint("privatesend", "PSACCEPT -- nDenom %d (%s)  txCollateral %s", nDenom, GetDenominationsToString(nDenom), txCollateral.ToString());
 
-        CDynode* psn = dnodeman.Find(activeDynode.vin);
-        if(psn == NULL) {
+        CDynode* pdn = dnodeman.Find(activeDynode.vin);
+        if(pdn == NULL) {
             PushStatus(pfrom, STATUS_REJECTED, ERR_DN_LIST);
             return;
         }
 
-        if(vecSessionCollaterals.size() == 0 && psn->nLastPsq != 0 &&
-            psn->nLastPsq + dnodeman.CountEnabled(MIN_PRIVATESEND_PEER_PROTO_VERSION)/5 > dnodeman.nSsqCount)
+        if(vecSessionCollaterals.size() == 0 && pdn->nLastPsq != 0 &&
+            pdn->nLastPsq + dnodeman.CountEnabled(MIN_PRIVATESEND_PEER_PROTO_VERSION)/5 > dnodeman.nSsqCount)
         {
             LogPrintf("PSACCEPT -- last psq too recent, must wait: addr=%s\n", pfrom->addr.ToString());
             PushStatus(pfrom, STATUS_REJECTED, ERR_RECENT);
@@ -114,10 +114,10 @@ void CPrivatesendPool::ProcessMessage(CNode* pfrom, std::string& strCommand, CDa
 
         if(psq.IsExpired() || psq.nTime > GetTime() + PRIVATESEND_QUEUE_TIMEOUT) return;
 
-        CDynode* psn = dnodeman.Find(psq.vin);
-        if(psn == NULL) return;
+        CDynode* pdn = dnodeman.Find(psq.vin);
+        if(pdn == NULL) return;
 
-        if(!psq.CheckSignature(psn->pubKeyDynode)) {
+        if(!psq.CheckSignature(pdn->pubKeyDynode)) {
             // we probably have outdated info
             dnodeman.AskForDN(pfrom, psq.vin);
             return;
@@ -126,36 +126,36 @@ void CPrivatesendPool::ProcessMessage(CNode* pfrom, std::string& strCommand, CDa
         // if the queue is ready, submit if we can
         if(psq.fReady) {
             if(!pSubmittedToDynode) return;
-            if((CNetAddr)pSubmittedToDynode->addr != (CNetAddr)psn->addr) {
-                LogPrintf("PSQUEUE -- message doesn't match current Dynode: pSubmittedToDynode=%s, addr=%s\n", pSubmittedToDynode->addr.ToString(), psn->addr.ToString());
+            if((CNetAddr)pSubmittedToDynode->addr != (CNetAddr)pdn->addr) {
+                LogPrintf("PSQUEUE -- message doesn't match current Dynode: pSubmittedToDynode=%s, addr=%s\n", pSubmittedToDynode->addr.ToString(), pdn->addr.ToString());
                 return;
             }
 
             if(nState == POOL_STATE_QUEUE) {
-                LogPrint("privatesend", "PSQUEUE -- PrivateSend queue (%s) is ready on dynode %s\n", psq.ToString(), psn->addr.ToString());
+                LogPrint("privatesend", "PSQUEUE -- PrivateSend queue (%s) is ready on dynode %s\n", psq.ToString(), pdn->addr.ToString());
                 SubmitDenominate();
             }
         } else {
             BOOST_FOREACH(CPrivatesendQueue q, vecPrivatesendQueue) {
                 if(q.vin == psq.vin) {
-                    // no way same dn can send another "not yet ready" psq this soon
-                    LogPrint("privatesend", "PSQUEUE -- Dynode %s is sending WAY too many psq messages\n", psn->addr.ToString());
+                    // no way same sn can send another "not yet ready" psq this soon
+                    LogPrint("privatesend", "PSQUEUE -- Dynode %s is sending WAY too many psq messages\n", pdn->addr.ToString());
                     return;
                 }
             }
 
-            int nThreshold = psn->nLastPsq + dnodeman.CountEnabled(MIN_PRIVATESEND_PEER_PROTO_VERSION)/5;
-            LogPrint("privatesend", "PSQUEUE -- nLastPsq: %d  threshold: %d  nSsqCount: %d\n", psn->nLastPsq, nThreshold, dnodeman.nSsqCount);
+            int nThreshold = pdn->nLastPsq + dnodeman.CountEnabled(MIN_PRIVATESEND_PEER_PROTO_VERSION)/5;
+            LogPrint("privatesend", "PSQUEUE -- nLastPsq: %d  threshold: %d  nSsqCount: %d\n", pdn->nLastPsq, nThreshold, dnodeman.nSsqCount);
             //don't allow a few nodes to dominate the queuing process
-            if(psn->nLastPsq != 0 && nThreshold > dnodeman.nSsqCount) {
-                LogPrint("privatesend", "PSQUEUE -- Dynode %s is sending too many psq messages\n", psn->addr.ToString());
+            if(pdn->nLastPsq != 0 && nThreshold > dnodeman.nSsqCount) {
+                LogPrint("privatesend", "PSQUEUE -- Dynode %s is sending too many psq messages\n", pdn->addr.ToString());
                 return;
             }
             dnodeman.nSsqCount++;
-            psn->nLastPsq = dnodeman.nSsqCount;
-            psn->fAllowMixingTx = true;
+            pdn->nLastPsq = dnodeman.nSsqCount;
+            pdn->fAllowMixingTx = true;
 
-            LogPrint("privatesend", "PSQUEUE -- new PrivateSend queue (%s) from dynode %s\n", psq.ToString(), psn->addr.ToString());
+            LogPrint("privatesend", "PSQUEUE -- new PrivateSend queue (%s) from dynode %s\n", psq.ToString(), pdn->addr.ToString());
             if(pSubmittedToDynode && pSubmittedToDynode->vin.prevout == psq.vin.prevout) {
                 psq.fTried = true;
             }
@@ -457,7 +457,7 @@ void CPrivatesendPool::ResetPool()
 
 void CPrivatesendPool::SetNull()
 {
-    // DN side
+    // SN side
     vecSessionCollaterals.clear();
 
     // Client side
@@ -1492,13 +1492,13 @@ bool CPrivatesendPool::DoAutomaticDenominating(bool fDryRun)
 
             if(psq.IsExpired()) continue;
 
-            CDynode* psn = dnodeman.Find(psq.vin);
-            if(psn == NULL) {
+            CDynode* pdn = dnodeman.Find(psq.vin);
+            if(pdn == NULL) {
                 LogPrintf("CPrivatesendPool::DoAutomaticDenominating -- psq dynode is not in dynode list, dynode=%s\n", psq.vin.prevout.ToStringShort());
                 continue;
             }
 
-            if(psn->nProtocolVersion < MIN_PRIVATESEND_PEER_PROTO_VERSION) continue;
+            if(pdn->nProtocolVersion < MIN_PRIVATESEND_PEER_PROTO_VERSION) continue;
 
             // incompatible denom
             if(psq.nDenom >= (1 << vecPrivateSendDenominations.size())) continue;
@@ -1519,11 +1519,11 @@ bool CPrivatesendPool::DoAutomaticDenominating(bool fDryRun)
 
             vecDynodesUsed.push_back(psq.vin);
 
-            LogPrintf("CPrivatesendPool::DoAutomaticDenominating -- attempt to connect to dynode from queue, addr=%s\n", psn->addr.ToString());
+            LogPrintf("CPrivatesendPool::DoAutomaticDenominating -- attempt to connect to dynode from queue, addr=%s\n", pdn->addr.ToString());
             // connect to Dynode and submit the queue request
-            CNode* pnode = ConnectNode((CAddress)psn->addr, NULL, true);
+            CNode* pnode = ConnectNode((CAddress)pdn->addr, NULL, true);
             if(pnode) {
-                pSubmittedToDynode = psn;
+                pSubmittedToDynode = pdn;
                 nSessionDenom = psq.nDenom;
 
                 pnode->PushMessage(NetMsgType::PSACCEPT, nSessionDenom, txMyCollateral);
@@ -1534,9 +1534,9 @@ bool CPrivatesendPool::DoAutomaticDenominating(bool fDryRun)
                 nTimeLastSuccessfulStep = GetTimeMillis();
                 return true;
             } else {
-                LogPrintf("CPrivatesendPool::DoAutomaticDenominating -- can't connect, addr=%s\n", psn->addr.ToString());
+                LogPrintf("CPrivatesendPool::DoAutomaticDenominating -- can't connect, addr=%s\n", pdn->addr.ToString());
                 strAutoDenomResult = _("Error connecting to Dynode.");
-                psn->IncreasePoSeBanScore();
+                pdn->IncreasePoSeBanScore();
                 continue;
             }
         }
@@ -1549,28 +1549,28 @@ bool CPrivatesendPool::DoAutomaticDenominating(bool fDryRun)
 
     // otherwise, try one randomly
     while(nTries < 10) {
-        CDynode* psn = dnodeman.FindRandomNotInVec(vecDynodesUsed, MIN_PRIVATESEND_PEER_PROTO_VERSION);
-        if(psn == NULL) {
+        CDynode* pdn = dnodeman.FindRandomNotInVec(vecDynodesUsed, MIN_PRIVATESEND_PEER_PROTO_VERSION);
+        if(pdn == NULL) {
             LogPrintf("CPrivatesendPool::DoAutomaticDenominating -- Can't find random dynode!\n");
             strAutoDenomResult = _("Can't find random Dynode.");
             return false;
         }
-        vecDynodesUsed.push_back(psn->vin);
+        vecDynodesUsed.push_back(pdn->vin);
 
-        if(psn->nLastPsq != 0 && psn->nLastPsq + nSnCountEnabled/5 > dnodeman.nSsqCount) {
+        if(pdn->nLastPsq != 0 && pdn->nLastPsq + nSnCountEnabled/5 > dnodeman.nSsqCount) {
             LogPrintf("CPrivatesendPool::DoAutomaticDenominating -- Too early to mix on this dynode!"
                         " dynode=%s  addr=%s  nLastPsq=%d  CountEnabled/5=%d  nSsqCount=%d\n",
-                        psn->vin.prevout.ToStringShort(), psn->addr.ToString(), psn->nLastPsq,
+                        pdn->vin.prevout.ToStringShort(), pdn->addr.ToString(), pdn->nLastPsq,
                         nSnCountEnabled/5, dnodeman.nSsqCount);
             nTries++;
             continue;
         }
 
-        LogPrintf("CPrivatesendPool::DoAutomaticDenominating -- attempt %d connection to Dynode %s\n", nTries, psn->addr.ToString());
-        CNode* pnode = ConnectNode((CAddress)psn->addr, NULL, true);
+        LogPrintf("CPrivatesendPool::DoAutomaticDenominating -- attempt %d connection to Dynode %s\n", nTries, pdn->addr.ToString());
+        CNode* pnode = ConnectNode((CAddress)pdn->addr, NULL, true);
         if(pnode) {
-            LogPrintf("CPrivatesendPool::DoAutomaticDenominating -- connected, addr=%s\n", psn->addr.ToString());
-            pSubmittedToDynode = psn;
+            LogPrintf("CPrivatesendPool::DoAutomaticDenominating -- connected, addr=%s\n", pdn->addr.ToString());
+            pSubmittedToDynode = pdn;
 
             std::vector<CAmount> vecAmounts;
             pwalletMain->ConvertList(vecTxIn, vecAmounts);
@@ -1587,9 +1587,9 @@ bool CPrivatesendPool::DoAutomaticDenominating(bool fDryRun)
             nTimeLastSuccessfulStep = GetTimeMillis();
             return true;
         } else {
-            LogPrintf("CPrivatesendPool::DoAutomaticDenominating -- can't connect, addr=%s\n", psn->addr.ToString());
+            LogPrintf("CPrivatesendPool::DoAutomaticDenominating -- can't connect, addr=%s\n", pdn->addr.ToString());
             nTries++;
-            psn->IncreasePoSeBanScore();
+            pdn->IncreasePoSeBanScore();
             continue;
         }
     }
@@ -1784,7 +1784,7 @@ bool CPrivatesendPool::MakeCollateralAmounts(const CompactTallyItem& tallyItem)
 
     vecSend.push_back((CRecipient){scriptCollateral, PRIVATESEND_COLLATERAL*4, false});
 
-    // try to use non-denominated and not dn-like funds first, select them explicitly
+    // try to use non-denominated and not sn-like funds first, select them explicitly
     CCoinControl coinControl;
     coinControl.fAllowOtherInputs = false;
     coinControl.fAllowWatchOnly = false;
@@ -1797,7 +1797,7 @@ bool CPrivatesendPool::MakeCollateralAmounts(const CompactTallyItem& tallyItem)
             nFeeRet, nChangePosRet, strFail, &coinControl, true, ONLY_NONDENOMINATED_NOT1000IFDN);
     if(!fSuccess) {
         // if we failed (most likeky not enough funds), try to use all coins instead -
-        // DN-like funds should not be touched in any case and we can't mix denominated without collaterals anyway
+        // SN-like funds should not be touched in any case and we can't mix denominated without collaterals anyway
         LogPrintf("CPrivatesendPool::MakeCollateralAmounts -- ONLY_NONDENOMINATED_NOT1000IFDN Error: %s\n", strFail);
         CCoinControl *coinControlNull = NULL;
         fSuccess = pwalletMain->CreateTransaction(vecSend, wtx, reservekeyChange,

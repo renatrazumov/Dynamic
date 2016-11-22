@@ -340,11 +340,11 @@ public:
     }
 
     /// Create Dynode broadcast, needs to be relayed manually after that
-    static bool Create(CTxIn vin, CService service, CKey keyCollateralAddressNew, CPubKey pubKeyCollateralAddressNew, CKey keyDynodeNew, CPubKey pubKeyDynodeNew, std::string &strErrorRet, CDynodeBroadcast &snbRet);
-    static bool Create(std::string strService, std::string strKey, std::string strTxHash, std::string strOutputIndex, std::string& strErrorRet, CDynodeBroadcast &snbRet, bool fOffline = false);
+    static bool Create(CTxIn vin, CService service, CKey keyCollateralAddressNew, CPubKey pubKeyCollateralAddressNew, CKey keyDynodeNew, CPubKey pubKeyDynodeNew, std::string &strErrorRet, CDynodeBroadcast &dnbRet);
+    static bool Create(std::string strService, std::string strKey, std::string strTxHash, std::string strOutputIndex, std::string& strErrorRet, CDynodeBroadcast &dnbRet, bool fOffline = false);
 
     bool SimpleCheck(int& nDos);
-    bool Update(CDynode* psn, int& nDos);
+    bool Update(CDynode* pdn, int& nDos);
     bool CheckOutpoint(int& nDos);
 
     bool Sign(CKey& keyCollateralAddress);

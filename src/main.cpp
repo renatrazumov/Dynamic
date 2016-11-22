@@ -5629,27 +5629,27 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
                 return true; // not an error
             }
 
-            CDynode* psn = dnodeman.Find(pstx.vin);
-            if(psn == NULL) {
+            CDynode* pdn = dnodeman.Find(pstx.vin);
+            if(pdn == NULL) {
                 LogPrint("privatesend", "PSTX -- Can't find dynode %s to verify %s\n", pstx.vin.prevout.ToStringShort(), hashTx.ToString());
                 return false;
             }
 
-            if(!psn->fAllowMixingTx) {
+            if(!pdn->fAllowMixingTx) {
                 LogPrint("privatesend", "PSTX -- Dynode %s is sending too many transactions %s\n", pstx.vin.prevout.ToStringShort(), hashTx.ToString());
                 return true;
                 // TODO: Not an error? Could it be that someone is relaying old PSTXes
                 // we have no idea about (e.g we were offline)? How to handle them?
             }
 
-            if(!pstx.CheckSignature(psn->pubKeyDynode)) {
+            if(!pstx.CheckSignature(pdn->pubKeyDynode)) {
                 LogPrint("privatesend", "PSTX -- CheckSignature() failed for %s\n", hashTx.ToString());
                 return false;
             }
 
             LogPrintf("PSTX -- Got Dynode transaction %s\n", hashTx.ToString());
             mempool.PrioritiseTransaction(hashTx, hashTx.ToString(), 1000, 0.1*COIN);
-            psn->fAllowMixingTx = false;
+            pdn->fAllowMixingTx = false;
         }
 
         CInv inv(nInvType, tx.GetHash());

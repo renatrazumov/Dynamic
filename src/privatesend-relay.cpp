@@ -104,11 +104,11 @@ void CPrivateSendRelay::Relay()
 
 void CPrivateSendRelay::RelayThroughNode(int nRank)
 {
-    CDynode* psn = dnodeman.GetDynodeByRank(nRank, nBlockHeight, MIN_PRIVATESEND_PEER_PROTO_VERSION);
+    CDynode* pdn = dnodeman.GetDynodeByRank(nRank, nBlockHeight, MIN_PRIVATESEND_PEER_PROTO_VERSION);
 
-    if(psn != NULL){
-        //printf("RelayThroughNode %s\n", psn->addr.ToString().c_str());
-        CNode* pnode = ConnectNode((CAddress)psn->addr, NULL);
+    if(pdn != NULL){
+        //printf("RelayThroughNode %s\n", pdn->addr.ToString().c_str());
+        CNode* pnode = ConnectNode((CAddress)pdn->addr, NULL);
         if(pnode) {
             //printf("Connected\n");
             pnode->PushMessage("ssr", (*this));

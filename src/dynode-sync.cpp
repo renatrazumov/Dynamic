@@ -170,9 +170,9 @@ void CDynodeSync::ProcessTick()
     if(!pCurrentBlockIndex) return;
 
     //the actual count of dynodes we have currently
-    int nSnCount = dnodeman.CountDynodes();
+    int nDnCount = dnodeman.CountDynodes();
 
-    if(fDebug) LogPrintf("CDynodeSync::ProcessTick -- nTick %d nSnCount %d\n", nTick, nSnCount);
+    if(fDebug) LogPrintf("CDynodeSync::ProcessTick -- nTick %d nDnCount %d\n", nTick, nDnCount);
 
     // RESET SYNCING INCASE OF FAILURE
     {
@@ -180,7 +180,7 @@ void CDynodeSync::ProcessTick()
             /*
                 Resync if we lose all dynodes from sleep/wake or failure to sync originally
             */
-            if(nSnCount == 0) {
+            if(nDnCount == 0) {
                 LogPrintf("CDynodeSync::ProcessTick -- WARNING: not enough data, restarting sync\n");
                 Reset();
             } else {
@@ -229,8 +229,8 @@ void CDynodeSync::ProcessTick()
             } else if(nRequestedDynodeAttempt < 4) {
                 dnodeman.SsegUpdate(pnode);
             } else if(nRequestedDynodeAttempt < 6) {
-                int nSnCount = dnodeman.CountDynodes();
-                pnode->PushMessage(NetMsgType::DYNODEPAYMENTSYNC, nSnCount); //sync payment votes
+                int nDnCount = dnodeman.CountDynodes();
+                pnode->PushMessage(NetMsgType::DYNODEPAYMENTSYNC, nDnCount); //sync payment votes
                 uint256 n = uint256();
                 pnode->PushMessage(NetMsgType::DNGOVERNANCESYNC, n); //sync dynode votes
             } else {
@@ -283,10 +283,10 @@ void CDynodeSync::ProcessTick()
                 /* Note: Is this activing up? It's probably related to int CDynodeMan::GetEstimatedDynodes(int nBlock)
                    Surely doesn't work right for testnet currently */
                 // try to fetch data from at least two peers though
-                int nSnCountEstimated = dnodeman.GetEstimatedDynodes(pCurrentBlockIndex->nHeight)*0.9;
-                LogPrintf("CDynodeSync::ProcessTick -- nTick %d nSnCount %d nSnCountEstimated %d\n",
-                          nTick, nSnCount, nSnCountEstimated);
-                if(nRequestedDynodeAttempt > 1 && nSnCount > nSnCountEstimated) {
+                int nDnCountEstimated = dnodeman.GetEstimatedDynodes(pCurrentBlockIndex->nHeight)*0.9;
+                LogPrintf("CDynodeSync::ProcessTick -- nTick %d nDnCount %d nDnCountEstimated %d\n",
+                          nTick, nDnCount, nDnCountEstimated);
+                if(nRequestedDynodeAttempt > 1 && nDnCount > nDnCountEstimated) {
                     LogPrintf("CDynodeSync::ProcessTick -- nTick %d nRequestedDynodeAssets %d -- found enough data\n", nTick, nRequestedDynodeAssets);
                     SwitchToNextAsset();
                     return;

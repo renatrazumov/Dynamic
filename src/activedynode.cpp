@@ -204,26 +204,26 @@ void CActiveDynode::ManageStateRemote()
              GetStatus(), fPingerEnabled, GetTypeString(), pubKeyDynode.GetID().ToString());
 
     dnodeman.CheckDynode(pubKeyDynode);
-    dynode_info_t infoSn = dnodeman.GetDynodeInfo(pubKeyDynode);
-    if(infoSn.fInfoValid) {
-        if(infoSn.nProtocolVersion != PROTOCOL_VERSION) {
+    dynode_info_t infoDn = dnodeman.GetDynodeInfo(pubKeyDynode);
+    if(infoDn.fInfoValid) {
+        if(infoDn.nProtocolVersion != PROTOCOL_VERSION) {
             nState = ACTIVE_DYNODE_NOT_CAPABLE;
             strNotCapableReason = "Invalid protocol version";
             LogPrintf("CActiveDynode::ManageStateRemote -- %s: %s\n", GetStateString(), strNotCapableReason);
             return;
         }
-        if(service != infoSn.addr) {
+        if(service != infoDn.addr) {
             nState = ACTIVE_DYNODE_NOT_CAPABLE;
             strNotCapableReason = "Specified IP doesn't match our external address.";
             LogPrintf("CActiveDynode::ManageStateRemote -- %s: %s\n", GetStateString(), strNotCapableReason);
             return;
         }
-        vin = infoSn.vin;
-        service = infoSn.addr;
+        vin = infoDn.vin;
+        service = infoDn.addr;
         fPingerEnabled = true;
-        if(((infoSn.nActiveState == CDynode::DYNODE_ENABLED) ||
-            (infoSn.nActiveState == CDynode::DYNODE_PRE_ENABLED) ||
-            (infoSn.nActiveState == CDynode::DYNODE_WATCHDOG_EXPIRED))) {
+        if(((infoDn.nActiveState == CDynode::DYNODE_ENABLED) ||
+            (infoDn.nActiveState == CDynode::DYNODE_PRE_ENABLED) ||
+            (infoDn.nActiveState == CDynode::DYNODE_WATCHDOG_EXPIRED))) {
             if(nState != ACTIVE_DYNODE_STARTED) {
                 LogPrintf("CActiveDynode::ManageStateRemote -- STARTED!\n");
             }
@@ -231,7 +231,7 @@ void CActiveDynode::ManageStateRemote()
         }
         else {
             nState = ACTIVE_DYNODE_NOT_CAPABLE;
-            strNotCapableReason = strprintf("Dynode in %s state", CDynode::StateToString(infoSn.nActiveState));
+            strNotCapableReason = strprintf("Dynode in %s state", CDynode::StateToString(infoDn.nActiveState));
             LogPrintf("CActiveDynode::ManageStateRemote -- %s: %s\n", GetStateString(), strNotCapableReason);
         }
     }

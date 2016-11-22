@@ -303,7 +303,7 @@ public:
     /// Update dynode list and maps using provided CDynodeBroadcast
     void UpdateDynodeList(CDynodeBroadcast dnb);
     /// Perform complete check and only then update list and maps
-    bool CheckSnbAndUpdateDynodeList(CDynodeBroadcast dnb, int& nDos);
+    bool CheckDnbAndUpdateDynodeList(CDynodeBroadcast dnb, int& nDos);
 
     void UpdateLastPaid(const CBlockIndex *pindex);
 

@@ -18,7 +18,7 @@ Dump the private key from your Dynode's pulic key.
 
 ```
 walletpassphrase [your_wallet_passphrase] 600
-dumpprivkey [sn_public_key]
+dumpprivkey [dn_public_key]
 ```
 
 Copy the resulting priviate key. You'll use it in the next step.
@@ -47,7 +47,7 @@ The wallet will re-scan and you will see your available balance increase by the 
 1. Open the QT Wallet.
 2. Click the Receive tab.
 3. Fill in the form to request a payment.
-    * Label: sn01
+    * Label: dn01
     * Amount: 1000 (optional)
     * Click *Request payment*
 5. Click the *Copy Address* button
@@ -108,8 +108,8 @@ alias ipaddress:port dynode_private_key collateral_output collateral_output_inde
 Example:
 
 ```
-sn01 127.0.0.1:31000 93HaYBVUCYjEMeeH1Y4sBGLALQZE1Yc1K64xiqgX37tGBDQL8Xg 2bcd3c84c84f87eaa86e4e56834c92927a07f9e18718810b92e0d0324456a67c 0
-sn02 127.0.0.2:31000 93WaAb3htPJEV8E9aQcN23Jt97bPex7YvWfgMDTUdWJvzmrMqey aa9f1034d973377a5e733272c3d0eced1de22555ad45d6b24abadff8087948d4 0 7gnwGHt17heGpG9Crfeh4KGpYNFugPhJdh:25
+dn01 127.0.0.1:31000 93HaYBVUCYjEMeeH1Y4sBGLALQZE1Yc1K64xiqgX37tGBDQL8Xg 2bcd3c84c84f87eaa86e4e56834c92927a07f9e18718810b92e0d0324456a67c 0
+dn02 127.0.0.2:31000 93WaAb3htPJEV8E9aQcN23Jt97bPex7YvWfgMDTUdWJvzmrMqey aa9f1034d973377a5e733272c3d0eced1de22555ad45d6b24abadff8087948d4 0 7gnwGHt17heGpG9Crfeh4KGpYNFugPhJdh:25
 ```
 
 ## What about the dynamic.conf file?
@@ -153,5 +153,5 @@ If you want to review your dynode.conf setting before starting the Dynodes, issu
 
 Give it the eye-ball test. If satisfied, you can start your nodes one of two ways.
 
-1. dynode start-alias [alias_from_dynode.conf]. Example ```dynode start-alias sn01```
+1. dynode start-alias [alias_from_dynode.conf]. Example ```dynode start-alias dn01```
 2. dynode start-many

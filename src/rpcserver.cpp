@@ -352,7 +352,7 @@ static const CRPCCommand vRPCCommands[] =
     { "dynamic",               "getgovernanceinfo",      &getgovernanceinfo,      true  },
     { "dynamic",               "getsuperblockbudget",    &getsuperblockbudget,    true  },
     { "dynamic",               "voteraw",                &voteraw,                true  },
-    { "dynamic",               "snsync",                 &snsync,                 true  },
+    { "dynamic",               "dnsync",                 &dnsync,                 true  },
     { "dynamic",               "spork",                  &spork,                  true  },
     { "dynamic",               "getpoolinfo",            &getpoolinfo,            true  },
 #ifdef ENABLE_WALLET

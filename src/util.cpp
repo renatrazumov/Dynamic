@@ -618,7 +618,7 @@ boost::filesystem::path GetConfigFile()
 
 boost::filesystem::path GetDynodeConfigFile()
 {
-    boost::filesystem::path pathConfigFile(GetArg("-snconf", "dynode.conf"));
+    boost::filesystem::path pathConfigFile(GetArg("-dnconf", "dynode.conf"));
     if (!pathConfigFile.is_complete()) pathConfigFile = GetDataDir() / pathConfigFile;
     return pathConfigFile;
 }

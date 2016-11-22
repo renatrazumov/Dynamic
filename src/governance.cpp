@@ -1204,16 +1204,16 @@ bool CGovernanceObject::IsValidLocally(const CBlockIndex* pindex, std::string& s
     if(fCheckCollateral) { 
         if((nObjectType == GOVERNANCE_OBJECT_TRIGGER) || (nObjectType == GOVERNANCE_OBJECT_WATCHDOG)) {
             std::string strOutpoint = vinDynode.prevout.ToStringShort();
-            dynode_info_t infoSn = dnodeman.GetDynodeInfo(vinDynode);
-            if(!infoSn.fInfoValid) {
+            dynode_info_t infoDn = dnodeman.GetDynodeInfo(vinDynode);
+            if(!infoDn.fInfoValid) {
                 fMissingDynode = true;
                 strError = "Dynode not found: " + strOutpoint;
                 return false;
             }
 
             // Check that we have a valid DN signature
-            if(!CheckSignature(infoSn.pubKeyDynode)) {
-                strError = "Invalid dynode signature for: " + strOutpoint + ", pubkey id = " + infoSn.pubKeyDynode.GetID().ToString();
+            if(!CheckSignature(infoDn.pubKeyDynode)) {
+                strError = "Invalid dynode signature for: " + strOutpoint + ", pubkey id = " + infoDn.pubKeyDynode.GetID().ToString();
                 return false;
             }
 
@@ -1439,13 +1439,13 @@ void CGovernanceObject::UpdateSentinelVariables(const CBlockIndex *pCurrentBlock
 {
     // CALCULATE MINIMUM SUPPORT LEVELS REQUIRED
 
-    int nSnCount = dnodeman.CountEnabled();
-    if(nSnCount == 0) return;
+    int nDnCount = dnodeman.CountEnabled();
+    if(nDnCount == 0) return;
 
     // CALCULATE THE MINUMUM VOTE COUNT REQUIRED FOR FULL SIGNAL
 
     // todo - 12.1 - should be set to `10` after governance vote compression is implemented
-    int nAbsVoteReq = std::max(Params().GetConsensus().nGovernanceMinQuorum, nSnCount / 10);
+    int nAbsVoteReq = std::max(Params().GetConsensus().nGovernanceMinQuorum, nDnCount / 10);
     // todo - 12.1 - Temporarily set to 1 for testing - reverted
     //nAbsVoteReq = 1;
 

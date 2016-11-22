@@ -284,8 +284,8 @@ bool CGovernanceVote::IsValid(bool fSignatureCheck) const
         return false;
     }
 
-    dynode_info_t infoSn = dnodeman.GetDynodeInfo(vinDynode);
-    if(!infoSn.fInfoValid) {
+    dynode_info_t infoDn = dnodeman.GetDynodeInfo(vinDynode);
+    if(!infoDn.fInfoValid) {
         LogPrint("gobject", "CGovernanceVote::IsValid -- Unknown Dynode - %s\n", vinDynode.prevout.ToStringShort());
         return false;
     }
@@ -296,7 +296,7 @@ bool CGovernanceVote::IsValid(bool fSignatureCheck) const
     std::string strMessage = vinDynode.prevout.ToStringShort() + "|" + nParentHash.ToString() + "|" +
         boost::lexical_cast<std::string>(nVoteSignal) + "|" + boost::lexical_cast<std::string>(nVoteOutcome) + "|" + boost::lexical_cast<std::string>(nTime);
 
-    if(!privateSendSigner.VerifyMessage(infoSn.pubKeyDynode, vchSig, strMessage, strError)) {
+    if(!privateSendSigner.VerifyMessage(infoDn.pubKeyDynode, vchSig, strMessage, strError)) {
         LogPrintf("CGovernanceVote::IsValid -- VerifyMessage() failed, error: %s\n", strError);
         return false;
     }

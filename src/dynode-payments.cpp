@@ -609,9 +609,9 @@ void CDynodePayments::CheckAndRemove()
 
 bool CDynodePaymentVote::IsValid(CNode* pnode, int nValidationHeight, std::string& strError)
 {
-    CDynode* psn = dnodeman.Find(vinDynode);
+    CDynode* pdn = dnodeman.Find(vinDynode);
 
-    if(!psn) {
+    if(!pdn) {
         strError = strprintf("Unknown Dynode: prevout=%s", vinDynode.prevout.ToStringShort());
         // Only ask if we are already synced and still have no idea about that Dynode
         if(dynodeSync.IsSynced()) {
@@ -630,8 +630,8 @@ bool CDynodePaymentVote::IsValid(CNode* pnode, int nValidationHeight, std::strin
         nMinRequiredProtocol = MIN_DYNODE_PAYMENT_PROTO_VERSION_1;
     }
 
-    if(psn->nProtocolVersion < nMinRequiredProtocol) {
-        strError = strprintf("Dynode protocol is too old: nProtocolVersion=%d, nMinRequiredProtocol=%d", psn->nProtocolVersion, nMinRequiredProtocol);
+    if(pdn->nProtocolVersion < nMinRequiredProtocol) {
+        strError = strprintf("Dynode protocol is too old: nProtocolVersion=%d, nMinRequiredProtocol=%d", pdn->nProtocolVersion, nMinRequiredProtocol);
         return false;
     }
 
@@ -684,17 +684,17 @@ bool CDynodePayments::ProcessBlock(int nBlockHeight)
 
     // pay to the oldest DN that still had no payment but its input is old enough and it was active long enough
     int nCount = 0;
-    CDynode *psn = dnodeman.GetNextDynodeInQueueForPayment(nBlockHeight, true, nCount);
+    CDynode *pdn = dnodeman.GetNextDynodeInQueueForPayment(nBlockHeight, true, nCount);
 
-    if (psn == NULL) {
+    if (pdn == NULL) {
         LogPrintf("CDynodePayments::ProcessBlock -- ERROR: Failed to find dynode to pay\n");
         return false;
     }
 
-    LogPrintf("CDynodePayments::ProcessBlock -- Dynode found by GetNextDynodeInQueueForPayment(): %s\n", psn->vin.prevout.ToStringShort());
+    LogPrintf("CDynodePayments::ProcessBlock -- Dynode found by GetNextDynodeInQueueForPayment(): %s\n", pdn->vin.prevout.ToStringShort());
 
 
-    CScript payee = GetScriptForDestination(psn->pubKeyCollateralAddress.GetID());
+    CScript payee = GetScriptForDestination(pdn->pubKeyCollateralAddress.GetID());
 
     CDynodePaymentVote voteNew(activeDynode.vin, nBlockHeight, payee);
 
@@ -728,16 +728,16 @@ void CDynodePaymentVote::Relay()
 bool CDynodePaymentVote::CheckSignature()
 {
 
-    CDynode* psn = dnodeman.Find(vinDynode);
+    CDynode* pdn = dnodeman.Find(vinDynode);
 
-    if (!psn) return false;
+    if (!pdn) return false;
 
     std::string strMessage = vinDynode.prevout.ToStringShort() +
                 boost::lexical_cast<std::string>(nBlockHeight) +
                 ScriptToAsmStr(payee);
 
     std::string strError = "";
-    if (!privateSendSigner.VerifyMessage(psn->pubKeyDynode, vchSig, strMessage, strError)) {
+    if (!privateSendSigner.VerifyMessage(pdn->pubKeyDynode, vchSig, strMessage, strError)) {
         return error("CDynodePaymentVote::CheckSignature -- Got bad Dynode payment signature, dynode=%s, error: %s", vinDynode.prevout.ToStringShort().c_str(), strError);
     }
 

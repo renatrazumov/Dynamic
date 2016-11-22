@@ -258,13 +258,13 @@ UniValue dynode(const UniValue& params, bool fHelp)
         UniValue statusObj(UniValue::VOBJ);
         statusObj.push_back(Pair("alias", strAlias));
 
-        BOOST_FOREACH(CDynodeConfig::CDynodeEntry sne, dynodeConfig.getEntries()) {
-            if(sne.getAlias() == strAlias) {
+        BOOST_FOREACH(CDynodeConfig::CDynodeEntry dne, dynodeConfig.getEntries()) {
+            if(dne.getAlias() == strAlias) {
                 fFound = true;
                 std::string strError;
                 CDynodeBroadcast dnb;
 
-                bool fResult = CDynodeBroadcast::Create(sne.getIp(), sne.getPrivKey(), sne.getTxHash(), sne.getOutputIndex(), strError, dnb);
+                bool fResult = CDynodeBroadcast::Create(dne.getIp(), dne.getPrivKey(), dne.getTxHash(), dne.getOutputIndex(), strError, dnb);
 
                 statusObj.push_back(Pair("result", fResult ? "successful" : "failed"));
                 if(fResult) {
@@ -303,20 +303,20 @@ UniValue dynode(const UniValue& params, bool fHelp)
 
         UniValue resultsObj(UniValue::VOBJ);
 
-        BOOST_FOREACH(CDynodeConfig::CDynodeEntry sne, dynodeConfig.getEntries()) {
+        BOOST_FOREACH(CDynodeConfig::CDynodeEntry dne, dynodeConfig.getEntries()) {
             std::string strError;
 
-            CTxIn vin = CTxIn(uint256S(sne.getTxHash()), uint32_t(atoi(sne.getOutputIndex().c_str())));
-            CDynode *psn = dnodeman.Find(vin);
+            CTxIn vin = CTxIn(uint256S(dne.getTxHash()), uint32_t(atoi(dne.getOutputIndex().c_str())));
+            CDynode *pdn = dnodeman.Find(vin);
             CDynodeBroadcast dnb;
 
-            if(strCommand == "start-missing" && psn) continue;
-            if(strCommand == "start-disabled" && psn && psn->IsEnabled()) continue;
+            if(strCommand == "start-missing" && pdn) continue;
+            if(strCommand == "start-disabled" && pdn && pdn->IsEnabled()) continue;
 
-            bool fResult = CDynodeBroadcast::Create(sne.getIp(), sne.getPrivKey(), sne.getTxHash(), sne.getOutputIndex(), strError, dnb);
+            bool fResult = CDynodeBroadcast::Create(dne.getIp(), dne.getPrivKey(), dne.getTxHash(), dne.getOutputIndex(), strError, dnb);
 
             UniValue statusObj(UniValue::VOBJ);
-            statusObj.push_back(Pair("alias", sne.getAlias()));
+            statusObj.push_back(Pair("alias", dne.getAlias()));
             statusObj.push_back(Pair("result", fResult ? "successful" : "failed"));
 
             if (fResult) {
@@ -351,20 +351,20 @@ UniValue dynode(const UniValue& params, bool fHelp)
     {
         UniValue resultObj(UniValue::VOBJ);
 
-        BOOST_FOREACH(CDynodeConfig::CDynodeEntry sne, dynodeConfig.getEntries()) {
-            CTxIn vin = CTxIn(uint256S(sne.getTxHash()), uint32_t(atoi(sne.getOutputIndex().c_str())));
-            CDynode *psn = dnodeman.Find(vin);
+        BOOST_FOREACH(CDynodeConfig::CDynodeEntry dne, dynodeConfig.getEntries()) {
+            CTxIn vin = CTxIn(uint256S(dne.getTxHash()), uint32_t(atoi(dne.getOutputIndex().c_str())));
+            CDynode *pdn = dnodeman.Find(vin);
 
-            std::string strStatus = psn ? psn->GetStatus() : "MISSING";
+            std::string strStatus = pdn ? pdn->GetStatus() : "MISSING";
 
-            UniValue snObj(UniValue::VOBJ);
-            snObj.push_back(Pair("alias", sne.getAlias()));
-            snObj.push_back(Pair("address", sne.getIp()));
-            snObj.push_back(Pair("privateKey", sne.getPrivKey()));
-            snObj.push_back(Pair("txHash", sne.getTxHash()));
-            snObj.push_back(Pair("outputIndex", sne.getOutputIndex()));
-            snObj.push_back(Pair("status", strStatus));
-            resultObj.push_back(Pair("dynode", snObj));
+            UniValue dnObj(UniValue::VOBJ);
+            dnObj.push_back(Pair("alias", dne.getAlias()));
+            dnObj.push_back(Pair("address", dne.getIp()));
+            dnObj.push_back(Pair("privateKey", dne.getPrivKey()));
+            dnObj.push_back(Pair("txHash", dne.getTxHash()));
+            dnObj.push_back(Pair("outputIndex", dne.getOutputIndex()));
+            dnObj.push_back(Pair("status", strStatus));
+            resultObj.push_back(Pair("dynode", dnObj));
         }
 
         return resultObj;
@@ -389,18 +389,18 @@ UniValue dynode(const UniValue& params, bool fHelp)
         if (!fDyNode)
             throw JSONRPCError(RPC_INTERNAL_ERROR, "This is not a dynode");
 
-        UniValue snObj(UniValue::VOBJ);
+        UniValue dnObj(UniValue::VOBJ);
 
-        snObj.push_back(Pair("vin", activeDynode.vin.ToString()));
-        snObj.push_back(Pair("service", activeDynode.service.ToString()));
+        dnObj.push_back(Pair("vin", activeDynode.vin.ToString()));
+        dnObj.push_back(Pair("service", activeDynode.service.ToString()));
 
         CDynode dn;
         if(dnodeman.Get(activeDynode.vin, dn)) {
-            snObj.push_back(Pair("payee", CDynamicAddress(dn.pubKeyCollateralAddress.GetID()).ToString()));
+            dnObj.push_back(Pair("payee", CDynamicAddress(dn.pubKeyCollateralAddress.GetID()).ToString()));
         }
 
-        snObj.push_back(Pair("status", activeDynode.GetStatus()));
-        return snObj;
+        dnObj.push_back(Pair("status", activeDynode.GetStatus()));
+        return dnObj;
     }
 
     if (strCommand == "winners")
@@ -559,15 +559,15 @@ UniValue dynodelist(const UniValue& params, bool fHelp)
     return obj;
 }
 
-bool DecodeHexVecSnb(std::vector<CDynodeBroadcast>& vecSnb, std::string strHexSnb) {
+bool DecodeHexVecDnb(std::vector<CDynodeBroadcast>& vecDnb, std::string strHexDnb) {
 
-    if (!IsHex(strHexSnb))
+    if (!IsHex(strHexDnb))
         return false;
 
-    std::vector<unsigned char> snbData(ParseHex(strHexSnb));
-    CDataStream ssData(snbData, SER_NETWORK, PROTOCOL_VERSION);
+    std::vector<unsigned char> dnbData(ParseHex(strHexDnb));
+    CDataStream ssData(dnbData, SER_NETWORK, PROTOCOL_VERSION);
     try {
-        ssData >> vecSnb;
+        ssData >> vecDnb;
     }
     catch (const std::exception&) {
         return false;
@@ -615,24 +615,24 @@ UniValue dynodebroadcast(const UniValue& params, bool fHelp)
         std::string strAlias = params[1].get_str();
 
         UniValue statusObj(UniValue::VOBJ);
-        std::vector<CDynodeBroadcast> vecSnb;
+        std::vector<CDynodeBroadcast> vecDnb;
 
         statusObj.push_back(Pair("alias", strAlias));
 
-        BOOST_FOREACH(CDynodeConfig::CDynodeEntry sne, dynodeConfig.getEntries()) {
-            if(sne.getAlias() == strAlias) {
+        BOOST_FOREACH(CDynodeConfig::CDynodeEntry dne, dynodeConfig.getEntries()) {
+            if(dne.getAlias() == strAlias) {
                 fFound = true;
                 std::string strError;
                 CDynodeBroadcast dnb;
 
-                bool fResult = CDynodeBroadcast::Create(sne.getIp(), sne.getPrivKey(), sne.getTxHash(), sne.getOutputIndex(), strError, dnb, true);
+                bool fResult = CDynodeBroadcast::Create(dne.getIp(), dne.getPrivKey(), dne.getTxHash(), dne.getOutputIndex(), strError, dnb, true);
 
                 statusObj.push_back(Pair("result", fResult ? "successful" : "failed"));
                 if(fResult) {
-                    vecSnb.push_back(dnb);
-                    CDataStream ssVecSnb(SER_NETWORK, PROTOCOL_VERSION);
-                    ssVecSnb << vecSnb;
-                    statusObj.push_back(Pair("hex", HexStr(ssVecSnb.begin(), ssVecSnb.end())));
+                    vecDnb.push_back(dnb);
+                    CDataStream ssVecDnb(SER_NETWORK, PROTOCOL_VERSION);
+                    ssVecDnb << vecDnb;
+                    statusObj.push_back(Pair("hex", HexStr(ssVecDnb.begin(), ssVecDnb.end())));
                 } else {
                     statusObj.push_back(Pair("errorMessage", strError));
                 }
@@ -660,28 +660,28 @@ UniValue dynodebroadcast(const UniValue& params, bool fHelp)
             EnsureWalletIsUnlocked();
         }
 
-        std::vector<CDynodeConfig::CDynodeEntry> snEntries;
-        snEntries = dynodeConfig.getEntries();
+        std::vector<CDynodeConfig::CDynodeEntry> dnEntries;
+        dnEntries = dynodeConfig.getEntries();
 
         int nSuccessful = 0;
         int nFailed = 0;
 
         UniValue resultsObj(UniValue::VOBJ);
-        std::vector<CDynodeBroadcast> vecSnb;
+        std::vector<CDynodeBroadcast> vecDnb;
 
-        BOOST_FOREACH(CDynodeConfig::CDynodeEntry sne, dynodeConfig.getEntries()) {
+        BOOST_FOREACH(CDynodeConfig::CDynodeEntry dne, dynodeConfig.getEntries()) {
             std::string strError;
             CDynodeBroadcast dnb;
 
-            bool fResult = CDynodeBroadcast::Create(sne.getIp(), sne.getPrivKey(), sne.getTxHash(), sne.getOutputIndex(), strError, dnb, true);
+            bool fResult = CDynodeBroadcast::Create(dne.getIp(), dne.getPrivKey(), dne.getTxHash(), dne.getOutputIndex(), strError, dnb, true);
 
             UniValue statusObj(UniValue::VOBJ);
-            statusObj.push_back(Pair("alias", sne.getAlias()));
+            statusObj.push_back(Pair("alias", dne.getAlias()));
             statusObj.push_back(Pair("result", fResult ? "successful" : "failed"));
 
             if(fResult) {
                 nSuccessful++;
-                vecSnb.push_back(dnb);
+                vecDnb.push_back(dnb);
             } else {
                 nFailed++;
                 statusObj.push_back(Pair("errorMessage", strError));
@@ -690,12 +690,12 @@ UniValue dynodebroadcast(const UniValue& params, bool fHelp)
             resultsObj.push_back(Pair("status", statusObj));
         }
 
-        CDataStream ssVecSnb(SER_NETWORK, PROTOCOL_VERSION);
-        ssVecSnb << vecSnb;
+        CDataStream ssVecDnb(SER_NETWORK, PROTOCOL_VERSION);
+        ssVecDnb << vecDnb;
         UniValue returnObj(UniValue::VOBJ);
         returnObj.push_back(Pair("overall", strprintf("Successfully created broadcast messages for %d dynodes, failed to create %d, total %d", nSuccessful, nFailed, nSuccessful + nFailed)));
         returnObj.push_back(Pair("detail", resultsObj));
-        returnObj.push_back(Pair("hex", HexStr(ssVecSnb.begin(), ssVecSnb.end())));
+        returnObj.push_back(Pair("hex", HexStr(ssVecDnb.begin(), ssVecDnb.end())));
 
         return returnObj;
     }
@@ -705,9 +705,9 @@ UniValue dynodebroadcast(const UniValue& params, bool fHelp)
         if (params.size() != 2)
             throw JSONRPCError(RPC_INVALID_PARAMETER, "Correct usage is 'dynodebroadcast decode \"hexstring\"'");
 
-        std::vector<CDynodeBroadcast> vecSnb;
+        std::vector<CDynodeBroadcast> vecDnb;
 
-        if (!DecodeHexVecSnb(vecSnb, params[1].get_str()))
+        if (!DecodeHexVecDnb(vecDnb, params[1].get_str()))
             throw JSONRPCError(RPC_DESERIALIZATION_ERROR, "Dynode broadcast message decode failed");
 
         int nSuccessful = 0;
@@ -715,7 +715,7 @@ UniValue dynodebroadcast(const UniValue& params, bool fHelp)
         int nDos = 0;
         UniValue returnObj(UniValue::VOBJ);
 
-        BOOST_FOREACH(CDynodeBroadcast& dnb, vecSnb) {
+        BOOST_FOREACH(CDynodeBroadcast& dnb, vecDnb) {
             UniValue resultObj(UniValue::VOBJ);
 
             if(dnb.CheckSignature(nDos)) {
@@ -757,9 +757,9 @@ UniValue dynodebroadcast(const UniValue& params, bool fHelp)
                                                         "1. \"hex\"      (string, required) Broadcast messages hex string\n"
                                                         "2. fast       (string, optional) If none, using safe method\n");
 
-        std::vector<CDynodeBroadcast> vecSnb;
+        std::vector<CDynodeBroadcast> vecDnb;
 
-        if (!DecodeHexVecSnb(vecSnb, params[1].get_str()))
+        if (!DecodeHexVecDnb(vecDnb, params[1].get_str()))
             throw JSONRPCError(RPC_DESERIALIZATION_ERROR, "Dynode broadcast message decode failed");
 
         int nSuccessful = 0;
@@ -768,7 +768,7 @@ UniValue dynodebroadcast(const UniValue& params, bool fHelp)
         UniValue returnObj(UniValue::VOBJ);
 
         // verify all signatures first, bailout if any of them broken
-        BOOST_FOREACH(CDynodeBroadcast& dnb, vecSnb) {
+        BOOST_FOREACH(CDynodeBroadcast& dnb, vecDnb) {
             UniValue resultObj(UniValue::VOBJ);
 
             resultObj.push_back(Pair("vin", dnb.vin.ToString()));
@@ -778,7 +778,7 @@ UniValue dynodebroadcast(const UniValue& params, bool fHelp)
             bool fResult;
             if (dnb.CheckSignature(nDos)) {
                 if (fSafe) {
-                    fResult = dnodeman.CheckSnbAndUpdateDynodeList(dnb, nDos);
+                    fResult = dnodeman.CheckDnbAndUpdateDynodeList(dnb, nDos);
                 } else {
                     dnodeman.UpdateDynodeList(dnb);
                     dnb.Relay();

@@ -559,8 +559,8 @@ std::string HelpMessage(HelpMessageMode mode)
 
     strUsage += HelpMessageGroup(_("Dynode options:"));
     strUsage += HelpMessageOpt("-dynode=<n>", strprintf(_("Enable the client to act as a dynode (0-1, default: %u)"), 0));
-    strUsage += HelpMessageOpt("-snconf=<file>", strprintf(_("Specify dynode configuration file (default: %s)"), "dynode.conf"));
-    strUsage += HelpMessageOpt("-snconflock=<n>", strprintf(_("Lock dynodes from dynode configuration file (default: %u)"), 1));
+    strUsage += HelpMessageOpt("-dnconf=<file>", strprintf(_("Specify dynode configuration file (default: %s)"), "dynode.conf"));
+    strUsage += HelpMessageOpt("-dnconflock=<n>", strprintf(_("Lock dynodes from dynode configuration file (default: %u)"), 1));
     strUsage += HelpMessageOpt("-dynodeprivkey=<n>", _("Set the dynode private key"));
 
     strUsage += HelpMessageGroup(_("PrivateSend options:"));
@@ -1808,22 +1808,22 @@ bool AppInit2(boost::thread_group& threadGroup, CScheduler& scheduler)
 
     LogPrintf("Using dynode config file %s\n", GetDynodeConfigFile().string());
 
-    if(GetBoolArg("-snconflock", true) && pwalletMain && (dynodeConfig.getCount() > 0)) {
+    if(GetBoolArg("-dnconflock", true) && pwalletMain && (dynodeConfig.getCount() > 0)) {
         LOCK(pwalletMain->cs_wallet);
         LogPrintf("Locking Dynodes:\n");
         uint256 snTxHash;
         int outputIndex;
-        BOOST_FOREACH(CDynodeConfig::CDynodeEntry sne, dynodeConfig.getEntries()) {
-            snTxHash.SetHex(sne.getTxHash());
-            outputIndex = boost::lexical_cast<unsigned int>(sne.getOutputIndex());
+        BOOST_FOREACH(CDynodeConfig::CDynodeEntry dne, dynodeConfig.getEntries()) {
+            snTxHash.SetHex(dne.getTxHash());
+            outputIndex = boost::lexical_cast<unsigned int>(dne.getOutputIndex());
             COutPoint outpoint = COutPoint(snTxHash, outputIndex);
             // don't lock non-spendable outpoint (i.e. it's already spent or it's not from this wallet at all)
             if(pwalletMain->IsMine(CTxIn(outpoint)) != ISMINE_SPENDABLE) {
-                LogPrintf("  %s %s - IS NOT SPENDABLE, was not locked\n", sne.getTxHash(), sne.getOutputIndex());
+                LogPrintf("  %s %s - IS NOT SPENDABLE, was not locked\n", dne.getTxHash(), dne.getOutputIndex());
                 continue;
             }
             pwalletMain->LockCoin(outpoint);
-            LogPrintf("  %s %s - locked successfully\n", sne.getTxHash(), sne.getOutputIndex());
+            LogPrintf("  %s %s - locked successfully\n", dne.getTxHash(), dne.getOutputIndex());
         }
     }
 

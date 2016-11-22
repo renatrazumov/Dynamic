@@ -203,8 +203,8 @@ void CDynode::Check(bool fForce)
     if(nActiveState == DYNODE_POSE_BAN) {
         if(nHeight < nPoSeBanHeight) return; // too early?
         // Otherwise give it a chance to proceed further to do all the usual checks and to change its state.
-        // Dynode still will be on the edge and can be banned back easily if it keeps ignoring snverify
-        // or connect attempts. Will require few snverify messages to strengthen its position in dn list.
+        // Dynode still will be on the edge and can be banned back easily if it keeps ignoring dnverify
+        // or connect attempts. Will require few dnverify messages to strengthen its position in dn list.
         LogPrintf("CDynode::Check -- Dynode %s is unbanned and back in list now\n", vin.prevout.ToStringShort());
         DecreasePoSeBanScore();
     } else if(nPoSeBanScore >= DYNODE_POSE_BAN_MAX_SCORE) {
@@ -366,7 +366,7 @@ void CDynode::UpdateLastPaid(const CBlockIndex *pindex, int nMaxBlocksToScanBack
     // LogPrint("dynode", "CDynode::UpdateLastPaidBlock -- searching for block with payment to %s -- keeping old %d\n", vin.prevout.ToStringShort(), nBlockLastPaid);
 }
 
-bool CDynodeBroadcast::Create(std::string strService, std::string strKeyDynode, std::string strTxHash, std::string strOutputIndex, std::string& strErrorRet, CDynodeBroadcast &snbRet, bool fOffline)
+bool CDynodeBroadcast::Create(std::string strService, std::string strKeyDynode, std::string strTxHash, std::string strOutputIndex, std::string& strErrorRet, CDynodeBroadcast &dnbRet, bool fOffline)
 {
     CTxIn txin;
     CPubKey pubKeyCollateralAddressNew;
@@ -407,10 +407,10 @@ bool CDynodeBroadcast::Create(std::string strService, std::string strKeyDynode, 
         return false;
     }
 
-    return Create(txin, CService(strService), keyCollateralAddressNew, pubKeyCollateralAddressNew, keyDynodeNew, pubKeyDynodeNew, strErrorRet, snbRet);
+    return Create(txin, CService(strService), keyCollateralAddressNew, pubKeyCollateralAddressNew, keyDynodeNew, pubKeyDynodeNew, strErrorRet, dnbRet);
 }
 
-bool CDynodeBroadcast::Create(CTxIn txin, CService service, CKey keyCollateralAddressNew, CPubKey pubKeyCollateralAddressNew, CKey keyDynodeNew, CPubKey pubKeyDynodeNew, std::string &strErrorRet, CDynodeBroadcast &snbRet)
+bool CDynodeBroadcast::Create(CTxIn txin, CService service, CKey keyCollateralAddressNew, CPubKey pubKeyCollateralAddressNew, CKey keyDynodeNew, CPubKey pubKeyDynodeNew, std::string &strErrorRet, CDynodeBroadcast &dnbRet)
 {
     // wait for reindex and/or import to finish
     if (fImporting || fReindex) return false;
@@ -424,24 +424,24 @@ bool CDynodeBroadcast::Create(CTxIn txin, CService service, CKey keyCollateralAd
     if(!snp.Sign(keyDynodeNew, pubKeyDynodeNew)) {
         strErrorRet = strprintf("Failed to sign ping, dynode=%s", txin.prevout.ToStringShort());
         LogPrintf("CDynodeBroadcast::Create -- %s\n", strErrorRet);
-        snbRet = CDynodeBroadcast();
+        dnbRet = CDynodeBroadcast();
         return false;
     }
 
-    snbRet = CDynodeBroadcast(service, txin, pubKeyCollateralAddressNew, pubKeyDynodeNew, PROTOCOL_VERSION);
+    dnbRet = CDynodeBroadcast(service, txin, pubKeyCollateralAddressNew, pubKeyDynodeNew, PROTOCOL_VERSION);
 
-    if(!snbRet.IsValidNetAddr()) {
+    if(!dnbRet.IsValidNetAddr()) {
         strErrorRet = strprintf("Invalid IP address, dynode=%s", txin.prevout.ToStringShort());
         LogPrintf("CDynodeBroadcast::Create -- %s\n", strErrorRet);
-        snbRet = CDynodeBroadcast();
+        dnbRet = CDynodeBroadcast();
         return false;
     }
 
-    snbRet.lastPing = snp;
-    if(!snbRet.Sign(keyCollateralAddressNew)) {
+    dnbRet.lastPing = snp;
+    if(!dnbRet.Sign(keyCollateralAddressNew)) {
         strErrorRet = strprintf("Failed to sign broadcast, dynode=%s", txin.prevout.ToStringShort());
         LogPrintf("CDynodeBroadcast::Create -- %s\n", strErrorRet);
-        snbRet = CDynodeBroadcast();
+        dnbRet = CDynodeBroadcast();
         return false;
     }
 
@@ -512,43 +512,43 @@ bool CDynodeBroadcast::SimpleCheck(int& nDos)
     return true;
 }
 
-bool CDynodeBroadcast::Update(CDynode* psn, int& nDos)
+bool CDynodeBroadcast::Update(CDynode* pdn, int& nDos)
 {
-    if(psn->sigTime == sigTime) {
-        // mapSeenDynodeBroadcast in CDynodeMan::CheckSnbAndUpdateDynodeList should filter legit duplicates
+    if(pdn->sigTime == sigTime) {
+        // mapSeenDynodeBroadcast in CDynodeMan::CheckDnbAndUpdateDynodeList should filter legit duplicates
         // but this still can happen if we just started, which is ok, just do nothing here.
         return true;
     }
 
     // this broadcast is older than the one that we already have - it's bad and should never happen
     // unless someone is doing something fishy
-    if(psn->sigTime > sigTime) {
+    if(pdn->sigTime > sigTime) {
         LogPrintf("CDynodeBroadcast::Update -- Bad sigTime %d (existing broadcast is at %d) for Dynode %s %s\n",
-                      sigTime, psn->sigTime, vin.prevout.ToStringShort(), addr.ToString());
+                      sigTime, pdn->sigTime, vin.prevout.ToStringShort(), addr.ToString());
         return false;
     }
 
-    psn->Check();
+    pdn->Check();
 
     // dynode is banned by PoSe
-    if(psn->IsPoSeBanned()) {
+    if(pdn->IsPoSeBanned()) {
         LogPrintf("CDynodeBroadcast::Update -- Banned by PoSe, dynode=%s\n", vin.prevout.ToStringShort());
         return false;
     }
 
     // IsVnAssociatedWithPubkey is validated once in CheckOutpoint, after that they just need to match
-    if(psn->pubKeyCollateralAddress != pubKeyCollateralAddress) {
+    if(pdn->pubKeyCollateralAddress != pubKeyCollateralAddress) {
         LogPrintf("CDynodeMan::Update -- Got mismatched pubKeyCollateralAddress and vin\n");
         nDos = 33;
         return false;
     }
 
     // if ther was no dynode broadcast recently or if it matches our Dynode privkey...
-    if(!psn->IsBroadcastedWithin(DYNODE_MIN_DNB_SECONDS) || (fDyNode && pubKeyDynode == activeDynode.pubKeyDynode)) {
+    if(!pdn->IsBroadcastedWithin(DYNODE_MIN_DNB_SECONDS) || (fDyNode && pubKeyDynode == activeDynode.pubKeyDynode)) {
         // take the newest entry
         LogPrintf("CDynodeBroadcast::Update -- Got UPDATED Dynode entry: addr=%s\n", addr.ToString());
-        if(psn->UpdateFromNewBroadcast((*this))) {
-            psn->Check();
+        if(pdn->UpdateFromNewBroadcast((*this))) {
+            pdn->Check();
             Relay();
         }
         dynodeSync.AddedDynodeList();
@@ -762,39 +762,39 @@ bool CDynodePing::CheckAndUpdate(int& nDos, bool fRequireEnabled, bool fSimpleCh
     LogPrint("dynode", "CDynodePing::CheckAndUpdate -- New ping: dynode=%s  blockHash=%s  sigTime=%d\n", vin.prevout.ToStringShort(), blockHash.ToString(), sigTime);
 
     // see if we have this Dynode
-    CDynode* psn = dnodeman.Find(vin);
+    CDynode* pdn = dnodeman.Find(vin);
 
-    if (psn == NULL || psn->nProtocolVersion < dnpayments.GetMinDynodePaymentsProto()) {
+    if (pdn == NULL || pdn->nProtocolVersion < dnpayments.GetMinDynodePaymentsProto()) {
         LogPrint("dynode", "CDynodePing::CheckAndUpdate -- Couldn't find compatible Dynode entry, dynode=%s\n", vin.prevout.ToStringShort());
         return false;
     }
 
-    if (fRequireEnabled && !psn->IsEnabled() && !psn->IsPreEnabled() && !psn->IsWatchdogExpired()) return false;
+    if (fRequireEnabled && !pdn->IsEnabled() && !pdn->IsPreEnabled() && !pdn->IsWatchdogExpired()) return false;
 
     // LogPrintf("snping - Found corresponding dn for vin: %s\n", vin.prevout.ToStringShort());
     // update only if there is no known ping for this dynode or
     // last ping was more then DYNODE_MIN_DNP_SECONDS-60 ago comparing to this one
-    if (psn->IsPingedWithin(DYNODE_MIN_DNP_SECONDS - 60, sigTime)) {
+    if (pdn->IsPingedWithin(DYNODE_MIN_DNP_SECONDS - 60, sigTime)) {
         LogPrint("dynode", "CDynodePing::CheckAndUpdate -- Dynode ping arrived too early, dynode=%s\n", vin.prevout.ToStringShort());
         //nDos = 1; //disable, this is happening frequently and causing banned peers
         return false;
     }
 
-    if (!CheckSignature(psn->pubKeyDynode, nDos)) return false;
+    if (!CheckSignature(pdn->pubKeyDynode, nDos)) return false;
 
     // so, ping seems to be ok, let's store it
     LogPrint("dynode", "CDynodePing::CheckAndUpdate -- Dynode ping accepted, dynode=%s\n", vin.prevout.ToStringShort());
-    psn->lastPing = *this;
+    pdn->lastPing = *this;
 
     // and update dnodeman.mapSeenDynodeBroadcast.lastPing which is probably outdated
-    CDynodeBroadcast dnb(*psn);
+    CDynodeBroadcast dnb(*pdn);
     uint256 hash = dnb.GetHash();
     if (dnodeman.mapSeenDynodeBroadcast.count(hash)) {
         dnodeman.mapSeenDynodeBroadcast[hash].lastPing = *this;
     }
 
-    psn->Check(true); // force update, ignoring cache
-    if (!psn->IsEnabled()) return false;
+    pdn->Check(true); // force update, ignoring cache
+    if (!pdn->IsEnabled()) return false;
 
     LogPrint("dynode", "CDynodePing::CheckAndUpdate -- Dynode ping acceepted and relayed, dynode=%s\n", vin.prevout.ToStringShort());
     Relay();

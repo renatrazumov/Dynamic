@@ -315,9 +315,9 @@ bool ProcepsTxLockVote(CNode* pnode, CTxLockVote& vote)
 {
     int n = dnodeman.GetDynodeRank(vote.vinDynode, vote.nBlockHeight, MIN_INSTANTSEND_PROTO_VERSION);
 
-    CDynode* psn = dnodeman.Find(vote.vinDynode);
-    if(psn != NULL)
-        LogPrint("instantsend", "ProcepsTxLockVote -- Dynode addr=%s, rank: %d\n", psn->addr.ToString(), n);
+    CDynode* pdn = dnodeman.Find(vote.vinDynode);
+    if(pdn != NULL)
+        LogPrint("instantsend", "ProcepsTxLockVote -- Dynode addr=%s, rank: %d\n", pdn->addr.ToString(), n);
 
     if(n == -1) {
         //can be caused by past versions trying to vote with an invalid protocol
@@ -557,14 +557,14 @@ bool CTxLockVote::CheckSignature()
     std::string strError;
     std::string strMessage = txHash.ToString().c_str() + boost::lexical_cast<std::string>(nBlockHeight);
 
-    CDynode* psn = dnodeman.Find(vinDynode);
+    CDynode* pdn = dnodeman.Find(vinDynode);
 
-    if(psn == NULL) {
+    if(pdn == NULL) {
         LogPrintf("CTxLockVote::CheckSignature -- Unknown Dynode: txin=%s\n", vinDynode.ToString());
         return false;
     }
 
-    if(!privateSendSigner.VerifyMessage(psn->pubKeyDynode, vchDyNodeSignature, strMessage, strError)) {
+    if(!privateSendSigner.VerifyMessage(pdn->pubKeyDynode, vchDyNodeSignature, strMessage, strError)) {
         LogPrintf("CTxLockVote::CheckSignature -- VerifyMessage() failed, error: %s\n", strError);
         return false;
     }

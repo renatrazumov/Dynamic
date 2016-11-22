@@ -193,7 +193,7 @@ public:
 
     bool GetBlockPayee(int nBlockHeight, CScript& payee);
     bool IsTransactionValid(const CTransaction& txNew, int nBlockHeight);
-    bool IsScheduled(CDynode& sn, int nNotBlockHeight);
+    bool IsScheduled(CDynode& dn, int nNotBlockHeight);
 
     bool CanVote(COutPoint outDynode, int nBlockHeight);
 
