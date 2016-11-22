@@ -146,7 +146,7 @@ The following RPC commands are supported:
   - vote               - Vote on a proposal by single dynode (using dynamic.conf setup)
   - vote-many          - Vote on a proposal by all dynodes (using dynode.conf setup)
   - vote-alias         - Vote on a proposal by alias
- - snfinalbudget "command"... ( "passphrase" )
+ - dnfinalbudget "command"... ( "passphrase" )
   - vote-many   - Vote on a finalized budget
   - vote        - Vote on a finalized budget
   - show        - Show existing finalized budgets

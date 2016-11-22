@@ -21,7 +21,7 @@
 #include "scheduler.h"
 #include "ui_interface.h"
 #include "privatesend.h"
-#include "instantx.h"
+#include "instantsend.h"
 #include "wallet/wallet.h"
 #include "utilstrencodings.h"
 

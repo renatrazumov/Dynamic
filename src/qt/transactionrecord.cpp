@@ -12,7 +12,7 @@
 #include "main.h"
 #include "timedata.h"
 #include "privatesend.h"
-#include "instantx.h"
+#include "instantsend.h"
 #include "wallet/wallet.h"
 
 #include <stdint.h>

@@ -117,7 +117,7 @@ CDynodeMan::CDynodeMan()
   nLastWatchdogVoteTime(0),
   mapSeenDynodeBroadcast(),
   mapSeenDynodePing(),
-  nSsqCount(0)
+  nPsqCount(0)
 {}
 
 bool CDynodeMan::Add(CDynode &dn)
@@ -150,11 +150,11 @@ void CDynodeMan::AskForDN(CNode* pnode, const CTxIn &vin)
         return;
     }
 
-    // ask for the dnb info once from the node that sent snp
+    // ask for the dnb info once from the node that sent dnp
 
     LogPrintf("CDynodeMan::AskForDN -- Asking node for missing dynode entry: %s\n", vin.prevout.ToStringShort());
-    pnode->PushMessage(NetMsgType::DSEG, vin);
-    mWeAskedForDynodeListEntry[vin.prevout] = GetTime() + DSEG_UPDATE_SECONDS;;
+    pnode->PushMessage(NetMsgType::PSEG, vin);
+    mWeAskedForDynodeListEntry[vin.prevout] = GetTime() + PSEG_UPDATE_SECONDS;;
 }
 
 void CDynodeMan::Check()
@@ -294,7 +294,7 @@ void CDynodeMan::Clear()
     mWeAskedForDynodeListEntry.clear();
     mapSeenDynodeBroadcast.clear();
     mapSeenDynodePing.clear();
-    nSsqCount = 0;
+    nPsqCount = 0;
     nLastWatchdogVoteTime = 0;
     indexDynodes.Clear();
     indexDynodesOld.Clear();
@@ -346,7 +346,7 @@ int CDynodeMan::CountByIP(int nNetworkType)
 }
 */
 
-void CDynodeMan::SsegUpdate(CNode* pnode)
+void CDynodeMan::PSEGUpdate(CNode* pnode)
 {
     LOCK(cs);
 
@@ -354,17 +354,17 @@ void CDynodeMan::SsegUpdate(CNode* pnode)
         if(!(pnode->addr.IsRFC1918() || pnode->addr.IsLocal())) {
             std::map<CNetAddr, int64_t>::iterator it = mWeAskedForDynodeList.find(pnode->addr);
             if(it != mWeAskedForDynodeList.end() && GetTime() < (*it).second) {
-                LogPrintf("CDynodeMan::SsegUpdate -- we already asked %s for the list; skipping...\n", pnode->addr.ToString());
+                LogPrintf("CDynodeMan::PSEGUpdate -- we already asked %s for the list; skipping...\n", pnode->addr.ToString());
                 return;
             }
         }
     }
     
-    pnode->PushMessage(NetMsgType::DSEG, CTxIn());
-    int64_t askAgain = GetTime() + DSEG_UPDATE_SECONDS;
+    pnode->PushMessage(NetMsgType::PSEG, CTxIn());
+    int64_t askAgain = GetTime() + PSEG_UPDATE_SECONDS;
     mWeAskedForDynodeList[pnode->addr] = askAgain;
 
-    LogPrint("dynode", "CDynodeMan::SsegUpdate -- asked %s for the list\n", pnode->addr.ToString());
+    LogPrint("dynode", "CDynodeMan::PSEGUpdate -- asked %s for the list\n", pnode->addr.ToString());
 }
 
 CDynode* CDynodeMan::Find(const CScript &payee)
@@ -720,36 +720,36 @@ void CDynodeMan::ProcessMessage(CNode* pfrom, std::string& strCommand, CDataStre
         // ignore dynode pings until dynode list is synced
         if (!dynodeSync.IsDynodeListSynced()) return;
 
-        CDynodePing snp;
-        vRecv >> snp;
+        CDynodePing dnp;
+        vRecv >> dnp;
 
-        LogPrint("dynode", "DNPING -- Dynode ping, dynode=%s\n", snp.vin.prevout.ToStringShort());
+        LogPrint("dynode", "DNPING -- Dynode ping, dynode=%s\n", dnp.vin.prevout.ToStringShort());
 
         LOCK(cs);
 
-        if(mapSeenDynodePing.count(snp.GetHash())) return; //seen
-        mapSeenDynodePing.insert(std::make_pair(snp.GetHash(), snp));
+        if(mapSeenDynodePing.count(dnp.GetHash())) return; //seen
+        mapSeenDynodePing.insert(std::make_pair(dnp.GetHash(), dnp));
 
-        LogPrint("dynode", "DNPING -- Dynode ping, dynode=%s new\n", snp.vin.prevout.ToStringShort());
+        LogPrint("dynode", "DNPING -- Dynode ping, dynode=%s new\n", dnp.vin.prevout.ToStringShort());
 
         int nDos = 0;
-        if(snp.CheckAndUpdate(nDos, false)) return;
+        if(dnp.CheckAndUpdate(nDos, false)) return;
 
         if(nDos > 0) {
             // if anything significant failed, mark that node
             Misbehaving(pfrom->GetId(), nDos);
         } else {
             // if nothing significant failed, search existing Dynode list
-            CDynode* pdn = Find(snp.vin);
+            CDynode* pdn = Find(dnp.vin);
             // if it's known, don't ask for the dnb, just return
             if(pdn != NULL) return;
         }
 
         // something significant is broken or dn is unknown,
         // we might have to ask for a dynode entry once
-        AskForDN(pfrom, snp.vin);
+        AskForDN(pfrom, dnp.vin);
 
-    } else if (strCommand == NetMsgType::DSEG) { //Get Dynode list or specific entry
+    } else if (strCommand == NetMsgType::PSEG) { //Get Dynode list or specific entry
         // Ignore such requests until we are fully synced.
         // We could start processing this after dynode list is synced
         // but this is a heavy one so it's better to finish sync first.
@@ -758,7 +758,7 @@ void CDynodeMan::ProcessMessage(CNode* pfrom, std::string& strCommand, CDataStre
         CTxIn vin;
         vRecv >> vin;
 
-        LogPrint("dynode", "DSEG -- Dynode list, dynode=%s\n", vin.prevout.ToStringShort());
+        LogPrint("dynode", "PSEG -- Dynode list, dynode=%s\n", vin.prevout.ToStringShort());
 
         LOCK(cs);
 
@@ -772,11 +772,11 @@ void CDynodeMan::ProcessMessage(CNode* pfrom, std::string& strCommand, CDataStre
                     int64_t t = (*i).second;
                     if (GetTime() < t) {
                         Misbehaving(pfrom->GetId(), 34);
-                        LogPrintf("DSEG -- peer already asked me for the list, peer=%d\n", pfrom->id);
+                        LogPrintf("PSEG -- peer already asked me for the list, peer=%d\n", pfrom->id);
                         return;
                     }
                 }
-                int64_t askAgain = GetTime() + DSEG_UPDATE_SECONDS;
+                int64_t askAgain = GetTime() + PSEG_UPDATE_SECONDS;
                 mAskedUsForDynodeList[pfrom->addr] = askAgain;
             }
         } //else, asking for a specific node which is ok
@@ -787,7 +787,7 @@ void CDynodeMan::ProcessMessage(CNode* pfrom, std::string& strCommand, CDataStre
             if (vin != CTxIn() && vin != dn.vin) continue; // asked for specific vin but we are not there yet
             if (dn.addr.IsRFC1918() || dn.addr.IsLocal()) continue; // do not send local network dynode
 
-            LogPrint("dynode", "DSEG -- Sending Dynode entry: dynode=%s  addr=%s\n", dn.vin.prevout.ToStringShort(), dn.addr.ToString());
+            LogPrint("dynode", "PSEG -- Sending Dynode entry: dynode=%s  addr=%s\n", dn.vin.prevout.ToStringShort(), dn.addr.ToString());
             CDynodeBroadcast dnb = CDynodeBroadcast(dn);
             uint256 hash = dnb.GetHash();
             pfrom->PushInventory(CInv(MSG_DYNODE_ANNOUNCE, hash));
@@ -798,18 +798,18 @@ void CDynodeMan::ProcessMessage(CNode* pfrom, std::string& strCommand, CDataStre
             }
 
             if (vin == dn.vin) {
-                LogPrintf("DSEG -- Sent 1 Dynode inv to peer %d\n", pfrom->id);
+                LogPrintf("PSEG -- Sent 1 Dynode inv to peer %d\n", pfrom->id);
                 return;
             }
         }
 
         if(vin == CTxIn()) {
             pfrom->PushMessage(NetMsgType::SYNCSTATUSCOUNT, DYNODE_SYNC_LIST, nInvCount);
-            LogPrintf("DSEG -- Sent %d Dynode invs to peer %d\n", nInvCount, pfrom->id);
+            LogPrintf("PSEG -- Sent %d Dynode invs to peer %d\n", nInvCount, pfrom->id);
             return;
         }
         // smth weird happen - someone asked us for vin we have no idea about?
-        LogPrint("dynode", "DSEG -- No invs sent to peer %d\n", pfrom->id);
+        LogPrint("dynode", "PSEG -- No invs sent to peer %d\n", pfrom->id);
 
     } else if (strCommand == NetMsgType::DNVERIFY) { // Dynode Verify
 
@@ -1245,7 +1245,7 @@ std::string CDynodeMan::ToString() const
             ", peers who asked us for Dynode list: " << (int)mAskedUsForDynodeList.size() <<
             ", peers we asked for Dynode list: " << (int)mWeAskedForDynodeList.size() <<
             ", entries in Dynode list we asked for: " << (int)mWeAskedForDynodeListEntry.size() <<
-            ", nSsqCount: " << (int)nSsqCount;
+            ", nPsqCount: " << (int)nPsqCount;
 
     return info.str();
 }
@@ -1480,20 +1480,20 @@ bool CDynodeMan::IsDynodePingedWithin(const CTxIn& vin, int nSeconds, int64_t nT
     return pDN->IsPingedWithin(nSeconds, nTimeToCheckAt);
 }
 
-void CDynodeMan::SetDynodeLastPing(const CTxIn& vin, const CDynodePing& snp)
+void CDynodeMan::SetDynodeLastPing(const CTxIn& vin, const CDynodePing& dnp)
 {
     LOCK(cs);
     CDynode* pDN = Find(vin);
     if(!pDN)  {
         return;
     }
-    pDN->lastPing = snp;
-    mapSeenDynodePing.insert(std::make_pair(snp.GetHash(), snp));
+    pDN->lastPing = dnp;
+    mapSeenDynodePing.insert(std::make_pair(dnp.GetHash(), dnp));
 
     CDynodeBroadcast dnb(*pDN);
     uint256 hash = dnb.GetHash();
     if(mapSeenDynodeBroadcast.count(hash)) {
-        mapSeenDynodeBroadcast[hash].lastPing = snp;
+        mapSeenDynodeBroadcast[hash].lastPing = dnp;
     }
 }
 

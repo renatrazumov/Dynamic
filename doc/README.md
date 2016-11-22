@@ -35,7 +35,7 @@ What is Dynamic?
 
 Dynamic is a new digital currency that enables instant payments to anyone, anywhere in the world. Dynamic uses peer-to-peer technology over Tor/ClearNet to operate securly with no central authority (centralisation): managing transactions and issuing currency (DYN) are carried out collectively by the Dynamic network. Dynamic is the name of open source software which enables the use of the currency DYN.
 
-Dynamic utilises Dynodes, Privatesend and InstantX to provide anonymous and near instant transaction confirmations.
+Dynamic utilises Dynodes, Privatesend and InstantSend to provide anonymous and near instant transaction confirmations.
 
 Dynamic implements Gavin Andresens signature cache optimisation from Bitcoin for significantly faster transaction validation.
 
@@ -49,7 +49,7 @@ Dynamic includes an Address Index feature, based on the address index API (searc
 **Dynode/Privatesend Network Information**
 Ported Masternodes from Dash, rebranded as Dynodes and modified to use stealth addresses.
 Darksend ported and rebranded as Privatesend.
-Utilisation of InstantX for instant transaction confirmation.
+Utilisation of InstantSend for instant transaction confirmation.
 
 **MainNet Parameters**
 P2P Port/Dynodes = 31000

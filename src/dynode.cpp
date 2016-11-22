@@ -420,8 +420,8 @@ bool CDynodeBroadcast::Create(CTxIn txin, CService service, CKey keyCollateralAd
              pubKeyDynodeNew.GetID().ToString());
 
 
-    CDynodePing snp(txin);
-    if(!snp.Sign(keyDynodeNew, pubKeyDynodeNew)) {
+    CDynodePing dnp(txin);
+    if(!dnp.Sign(keyDynodeNew, pubKeyDynodeNew)) {
         strErrorRet = strprintf("Failed to sign ping, dynode=%s", txin.prevout.ToStringShort());
         LogPrintf("CDynodeBroadcast::Create -- %s\n", strErrorRet);
         dnbRet = CDynodeBroadcast();
@@ -437,7 +437,7 @@ bool CDynodeBroadcast::Create(CTxIn txin, CService service, CKey keyCollateralAd
         return false;
     }
 
-    dnbRet.lastPing = snp;
+    dnbRet.lastPing = dnp;
     if(!dnbRet.Sign(keyCollateralAddressNew)) {
         strErrorRet = strprintf("Failed to sign broadcast, dynode=%s", txin.prevout.ToStringShort());
         LogPrintf("CDynodeBroadcast::Create -- %s\n", strErrorRet);
@@ -748,8 +748,8 @@ bool CDynodePing::CheckAndUpdate(int& nDos, bool fRequireEnabled, bool fSimpleCh
         }
         if ((*mi).second && (*mi).second->nHeight < chainActive.Height() - 24) {
             LogPrintf("CDynodePing::CheckAndUpdate -- Dynode ping is invalid, block hash is too old: dynode=%s  blockHash=%s\n", vin.prevout.ToStringShort(), blockHash.ToString());
-            // Do nothing here (no Dynode update, no snping relay)
-            // Let this node to be visible but fail to accept snping
+            // Do nothing here (no Dynode update, no dnping relay)
+            // Let this node to be visible but fail to accept dnping
             return false;
         }
     }
@@ -771,7 +771,7 @@ bool CDynodePing::CheckAndUpdate(int& nDos, bool fRequireEnabled, bool fSimpleCh
 
     if (fRequireEnabled && !pdn->IsEnabled() && !pdn->IsPreEnabled() && !pdn->IsWatchdogExpired()) return false;
 
-    // LogPrintf("snping - Found corresponding dn for vin: %s\n", vin.prevout.ToStringShort());
+    // LogPrintf("dnping - Found corresponding dn for vin: %s\n", vin.prevout.ToStringShort());
     // update only if there is no known ping for this dynode or
     // last ping was more then DYNODE_MIN_DNP_SECONDS-60 ago comparing to this one
     if (pdn->IsPingedWithin(DYNODE_MIN_DNP_SECONDS - 60, sigTime)) {

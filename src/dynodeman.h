@@ -96,7 +96,7 @@ private:
 
     static const std::string SERIALIZATION_VERSION_STRING;
 
-    static const int DSEG_UPDATE_SECONDS        = 3 * 60 * 60;
+    static const int PSEG_UPDATE_SECONDS        = 3 * 60 * 60;
 
     static const int LAST_PAID_SCAN_BLOCKS      = 100;
 
@@ -111,7 +111,7 @@ private:
     // Keep track of current block index
     const CBlockIndex *pCurrentBlockIndex;
 
-    // map to hold all SNs
+    // map to hold all DN's
     std::vector<CDynode> vDynodes;
     // who's asked for the Dynode list and the last time
     std::map<CNetAddr, int64_t> mAskedUsForDynodeList;
@@ -151,7 +151,7 @@ public:
     // Keep track of all verifications I've seen
     std::map<uint256, CDynodeVerification> mapSeenDynodeVerification;
     // keep track of psq count to prevent Dynodes from gaming privatesend queue
-    int64_t nSsqCount;
+    int64_t nPsqCount;
 
 
     ADD_SERIALIZE_METHODS;
@@ -173,7 +173,7 @@ public:
         READWRITE(mWeAskedForDynodeList);
         READWRITE(mWeAskedForDynodeListEntry);
         READWRITE(nLastWatchdogVoteTime);
-        READWRITE(nSsqCount);
+        READWRITE(nPsqCount);
 
         READWRITE(mapSeenDynodeBroadcast);
         READWRITE(mapSeenDynodePing);
@@ -210,7 +210,7 @@ public:
     /// Count Dynodes by network type - NET_IPV4, NET_IPV6, NET_TOR
     // int CountByIP(int nNetworkType);
 
-    void SsegUpdate(CNode* pnode);
+    void PSEGUpdate(CNode* pnode);
 
     /// Find an entry
     CDynode* Find(const CScript &payee);
@@ -289,9 +289,9 @@ public:
     void DoFullVerificationStep();
     void CheckSameAddr();
     bool SendVerifyRequest(const CAddress& addr, const std::vector<CDynode*>& vSortedByAddr);
-    void SendVerifyReply(CNode* pnode, CDynodeVerification& snv);
-    void ProcessVerifyReply(CNode* pnode, CDynodeVerification& snv);
-    void ProcessVerifyBroadcast(CNode* pnode, const CDynodeVerification& snv);
+    void SendVerifyReply(CNode* pnode, CDynodeVerification& dnv);
+    void ProcessVerifyReply(CNode* pnode, CDynodeVerification& dnv);
+    void ProcessVerifyBroadcast(CNode* pnode, const CDynodeVerification& dnv);
 
     /// Return the number of (unique) Dynodes
     int size() { return vDynodes.size(); }
@@ -335,7 +335,7 @@ public:
     int GetDynodeState(const CPubKey& pubKeyDynode);
 
     bool IsDynodePingedWithin(const CTxIn& vin, int nSeconds, int64_t nTimeToCheckAt = -1);
-    void SetDynodeLastPing(const CTxIn& vin, const CDynodePing& snp);
+    void SetDynodeLastPing(const CTxIn& vin, const CDynodePing& dnp);
 
     void UpdatedBlockTip(const CBlockIndex *pindex);
 

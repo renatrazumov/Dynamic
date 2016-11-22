@@ -227,7 +227,7 @@ void CDynodeSync::ProcessTick()
             if(nRequestedDynodeAttempt <= 2) {
                 pnode->PushMessage(NetMsgType::GETSPORKS); //get current network sporks
             } else if(nRequestedDynodeAttempt < 4) {
-                dnodeman.SsegUpdate(pnode);
+                dnodeman.PSEGUpdate(pnode);
             } else if(nRequestedDynodeAttempt < 6) {
                 int nDnCount = dnodeman.CountDynodes();
                 pnode->PushMessage(NetMsgType::DYNODEPAYMENTSYNC, nDnCount); //sync payment votes
@@ -299,7 +299,7 @@ void CDynodeSync::ProcessTick()
                 if (pnode->nVersion < dnpayments.GetMinDynodePaymentsProto()) continue;
                 nRequestedDynodeAttempt++;
 
-                dnodeman.SsegUpdate(pnode);
+                dnodeman.PSEGUpdate(pnode);
 
                 return; //this will cause each peer to get one request each six seconds for the various assets we need
             }

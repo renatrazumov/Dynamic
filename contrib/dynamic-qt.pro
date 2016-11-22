@@ -394,7 +394,7 @@ HEADERS += \
     src/crypto/blake2/blamka-round-opt.h \
     src/crypto/blake2/blake2.h \
     src/crypto/blake2/blake2-impl.h \
-    src/incognito/instantx.h \
+    src/incognito/instantsend.h \
     src/incognito/privatesend/privatesend-relay.h \
     src/incognito/privatesend/privatesend.h \
     src/incognito/dns/dyndns.h \
@@ -558,7 +558,7 @@ SOURCES += \
     src/crypto/argon2d/core.c \
     src/crypto/argon2d/argon2.c \
     src/crypto/blake2/blake2b.c \
-    src/incognito/instantx.cpp \
+    src/incognito/instantsend.cpp \
     src/incognito/privatesend/privatesend-relay.cpp \
     src/incognito/privatesend/privatesend.cpp \
     src/incognito/dns/dns.cpp \

@@ -18,7 +18,7 @@
 #include "consensus/validation.h"
 #include "hash.h"
 #include "init.h"
-#include "instantx.h"
+#include "instantsend.h"
 #include "privatesend.h"
 #include "governance.h"
 #include "dynode-payments.h"

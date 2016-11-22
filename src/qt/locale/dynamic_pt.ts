@@ -2352,8 +2352,8 @@ https://www.transifex.com/projects/p/dynamic/</translation>
         <translation>Privatesend</translation>
     </message>
     <message>
-        <source>InstantX</source>
-        <translation>InstantX</translation>
+        <source>InstantSend</source>
+        <translation>InstantSend</translation>
     </message>
     <message>
         <source>Balance:</source>
@@ -2408,8 +2408,8 @@ https://www.transifex.com/projects/p/dynamic/</translation>
         <translation>quaisquer fundos disponíveis (não recomendado)</translation>
     </message>
     <message>
-        <source>and InstantX</source>
-        <translation>e InstantX</translation>
+        <source>and InstantSend</source>
+        <translation>e InstantSend</translation>
     </message>
     <message>
         <source>%1 to %2</source>
@@ -2646,7 +2646,7 @@ https://www.transifex.com/projects/p/dynamic/</translation>
     </message>
     <message>
         <source>Enter the signing address, message (ensure you copy line breaks, spaces, tabs, etc. exactly) and signature below to verify the message. Be careful not to read more into the signature than what is in the signed message itself, to avoid being tricked by a man-in-the-middle attack.</source>
-        <translation>Introduza o endereço de assinatura, mensagem (assegure-se que copia exactamente as quebras de linha, espaços, tabulações, etc) e assinatura abaixo para verificar a mensagem. Tenha atenção para não ler mais na assinatura do que o que estiver na mensagem assinada, para evitar ser enganado por um atacante que se encontre entre si e quem assinou a mensagem.</translation>
+        <translation>Introduza o endereço de assinatura, mensagem (apsegure-se que copia exactamente as quebras de linha, espaços, tabulações, etc) e assinatura abaixo para verificar a mensagem. Tenha atenção para não ler mais na assinatura do que o que estiver na mensagem assinada, para evitar ser enganado por um atacante que se encontre entre si e quem assinou a mensagem.</translation>
     </message>
     <message>
         <source>The Dynamic address the message was signed with</source>
@@ -2762,16 +2762,16 @@ https://www.transifex.com/projects/p/dynamic/</translation>
         <translation>conflituosa</translation>
     </message>
     <message>
-        <source>%1/offline (verified via instantx)</source>
-        <translation>%1/desligado (verificado através de instantx)</translation>
+        <source>%1/offline (verified via instantsend)</source>
+        <translation>%1/desligado (verificado através de instantsend)</translation>
     </message>
     <message>
-        <source>%1/confirmed (verified via instantx)</source>
-        <translation>%1/confirmado (verificado através de instantx)</translation>
+        <source>%1/confirmed (verified via instantsend)</source>
+        <translation>%1/confirmado (verificado através de instantsend)</translation>
     </message>
     <message>
-        <source>%1 confirmations (verified via instantx)</source>
-        <translation>%1 confirmações (verificado através de instantx)</translation>
+        <source>%1 confirmations (verified via instantsend)</source>
+        <translation>%1 confirmações (verificado através de instantsend)</translation>
     </message>
     <message>
         <source>%1/offline</source>
@@ -2786,24 +2786,24 @@ https://www.transifex.com/projects/p/dynamic/</translation>
         <translation>%1 confirmações</translation>
     </message>
     <message>
-        <source>%1/offline (InstantX verification in progress - %2 of %3 signatures)</source>
-        <translation>%1/desligado (verificação InstantX em progresso - %2 de %3 assinaturas)</translation>
+        <source>%1/offline (InstantSend verification in progress - %2 of %3 signatures)</source>
+        <translation>%1/desligado (verificação InstantSend em progresso - %2 de %3 assinaturas)</translation>
     </message>
     <message>
-        <source>%1/confirmed (InstantX verification in progress - %2 of %3 signatures )</source>
-        <translation>%1/confirmada (verificação InstantX em progresso - %2 de %3 assinaturas)</translation>
+        <source>%1/confirmed (InstantSend verification in progress - %2 of %3 signatures )</source>
+        <translation>%1/confirmada (verificação InstantSend em progresso - %2 de %3 assinaturas)</translation>
     </message>
     <message>
-        <source>%1 confirmations (InstantX verification in progress - %2 of %3 signatures)</source>
-        <translation>%1 confirmações (verificação InstantX em progresso - %2 de %3 assinaturas)</translation>
+        <source>%1 confirmations (InstantSend verification in progress - %2 of %3 signatures)</source>
+        <translation>%1 confirmações (verificação InstantSend em progresso - %2 de %3 assinaturas)</translation>
     </message>
     <message>
-        <source>%1/offline (InstantX verification failed)</source>
-        <translation>%1/desligado (a verificação InstantX falhou)</translation>
+        <source>%1/offline (InstantSend verification failed)</source>
+        <translation>%1/desligado (a verificação InstantSend falhou)</translation>
     </message>
     <message>
-        <source>%1/confirmed (InstantX verification failed)</source>
-        <translation>%1/confirmada (a verificação InstantX falhou)</translation>
+        <source>%1/confirmed (InstantSend verification failed)</source>
+        <translation>%1/confirmada (a verificação InstantSend falhou)</translation>
     </message>
     <message>
         <source>Status</source>
@@ -3260,8 +3260,8 @@ https://www.transifex.com/projects/p/dynamic/</translation>
         <translation>Enviar Moedas</translation>
     </message>
     <message>
-        <source>InstantX doesn't support sending values that high yet. Transactions are currently limited to %1 DYN.</source>
-        <translation>O InstantX não suporta valores tão elevados neste momento. As transacções estão limitadas a %1 DYN.</translation>
+        <source>InstantSend doesn't support sending values that high yet. Transactions are currently limited to %1 DYN.</source>
+        <translation>O InstantSend não suporta valores tão elevados neste momento. As transacções estão limitadas a %1 DYN.</translation>
     </message>
 </context>
 <context>
@@ -3342,8 +3342,8 @@ https://www.transifex.com/projects/p/dynamic/</translation>
         <translation>Neste modo o -genproclimit controla quantos blocos são gerados imediatamente.</translation>
     </message>
     <message>
-        <source>InstantX requires inputs with at least 6 confirmations, you might need to wait a few minutes and try again.</source>
-        <translation>O InstantX necessita de entradas com pelo menos 6 confirmações, pode ser necessário aguardar mais uns minutos e tentar de novo.</translation>
+        <source>InstantSend requires inputs with at least 6 confirmations, you might need to wait a few minutes and try again.</source>
+        <translation>O InstantSend necessita de entradas com pelo menos 6 confirmações, pode ser necessário aguardar mais uns minutos e tentar de novo.</translation>
     </message>
     <message>
         <source>Name to construct url for KeePass entry that stores the wallet passphrase</source>
@@ -3582,8 +3582,8 @@ https://www.transifex.com/projects/p/dynamic/</translation>
         <translation>Apaga todas as transacções da carteira e só recupera essas partes da cadeia de blocos com -rescan no arranque</translation>
     </message>
     <message>
-        <source>Enable instantx, show confirmations for locked transactions (bool, default: %s)</source>
-        <translation>Activar instantx, mostrar confirmações para transacções bloqueadas (bool, default: %s)</translation>
+        <source>Enable instantsend, show confirmations for locked transactions (bool, default: %s)</source>
+        <translation>Activar instantsend, mostrar confirmações para transacções bloqueadas (bool, default: %s)</translation>
     </message>
     <message>
         <source>Enable use of automated privatesend for funds stored in this wallet (0-1, default: %u)</source>
@@ -3599,7 +3599,7 @@ https://www.transifex.com/projects/p/dynamic/</translation>
     </message>
     <message>
         <source>Found unconfirmed denominated outputs, will wait till they confirm to continue.</source>
-        <translation>Foram encontradas saídas denominadas não confirmadas, a aguardar pela confirmação para prosseguir.</translation>
+        <translation>Foram encontradas saídas denominadas não confirmadas, a aguardar pela confirmação para propseguir.</translation>
     </message>
     <message>
         <source>How thorough the block verification of -checkblocks is (0-4, default: %u)</source>
@@ -3808,8 +3808,8 @@ https://www.transifex.com/projects/p/dynamic/</translation>
         <translation>A entrada não é válida.</translation>
     </message>
     <message>
-        <source>InstantX options:</source>
-        <translation>Opções InstantX</translation>
+        <source>InstantSend options:</source>
+        <translation>Opções InstantSend</translation>
     </message>
     <message>
         <source>Insufficient funds.</source>

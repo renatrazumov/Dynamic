@@ -10,7 +10,7 @@
 #include "util.h"
 #include "base58.h"
 #include "protocol.h"
-#include "instantx.h"
+#include "instantsend.h"
 #include "activedynode.h"
 #include "privatesend.h"
 #include "dynode-sync.h"

@@ -109,7 +109,7 @@ DYNAMIC_CORE_H = \
   httprpc.h \
   httpserver.h \
   init.h \
-  instantx.h \
+  instantsend.h \
   key.h \
   keepass.h \
   keystore.h \
@@ -255,7 +255,7 @@ libdynamic_wallet_a_SOURCES = \
   privatesend.cpp \
   psnotificationinterface.cpp \
   privatesend-relay.cpp \
-  instantx.cpp \
+  instantsend.cpp \
   dynode.cpp \
   dynode-payments.cpp \
   dynode-sync.cpp \

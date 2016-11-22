@@ -36,7 +36,7 @@
 #include "ui_interface.h"
 #include "util.h"
 #include "activedynode.h"
-#include "instantx.h"
+#include "instantsend.h"
 #include "privatesend.h"
 #include "dynode-payments.h"
 #include "dynode-sync.h"

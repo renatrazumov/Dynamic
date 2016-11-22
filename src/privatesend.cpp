@@ -8,7 +8,7 @@
 #include "consensus/validation.h"
 #include "privatesend.h"
 #include "init.h"
-#include "instantx.h"
+#include "instantsend.h"
 #include "dynode-payments.h"
 #include "dynode-sync.h"
 #include "dynodeman.h"
@@ -69,7 +69,7 @@ void CPrivatesendPool::ProcessMessage(CNode* pfrom, std::string& strCommand, CDa
         }
 
         if(vecSessionCollaterals.size() == 0 && pdn->nLastPsq != 0 &&
-            pdn->nLastPsq + dnodeman.CountEnabled(MIN_PRIVATESEND_PEER_PROTO_VERSION)/5 > dnodeman.nSsqCount)
+            pdn->nLastPsq + dnodeman.CountEnabled(MIN_PRIVATESEND_PEER_PROTO_VERSION)/5 > dnodeman.nPsqCount)
         {
             LogPrintf("PSACCEPT -- last psq too recent, must wait: addr=%s\n", pfrom->addr.ToString());
             PushStatus(pfrom, STATUS_REJECTED, ERR_RECENT);
@@ -138,21 +138,21 @@ void CPrivatesendPool::ProcessMessage(CNode* pfrom, std::string& strCommand, CDa
         } else {
             BOOST_FOREACH(CPrivatesendQueue q, vecPrivatesendQueue) {
                 if(q.vin == psq.vin) {
-                    // no way same sn can send another "not yet ready" psq this soon
+                    // no way same DN can send another "not yet ready" psq this soon
                     LogPrint("privatesend", "PSQUEUE -- Dynode %s is sending WAY too many psq messages\n", pdn->addr.ToString());
                     return;
                 }
             }
 
             int nThreshold = pdn->nLastPsq + dnodeman.CountEnabled(MIN_PRIVATESEND_PEER_PROTO_VERSION)/5;
-            LogPrint("privatesend", "PSQUEUE -- nLastPsq: %d  threshold: %d  nSsqCount: %d\n", pdn->nLastPsq, nThreshold, dnodeman.nSsqCount);
+            LogPrint("privatesend", "PSQUEUE -- nLastPsq: %d  threshold: %d  nPsqCount: %d\n", pdn->nLastPsq, nThreshold, dnodeman.nPsqCount);
             //don't allow a few nodes to dominate the queuing process
-            if(pdn->nLastPsq != 0 && nThreshold > dnodeman.nSsqCount) {
+            if(pdn->nLastPsq != 0 && nThreshold > dnodeman.nPsqCount) {
                 LogPrint("privatesend", "PSQUEUE -- Dynode %s is sending too many psq messages\n", pdn->addr.ToString());
                 return;
             }
-            dnodeman.nSsqCount++;
-            pdn->nLastPsq = dnodeman.nSsqCount;
+            dnodeman.nPsqCount++;
+            pdn->nLastPsq = dnodeman.nPsqCount;
             pdn->fAllowMixingTx = true;
 
             LogPrint("privatesend", "PSQUEUE -- new PrivateSend queue (%s) from dynode %s\n", psq.ToString(), pdn->addr.ToString());
@@ -354,21 +354,21 @@ void CPrivatesendPool::ProcessMessage(CNode* pfrom, std::string& strCommand, CDa
         // all is good
         CheckPool();
 
-    } else if(strCommand == NetMsgType::SSFINALTX) {
+    } else if(strCommand == NetMsgType::PSFINALTX) {
 
         if(pfrom->nVersion < MIN_PRIVATESEND_PEER_PROTO_VERSION) {
-            LogPrintf("SSFINALTX -- incompatible version! nVersion: %d\n", pfrom->nVersion);
+            LogPrintf("PSFINALTX -- incompatible version! nVersion: %d\n", pfrom->nVersion);
             return;
         }
 
         if(fDyNode) {
-            // LogPrintf("SSFINALTX -- Can't run on a Dynode!\n");
+            // LogPrintf("PSFINALTX -- Can't run on a Dynode!\n");
             return;
         }
 
         if(!pSubmittedToDynode) return;
         if((CNetAddr)pSubmittedToDynode->addr != (CNetAddr)pfrom->addr) {
-            //LogPrintf("SSFINALTX -- message doesn't match current Dynode: pSubmittedToDynode %s addr %s\n", pSubmittedToDynode->addr.ToString(), pfrom->addr.ToString());
+            //LogPrintf("PSFINALTX -- message doesn't match current Dynode: pSubmittedToDynode %s addr %s\n", pSubmittedToDynode->addr.ToString(), pfrom->addr.ToString());
             return;
         }
 
@@ -377,30 +377,30 @@ void CPrivatesendPool::ProcessMessage(CNode* pfrom, std::string& strCommand, CDa
         vRecv >> nMsgSessionID >> txNew;
 
         if(nSessionID != nMsgSessionID) {
-            LogPrint("privatesend", "SSFINALTX -- message doesn't match current PrivateSend session: nSessionID: %d  nMsgSessionID: %d\n", nSessionID, nMsgSessionID);
+            LogPrint("privatesend", "PSFINALTX -- message doesn't match current PrivateSend session: nSessionID: %d  nMsgSessionID: %d\n", nSessionID, nMsgSessionID);
             return;
         }
 
-        LogPrint("privatesend", "SSFINALTX -- txNew %s", txNew.ToString());
+        LogPrint("privatesend", "PSFINALTX -- txNew %s", txNew.ToString());
 
         //check to see if input is spent already? (and probably not confirmed)
         SignFinalTransaction(txNew, pfrom);
 
-    } else if(strCommand == NetMsgType::SSCOMPLETE) {
+    } else if(strCommand == NetMsgType::PSCOMPLETE) {
 
         if(pfrom->nVersion < MIN_PRIVATESEND_PEER_PROTO_VERSION) {
-            LogPrintf("SSCOMPLETE -- incompatible version! nVersion: %d\n", pfrom->nVersion);
+            LogPrintf("PSCOMPLETE -- incompatible version! nVersion: %d\n", pfrom->nVersion);
             return;
         }
 
         if(fDyNode) {
-            // LogPrintf("SSCOMPLETE -- Can't run on a Dynode!\n");
+            // LogPrintf("PSCOMPLETE -- Can't run on a Dynode!\n");
             return;
         }
 
         if(!pSubmittedToDynode) return;
         if((CNetAddr)pSubmittedToDynode->addr != (CNetAddr)pfrom->addr) {
-            LogPrint("privatesend", "SSCOMPLETE -- message doesn't match current Dynode: pSubmittedToDynode=%s  addr=%s\n", pSubmittedToDynode->addr.ToString(), pfrom->addr.ToString());
+            LogPrint("privatesend", "PSCOMPLETE -- message doesn't match current Dynode: pSubmittedToDynode=%s  addr=%s\n", pSubmittedToDynode->addr.ToString(), pfrom->addr.ToString());
             return;
         }
 
@@ -409,16 +409,16 @@ void CPrivatesendPool::ProcessMessage(CNode* pfrom, std::string& strCommand, CDa
         vRecv >> nMsgSessionID >> nMsgMessageID;
 
         if(nMsgMessageID < MSG_POOL_MIN || nMsgMessageID > MSG_POOL_MAX) {
-            LogPrint("privatesend", "SSCOMPLETE -- nMsgMessageID is out of bounds: %d\n", nMsgMessageID);
+            LogPrint("privatesend", "PSCOMPLETE -- nMsgMessageID is out of bounds: %d\n", nMsgMessageID);
             return;
         }
 
         if(nSessionID != nMsgSessionID) {
-            LogPrint("privatesend", "SSCOMPLETE -- message doesn't match current PrivateSend session: nSessionID: %d  nMsgSessionID: %d\n", privateSendPool.nSessionID, nMsgSessionID);
+            LogPrint("privatesend", "PSCOMPLETE -- message doesn't match current PrivateSend session: nSessionID: %d  nMsgSessionID: %d\n", privateSendPool.nSessionID, nMsgSessionID);
             return;
         }
 
-        LogPrint("privatesend", "SSCOMPLETE -- nMsgSessionID %d  nMsgMessageID %d (%s)\n", nMsgSessionID, nMsgMessageID, GetMessageByID(PoolMessage(nMsgMessageID)));
+        LogPrint("privatesend", "PSCOMPLETE -- nMsgSessionID %d  nMsgMessageID %d (%s)\n", nMsgSessionID, nMsgMessageID, GetMessageByID(PoolMessage(nMsgMessageID)));
 
         CompletedTransaction(PoolMessage(nMsgMessageID));
     }
@@ -457,7 +457,7 @@ void CPrivatesendPool::ResetPool()
 
 void CPrivatesendPool::SetNull()
 {
-    // SN side
+    // DN side
     vecSessionCollaterals.clear();
 
     // Client side
@@ -1468,10 +1468,10 @@ bool CPrivatesendPool::DoAutomaticDenominating(bool fDryRun)
         }
     }
 
-    int nSnCountEnabled = dnodeman.CountEnabled(MIN_PRIVATESEND_PEER_PROTO_VERSION);
+    int nDnCountEnabled = dnodeman.CountEnabled(MIN_PRIVATESEND_PEER_PROTO_VERSION);
 
     // If we've used 90% of the Dynode list then drop the oldest first ~30%
-    int nThreshold_high = nSnCountEnabled * 0.9;
+    int nThreshold_high = nDnCountEnabled * 0.9;
     int nThreshold_low = nThreshold_high * 0.7;
     LogPrint("privatesend", "Checking vecDynodesUsed: size: %d, threshold: %d\n", (int)vecDynodesUsed.size(), nThreshold_high);
 
@@ -1557,11 +1557,11 @@ bool CPrivatesendPool::DoAutomaticDenominating(bool fDryRun)
         }
         vecDynodesUsed.push_back(pdn->vin);
 
-        if(pdn->nLastPsq != 0 && pdn->nLastPsq + nSnCountEnabled/5 > dnodeman.nSsqCount) {
+        if(pdn->nLastPsq != 0 && pdn->nLastPsq + nDnCountEnabled/5 > dnodeman.nPsqCount) {
             LogPrintf("CPrivatesendPool::DoAutomaticDenominating -- Too early to mix on this dynode!"
-                        " dynode=%s  addr=%s  nLastPsq=%d  CountEnabled/5=%d  nSsqCount=%d\n",
+                        " dynode=%s  addr=%s  nLastPsq=%d  CountEnabled/5=%d  nPsqCount=%d\n",
                         pdn->vin.prevout.ToStringShort(), pdn->addr.ToString(), pdn->nLastPsq,
-                        nSnCountEnabled/5, dnodeman.nSsqCount);
+                        nDnCountEnabled/5, dnodeman.nPsqCount);
             nTries++;
             continue;
         }
@@ -1784,7 +1784,7 @@ bool CPrivatesendPool::MakeCollateralAmounts(const CompactTallyItem& tallyItem)
 
     vecSend.push_back((CRecipient){scriptCollateral, PRIVATESEND_COLLATERAL*4, false});
 
-    // try to use non-denominated and not sn-like funds first, select them explicitly
+    // try to use non-denominated and not DN-like funds first, select them explicitly
     CCoinControl coinControl;
     coinControl.fAllowOtherInputs = false;
     coinControl.fAllowWatchOnly = false;
@@ -1797,7 +1797,7 @@ bool CPrivatesendPool::MakeCollateralAmounts(const CompactTallyItem& tallyItem)
             nFeeRet, nChangePosRet, strFail, &coinControl, true, ONLY_NONDENOMINATED_NOT1000IFDN);
     if(!fSuccess) {
         // if we failed (most likeky not enough funds), try to use all coins instead -
-        // SN-like funds should not be touched in any case and we can't mix denominated without collaterals anyway
+        // DN-like funds should not be touched in any case and we can't mix denominated without collaterals anyway
         LogPrintf("CPrivatesendPool::MakeCollateralAmounts -- ONLY_NONDENOMINATED_NOT1000IFDN Error: %s\n", strFail);
         CCoinControl *coinControlNull = NULL;
         fSuccess = pwalletMain->CreateTransaction(vecSend, wtx, reservekeyChange,
@@ -2362,7 +2362,7 @@ void CPrivatesendPool::RelayFinalTransaction(const CTransaction& txFinal)
     LOCK(cs_vNodes);
     BOOST_FOREACH(CNode* pnode, vNodes)
         if(pnode->nVersion >= MIN_PRIVATESEND_PEER_PROTO_VERSION)
-            pnode->PushMessage(NetMsgType::SSFINALTX, nSessionID, txFinal);
+            pnode->PushMessage(NetMsgType::PSFINALTX, nSessionID, txFinal);
 }
 
 void CPrivatesendPool::RelayIn(const CPrivateSendEntry& entry)
@@ -2395,7 +2395,7 @@ void CPrivatesendPool::RelayCompletedTransaction(PoolMessage nMessageID)
     LOCK(cs_vNodes);
     BOOST_FOREACH(CNode* pnode, vNodes)
         if(pnode->nVersion >= MIN_PRIVATESEND_PEER_PROTO_VERSION)
-            pnode->PushMessage(NetMsgType::SSCOMPLETE, nSessionID, (int)nMessageID);
+            pnode->PushMessage(NetMsgType::PSCOMPLETE, nSessionID, (int)nMessageID);
 }
 
 void CPrivatesendPool::SetState(PoolState nStateNew)

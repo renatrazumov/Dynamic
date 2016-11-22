@@ -20,7 +20,7 @@
 #include "net.h"
 #include "governance.h"
 #include "keepass.h"
-#include "instantx.h"
+#include "instantsend.h"
 #include "policy/policy.h"
 #include "primitives/block.h"
 #include "primitives/transaction.h"
