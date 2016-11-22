@@ -3044,7 +3044,7 @@ bool CWallet::CreateTransaction(const vector<CRecipient>& vecSend, CWalletTx& wt
                     //over pay for denominated transactions
                     if (nCoinType == ONLY_DENOMINATED) {
                         nFeeRet += nChange;
-                        wtxNew.mapValue["SS"] = "1";
+                        wtxNew.mapValue["PS"] = "1";
                         // recheck skipped denominations during next mixing
                         privateSendPool.ClearSkippedDenominations();
                     } else {

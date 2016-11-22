@@ -266,7 +266,7 @@ int64_t CreateTxLockCandidate(const CTransaction& tx)
 }
 
 // check if we need to vote on this transaction
-void CreateTxLockVote(CTransaction& tx, int64_t nBlockHeight)
+void CreateTxLockVote(const CTransaction& tx, int nBlockHeight)
 {
     if(!fDyNode) return;
 
@@ -565,7 +565,7 @@ bool CTxLockVote::CheckSignature() const
     std::string strError;
     std::string strMessage = txHash.ToString().c_str() + boost::lexical_cast<std::string>(nBlockHeight);
 
-    dynode_info_t infoMn = dnodeman.GetDynodeInfo(vinDynode);
+    dynode_info_t infoDn = dnodeman.GetDynodeInfo(vinDynode);
 
     if(!infoDn.fInfoValid) {
         LogPrintf("CTxLockVote::CheckSignature -- Unknown Dynode: txin=%s\n", vinDynode.ToString());
@@ -641,7 +641,7 @@ int CTxLockCandidate::CountVotes()
     if(nBlockHeight == 0) return -1;
 
     int nCount = 0;
-    BOOST_FOREACH(CTxLockVote vote, vecTxLockVotes)
+    BOOST_FOREACH(const CTxLockVote& vote, vecTxLockVotes)
         if(vote.nBlockHeight == nBlockHeight)
             nCount++;
 

@@ -74,7 +74,7 @@ UniValue getpoolinfo(const UniValue& params, bool fHelp)
     obj.push_back(Pair("entries",           privateSendPool.GetEntriesCount()));
     obj.push_back(Pair("status",            privateSendPool.GetStatus()));
 
-    if (darkSendPool.pSubmittedToDynode) {
+    if (privateSendPool.pSubmittedToDynode) {
         obj.push_back(Pair("outpoint",      privateSendPool.pSubmittedToDynode->vin.prevout.ToStringShort()));
         obj.push_back(Pair("addr",          privateSendPool.pSubmittedToDynode->addr.ToString()));
     }

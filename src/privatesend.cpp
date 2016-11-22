@@ -1969,7 +1969,7 @@ bool CPrivatesendPool::CreateDenominated(const CompactTallyItem& tallyItem)
         return false;
     }
 
-    // use the same nCachedLastSuccessBlock as for SS mixing to prevent race
+    // use the same nCachedLastSuccessBlock as for PS mixing to prevent race
     nCachedLastSuccessBlock = pCurrentBlockIndex->nHeight;
     LogPrintf("CPrivatesendPool::CreateDenominated -- txid=%s\n", wtx.GetHash().GetHex());
 
