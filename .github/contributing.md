@@ -81,7 +81,7 @@ Project maintainers aim for a quick turnaround on refactoring pull requests, so 
 "Decision Making" Process
 -------------------------
 
-The following applies to code changes to the Dynamic project (and related projects such as libsecp256k1), and is not to be confused with overall SilkNetwork Network Protocol consensus changes.
+The following applies to code changes to the Dynamic project (and related projects such as libsecp256k1), and is not to be confused with overall Duality Network Protocol consensus changes.
 
 Whether a pull request is merged into Dynamic rests with the project merge maintainers and ultimately the project lead.
 
@@ -96,7 +96,7 @@ In general, all pull requests must:
   - not break the existing test suite;
   - where bugs are fixed, where possible, there should be unit tests demonstrating the bug and also proving the fix. This helps prevent regression.
 
-Patches that change SilkNetwork consensus rules are considerably more involved than normal because they affect the entire ecosystem and so must be preceded by extensive mailing list discussions and have a numbered SNIP. While each case will be different, one should be prepared to expend more time and effort than for other kinds of patches because of increased peer review and consensus building requirements.
+Patches that change Duality consensus rules are considerably more involved than normal because they affect the entire ecosystem and so must be preceded by extensive mailing list discussions and have a numbered SNIP. While each case will be different, one should be prepared to expend more time and effort than for other kinds of patches because of increased peer review and consensus building requirements.
 
 
 ###Peer Review
@@ -115,7 +115,7 @@ Project maintainers reserve the right to weigh the opinions of peer reviewers us
 
 Where a patch set affects consensus critical code, the bar will be set much higher in terms of discussion and peer review requirements, keeping in mind that mistakes could be very costly to the wider community. This includes refactoring of consensus critical code.
 
-Where a patch set proposes to change the SilkNetwork consensus, it must have been discussed extensively on the mailing list and IRC, be accompanied by a widely discussed SNIP and have a generally widely perceived technical consensus of being a worthwhile change based on the judgement of the maintainers.
+Where a patch set proposes to change the Duality consensus, it must have been discussed extensively on the mailing list and IRC, be accompanied by a widely discussed SNIP and have a generally widely perceived technical consensus of being a worthwhile change based on the judgement of the maintainers.
 
 
 Release Policy

@@ -26,7 +26,7 @@ What is Dynamic?
 * Dynode Min Confirmation: 10 Blocks
 * Dynode Reward: 0.382 DYN Static Reward (38.2% of a PoW reward)
 * Budget Reward: 10,000 DYN Static Reward Every 41,089 blocks (~30 days)
-* Budget Proposal Fee: 100 DYN, 20 confirmations (~30 minutes)
+* Budget Proposal Fee: 20 DYN, 20 confirmations (~30 minutes)
 * Min TX Fee: 0.0001 DYN
 
 

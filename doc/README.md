@@ -2,17 +2,17 @@
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
 
-[![Stories in Ready](https://badge.waffle.io/SilkNetwork/Dynamic-Core.png?label=ready&title=Ready)](https://waffle.io/SilkNetwork/Dynamic-Core)
-[![Build Status](https://travis-ci.org/SilkNetwork/Dynamic-Core.png?branch=master)](https://travis-ci.org/SilkNetwork/Dynamic-Core)
+[![Stories in Ready](https://badge.waffle.io/Duality-Solutions/Dynamic-Core.png?label=ready&title=Ready)](https://waffle.io/Duality-Solutions/Dynamic-Core)
+[![Build Status](https://travis-ci.org/Duality-Solutions/Dynamic-Core.png?branch=master)](https://travis-ci.org/Duality-Solutions/Dynamic-Core)
 
 
 Graph on Pull Request History
 ====================================
 
-[![Throughput Graph](https://graphs.waffle.io/SilkNetwork/Dynamic-Core/throughput.svg)](https://waffle.io/SilkNetwork/Dynamic-Core/metrics/throughput)  
+[![Throughput Graph](https://graphs.waffle.io/Duality-Solutions/Dynamic-Core/throughput.svg)](https://waffle.io/Duality-Solutions/Dynamic-Core/metrics/throughput)  
 Dynamic Integration/Staging Tree
 ================================
-![DYN logo](https://github.com/SilkNetwork/Dynamic-Core/blob/master/src/qt/res/icons/dynamic-80.png)
+![DYN logo](https://github.com/Duality-Solutions/Dynamic-Core/blob/master/src/qt/res/icons/dynamic-80.png)
 
 **Copyright (c) 2015-2016 Silk Network**
 
