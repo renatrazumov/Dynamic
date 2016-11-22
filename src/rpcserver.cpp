@@ -1,7 +1,7 @@
 // Copyright (c) 2009-2017 Satoshi Nakamoto
 // Copyright (c) 2009-2017 The Bitcoin Developers
 // Copyright (c) 2014-2017 The Dash Core Developers
-// Copyright (c) 2015-2017 Silk Network Developers
+// Copyright (c) 2016-2017 Duality Blockchain Solutions Ltd
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -244,11 +244,11 @@ UniValue stop(const UniValue& params, bool fHelp)
     if (fHelp || params.size() > 1)
         throw runtime_error(
             "stop\n"
-            "\nStop DarkSilk Core server.");
+            "\nStop Dynamic server.");
     // Event loop will exit after current HTTP requests have been handled, so
     // this reply will get back to the client.
     StartShutdown();
-    return "DarkSilk Core server stopping";
+    return "Dynamic server stopping";
 }
 
 /**
@@ -324,7 +324,7 @@ static const CRPCCommand vRPCCommands[] =
     { "addressindex",       "getaddressmempool",      &getaddressmempool,      true  },
     { "addressindex",       "getaddressutxos",        &getaddressutxos,        false },
     { "addressindex",       "getaddressdeltas",       &getaddressdeltas,       false },
-    { "addressindex",       "getaddresstxids",        &getaddresstxids,        false },
+    { "addressindex",       "getaddrepstxids",        &getaddrepstxids,        false },
     { "addressindex",       "getaddressbalance",      &getaddressbalance,      false },
 
     /* Utility functions */
@@ -344,19 +344,19 @@ static const CRPCCommand vRPCCommands[] =
     { "hidden",             "resendwallettransactions", &resendwallettransactions, true},
 #endif
 
-    /* DarkSilk features */
-    { "darksilk",               "stormnode",              &stormnode,              true  },
-    { "darksilk",               "stormnodelist",          &stormnodelist,          true  },
-    { "darksilk",               "stormnodebroadcast",     &stormnodebroadcast,    true  },
-    { "darksilk",               "gobject",                &gobject,                true  },
-    { "darksilk",               "getgovernanceinfo",      &getgovernanceinfo,      true  },
-    { "darksilk",               "getsuperblockbudget",    &getsuperblockbudget,    true  },
-    { "darksilk",               "voteraw",                &voteraw,                true  },
-    { "darksilk",               "snsync",                 &snsync,                 true  },
-    { "darksilk",               "spork",                  &spork,                  true  },
-    { "darksilk",               "getpoolinfo",            &getpoolinfo,            true  },
+    /* Dynamic features */
+    { "dynamic",               "dynode",              &dynode,              true  },
+    { "dynamic",               "dynodelist",          &dynodelist,          true  },
+    { "dynamic",               "dynodebroadcast",     &dynodebroadcast,    true  },
+    { "dynamic",               "gobject",                &gobject,                true  },
+    { "dynamic",               "getgovernanceinfo",      &getgovernanceinfo,      true  },
+    { "dynamic",               "getsuperblockbudget",    &getsuperblockbudget,    true  },
+    { "dynamic",               "voteraw",                &voteraw,                true  },
+    { "dynamic",               "dnsync",                 &dnsync,                 true  },
+    { "dynamic",               "spork",                  &spork,                  true  },
+    { "dynamic",               "getpoolinfo",            &getpoolinfo,            true  },
 #ifdef ENABLE_WALLET
-    { "darksilk",               "privatesend",            &privatesend,            false },
+    { "dynamic",               "privatesend",            &privatesend,            false },
 
     /* Wallet */
     { "wallet",             "keepass",                &keepass,                true },
@@ -578,7 +578,7 @@ std::vector<std::string> CRPCTable::listCommands() const
 
 std::string HelpExampleCli(const std::string& methodname, const std::string& args)
 {
-    return "> darksilk-cli " + methodname + " " + args + "\n";
+    return "> dynamic-cli " + methodname + " " + args + "\n";
 }
 
 std::string HelpExampleRpc(const std::string& methodname, const std::string& args)

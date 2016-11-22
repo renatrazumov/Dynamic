@@ -1,12 +1,12 @@
 // Copyright (c) 2009-2017 Satoshi Nakamoto
 // Copyright (c) 2009-2017 The Bitcoin Developers
 // Copyright (c) 2014-2017 The Dash CoreDevelopers
-// Copyright (c) 2015-2017 Silk Network Developers
+// Copyright (c) 2016-2017 Duality Blockchain Solutions Ltd
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_WALLET_WALLET_H
-#define DARKSILK_WALLET_WALLET_H
+#ifndef DYNAMIC_WALLET_WALLET_H
+#define DYNAMIC_WALLET_WALLET_H
 
 #include "amount.h"
 #include "base58.h"
@@ -96,14 +96,14 @@ enum AvailableCoinsType
 {
     ALL_COINS = 1,
     ONLY_DENOMINATED = 2,
-    ONLY_NOT1000IFSN = 3,
-    ONLY_NONDENOMINATED_NOT1000IFSN = 4,
-    ONLY_1000 = 5 // find stormnode outputs including locked ones (use with caution)
+    ONLY_NOT1000IFDN = 3,
+    ONLY_NONDENOMINATED_NOT1000IFDN = 4,
+    ONLY_1000 = 5 // find dynode outputs including locked ones (use with caution)
 };
 
 struct CompactTallyItem
 {
-    CDarkSilkAddress address;
+    CDynamicAddress address;
     CAmount nAmount;
     std::vector<CTxIn> vecTxIn;
     CompactTallyItem()
@@ -470,7 +470,7 @@ public:
         tx = txIn; i = iIn; nDepth = nDepthIn; fSpendable = fSpendableIn;
     }
 
-    //Used with Sandstorm. Will return largest nondenom, then denominations, then very small inputs
+    //Used with Privatesend. Will return largest nondenom, then denominations, then very small inputs
     int Priority() const;
 
     std::string ToString() const;
@@ -652,8 +652,8 @@ public:
     bool SelectCoinsDark(CAmount nValueMin, CAmount nValueMax, std::vector<CTxIn>& vecTxInRet, CAmount& nValueRet, int nPrivateSendRoundsMin, int nPrivateSendRoundsMax) const;
     bool SelectCoinsGrouppedByAddresses(std::vector<CompactTallyItem>& vecTallyRet, bool fSkipDenominated = true, bool fAnonymizable = true) const;
 
-    /// Get 1000DSLK output and keys which can be used for the Stormnode
-    bool GetStormnodeVinAndKeys(CTxIn& txinRet, CPubKey& pubKeyRet, CKey& keyRet, std::string strTxHash = "", std::string strOutputIndex = "");
+    /// Get 1000DYN output and keys which can be used for the Dynode
+    bool GetDynodeVinAndKeys(CTxIn& txinRet, CPubKey& pubKeyRet, CKey& keyRet, std::string strTxHash = "", std::string strOutputIndex = "");
     /// Extract txin information and keys from output
     bool GetVinAndKeysFromOutput(COutput out, CTxIn& txinRet, CPubKey& pubKeyRet, CKey& keyRet);
 
@@ -1031,4 +1031,4 @@ private:
     std::vector<char> _ssExtra;
 };
 
-#endif // DARKSILK_WALLET_WALLET_H
+#endif // DYNAMIC_WALLET_WALLET_H

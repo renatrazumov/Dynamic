@@ -1,7 +1,7 @@
 // Copyright (c) 2009-2017 Satoshi Nakamoto
 // Copyright (c) 2009-2017 The Bitcoin Developers
 // Copyright (c) 2014-2017 The Dash Core Developers
-// Copyright (c) 2015-2017 Silk Network Developers
+// Copyright (c) 2016-2017 Duality Blockchain Solutions Ltd
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -121,9 +121,9 @@ string ScriptToAsmStr(const CScript& script, const bool fAttemptSighashDecode)
 
 string EncodeHexTx(const CTransaction& tx)
 {
-    CDataStream ssTx(SER_NETWORK, PROTOCOL_VERSION);
-    ssTx << tx;
-    return HexStr(ssTx.begin(), ssTx.end());
+    CDataStream psTx(SER_NETWORK, PROTOCOL_VERSION);
+    psTx << tx;
+    return HexStr(psTx.begin(), psTx.end());
 }
 
 void ScriptPubKeyToUniv(const CScript& scriptPubKey,
@@ -147,7 +147,7 @@ void ScriptPubKeyToUniv(const CScript& scriptPubKey,
 
     UniValue a(UniValue::VARR);
     BOOST_FOREACH(const CTxDestination& addr, addresses)
-        a.push_back(CDarkSilkAddress(addr).ToString());
+        a.push_back(CDynamicAddress(addr).ToString());
     out.pushKV("addresses", a);
 }
 

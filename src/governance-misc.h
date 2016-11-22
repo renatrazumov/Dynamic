@@ -1,12 +1,12 @@
 // Copyright (c) 2014-2017 The Dash Core Developers
-// Copyright (c) 2015-2017 Silk Network Developers
+// Copyright (c) 2016-2017 Duality Blockchain Solutions Ltd
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
-#ifndef DARKSILK_GOVERNANCE_MISC_H
-#define DARKSILK_GOVERNANCE_MISC_H
+#ifndef DYNAMIC_GOVERNANCE_MISC_H
+#define DYNAMIC_GOVERNANCE_MISC_H
 
 #include "main.h"
 #include "governance.h"
@@ -47,11 +47,11 @@ class CGovernanceVote;
 // 	static &T GetSetting(std::string strName, &T networkDefault)
 // 	{
 // 		/*
-// 			- get setting from stormnode network
+// 			- get setting from dynode network
 // 		*/
 
 // 		return networkDefault;
 // 	}
 // };
 
-#endif // DARKSILK_GOVERNANCE_MISC_H
+#endif // DYNAMIC_GOVERNANCE_MISC_H

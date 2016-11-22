@@ -1,6 +1,6 @@
 all:
-	$(MAKE) -C ../../ test_darksilk_qt
+	$(MAKE) -C ../../ test_dynamic_qt
 clean:
-	$(MAKE) -C ../../ test_darksilk_qt_clean
+	$(MAKE) -C ../../ test_dynamic_qt_clean
 check:
-	$(MAKE) -C ../../ test_darksilk_qt_check
+	$(MAKE) -C ../../ test_dynamic_qt_check

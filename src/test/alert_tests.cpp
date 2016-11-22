@@ -15,7 +15,7 @@
 #include "util.h"
 #include "utilstrencodings.h"
 
-#include "test/test_darksilk.h"
+#include "test/test_dynamic.h"
 
 #include <fstream>
 

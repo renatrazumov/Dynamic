@@ -1,12 +1,12 @@
 // Copyright (c) 2009-2017 Satoshi Nakamoto
 // Copyright (c) 2009-2017 The Bitcoin Developers
 // Copyright (c) 2014-2017 The Dash Core Developers
-// Copyright (c) 2015-2017 Silk Network Developers
+// Copyright (c) 2016-2017 Duality Blockchain Solutions Ltd
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_QT_GUIUTIL_H
-#define DARKSILK_QT_GUIUTIL_H
+#ifndef DYNAMIC_QT_GUIUTIL_H
+#define DYNAMIC_QT_GUIUTIL_H
 
 #include "amount.h"
 
@@ -32,7 +32,7 @@ class QUrl;
 class QWidget;
 QT_END_NAMESPACE
 
-/** Utility functions used by the DarkSilk Qt UI.
+/** Utility functions used by the Dynamic Qt UI.
  */
 namespace GUIUtil
 {
@@ -47,10 +47,10 @@ namespace GUIUtil
     void setupAddressWidget(QValidatedLineEdit *widget, QWidget *parent);
     void setupAmountWidget(QLineEdit *widget, QWidget *parent);
 
-    // Parse "darksilk:" URI into recipient object, return true on successful parsing
-    bool parseDarkSilkURI(const QUrl &uri, SendCoinsRecipient *out);
-    bool parseDarkSilkURI(QString uri, SendCoinsRecipient *out);
-    QString formatDarkSilkURI(const SendCoinsRecipient &info);
+    // Parse "dynamic:" URI into recipient object, return true on successful parsing
+    bool parseDynamicURI(const QUrl &uri, SendCoinsRecipient *out);
+    bool parseDynamicURI(QString uri, SendCoinsRecipient *out);
+    QString formatDynamicURI(const SendCoinsRecipient &info);
 
     // Returns true if given address+amount meets "dust" definition
     bool isDust(const QString& address, const CAmount& amount);
@@ -117,11 +117,11 @@ namespace GUIUtil
     // Open debug.log
     void openDebugLogfile();
 	
-    // Open darksilk.conf
+    // Open dynamic.conf
     void openConfigfile();	
 
-    // Open stormnode.conf
-    void openSNConfigfile();	
+    // Open dynode.conf
+    void openDNConfigfile();	
 
     // Browse backup folder
     void showBackups();
@@ -234,4 +234,4 @@ namespace GUIUtil
 
 } // namespace GUIUtil
 
-#endif // DARKSILK_QT_GUIUTIL_H
+#endif // DYNAMIC_QT_GUIUTIL_H

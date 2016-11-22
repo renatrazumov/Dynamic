@@ -1,7 +1,7 @@
 // Copyright (c) 2009-2017 Satoshi Nakamoto
 // Copyright (c) 2009-2017 The Bitcoin Developers
 // Copyright (c) 2014-2017 The Dash Core Developers
-// Copyright (c) 2015-2017 Silk Network Developers
+// Copyright (c) 2016-2017 Duality Blockchain Solutions Ltd
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -101,7 +101,7 @@ class CMainParams : public CChainParams {
 public:
     CMainParams() {
         strNetworkID = "main";
-        consensus.nStormnodePaymentsStartBlock = 100; // TODO: SWITCH BACK: Stormnode payments start at block 10,000
+        consensus.nDynodePaymentsStartBlock = 100; // TODO: SWITCH BACK: Dynode payments start at block 10,000
         consensus.nInstantSendKeepLock = 24;
         consensus.nInstantSendReprocessBlocks = 15;
         consensus.nBudgetPaymentsStartBlock = 500; // actual historical value
@@ -111,13 +111,13 @@ public:
         consensus.nSuperblockStartBlock = 500; // TODO, the block at which 12.1 goes live.
         consensus.nSuperblockCycle = 500; // 56.25 (Blocks per day) x 365.25 (Days per Year) / 12 = 41090
         consensus.nGovernanceMinQuorum = 10;
-        consensus.nStormnodeMinimumConfirmations = 15;
+        consensus.nDynodeMinimumConfirmations = 15;
         consensus.nMajorityEnforceBlockUpgrade = 750;
         consensus.nMajorityRejectBlockOutdated = 950;
         consensus.nMajorityWindow = 1000;
         consensus.powLimit = uint256S("0000ffffff000000000000000000000000000000000000000000000000000000");
-        consensus.nPowTargetTimespan = 10 * 64; // DarkSilk: 12 hours
-        consensus.nPowTargetSpacing = 1 * 64; // DarkSilk: 64 seconds
+        consensus.nPowTargetTimespan = 10 * 64; // Dynamic: 12 hours
+        consensus.nPowTargetSpacing = 1 * 64; // Dynamic: 64 seconds
         consensus.fPowAllowMinDifficultyBlocks = true;
         consensus.fPowNoRetargeting = false;
         consensus.nRuleChangeActivationThreshold = 1283; // 95% of 1350
@@ -158,17 +158,17 @@ public:
         //vSeeds.push_back(CDNSSeedData("", ""));
         //vSeeds.push_back(CDNSSeedData("", ""));
 
-        // DarkSilk addresses start with 'D'
+        // Dynamic addresses start with 'D'
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,30);
-        // DarkSilk script addresses start with '5'
+        // Dynamic script addresses start with '5'
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,10);
-        // DarkSilk private keys start with 'y'
+        // Dynamic private keys start with 'y'
         base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,140);
-        // DarkSilk BIP32 pubkeys start with 'xpub' (Bitcoin defaults)
+        // Dynamic BIP32 pubkeys start with 'xpub' (Bitcoin defaults)
         base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x04)(0x88)(0xB2)(0x1E).convert_to_container<std::vector<unsigned char> >();
-        // DarkSilk BIP32 prvkeys start with 'xprv' (Bitcoin defaults)
+        // Dynamic BIP32 prvkeys start with 'xprv' (Bitcoin defaults)
         base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x04)(0x88)(0xAD)(0xE4).convert_to_container<std::vector<unsigned char> >();
-        // DarkSilk BIP44 coin type is '5'
+        // Dynamic BIP44 coin type is '5'
         base58Prefixes[EXT_COIN_TYPE]  = boost::assign::list_of(0x80)(0x00)(0x00)(0x05).convert_to_container<std::vector<unsigned char> >();
 
         vFixedSeeds = std::vector<SeedSpec6>(pnSeed6_main, pnSeed6_main + ARRAYLEN(pnSeed6_main));
@@ -182,7 +182,7 @@ public:
         nPoolMaxTransactions = 3;
         nFulfilledRequestExpireTime = 60*60; // fulfilled requests expire in 1 hour
         strSporkPubKey = "";
-        strStormnodePaymentsPubKey = "";
+        strDynodePaymentsPubKey = "";
 
         checkpointData = (CCheckpointData) {
             boost::assign::map_list_of
@@ -203,7 +203,7 @@ class CTestNetParams : public CChainParams {
 public:
     CTestNetParams() {
         strNetworkID = "test";
-        consensus.nStormnodePaymentsStartBlock = 200; // not true, but it's ok as long as it's less then nStormnodePaymentsIncreaseBlock
+        consensus.nDynodePaymentsStartBlock = 200; // not true, but it's ok as long as it's less then nDynodePaymentsIncreaseBlock
         consensus.nInstantSendKeepLock = 24;
         consensus.nInstantSendReprocessBlocks = 15;
         consensus.nBudgetPaymentsStartBlock = 200;
@@ -213,13 +213,13 @@ public:
         consensus.nSuperblockStartBlock = 1000; // NOTE: Should satisfy nSuperblockStartBlock > nBudgetPeymentsStartBlock
         consensus.nSuperblockCycle = 24; // Superblocks can be issued hourly on testnet
         consensus.nGovernanceMinQuorum = 1;
-        consensus.nStormnodeMinimumConfirmations = 1;
+        consensus.nDynodeMinimumConfirmations = 1;
         consensus.nMajorityEnforceBlockUpgrade = 510;
         consensus.nMajorityRejectBlockOutdated = 750;
         consensus.nMajorityWindow = 1000;
         consensus.powLimit = uint256S("0001ffffff000000000000000000000000000000000000000000000000000000");
-        consensus.nPowTargetTimespan = 12 * 60 * 60; // DarkSilk: 12 hours
-        consensus.nPowTargetSpacing = 1 * 64; // DarkSilk: 64 seconds
+        consensus.nPowTargetTimespan = 12 * 60 * 60; // Dynamic: 12 hours
+        consensus.nPowTargetSpacing = 1 * 64; // Dynamic: 64 seconds
         consensus.fPowAllowMinDifficultyBlocks = true;
         consensus.fPowNoRetargeting = false;
         consensus.nRuleChangeActivationThreshold = 1283; // 75% for testchains
@@ -255,17 +255,17 @@ public:
         //vSeeds.push_back(CDNSSeedData("",  ""));
         //vSeeds.push_back(CDNSSeedData("", ""));
         
-        // Testnet DarkSilk addresses start with 'y'
+        // Testnet Dynamic addresses start with 'y'
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,30);
-        // Testnet DarkSilk script addresses start with '8' or '9'
+        // Testnet Dynamic script addresses start with '8' or '9'
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,10);
         // Testnet private keys start with '9' or 'c' (Bitcoin defaults)
         base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,158);
-        // Testnet DarkSilk BIP32 pubkeys start with 'tpub' (Bitcoin defaults)
+        // Testnet Dynamic BIP32 pubkeys start with 'tpub' (Bitcoin defaults)
         base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x04)(0x35)(0x87)(0xCF).convert_to_container<std::vector<unsigned char> >();
-        // Testnet DarkSilk BIP32 prvkeys start with 'tprv' (Bitcoin defaults)
+        // Testnet Dynamic BIP32 prvkeys start with 'tprv' (Bitcoin defaults)
         base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x04)(0x35)(0x83)(0x94).convert_to_container<std::vector<unsigned char> >();
-        // Testnet DarkSilk BIP44 coin type is '1' (All coin's testnet default)
+        // Testnet Dynamic BIP44 coin type is '1' (All coin's testnet default)
         base58Prefixes[EXT_COIN_TYPE]  = boost::assign::list_of(0x80)(0x00)(0x00)(0x01).convert_to_container<std::vector<unsigned char> >();
 
         vFixedSeeds = std::vector<SeedSpec6>(pnSeed6_test, pnSeed6_test + ARRAYLEN(pnSeed6_test));
@@ -279,7 +279,7 @@ public:
         nPoolMaxTransactions = 3;
         nFulfilledRequestExpireTime = 5*60; // fulfilled requests expire in 5 minutes
         strSporkPubKey = "";
-        strStormnodePaymentsPubKey = "";
+        strDynodePaymentsPubKey = "";
 
         checkpointData = (CCheckpointData) {
             boost::assign::map_list_of
@@ -300,7 +300,7 @@ class CRegTestParams : public CChainParams {
 public:
     CRegTestParams() {
         strNetworkID = "regtest";
-        consensus.nStormnodePaymentsStartBlock = 240;
+        consensus.nDynodePaymentsStartBlock = 240;
         consensus.nInstantSendKeepLock = 24;
         consensus.nInstantSendReprocessBlocks = 15;
         consensus.nBudgetPaymentsStartBlock = 1000;
@@ -310,13 +310,13 @@ public:
         consensus.nSuperblockStartBlock = 1500;
         consensus.nSuperblockCycle = 10;
         consensus.nGovernanceMinQuorum = 1;
-        consensus.nStormnodeMinimumConfirmations = 1;
+        consensus.nDynodeMinimumConfirmations = 1;
         consensus.nMajorityEnforceBlockUpgrade = 750;
         consensus.nMajorityRejectBlockOutdated = 950;
         consensus.nMajorityWindow = 1000;
         consensus.powLimit = uint256S("000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
-        consensus.nPowTargetTimespan = 12 * 60 * 60; // DarkSilk: 12 hours
-        consensus.nPowTargetSpacing = 1 * 64; // DarkSilk: 64 seconds
+        consensus.nPowTargetTimespan = 12 * 60 * 60; // Dynamic: 12 hours
+        consensus.nPowTargetSpacing = 1 * 64; // Dynamic: 64 seconds
         consensus.fPowAllowMinDifficultyBlocks = true;
         consensus.fPowNoRetargeting = true;
         consensus.nRuleChangeActivationThreshold = 1283; // 75% for testchains
@@ -362,17 +362,17 @@ public:
                         //   (the tx=... number in the SetBestChain debug.log lines)
             500        // * estimated number of transactions per day after checkpoint
         };
-        // Regtest DarkSilk addresses start with 'y'
+        // Regtest Dynamic addresses start with 'y'
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,140);
-        // Regtest DarkSilk script addresses start with '8' or '9'
+        // Regtest Dynamic script addresses start with '8' or '9'
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,19);
         // Regtest private keys start with '9' or 'c' (Bitcoin defaults)
         base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,239);
-        // Regtest DarkSilk BIP32 pubkeys start with 'tpub' (Bitcoin defaults)
+        // Regtest Dynamic BIP32 pubkeys start with 'tpub' (Bitcoin defaults)
         base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x04)(0x35)(0x87)(0xCF).convert_to_container<std::vector<unsigned char> >();
-        // Regtest DarkSilk BIP32 prvkeys start with 'tprv' (Bitcoin defaults)
+        // Regtest Dynamic BIP32 prvkeys start with 'tprv' (Bitcoin defaults)
         base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x04)(0x35)(0x83)(0x94).convert_to_container<std::vector<unsigned char> >();
-        // Regtest DarkSilk BIP44 coin type is '1' (All coin's testnet default)
+        // Regtest Dynamic BIP44 coin type is '1' (All coin's testnet default)
         base58Prefixes[EXT_COIN_TYPE]  = boost::assign::list_of(0x80)(0x00)(0x00)(0x01).convert_to_container<std::vector<unsigned char> >();
     }
 };

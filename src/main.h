@@ -1,15 +1,15 @@
 // Copyright (c) 2009-2017 Satoshi Nakamoto
 // Copyright (c) 2009-2017 The Bitcoin Developers
 // Copyright (c) 2014-2017 The Dash Core Developers
-// Copyright (c) 2015-2017 Silk Network Developers
+// Copyright (c) 2016-2017 Duality Blockchain Solutions Ltd
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_MAIN_H
-#define DARKSILK_MAIN_H
+#ifndef DYNAMIC_MAIN_H
+#define DYNAMIC_MAIN_H
 
 #if defined(HAVE_CONFIG_H)
-#include "config/darksilk-config.h"
+#include "config/dynamic-config.h"
 #endif
 
 #include "amount.h"
@@ -129,10 +129,10 @@ static const bool DEFAULT_ENABLE_REPLACEMENT = false;
 /** Maximum number of headers to announce when relaying blocks with headers message.*/
 static const unsigned int MAX_BLOCKS_TO_ANNOUNCE = 8;
 
-//DarkSilk Constants
+//Dynamic Constants
 static const CAmount STATIC_POW_REWARD = COIN * 1;
 static const CAmount BLOCKCHAIN_INIT_REWARD = COIN * 0;
-static const CAmount STATIC_STORMNODE_PAYMENT = COIN * 0.382;
+static const CAmount STATIC_DYNODE_PAYMENT = COIN * 0.382;
 
 struct BlockHasher
 {
@@ -258,7 +258,7 @@ bool ActivateBestChain(CValidationState& state, const CChainParams& chainparams,
 
 int64_t GetTotalCoinEstimate(int nHeight);
 CAmount GetPoWBlockPayment(const int& nHeight);
-CAmount GetStormnodePayment(bool fStormnode = true);
+CAmount GetDynodePayment(bool fDynode = true);
 
 /**
  * Prune block and undo files (blk???.dat and undo???.dat) so that the disk space used is less than a user-defined target.
@@ -297,9 +297,9 @@ void PruneAndFlush();
 bool AcceptToMemoryPool(CTxMemPool& pool, CValidationState &state, const CTransaction &tx, bool fLimitFree,
                         bool* pfMissingInputs, bool fOverrideMempoolLimit=false, bool fRejectAbsurdFee=false, bool fDryRun=false);
 
-int GetInputAge(CTxIn& txin);
-int GetInputAgeIX(uint256 nTXHash, CTxIn& txin);
-int GetIXConfirmations(uint256 nTXHash);
+int GetInputAge(const CTxIn &txin);
+int GetInputAgeIX(const uint256 &nTXHash, const CTxIn &txin);
+int GetIXConfirmations(const uint256 &nTXHash);
 
 /** Convert CValidationState to a human-readable message for logging */
 std::string FormatStateMessage(const CValidationState &state);
@@ -869,4 +869,4 @@ static const unsigned int REJECT_ALREADY_KNOWN = 0x101;
 /** Transaction conflicts with a transaction already known */
 static const unsigned int REJECT_CONFLICT = 0x102;
 
-#endif // DARKSILK_MAIN_H
+#endif // DYNAMIC_MAIN_H

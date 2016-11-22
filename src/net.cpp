@@ -1,12 +1,12 @@
 // Copyright (c) 2009-2017 Satoshi Nakamoto
 // Copyright (c) 2009-2017 The Bitcoin Developers
 // Copyright (c) 2014-2017 The Dash Core Developers
-// Copyright (c) 2015-2017 Silk Network Developers
+// Copyright (c) 2016-2017 Duality Blockchain Solutions Ltd
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #if defined(HAVE_CONFIG_H)
-#include "config/darksilk-config.h"
+#include "config/dynamic-config.h"
 #endif
 
 #include "net.h"
@@ -20,8 +20,8 @@
 #include "primitives/transaction.h"
 #include "scheduler.h"
 #include "ui_interface.h"
-#include "sandstorm.h"
-#include "instantx.h"
+#include "privatesend.h"
+#include "instantsend.h"
 #include "wallet/wallet.h"
 #include "utilstrencodings.h"
 
@@ -381,22 +381,22 @@ CNode* FindNode(const CService& addr)
     return NULL;
 }
 
-CNode* ConnectNode(CAddress addrConnect, const char *pszDest, bool fConnectToStormnode)
+CNode* ConnectNode(CAddress addrConnect, const char *pszDest, bool fConnectToDynode)
 {
     if (pszDest == NULL) {
-        // we clean stormnode connections in CStormnodeMan::ProcessStormnodeConnections()
-        // so should be safe to skip this and connect to local Hot SN on CActiveStormnode::ManageState()
-        if (IsLocal(addrConnect) && !fConnectToStormnode)
+        // we clean dynode connections in CDynodeMan::ProcessDynodeConnections()
+        // so should be safe to skip this and connect to local Hot DN on CActiveDynode::ManageState()
+        if (IsLocal(addrConnect) && !fConnectToDynode)
             return NULL;
 
         // Look for an existing connection
         CNode* pnode = FindNode((CService)addrConnect);
         if (pnode)
         {
-            // we have existing connection to this node but it was not a connection to stormnodes,
+            // we have existing connection to this node but it was not a connection to dynodes,
             // change flag and add reference so that we can correctly clear it later
-            if(fConnectToStormnode && !pnode->fStormnode) {
-                pnode->fStormnode = true;
+            if(fConnectToDynode && !pnode->fDynode) {
+                pnode->fDynode = true;
                 pnode->AddRef();
             }
             return pnode;
@@ -431,8 +431,8 @@ CNode* ConnectNode(CAddress addrConnect, const char *pszDest, bool fConnectToSto
         }
 
         pnode->nTimeConnected = GetTime();
-        if(fConnectToStormnode) {
-            pnode->fStormnode = true;
+        if(fConnectToDynode) {
+            pnode->fDynode = true;
             pnode->AddRef();
         }
 
@@ -655,7 +655,7 @@ void CNode::copyStats(CNodeStats &stats)
         nPingUsecWait = GetTimeMicros() - nPingUsecStart;
     }
 
-    // Raw ping time is in microseconds, but show it to user as whole seconds (DarkSilk users should be well used to small numbers with many decimal places by now :)
+    // Raw ping time is in microseconds, but show it to user as whole seconds (Dynamic users should be well used to small numbers with many decimal places by now :)
     stats.dPingTime = (((double)nPingUsecTime) / 1e6);
     stats.dPingMin  = (((double)nMinPingUsecTime) / 1e6);
     stats.dPingWait = (((double)nPingUsecWait) / 1e6);
@@ -1060,7 +1060,7 @@ void ThreadSocketHandler()
                     // hold in disconnected pool until all refs are released
                     if (pnode->fNetworkNode || pnode->fInbound)
                         pnode->Release();
-                    if (pnode->fStormnode)
+                    if (pnode->fDynode)
                         pnode->Release();
                     vNodesDisconnected.push_back(pnode);
                 }
@@ -1354,7 +1354,7 @@ void ThreadMapPort()
             }
         }
 
-        string strDesc = "DarkSilk Core " + FormatFullVersion();
+        string strDesc = "Dynamic " + FormatFullVersion();
 
         try {
             while (true) {
@@ -1859,7 +1859,7 @@ bool BindListenPort(const CService &addrBind, string& strError, bool fWhiteliste
     {
         int nErr = WSAGetLastError();
         if (nErr == WSAEADDRINUSE)
-            strError = strprintf(_("Unable to bind to %s on this computer. DarkSilk Core is probably already running."), addrBind.ToString());
+            strError = strprintf(_("Unable to bind to %s on this computer. Dynamic is probably already running."), addrBind.ToString());
         else
             strError = strprintf(_("Unable to bind to %s on this computer (bind returned error %s)"), addrBind.ToString(), NetworkErrorString(nErr));
         LogPrintf("%s\n", strError);
@@ -2067,8 +2067,8 @@ void RelayTransaction(const CTransaction& tx)
     CDataStream ss(SER_NETWORK, PROTOCOL_VERSION);
     ss.reserve(10000);
     uint256 hash = tx.GetHash();
-    if(mapSandstormBroadcastTxes.count(hash)) { // MSG_SSTX
-        ss << mapSandstormBroadcastTxes[hash];
+    if(mapPrivatesendBroadcastTxes.count(hash)) { // MSG_PSTX
+        ss << mapPrivatesendBroadcastTxes[hash];
     } else if(mapLockRequestAccepted.count(hash)) { // MSG_TXLOCK_REQUEST
         ss << mapLockRequestAccepted[hash];
     } else { // MSG_TX
@@ -2080,7 +2080,7 @@ void RelayTransaction(const CTransaction& tx)
 void RelayTransaction(const CTransaction& tx, const CDataStream& ss)
 {
     uint256 hash = tx.GetHash();
-    int nInv = mapSandstormBroadcastTxes.count(hash) ? MSG_SSTX :
+    int nInv = mapPrivatesendBroadcastTxes.count(hash) ? MSG_PSTX :
                 (mapLockRequestAccepted.count(hash) ? MSG_TXLOCK_REQUEST : MSG_TX);
     CInv inv(nInv, hash);
     {
@@ -2410,7 +2410,7 @@ CNode::CNode(SOCKET hSocketIn, const CAddress& addrIn, const std::string& addrNa
     nPingUsecStart = 0;
     nPingUsecTime = 0;
     fPingQueued = false;
-    fStormnode = false;
+    fDynode = false;
     nMinPingUsecTime = std::numeric_limits<int64_t>::max();
 
     {

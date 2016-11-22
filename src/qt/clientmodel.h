@@ -1,12 +1,12 @@
 // Copyright (c) 2009-2017 Satoshi Nakamoto
 // Copyright (c) 2009-2017 The Bitcoin Developers
 // Copyright (c) 2014-2017 The Dash Core Developers
-// Copyright (c) 2015-2017 Silk Network Developers
+// Copyright (c) 2016-2017 Duality Blockchain Solutions Ltd
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DARKSILK_QT_CLIENTMODEL_H
-#define DARKSILK_QT_CLIENTMODEL_H
+#ifndef DYNAMIC_QT_CLIENTMODEL_H
+#define DYNAMIC_QT_CLIENTMODEL_H
 
 #include <QObject>
 #include <QDateTime>
@@ -38,7 +38,7 @@ enum NumConnections {
     CONNECTIONS_ALL  = (CONNECTIONS_IN | CONNECTIONS_OUT),
 };
 
-/** Model for DarkSilk network client. */
+/** Model for Dynamic network client. */
 class ClientModel : public QObject
 {
     Q_OBJECT
@@ -53,7 +53,7 @@ public:
 
     //! Return number of connections, default is in- and outbound (total)
     int getNumConnections(unsigned int flags = CONNECTIONS_ALL) const;
-    QString getStormnodeCountString() const;
+    QString getDynodeCountString() const;
     int getNumBlocks() const;
 
     //! Return number of transactions in the mempool
@@ -84,18 +84,18 @@ public:
 private:
     OptionsModel *optionsModel;
     PeerTableModel *peerTableModel;
-    QString cachedStormnodeCountString;
+    QString cachedDynodeCountString;
     BanTableModel *banTableModel;
 
     QTimer *pollTimer;
-    QTimer *pollSnTimer;
+    QTimer *pollDnTimer;
 
     void subscribeToCoreSignals();
     void unsubscribeFromCoreSignals();
 
 Q_SIGNALS:
     void numConnectionsChanged(int count);
-    void strStormnodesChanged(const QString &strStormnodes);
+    void strDynodesChanged(const QString &strDynodes);
     void numBlocksChanged(int count, const QDateTime& blockDate, double nVerificationProgress);
     void additionalDataSyncProgressChanged(double nSyncProgress);
     void mempoolSizeChanged(long count, size_t mempoolSizeInBytes);
@@ -110,10 +110,10 @@ Q_SIGNALS:
 
 public Q_SLOTS:
     void updateTimer();
-    void updateSnTimer();
+    void updateDnTimer();
     void updateNumConnections(int numConnections);
     void updateAlert(const QString &hash, int status);
     void updateBanlist();
 };
 
-#endif // DARKSILK_QT_CLIENTMODEL_H
+#endif // DYNAMIC_QT_CLIENTMODEL_H

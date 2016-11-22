@@ -1,24 +1,24 @@
 // Copyright (c) 2009-2017 Satoshi Nakamoto
 // Copyright (c) 2009-2017 The Bitcoin Developers
 // Copyright (c) 2014-2017 The Dash Core Developers
-// Copyright (c) 2015-2017 Silk Network Developers
+// Copyright (c) 2016-2017 Duality Blockchain Solutions Ltd
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-//#define ENABLE_DARKSILK_DEBUG
+//#define ENABLE_DYNAMIC_DEBUG
 
 #include "util.h"
 #include "main.h"
 #include "db.h"
 #include "init.h"
-#include "activestormnode.h"
-#include "sandstorm.h"
+#include "activedynode.h"
+#include "privatesend.h"
 #include "governance.h"
-#include "stormnode.h"
-#include "stormnode-payments.h"
-#include "stormnode-sync.h"
-#include "stormnodeconfig.h"
-#include "stormnodeman.h"
+#include "dynode.h"
+#include "dynode-payments.h"
+#include "dynode-sync.h"
+#include "dynodeconfig.h"
+#include "dynodeman.h"
 #include "rpcserver.h"
 #include "utilmoneystr.h"
 #include "governance-vote.h"
@@ -50,9 +50,9 @@ UniValue gobject(const UniValue& params, bool fHelp)
                 "  getvotes           - Get votes for a governance object hash\n"
                 "  list               - List all governance objects\n"
                 "  diff               - List differences since last diff\n"
-                "  vote-alias         - Vote on a governance object by stormnode alias (using stormnode.conf setup)\n"
-                "  vote-conf          - Vote on a governance object by stormnode configured in darksilk.conf\n"
-                "  vote-many          - Vote on a governance object by all stormnodes (using stormnode.conf setup)\n"
+                "  vote-alias         - Vote on a governance object by dynode alias (using dynode.conf setup)\n"
+                "  vote-conf          - Vote on a governance object by dynode configured in dynamic.conf\n"
+                "  vote-many          - Vote on a governance object by all dynodes (using dynode.conf setup)\n"
                 );
 
 
@@ -91,8 +91,8 @@ UniValue gobject(const UniValue& params, bool fHelp)
             pindex = chainActive.Tip();
         }
 
-        std::vector<CStormnodeConfig::CStormnodeEntry> snEntries;
-        snEntries = stormnodeConfig.getEntries();
+        std::vector<CDynodeConfig::CDynodeEntry> dnEntries;
+        dnEntries = dynodeConfig.getEntries();
 
         uint256 hashParent;
 
@@ -115,7 +115,7 @@ UniValue gobject(const UniValue& params, bool fHelp)
 
         if((govobj.GetObjectType() == GOVERNANCE_OBJECT_TRIGGER) ||
            (govobj.GetObjectType() == GOVERNANCE_OBJECT_WATCHDOG)) {
-            throw JSONRPCError(RPC_INVALID_PARAMETER, "Trigger and watchdog objects need not be prepared (however only stormnodes can create them)");
+            throw JSONRPCError(RPC_INVALID_PARAMETER, "Trigger and watchdog objects need not be prepared (however only dynodes can create them)");
         }
 
         std::string strError = "";
@@ -148,17 +148,17 @@ UniValue gobject(const UniValue& params, bool fHelp)
             throw JSONRPCError(RPC_INVALID_PARAMETER, "Correct usage is 'gobject submit <parent-hash> <revision> <time> <data-hex> <fee-txid>'");
         }
 
-        if(!stormnodeSync.IsBlockchainSynced()) {
-            throw JSONRPCError(RPC_CLIENT_IN_INITIAL_DOWNLOAD, "Must wait for client to sync with stormnode network. Try again in a minute or so.");
+        if(!dynodeSync.IsBlockchainSynced()) {
+            throw JSONRPCError(RPC_CLIENT_IN_INITIAL_DOWNLOAD, "Must wait for client to sync with dynode network. Try again in a minute or so.");
         }
 
-        CStormnode sn;
-        bool snFound = snodeman.Get(activeStormnode.vin, sn);
+        CDynode dn;
+        bool dnFound = dnodeman.Get(activeDynode.vin, dn);
 
-        DBG( cout << "gobject: submit activeStormnode.pubKeyStormnode = " << activeStormnode.pubKeyStormnode.GetHash().ToString()
-             << ", vin = " << activeStormnode.vin.prevout.ToStringShort()
+        DBG( cout << "gobject: submit activeDynode.pubKeyDynode = " << activeDynode.pubKeyDynode.GetHash().ToString()
+             << ", vin = " << activeDynode.vin.prevout.ToStringShort()
              << ", params.size() = " << params.size()
-             << ", snFound = " << snFound << endl; );
+             << ", dnFound = " << dnFound << endl; );
 
         // ASSEMBLE NEW GOVERNANCE OBJECT FROM USER PARAMETERS
 
@@ -196,15 +196,15 @@ UniValue gobject(const UniValue& params, bool fHelp)
              << ", txidFee = " << txidFee.GetHex()
              << endl; );
 
-        // Attempt to sign triggers if we are a SN
+        // Attempt to sign triggers if we are a DN
         if((govobj.GetObjectType() == GOVERNANCE_OBJECT_TRIGGER) ||
            (govobj.GetObjectType() == GOVERNANCE_OBJECT_WATCHDOG)) {
-            if(snFound) {
-                govobj.SetStormnodeInfo(sn.vin);
-                govobj.Sign(activeStormnode.keyStormnode, activeStormnode.pubKeyStormnode);
+            if(dnFound) {
+                govobj.SetDynodeInfo(dn.vin);
+                govobj.Sign(activeDynode.keyDynode, activeDynode.pubKeyDynode);
             }
             else {
-                throw JSONRPCError(RPC_INVALID_PARAMETER, "Only valid stormnodes can submit this type of object");
+                throw JSONRPCError(RPC_INVALID_PARAMETER, "Only valid dynodes can submit this type of object");
             }
         }
         else {
@@ -255,31 +255,31 @@ UniValue gobject(const UniValue& params, bool fHelp)
 
         UniValue resultsObj(UniValue::VOBJ);
 
-        std::vector<unsigned char> vchStormNodeSignature;
-        std::string strStormNodeSignMessage;
+        std::vector<unsigned char> vchDyNodeSignature;
+        std::string strDyNodeSignMessage;
 
         UniValue statusObj(UniValue::VOBJ);
         UniValue returnObj(UniValue::VOBJ);
 
-        CStormnode sn;
-        bool snFound = snodeman.Get(activeStormnode.vin, sn);
+        CDynode dn;
+        bool dnFound = dnodeman.Get(activeDynode.vin, dn);
 
-        if(!snFound) {
+        if(!dnFound) {
             failed++;
             statusObj.push_back(Pair("result", "failed"));
-            statusObj.push_back(Pair("errorMessage", "Can't find stormnode by collateral output"));
-            resultsObj.push_back(Pair("darksilk.conf", statusObj));
+            statusObj.push_back(Pair("errorMessage", "Can't find dynode by collateral output"));
+            resultsObj.push_back(Pair("dynamic.conf", statusObj));
             returnObj.push_back(Pair("overall", strprintf("Voted successfully %d time(s) and failed %d time(s).", success, failed)));
             returnObj.push_back(Pair("detail", resultsObj));
             return returnObj;
         }
 
-        CGovernanceVote vote(sn.vin, hash, eVoteSignal, eVoteOutcome);
-        if(!vote.Sign(activeStormnode.keyStormnode, activeStormnode.pubKeyStormnode)) {
+        CGovernanceVote vote(dn.vin, hash, eVoteSignal, eVoteOutcome);
+        if(!vote.Sign(activeDynode.keyDynode, activeDynode.pubKeyDynode)) {
             failed++;
             statusObj.push_back(Pair("result", "failed"));
             statusObj.push_back(Pair("errorMessage", "Failure to sign."));
-            resultsObj.push_back(Pair("darksilk.conf", statusObj));
+            resultsObj.push_back(Pair("dynamic.conf", statusObj));
             returnObj.push_back(Pair("overall", strprintf("Voted successfully %d time(s) and failed %d time(s).", success, failed)));
             returnObj.push_back(Pair("detail", resultsObj));
             return returnObj;
@@ -296,7 +296,7 @@ UniValue gobject(const UniValue& params, bool fHelp)
             statusObj.push_back(Pair("errorMessage", exception.GetMessage()));
         }
 
-        resultsObj.push_back(Pair("darksilk.conf", statusObj));
+        resultsObj.push_back(Pair("dynamic.conf", statusObj));
 
         returnObj.push_back(Pair("overall", strprintf("Voted successfully %d time(s) and failed %d time(s).", success, failed)));
         returnObj.push_back(Pair("detail", resultsObj));
@@ -332,58 +332,58 @@ UniValue gobject(const UniValue& params, bool fHelp)
         int success = 0;
         int failed = 0;
 
-        std::vector<CStormnodeConfig::CStormnodeEntry> snEntries;
-        snEntries = stormnodeConfig.getEntries();
+        std::vector<CDynodeConfig::CDynodeEntry> dnEntries;
+        dnEntries = dynodeConfig.getEntries();
 
         UniValue resultsObj(UniValue::VOBJ);
 
-        BOOST_FOREACH(CStormnodeConfig::CStormnodeEntry sne, stormnodeConfig.getEntries()) {
+        BOOST_FOREACH(CDynodeConfig::CDynodeEntry dne, dynodeConfig.getEntries()) {
             std::string strError;
-            std::vector<unsigned char> vchStormNodeSignature;
-            std::string strStormNodeSignMessage;
+            std::vector<unsigned char> vchDyNodeSignature;
+            std::string strDyNodeSignMessage;
 
             CPubKey pubKeyCollateralAddress;
             CKey keyCollateralAddress;
-            CPubKey pubKeyStormnode;
-            CKey keyStormnode;
+            CPubKey pubKeyDynode;
+            CKey keyDynode;
 
             UniValue statusObj(UniValue::VOBJ);
 
-            if(!sandStormSigner.GetKeysFromSecret(sne.getPrivKey(), keyStormnode, pubKeyStormnode)){
+            if(!privateSendSigner.GetKeysFromSecret(dne.getPrivKey(), keyDynode, pubKeyDynode)){
                 failed++;
                 statusObj.push_back(Pair("result", "failed"));
-                statusObj.push_back(Pair("errorMessage", "Stormnode signing error, could not set key correctly"));
-                resultsObj.push_back(Pair(sne.getAlias(), statusObj));
+                statusObj.push_back(Pair("errorMessage", "Dynode signing error, could not set key correctly"));
+                resultsObj.push_back(Pair(dne.getAlias(), statusObj));
                 continue;
             }
 
             uint256 nTxHash;
-            nTxHash.SetHex(sne.getTxHash());
+            nTxHash.SetHex(dne.getTxHash());
 
             int nOutputIndex = 0;
-            if(!ParseInt32(sne.getOutputIndex(), &nOutputIndex)) {
+            if(!ParseInt32(dne.getOutputIndex(), &nOutputIndex)) {
                 continue;
             }
 
             CTxIn vin(COutPoint(nTxHash, nOutputIndex));
 
-            CStormnode sn;
-            bool snFound = snodeman.Get(vin, sn);
+            CDynode dn;
+            bool dnFound = dnodeman.Get(vin, dn);
 
-            if(!snFound) {
+            if(!dnFound) {
                 failed++;
                 statusObj.push_back(Pair("result", "failed"));
-                statusObj.push_back(Pair("errorMessage", "Can't find stormnode by collateral output"));
-                resultsObj.push_back(Pair(sne.getAlias(), statusObj));
+                statusObj.push_back(Pair("errorMessage", "Can't find dynode by collateral output"));
+                resultsObj.push_back(Pair(dne.getAlias(), statusObj));
                 continue;
             }
 
-            CGovernanceVote vote(sn.vin, hash, eVoteSignal, eVoteOutcome);
-            if(!vote.Sign(keyStormnode, pubKeyStormnode)){
+            CGovernanceVote vote(dn.vin, hash, eVoteSignal, eVoteOutcome);
+            if(!vote.Sign(keyDynode, pubKeyDynode)){
                 failed++;
                 statusObj.push_back(Pair("result", "failed"));
                 statusObj.push_back(Pair("errorMessage", "Failure to sign."));
-                resultsObj.push_back(Pair(sne.getAlias(), statusObj));
+                resultsObj.push_back(Pair(dne.getAlias(), statusObj));
                 continue;
             }
 
@@ -398,7 +398,7 @@ UniValue gobject(const UniValue& params, bool fHelp)
                 statusObj.push_back(Pair("errorMessage", exception.GetMessage()));
             }
 
-            resultsObj.push_back(Pair(sne.getAlias(), statusObj));
+            resultsObj.push_back(Pair(dne.getAlias(), statusObj));
         }
 
         UniValue returnObj(UniValue::VOBJ);
@@ -409,7 +409,7 @@ UniValue gobject(const UniValue& params, bool fHelp)
     }
 
 
-    // STORMNODES CAN VOTE ON GOVERNANCE OBJECTS ON THE NETWORK FOR VARIOUS SIGNALS AND OUTCOMES
+    // DYNODES CAN VOTE ON GOVERNANCE OBJECTS ON THE NETWORK FOR VARIOUS SIGNALS AND OUTCOMES
     if(strCommand == "vote-alias")
     {
         if(params.size() != 5)
@@ -439,74 +439,74 @@ UniValue gobject(const UniValue& params, bool fHelp)
             throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid vote outcome. Please use one of the following: 'yes', 'no' or 'abstain'");
         }
 
-        // EXECUTE VOTE FOR EACH STORMNODE, COUNT SUCCESSES VS FAILURES
+        // EXECUTE VOTE FOR EACH DYNODE, COUNT SUCCESSES VS FAILURES
 
         int success = 0;
         int failed = 0;
 
-        std::vector<CStormnodeConfig::CStormnodeEntry> snEntries;
-        snEntries = stormnodeConfig.getEntries();
+        std::vector<CDynodeConfig::CDynodeEntry> dnEntries;
+        dnEntries = dynodeConfig.getEntries();
 
         UniValue resultsObj(UniValue::VOBJ);
 
-        BOOST_FOREACH(CStormnodeConfig::CStormnodeEntry sne, stormnodeConfig.getEntries())
+        BOOST_FOREACH(CDynodeConfig::CDynodeEntry dne, dynodeConfig.getEntries())
         {
             // IF WE HAVE A SPECIFIC NODE REQUESTED TO VOTE, DO THAT
-            if(strAlias != sne.getAlias()) continue;
+            if(strAlias != dne.getAlias()) continue;
 
             // INIT OUR NEEDED VARIABLES TO EXECUTE THE VOTE
             std::string strError;
-            std::vector<unsigned char> vchStormNodeSignature;
-            std::string strStormNodeSignMessage;
+            std::vector<unsigned char> vchDyNodeSignature;
+            std::string strDyNodeSignMessage;
 
             CPubKey pubKeyCollateralAddress;
             CKey keyCollateralAddress;
-            CPubKey pubKeyStormnode;
-            CKey keyStormnode;
+            CPubKey pubKeyDynode;
+            CKey keyDynode;
 
-            // SETUP THE SIGNING KEY FROM STORMNODE.CONF ENTRY
+            // SETUP THE SIGNING KEY FROM DYNODE.CONF ENTRY
 
             UniValue statusObj(UniValue::VOBJ);
 
-            if(!sandStormSigner.GetKeysFromSecret(sne.getPrivKey(), keyStormnode, pubKeyStormnode)) {
+            if(!privateSendSigner.GetKeysFromSecret(dne.getPrivKey(), keyDynode, pubKeyDynode)) {
                 failed++;
                 statusObj.push_back(Pair("result", "failed"));
-                statusObj.push_back(Pair("errorMessage", strprintf("Invalid stormnode key %s.", sne.getPrivKey())));
-                resultsObj.push_back(Pair(sne.getAlias(), statusObj));
+                statusObj.push_back(Pair("errorMessage", strprintf("Invalid dynode key %s.", dne.getPrivKey())));
+                resultsObj.push_back(Pair(dne.getAlias(), statusObj));
                 continue;
             }
 
-            // SEARCH FOR THIS STORMNODE ON THE NETWORK, THE NODE MUST BE ACTIVE TO VOTE
+            // SEARCH FOR THIS DYNODE ON THE NETWORK, THE NODE MUST BE ACTIVE TO VOTE
 
             uint256 nTxHash;
-            nTxHash.SetHex(sne.getTxHash());
+            nTxHash.SetHex(dne.getTxHash());
 
             int nOutputIndex = 0;
-            if(!ParseInt32(sne.getOutputIndex(), &nOutputIndex)) {
+            if(!ParseInt32(dne.getOutputIndex(), &nOutputIndex)) {
                 continue;
             }
 
             CTxIn vin(COutPoint(nTxHash, nOutputIndex));
 
-            CStormnode sn;
-            bool snFound = snodeman.Get(vin, sn);
+            CDynode dn;
+            bool dnFound = dnodeman.Get(vin, dn);
 
-            if(!snFound) {
+            if(!dnFound) {
                 failed++;
                 statusObj.push_back(Pair("result", "failed"));
-                statusObj.push_back(Pair("errorMessage", "Stormnode must be publically available on network to vote. Stormnode not found."));
-                resultsObj.push_back(Pair(sne.getAlias(), statusObj));
+                statusObj.push_back(Pair("errorMessage", "Dynode must be publically available on network to vote. Dynode not found."));
+                resultsObj.push_back(Pair(dne.getAlias(), statusObj));
                 continue;
             }
 
             // CREATE NEW GOVERNANCE OBJECT VOTE WITH OUTCOME/SIGNAL
 
             CGovernanceVote vote(vin, hash, eVoteSignal, eVoteOutcome);
-            if(!vote.Sign(keyStormnode, pubKeyStormnode)) {
+            if(!vote.Sign(keyDynode, pubKeyDynode)) {
                 failed++;
                 statusObj.push_back(Pair("result", "failed"));
                 statusObj.push_back(Pair("errorMessage", "Failure to sign."));
-                resultsObj.push_back(Pair(sne.getAlias(), statusObj));
+                resultsObj.push_back(Pair(dne.getAlias(), statusObj));
                 continue;
             }
 
@@ -523,7 +523,7 @@ UniValue gobject(const UniValue& params, bool fHelp)
                 statusObj.push_back(Pair("errorMessage", exception.GetMessage()));
             }
 
-            resultsObj.push_back(Pair(sne.getAlias(), statusObj));
+            resultsObj.push_back(Pair(dne.getAlias(), statusObj));
         }
 
         // REPORT STATS TO THE USER
@@ -654,7 +654,7 @@ UniValue gobject(const UniValue& params, bool fHelp)
         objDelete.push_back(Pair("AbstainCount",  pGovObj->GetAbstainCount(VOTE_SIGNAL_DELETE)));
         objResult.push_back(Pair("DeleteResult", objDelete));
 
-        // -- ENDORSED VIA STORMNODE-ELECTED BOARD
+        // -- ENDORSED VIA DYNODE-ELECTED BOARD
         UniValue objEndorsed(UniValue::VOBJ);
         objEndorsed.push_back(Pair("AbsoluteYesCount",  pGovObj->GetAbsoluteYesCount(VOTE_SIGNAL_ENDORSED)));
         objEndorsed.push_back(Pair("YesCount",  pGovObj->GetYesCount(VOTE_SIGNAL_ENDORSED)));
@@ -716,13 +716,13 @@ UniValue voteraw(const UniValue& params, bool fHelp)
 {
     if (fHelp || params.size() != 6)
         throw std::runtime_error(
-                "voteraw <stormnode-tx-hash> <stormnode-tx-index> <governance-hash> <vote-signal> [yes|no|abstain] <time> <vote-sig>\n"
+                "voteraw <dynode-tx-hash> <dynode-tx-index> <governance-hash> <vote-signal> [yes|no|abstain] <time> <vote-sig>\n"
                 "Compile and relay a governance vote with provided external signature instead of signing vote internally\n"
                 );
 
-    uint256 hashSnTx = ParseHashV(params[0], "sn tx hash");
-    int nSnTxIndex = params[1].get_int();
-    CTxIn vin = CTxIn(hashSnTx, nSnTxIndex);
+    uint256 hashDnTx = ParseHashV(params[0], "dn tx hash");
+    int nDnTxIndex = params[1].get_int();
+    CTxIn vin = CTxIn(hashDnTx, nDnTxIndex);
 
     uint256 hashGovObj = ParseHashV(params[2], "Governance hash");
     std::string strVoteSignal = params[3].get_str();
@@ -749,11 +749,11 @@ UniValue voteraw(const UniValue& params, bool fHelp)
         throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Malformed base64 encoding");
     }
 
-    CStormnode sn;
-    bool snFound = snodeman.Get(vin, sn);
+    CDynode dn;
+    bool dnFound = dnodeman.Get(vin, dn);
 
-    if(!snFound) {
-        throw JSONRPCError(RPC_INTERNAL_ERROR, "Failure to find stormnode in list : " + vin.ToString());
+    if(!dnFound) {
+        throw JSONRPCError(RPC_INTERNAL_ERROR, "Failure to find dynode in list : " + vin.ToString());
     }
 
     CGovernanceVote vote(vin, hashGovObj, eVoteSignal, eVoteOutcome);
@@ -782,7 +782,7 @@ UniValue getgovernanceinfo(const UniValue& params, bool fHelp)
             "\nResult:\n"
             "{\n"
             "  \"governanceminquorum\": xxxxx,           (numeric) the absolute minimum number of votes needed to trigger a governance action\n"
-            "  \"stormnodewatchdogmaxseconds\": xxxxx,  (numeric) sentinel watchdog expiration time in seconds\n"
+            "  \"dynodewatchdogmaxseconds\": xxxxx,  (numeric) sentinel watchdog expiration time in seconds\n"
             "  \"proposalfee\": xxx.xx,                  (numeric) the collateral transaction fee which must be paid to create a proposal in " + CURRENCY_UNIT + "\n"
             "  \"superblockcycle\": xxxxx,               (numeric) the number of blocks between superblocks\n"
             "  \"lastsuperblock\": xxxxx,                (numeric) the block number of the last superblock\n"
@@ -822,7 +822,7 @@ UniValue getgovernanceinfo(const UniValue& params, bool fHelp)
 
     UniValue obj(UniValue::VOBJ);
     obj.push_back(Pair("governanceminquorum", Params().GetConsensus().nGovernanceMinQuorum));
-    obj.push_back(Pair("stormnodewatchdogmaxseconds", STORMNODE_WATCHDOG_MAX_SECONDS));
+    obj.push_back(Pair("dynodewatchdogmaxseconds", DYNODE_WATCHDOG_MAX_SECONDS));
     obj.push_back(Pair("proposalfee", ValueFromAmount(GOVERNANCE_PROPOSAL_FEE_TX)));
     obj.push_back(Pair("superblockcycle", Params().GetConsensus().nSuperblockCycle));
     obj.push_back(Pair("lastsuperblock", nLastSuperblock));

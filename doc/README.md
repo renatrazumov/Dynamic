@@ -1,75 +1,75 @@
-# **DarkSilk (DSLK) v1.0**
+# **Dynamic (DYN) v1.0**
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
 
-[![Stories in Ready](https://badge.waffle.io/SilkNetwork/DarkSilk-Core.png?label=ready&title=Ready)](https://waffle.io/SilkNetwork/DarkSilk-Core)
-[![Build Status](https://travis-ci.org/SilkNetwork/DarkSilk-Core.png?branch=master)](https://travis-ci.org/SilkNetwork/DarkSilk-Core)
+[![Stories in Ready](https://badge.waffle.io/SilkNetwork/Dynamic-Core.png?label=ready&title=Ready)](https://waffle.io/SilkNetwork/Dynamic-Core)
+[![Build Status](https://travis-ci.org/SilkNetwork/Dynamic-Core.png?branch=master)](https://travis-ci.org/SilkNetwork/Dynamic-Core)
 
 
 Graph on Pull Request History
 ====================================
 
-[![Throughput Graph](https://graphs.waffle.io/SilkNetwork/DarkSilk-Core/throughput.svg)](https://waffle.io/SilkNetwork/DarkSilk-Core/metrics/throughput)  
-DarkSilk Integration/Staging Tree
+[![Throughput Graph](https://graphs.waffle.io/SilkNetwork/Dynamic-Core/throughput.svg)](https://waffle.io/SilkNetwork/Dynamic-Core/metrics/throughput)  
+Dynamic Integration/Staging Tree
 ================================
-![DSLK logo](https://github.com/SilkNetwork/DarkSilk-Core/blob/master/src/qt/res/icons/darksilk-80.png)
+![DYN logo](https://github.com/SilkNetwork/Dynamic-Core/blob/master/src/qt/res/icons/dynamic-80.png)
 
 **Copyright (c) 2015-2016 Silk Network**
 
-What is DarkSilk?
+What is Dynamic?
 ----------------
-* Coin Suffix: DSLK
+* Coin Suffix: DYN
 * PoW Algorithm: Argon2d
 * PoW Period: Unlimited
 * PoW Target Spacing: 64 Seconds
-* PoW Reward per Block: 1 DSLK
+* PoW Reward per Block: 1 DYN
 * Maturity: 10 Blocks
 * PoW Blocks: ~1350 per day
-* Stormnode Collateral Amount: 1000 DSLK
-* Stormnode Min Confirmation: 10 Blocks
-* Stormnode Reward: 0.382 DSLK Static Reward (38.2% of a PoW reward)
-* Budget Reward: 10,000 DSLK Static Reward Every 41,089 blocks (~30 days)
-* Budget Proposal Fee: 100 DSLK, 20 confirmations (~30 minutes)
-* Min TX Fee: 0.0001 DSLK
+* Dynode Collateral Amount: 1000 DYN
+* Dynode Min Confirmation: 10 Blocks
+* Dynode Reward: 0.382 DYN Static Reward (38.2% of a PoW reward)
+* Budget Reward: 10,000 DYN Static Reward Every 41,089 blocks (~30 days)
+* Budget Proposal Fee: 100 DYN, 20 confirmations (~30 minutes)
+* Min TX Fee: 0.0001 DYN
 
 
-DarkSilk is a new digital currency that enables instant payments to anyone, anywhere in the world. DarkSilk uses peer-to-peer technology over Tor/ClearNet to operate securly with no central authority (centralisation): managing transactions and issuing currency (DSLK) are carried out collectively by the DarkSilk network. DarkSilk is the name of open source software which enables the use of the currency DSLK.
+Dynamic is a new digital currency that enables instant payments to anyone, anywhere in the world. Dynamic uses peer-to-peer technology over Tor/ClearNet to operate securly with no central authority (centralisation): managing transactions and issuing currency (DYN) are carried out collectively by the Dynamic network. Dynamic is the name of open source software which enables the use of the currency DYN.
 
-DarkSilk utilises Stormnodes, Sandstorm and InstantX to provide anonymous and near instant transaction confirmations.
+Dynamic utilises Dynodes, Privatesend and InstantSend to provide anonymous and near instant transaction confirmations.
 
-DarkSilk implements Gavin Andresens signature cache optimisation from Bitcoin for significantly faster transaction validation.
+Dynamic implements Gavin Andresens signature cache optimisation from Bitcoin for significantly faster transaction validation.
 
-DarkSilk uses ShadowChat from Shadowcash based upon Bitmessage for encrypted, anonymous and secure messaging via the DarkSilk wallet network.
+Dynamic uses ShadowChat from Shadowcash based upon Bitmessage for encrypted, anonymous and secure messaging via the Dynamic wallet network.
 
-Darksilk includes a completely decentralised marketplace, providing anonymity and escrow services for safe and fast trades.
+Dynamic includes a completely decentralised marketplace, providing anonymity and escrow services for safe and fast trades.
 
-DarkSilk includes an Address Index feature, based on the address index API (searchrawtransactions RPC command) implemented in Bitcoin Core but modified implementation to work with the DarkSilk codebase (PoS coins maintain a txindex by default for instance). Initialize the Address Index by running the -reindexaddr command line argument, it may take 10-15 minutes to build the initial index.
+Dynamic includes an Address Index feature, based on the address index API (searchrawtransactions RPC command) implemented in Bitcoin Core but modified implementation to work with the Dynamic codebase (PoS coins maintain a txindex by default for instance). Initialize the Address Index by running the -reindexaddr command line argument, it may take 10-15 minutes to build the initial index.
 
 
-**Stormnode/Sandstorm Network Information**
-Ported Masternodes from Dash, rebranded as Stormnodes and modified to use stealth addresses.
-Darksend ported and rebranded as Sandstorm.
-Utilisation of InstantX for instant transaction confirmation.
+**Dynode/Privatesend Network Information**
+Ported Masternodes from Dash, rebranded as Dynodes and modified to use stealth addresses.
+Darksend ported and rebranded as Privatesend.
+Utilisation of InstantSend for instant transaction confirmation.
 
 **MainNet Parameters**
-P2P Port/Stormnodes = 31000
+P2P Port/Dynodes = 31000
 RPC Port = 31500
 Magic Bytes: 0x42 0x04 0x20 0x24
 
 
 **TestNet Parameters**
-P2P Port/Stormnodes = 31750
+P2P Port/Dynodes = 31750
 RPC Port = 31800
 Magic Bytes: 0x24 0x20 0x04 0x42
 
 
 UNIX BUILD NOTES
 ====================
-Some notes on how to build DarkSilk in Unix. 
+Some notes on how to build Dynamic in Unix. 
 
 Note
 ---------------------
-Always use absolute paths to configure and compile DarkSilk and the dependencies,
+Always use absolute paths to configure and compile Dynamic and the dependencies,
 for example, when specifying the the path of the dependency:
 
 	../dist/configure --enable-cxx --disable-shared --with-pic --prefix=$BDB_PREFIX
@@ -87,7 +87,7 @@ make
 make install # optional
 ```
 
-This will build darksilk-qt as well if the dependencies are met.
+This will build dynamic-qt as well if the dependencies are met.
 
 Dependencies
 ---------------------
@@ -115,7 +115,7 @@ System requirements
 --------------------
 
 C++ compilers are memory-hungry. It is recommended to have at least 1 GB of
-memory available when compiling DarkSilk Core. With 512MB of memory or less
+memory available when compiling Dynamic. With 512MB of memory or less
 compilation will take much longer due to swap thrashing.
 
 Dependency Build Instructions: Ubuntu & Debian
@@ -128,10 +128,10 @@ for Ubuntu 12.04 and later or Debian 7 and later libboost-all-dev has to be inst
 
 	sudo apt-get install libboost-all-dev
 
- db4.8 packages are available [here](https://launchpad.net/~silknetwork/+archive/silknetwork).
+ db4.8 packages are available [here](https://launchpad.net/~bitcoin/+archive/bitcoin).
  You can add the repository using the following command:
 
-        sudo add-apt-repository ppa:silknetwork/silknetwork
+        sudo add-apt-repository ppa:bitcoin/bitcoin
         sudo apt-get update
 
  Ubuntu 12.04 and later have packages for libdb5.1-dev and libdb5.1++-dev,
@@ -159,7 +159,7 @@ Optional:
 Dependencies for the GUI: Ubuntu & Debian
 -----------------------------------------
 
-If you want to build DarkSilk-Qt, make sure that the required packages for Qt development
+If you want to build Dynamic-Qt, make sure that the required packages for Qt development
 are installed. Qt 5 is necessary to build the GUI.
 If both Qt 4 and Qt 5 are installed, Qt 5 will be used. Pass `--with-gui=qt5` to configure to choose Qt5.
 To build without GUI pass `--without-gui`.
@@ -172,12 +172,12 @@ libqrencode (optional) can be installed with:
 
     sudo apt-get install libqrencode-dev
 
-Once these are installed, they will be found by configure and a darksilk-qt executable will be
+Once these are installed, they will be found by configure and a dynamic-qt executable will be
 built by default.
 
 Notes
 -----
-The release is built with GCC and then "strip darksilkd" to strip the debug
+The release is built with GCC and then "strip dynamicd" to strip the debug
 symbols, which reduces the executable size by about 90%.
 
 
@@ -206,10 +206,10 @@ Berkeley DB
 It is recommended to use Berkeley DB 4.8. If you have to build it yourself:
 
 ```bash
-DARKSILK_ROOT=$(pwd)
+DYNAMIC_ROOT=$(pwd)
 
-# Pick some path to install BDB to, here we create a directory within the darksilk directory
-BDB_PREFIX="${DARKSILK_ROOT}/db4"
+# Pick some path to install BDB to, here we create a directory within the dynamic directory
+BDB_PREFIX="${DYNAMIC_ROOT}/db4"
 mkdir -p $BDB_PREFIX
 
 # Fetch the source and verify that it is not tampered with
@@ -225,8 +225,8 @@ cd db-4.8.30.NC/build_unix/
 make 
 sudo make install
 
-# Configure DarkSilk Core to use our own-built instance of BDB
-cd $DARKSILK_ROOT
+# Configure Dynamic to use our own-built instance of BDB
+cd $DYNAMIC_ROOT
 ./configure (other args...) LDFLAGS="-L${BDB_PREFIX}/lib/" CPPFLAGS="-I${BDB_PREFIX}/include/"
 ```
 
@@ -243,7 +243,7 @@ If you need to build Boost yourself:
 
 Security
 --------
-To help make your DarkSilk installation more secure by making certain attacks impossible to
+To help make your Dynamic installation more secure by making certain attacks impossible to
 exploit even if a vulnerability is found, binaries are hardened by default.
 This can be disabled with:
 
@@ -267,7 +267,7 @@ Hardening enables the following features:
 
     To test that you have built PIE executable, install scanelf, part of paxutils, and use:
 
-    	scanelf -e ./darksilkd
+    	scanelf -e ./dynamicd
 
     The output should contain:
      TYPE
@@ -275,13 +275,13 @@ Hardening enables the following features:
 
 * Non-executable Stack
     If the stack is executable then trivial stack based buffer overflow exploits are possible if
-    vulnerable buffers are found. By default, darksilk should be built with a non-executable stack
+    vulnerable buffers are found. By default, dynamic should be built with a non-executable stack
     but if one of the libraries it uses asks for an executable stack or someone makes a mistake
     and uses a compiler extension which requires an executable stack, it will silently build an
     executable without the non-executable stack protection.
 
     To verify that the stack is non-executable after compiling use:
-    `scanelf -e ./darksilkd`
+    `scanelf -e ./dynamicd`
 
     the output should contain:
 	STK/REL/PTL
@@ -291,7 +291,7 @@ Hardening enables the following features:
 
 Disable-wallet mode
 --------------------
-When the intention is to run only a P2P node without a wallet, darksilk may be compiled in
+When the intention is to run only a P2P node without a wallet, dynamic may be compiled in
 disable-wallet mode with:
 
     ./configure --disable-wallet

@@ -1,7 +1,7 @@
 // Copyright (c) 2009-2017 Satoshi Nakamoto
 // Copyright (c) 2009-2017 The Bitcoin Developers
 // Copyright (c) 2014-2017 The Dash Core Developers
-// Copyright (c) 2015-2017 Silk Network Developers
+// Copyright (c) 2016-2017 Duality Blockchain Solutions Ltd
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -371,8 +371,8 @@ void RPCConsole::setClientModel(ClientModel *model)
         setNumBlocks(model->getNumBlocks(), model->getLastBlockDate(), model->getVerificationProgress(NULL));
         connect(model, SIGNAL(numBlocksChanged(int,QDateTime,double)), this, SLOT(setNumBlocks(int,QDateTime,double)));
 
-        setStormnodeCount(model->getStormnodeCountString());
-        connect(model, SIGNAL(strStormnodesChanged(QString)), this, SLOT(setStormnodeCount(QString)));
+        setDynodeCount(model->getDynodeCountString());
+        connect(model, SIGNAL(strDynodesChanged(QString)), this, SLOT(setDynodeCount(QString)));
 
         updateTrafficStats(model->getTotalBytesRecv(), model->getTotalBytesSent());
         connect(model, SIGNAL(bytesChanged(quint64,quint64)), this, SLOT(updateTrafficStats(quint64, quint64)));
@@ -545,7 +545,7 @@ void RPCConsole::buildParameterlist(QString arg)
     // Append repair parameter to command line.
     args.append(arg);
 
-    // Send command-line arguments to DarkSilkGUI::handleRestart()
+    // Send command-line arguments to DynamicGUI::handleRestart()
     Q_EMIT handleRestart(args);
 }
 
@@ -590,7 +590,7 @@ void RPCConsole::clear()
             ).arg(fixedFontInfo.family(), ptSize)
         );
 
-    message(CMD_REPLY, (tr("Welcome to the DarkSilk Core RPC console.") + "<br>" +
+    message(CMD_REPLY, (tr("Welcome to the Dynamic RPC console.") + "<br>" +
                         tr("Use up and down arrows to navigate history, and <b>Ctrl-L</b> to clear screen.") + "<br>" +
                         tr("Type <b>help</b> for an overview of available commands.")), true);
 }
@@ -637,9 +637,9 @@ void RPCConsole::setNumBlocks(int count, const QDateTime& blockDate, double nVer
     ui->lastBlockTime->setText(blockDate.toString());
 }
 
-void RPCConsole::setStormnodeCount(const QString &strStormnodes)
+void RPCConsole::setDynodeCount(const QString &strDynodes)
 {
-    ui->stormnodeCount->setText(strStormnodes);
+    ui->dynodeCount->setText(strDynodes);
 }
 
 void RPCConsole::setMempoolSize(long numberOfTxs, size_t dynUsage)

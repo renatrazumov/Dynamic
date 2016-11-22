@@ -1,7 +1,7 @@
 // Copyright (c) 2009-2017 Satoshi Nakamoto
 // Copyright (c) 2009-2017 The Bitcoin Developers
 // Copyright (c) 2014-2017 The Dash Core Developers
-// Copyright (c) 2015-2017 Silk Network Developers
+// Copyright (c) 2016-2017 Duality Blockchain Solutions Ltd
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -9,10 +9,10 @@
 
 #include "addressbookpage.h"
 #include "askpassphrasedialog.h"
-#include "darksilkgui.h"
+#include "dynamicgui.h"
 #include "clientmodel.h"
 #include "guiutil.h"
-#include "stormnodeconfig.h"
+#include "dynodeconfig.h"
 #include "optionsmodel.h"
 #include "overviewpage.h"
 #include "platformstyle.h"
@@ -85,9 +85,9 @@ WalletView::WalletView(const PlatformStyle *platformStyle, QWidget *parent):
     addWidget(sendCoinsPage);
 
     QSettings settings;
-    if (settings.value("fShowStormnodesTab").toBool()) {
-        stormnodeListPage = new StormnodeList(platformStyle);
-        addWidget(stormnodeListPage);
+    if (settings.value("fShowDynodesTab").toBool()) {
+        dynodeListPage = new DynodeList(platformStyle);
+        addWidget(dynodeListPage);
     }
 
     // Clicking on a transaction on the overview pre-selects the transaction on the transaction history page
@@ -113,7 +113,7 @@ WalletView::~WalletView()
 {
 }
 
-void WalletView::setDarkSilkGUI(DarkSilkGUI *gui)
+void WalletView::setDynamicGUI(DynamicGUI *gui)
 {
     if (gui)
     {
@@ -138,8 +138,8 @@ void WalletView::setClientModel(ClientModel *clientModel)
     overviewPage->setClientModel(clientModel);
     sendCoinsPage->setClientModel(clientModel);
     QSettings settings;
-    if (settings.value("fShowStormnodesTab").toBool()) {
-        stormnodeListPage->setClientModel(clientModel);
+    if (settings.value("fShowDynodesTab").toBool()) {
+        dynodeListPage->setClientModel(clientModel);
     }
 }
 
@@ -151,8 +151,8 @@ void WalletView::setWalletModel(WalletModel *walletModel)
     transactionView->setModel(walletModel);
     overviewPage->setWalletModel(walletModel);
     QSettings settings;
-    if (settings.value("fShowStormnodesTab").toBool()) {
-        stormnodeListPage->setWalletModel(walletModel);
+    if (settings.value("fShowDynodesTab").toBool()) {
+        dynodeListPage->setWalletModel(walletModel);
     }
     receiveCoinsPage->setModel(walletModel);
     sendCoinsPage->setModel(walletModel);
@@ -210,11 +210,11 @@ void WalletView::gotoHistoryPage()
     setCurrentWidget(transactionsPage);
 }
 
-void WalletView::gotoStormnodePage()
+void WalletView::gotoDynodePage()
 {
     QSettings settings;
-    if (settings.value("fShowStormnodesTab").toBool()) {
-        setCurrentWidget(stormnodeListPage);
+    if (settings.value("fShowDynodesTab").toBool()) {
+        setCurrentWidget(dynodeListPage);
     }
 }
 
