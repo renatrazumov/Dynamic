@@ -37,12 +37,12 @@ std::map<uint256, int64_t> mapUnknownVotes; //track votes with no tx for DOS
 
 CCriticalSection cs_instantsend;
 
-//txlock - Locks transaction
+// Transaction Locks
 //
-//step 1.) Broadcast intention to lock transaction inputs, "txlreg", CTransaction
-//step 2.) Top INSTANTSEND_SIGNATURES_TOTAL dynodes, open connect to top 1 dynode.
-//         Send "txvote", CTransaction, Signature, Approve
-//step 3.) Top 1 dynode, waits for INSTANTSEND_SIGNATURES_REQUIRED messages. Upon success, sends "txlock'
+// step 2) Top INSTANTSEND_SIGNATURES_TOTAL masternodes push "txvote" message
+// step 2) Top INSTANTSEND_SIGNATURES_TOTAL masternodes push "txvote" message
+// step 3) Once there are INSTANTSEND_SIGNATURES_REQUIRED valid "txvote" messages
+//         for a corresponding "txlreg" message, all inputs from that tx are treated as locked
 
 void ProcessMessageInstantSend(CNode* pfrom, std::string& strCommand, CDataStream& vRecv)
 {
@@ -139,7 +139,7 @@ void ProcessMessageInstantSend(CNode* pfrom, std::string& strCommand, CDataStrea
         if(mapTxLockVotes.count(vote.GetHash())) return;
         mapTxLockVotes.insert(std::make_pair(vote.GetHash(), vote));
 
-        if(ProcepsTxLockVote(pfrom, vote)) {
+        if(ProcessTxLockVote(pfrom, vote)) {
             //Spam/Dos protection
             /*
                 Dynodes will sometimes propagate votes before the transaction is known to the client.
@@ -219,11 +219,11 @@ bool IsInstantSendTxValid(const CTransaction& txCandidate)
     return true;
 }
 
-int64_t CreateTxLockCandidate(CTransaction tx)
+int64_t CreateTxLockCandidate(const CTransaction& tx)
 {
-
+    // Find the age of the first input but all inputs must be old enough too
     int64_t nTxAge = 0;
-    BOOST_REVERSE_FOREACH(CTxIn txin, tx.vin) {
+    BOOST_REVERSE_FOREACH(const CTxIn& txin, tx.vin) {
         nTxAge = GetInputAge(txin);
         if(nTxAge < 9) { //1 less than the "send IX" gui requires, incase of a block propagating the network at the time
             LogPrintf("CreateTxLockCandidate -- Transaction not found / too new: nTxAge=%d, txid=%s\n", nTxAge, tx.GetHash().ToString());
@@ -236,34 +236,33 @@ int64_t CreateTxLockCandidate(CTransaction tx)
         This prevents attackers from using transaction mallibility to predict which dynodes
         they'll use.
     */
-    int nBlockHeight = 0;
+    int nCurrentHeight = 0;
+    int nLockInputHeight = 0;
     {
         LOCK(cs_main);
-        CBlockIndex* tip = chainActive.Tip();
-        if(tip)
-            nBlockHeight = tip->nHeight - nTxAge + 4;
-        else
-            return 0;
+        if(!chainActive.Tip()) return 0;
+        nCurrentHeight = chainActive.Height();
+        nLockInputHeight = nCurrentHeight - nTxAge + 4;
     }
 
-    if(!mapTxLockCandidates.count(tx.GetHash())) {
-        LogPrintf("CreateTxLockCandidate -- New Transaction Lock Candidate! txid=%s\n", tx.GetHash().ToString());
+    uint256 txHash = tx.GetHash();
+
+    if(!mapTxLockCandidates.count(txHash)) {
+        LogPrintf("CreateTxLockCandidate -- New Transaction Lock Candidate! txid=%s\n", txHash.ToString());
 
         CTxLockCandidate txLockCandidate;
-        txLockCandidate.nBlockHeight = nBlockHeight;
+        txLockCandidate.nBlockHeight = nLockInputHeight;
         //locks expire after nInstantSendKeepLock confirmations
-        txLockCandidate.nExpirationBlock = chainActive.Height() + Params().GetConsensus().nInstantSendKeepLock;
+        txLockCandidate.nExpirationBlock = nCurrentHeight + Params().GetConsensus().nInstantSendKeepLock;
         txLockCandidate.nTimeout = GetTime()+(60*5);
-        txLockCandidate.txHash = tx.GetHash();
-        mapTxLockCandidates.insert(std::make_pair(tx.GetHash(), txLockCandidate));
+        txLockCandidate.txHash = txHash;
+        mapTxLockCandidates.insert(std::make_pair(txHash, txLockCandidate));
     } else {
-        mapTxLockCandidates[tx.GetHash()].nBlockHeight = nBlockHeight;
-        LogPrint("instantsend", "CreateTxLockCandidate -- Transaction Lock Candidate exists! txid=%s\n", tx.GetHash().ToString());
+        mapTxLockCandidates[txHash].nBlockHeight = nLockInputHeight;
+        LogPrint("instantsend", "CreateTxLockCandidate -- Transaction Lock Candidate exists! txid=%s\n", txHash.ToString());
     }
 
-
-
-    return nBlockHeight;
+    return nLockInputHeight;
 }
 
 // check if we need to vote on this transaction
@@ -311,37 +310,39 @@ void CreateTxLockVote(CTransaction& tx, int64_t nBlockHeight)
 }
 
 //received a consensus vote
-bool ProcepsTxLockVote(CNode* pnode, CTxLockVote& vote)
+bool ProcessTxLockVote(CNode* pnode, CTxLockVote& vote)
 {
-    int n = dnodeman.GetDynodeRank(vote.vinDynode, vote.nBlockHeight, MIN_INSTANTSEND_PROTO_VERSION);
+    LogPrint("instantsend", "ProcessTxLockVote -- Transaction Lock Vote, txid=%s\n", vote.txHash.ToString());
+    if(!dnodeman.Has(vote.vinDynode)) {
+        LogPrint("instantsend", "ProcessTxLockVote -- Unknown dynode %s\n", vote.vinDynode.prevout.ToStringShort());
+        return false;
+    }
 
-    CDynode* pdn = dnodeman.Find(vote.vinDynode);
-    if(pdn != NULL)
-        LogPrint("instantsend", "ProcepsTxLockVote -- Dynode addr=%s, rank: %d\n", pdn->addr.ToString(), n);
+    int n = dnodeman.GetDynodeRank(vote.vinDynode, vote.nBlockHeight, MIN_INSTANTSEND_PROTO_VERSION);
 
     if(n == -1) {
         //can be caused by past versions trying to vote with an invalid protocol
-        LogPrint("instantsend", "ProcepsTxLockVote -- Unknown Dynode: txin=%s\n", vote.vinDynode.ToString());
+        LogPrint("instantsend", "ProcessTxLockVote -- Outdated dynodes %s\n", vote.vinDynode.prevout.ToStringShort());
         dnodeman.AskForDN(pnode, vote.vinDynode);
         return false;
     }
-    LogPrint("instantsend", "ProcepsTxLockVote -- Dynode %s, rank=%d\n", vote.vinDynode.prevout.ToStringShort(), n);
+    LogPrint("instantsend", "ProcessTxLockVote -- Dynode %s, rank=%d\n", vote.vinDynode.prevout.ToStringShort(), n);
 
     if(n > INSTANTSEND_SIGNATURES_TOTAL) {
-        LogPrint("instantsend", "ProcepsTxLockVote -- Dynode %s is not in the top %d (%d), vote hash %s\n",
+        LogPrint("instantsend", "ProcessTxLockVote -- Dynode %s is not in the top %d (%d), vote hash=%s\n",
                 vote.vinDynode.prevout.ToStringShort(), INSTANTSEND_SIGNATURES_TOTAL, n, vote.GetHash().ToString());
         return false;
     }
 
     if(!vote.CheckSignature()) {
-        LogPrintf("ProcepsTxLockVote -- Signature invalid\n");
+        LogPrintf("ProcessTxLockVote -- Signature invalid\n");
         // don't ban, it could just be a non-synced dynode
         dnodeman.AskForDN(pnode, vote.vinDynode);
         return false;
     }
 
     if (!mapTxLockCandidates.count(vote.txHash)) {
-        LogPrintf("ProcepsTxLockVote -- New Transaction Lock Candidate! txid=%s\n", vote.txHash.ToString());
+        LogPrintf("ProcessTxLockVote -- New Transaction Lock Candidate! txid=%s\n", vote.txHash.ToString());
 
         CTxLockCandidate txLockCandidate;
         txLockCandidate.nBlockHeight = 0;
@@ -351,7 +352,7 @@ bool ProcepsTxLockVote(CNode* pnode, CTxLockVote& vote)
         txLockCandidate.txHash = vote.txHash;
         mapTxLockCandidates.insert(std::make_pair(vote.txHash, txLockCandidate));
     } else {
-        LogPrint("instantsend", "ProcepsTxLockVote -- Transaction Lock Exists! txid=%s\n", vote.txHash.ToString());
+        LogPrint("instantsend", "ProcessTxLockVote -- Transaction Lock Exists! txid=%s\n", vote.txHash.ToString());
     }
 
     //compile consessus vote
@@ -360,10 +361,10 @@ bool ProcepsTxLockVote(CNode* pnode, CTxLockVote& vote)
         (*i).second.AddVote(vote);
 
         int nSignatures = (*i).second.CountVotes();
-        LogPrint("instantsend", "ProcepsTxLockVote -- Transaction Lock signatures count: %d, vote hash=%s\n", nSignatures, vote.GetHash().ToString());
+        LogPrint("instantsend", "ProcessTxLockVote -- Transaction Lock signatures count: %d, vote hash=%s\n", nSignatures, vote.GetHash().ToString());
 
         if(nSignatures >= INSTANTSEND_SIGNATURES_REQUIRED) {
-            LogPrint("instantsend", "ProcepsTxLockVote -- Transaction Lock Is Complete! txid=%s\n", vote.txHash.ToString());
+            LogPrint("instantsend", "ProcessTxLockVote -- Transaction Lock Is Complete! txid=%s\n", vote.txHash.ToString());
 
             // Dynodes will sometimes propagate votes before the transaction is known to the client,
             // will check for conflicting locks and update transaction status on a new vote message
@@ -377,7 +378,7 @@ bool ProcepsTxLockVote(CNode* pnode, CTxLockVote& vote)
                 } else if(mapLockRequestRejected.count(vote.txHash)) {
                     ResolveConflicts(mapLockRequestRejected[vote.txHash]); ///?????
                 } else {
-                    LogPrint("instantsend", "ProcepsTxLockVote -- Transaction Lock Request is missing! nSignatures=%d, vote hash %s\n", nSignatures, vote.GetHash().ToString());
+                    LogPrint("instantsend", "ProcessTxLockVote -- Transaction Lock Request is missing! nSignatures=%d, vote hash %s\n", nSignatures, vote.GetHash().ToString());
                 }
             }
         }
@@ -388,7 +389,7 @@ bool ProcepsTxLockVote(CNode* pnode, CTxLockVote& vote)
     return false;
 }
 
-void UpdateLockedTransaction(CTransaction& tx, bool fForceNotification)
+void UpdateLockedTransaction(const CTransaction& tx, bool fForceNotification)
 {
     // there should be no conflicting locks
     if(FindConflictingLocks(tx)) return;
@@ -418,7 +419,7 @@ void UpdateLockedTransaction(CTransaction& tx, bool fForceNotification)
         GetMainSignals().NotifyTransactionLock(tx);
 }
 
-void LockTransactionInputs(CTransaction& tx) {
+void LockTransactionInputs(const CTransaction& tx) {
     if(!mapLockRequestAccepted.count(tx.GetHash())) return;
 
     BOOST_FOREACH(const CTxIn& txin, tx.vin)
@@ -426,7 +427,7 @@ void LockTransactionInputs(CTransaction& tx) {
             mapLockedInputs.insert(std::make_pair(txin.prevout, tx.GetHash()));
 }
 
-bool FindConflictingLocks(CTransaction& tx)
+bool FindConflictingLocks(const CTransaction& tx)
 {
     /*
         It's possible (very unlikely though) to get 2 conflicting transaction locks approved by the network.
@@ -435,13 +436,14 @@ bool FindConflictingLocks(CTransaction& tx)
         Blocks could have been rejected during this time, which is OK. After they cancel out, the client will
         rescan the blocks and find they're acceptable and then take the chain with the most work.
     */
+    uint256 txHash = tx.GetHash();
     BOOST_FOREACH(const CTxIn& txin, tx.vin) {
         if(mapLockedInputs.count(txin.prevout)) {
-            if(mapLockedInputs[txin.prevout] != tx.GetHash()) {
-                LogPrintf("FindConflictingLocks -- found two complete conflicting Transaction Locks, removing both: txid=%s, txin=%s", tx.GetHash().ToString(), mapLockedInputs[txin.prevout].ToString());
+            if(mapLockedInputs[txin.prevout] != txHash) {
+                LogPrintf("FindConflictingLocks -- found two complete conflicting Transaction Locks, removing both: txid=%s, txin=%s", txHash.ToString(), mapLockedInputs[txin.prevout].ToString());
 
-                if(mapTxLockCandidates.count(tx.GetHash()))
-                    mapTxLockCandidates[tx.GetHash()].nExpirationBlock = -1;
+                if(mapTxLockCandidates.count(txHash))
+                    mapTxLockCandidates[txHash].nExpirationBlock = -1;
 
                 if(mapTxLockCandidates.count(mapLockedInputs[txin.prevout]))
                     mapTxLockCandidates[mapLockedInputs[txin.prevout]].nExpirationBlock = -1;
@@ -454,32 +456,34 @@ bool FindConflictingLocks(CTransaction& tx)
     return false;
 }
 
-void ResolveConflicts(CTransaction& tx)
+void ResolveConflicts(const CTransaction& tx)
 {
+    uint256 txHash = tx.GetHash();
     // resolve conflicts
-    if (IsLockedInstandSendTransaction(tx.GetHash()) && !FindConflictingLocks(tx)) { //?????
+    if (IsLockedInstandSendTransaction(txHash) && !FindConflictingLocks(tx)) { //?????
         LogPrintf("ResolveConflicts -- Found existing complete Transaction Lock, resolving...\n");
 
         //reprocess the last nInstantSendReprocessBlocks blocks
         ReprocessBlocks(Params().GetConsensus().nInstantSendReprocessBlocks);
-        if(!mapLockRequestAccepted.count(tx.GetHash()))
-            mapLockRequestAccepted.insert(std::make_pair(tx.GetHash(), tx)); //?????
+        if(!mapLockRequestAccepted.count(txHash))
+            mapLockRequestAccepted.insert(std::make_pair(txHash, tx)); //?????
     }
 }
 
 int64_t GetAverageUnknownVoteTime()
 {
+    // should never actually call this function when mapUnknownVotes is empty
+    if(mapUnknownVotes.empty()) return 0;
+
     std::map<uint256, int64_t>::iterator it = mapUnknownVotes.begin();
     int64_t total = 0;
-    int64_t count = 0;
 
     while(it != mapUnknownVotes.end()) {
         total+= it->second;
-        count++;
-        it++;
+        ++it;
     }
 
-    return total / count;
+    return total / mapUnknownVotes.size();
 }
 
 void CleanTxLockCandidates()
@@ -488,11 +492,16 @@ void CleanTxLockCandidates()
 
     std::map<uint256, CTxLockCandidate>::iterator it = mapTxLockCandidates.begin();
 
-    int nHeight = chainActive.Height();
+    int nHeight;
+    {
+        LOCK(cs_main);
+        nHeight = chainActive.Height();
+    }
+
     while(it != mapTxLockCandidates.end()) {
         CTxLockCandidate &txLockCandidate = it->second;
         if(nHeight > txLockCandidate.nExpirationBlock) {
-            LogPrintf("CleanTxLockCandidates -- Removing expired Transaction Lock Candidate for txid %s\n", txLockCandidate.txHash.ToString());
+            LogPrintf("CleanTxLockCandidates -- Removing expired Transaction Lock Candidate: txid=%s\n", txLockCandidate.txHash.ToString());
 
             if(mapLockRequestAccepted.count(txLockCandidate.txHash)){
                 CTransaction& tx = mapLockRequestAccepted[txLockCandidate.txHash];
@@ -510,21 +519,20 @@ void CleanTxLockCandidates()
 
             mapTxLockCandidates.erase(it++);
         } else {
-            it++;
+            ++it;
         }
     }
 }
 
-bool IsLockedInstandSendTransaction(uint256 txHash)
+bool IsLockedInstandSendTransaction(const uint256 &txHash)
 {
     // there must be a successfully verified lock request...
     if (!mapLockRequestAccepted.count(txHash)) return false;
     // ...and corresponding lock must have enough signatures
-    std::map<uint256, CTxLockCandidate>::iterator i = mapTxLockCandidates.find(txHash);
-    return i != mapTxLockCandidates.end() && (*i).second.CountVotes() >= INSTANTSEND_SIGNATURES_REQUIRED;
+    return GetTransactionLockSignatures(txHash) >= INSTANTSEND_SIGNATURES_REQUIRED;
 }
 
-int GetTransactionLockSignatures(uint256 txHash)
+int GetTransactionLockSignatures(const uint256 &txHash)
 {
     if(!fEnableInstantSend) return -1;
     if(fLargeWorkForkFound || fLargeWorkInvalidChainFound) return -2;
@@ -536,7 +544,7 @@ int GetTransactionLockSignatures(uint256 txHash)
     return -1;
 }
 
-bool IsTransactionLockTimedOut(uint256 txHash)
+bool IsTransactionLockTimedOut(const uint256 &txHash)
 {
     if(!fEnableInstantSend) return 0;
 
@@ -552,19 +560,19 @@ uint256 CTxLockVote::GetHash() const
 }
 
 
-bool CTxLockVote::CheckSignature()
+bool CTxLockVote::CheckSignature() const
 {
     std::string strError;
     std::string strMessage = txHash.ToString().c_str() + boost::lexical_cast<std::string>(nBlockHeight);
 
-    CDynode* pdn = dnodeman.Find(vinDynode);
+    dynode_info_t infoMn = dnodeman.GetDynodeInfo(vinDynode);
 
-    if(pdn == NULL) {
+    if(!infoDn.fInfoValid) {
         LogPrintf("CTxLockVote::CheckSignature -- Unknown Dynode: txin=%s\n", vinDynode.ToString());
         return false;
     }
 
-    if(!privateSendSigner.VerifyMessage(pdn->pubKeyDynode, vchDyNodeSignature, strMessage, strError)) {
+    if(!privateSendSigner.VerifyMessage(infoDn.pubKeyDynode, vchDyNodeSignature, strMessage, strError)) {
         LogPrintf("CTxLockVote::CheckSignature -- VerifyMessage() failed, error: %s\n", strError);
         return false;
     }
@@ -595,7 +603,7 @@ bool CTxLockVote::Sign()
 bool CTxLockCandidate::IsAllVotesValid()
 {
 
-    BOOST_FOREACH(CTxLockVote vote, vecTxLockVotes)
+    BOOST_FOREACH(const CTxLockVote& vote, vecTxLockVotes)
     {
         int n = dnodeman.GetDynodeRank(vote.vinDynode, vote.nBlockHeight, MIN_INSTANTSEND_PROTO_VERSION);
 
@@ -618,7 +626,7 @@ bool CTxLockCandidate::IsAllVotesValid()
     return true;
 }
 
-void CTxLockCandidate::AddVote(CTxLockVote& vote)
+void CTxLockCandidate::AddVote(const CTxLockVote& vote)
 {
     vecTxLockVotes.push_back(vote);
 }
