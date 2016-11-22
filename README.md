@@ -12,7 +12,7 @@ Dynamic Integration/Staging Tree
 ================================
 ![DYN logo]()
 
-**Copyright (c) 2015-2016 Silk Network**
+**Copyright (c) 2016-2017 Duality Blockchain Solutions Ltd**
 What is Dynamic?
 ----------------
 * Coin Suffix: DYN
