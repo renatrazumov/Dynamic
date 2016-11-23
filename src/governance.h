@@ -175,6 +175,7 @@ public:
     CGovernanceObject *FindGovernanceObject(const uint256& nHash);
 
     std::vector<CGovernanceVote> GetMatchingVotes(const uint256& nParentHash);
+    std::vector<CGovernanceVote> GetCurrentVotes(const uint256& nParentHash, const CTxIn& dnCollateralOutpointFilter);
     std::vector<CGovernanceObject*> GetAllNewerThan(int64_t nMoreThanTime);
 
     bool IsBudgetPaymentBlock(int nBlockHeight);
@@ -528,6 +529,8 @@ public:
     int GetYesCount(vote_signal_enum_t eVoteSignalIn) const;
     int GetNoCount(vote_signal_enum_t eVoteSignalIn) const;
     int GetAbstainCount(vote_signal_enum_t eVoteSignalIn) const;
+
+    bool GetCurrentDNVotes(const CTxIn& dnCollateralOutpoint, vote_rec_t& voteRecord);
 
     // FUNCTIONS FOR DEALING WITH DATA STRING
 
