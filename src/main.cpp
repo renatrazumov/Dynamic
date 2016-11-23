@@ -1701,7 +1701,7 @@ int64_t GetTotalCoinEstimate(int nHeight)
     return nTotalCoins;
 }
 
-CAmount GetPoWBlockPayment(const int& nHeight, const Consensus::Params& consensusParams)
+CAmount GetPoWBlockPayment(const int& nHeight, const Consensus::Params& consensusParams, CAmount nFees)
 {
     if (chainActive.Height() == 0) {
         CAmount nSubsidy = 4000000 * COIN;
@@ -2701,7 +2701,7 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
         fDynodePaid = false;
     }
 
-    CAmount nExpectedBlockValue = GetStormnodePayment(fStormnodePaid) + GetPoWBlockPayment(pindex->pprev->nHeight, chainparams.GetConsensus());
+    CAmount nExpectedBlockValue = GetDynodePayment(fDynodePaid) + GetPoWBlockPayment(pindex->pprev->nHeight, chainparams.GetConsensus());
    
     if(!IsBlockValueValid(block, pindex->nHeight, nExpectedBlockValue)){
         return state.DoS(100,
