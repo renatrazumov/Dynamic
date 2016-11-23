@@ -2701,7 +2701,7 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
         fDynodePaid = false;
     }
 
-    CAmount nExpectedBlockValue = GetDynodePayment(fDynodePaid) + GetPoWBlockPayment(pindex->pprev->nHeight, chainparams.GetConsensus());
+    CAmount nExpectedBlockValue = GetDynodePayment(fDynodePaid) + GetPoWBlockPayment(pindex->pprev->nHeight, chainparams.GetConsensus(), nFees);
    
     if(!IsBlockValueValid(block, pindex->nHeight, nExpectedBlockValue)){
         return state.DoS(100,
