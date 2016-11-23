@@ -9,6 +9,7 @@
 #include "key.h"
 #include "main.h"
 #include "net.h"
+#include "spork.h"
 #include "timedata.h"
 
 class CDynode;
@@ -258,6 +259,19 @@ public:
     bool IsPoSeVerified() { return nPoSeBanScore <= -DYNODE_POSE_BAN_MAX_SCORE; }
 
     bool IsWatchdogExpired() { return nActiveState == DYNODE_WATCHDOG_EXPIRED; }
+
+    bool IsValidForPayment()
+    {
+        if(nActiveState == DYNODE_ENABLED) {
+            return true;
+        }
+        if(!sporkManager.IsSporkActive(SPORK_14_REQUIRE_SENTINEL_FLAG) &&
+           (nActiveState == DYNODE_WATCHDOG_EXPIRED)) {
+            return true;
+        }
+
+        return false;
+    }
 
     bool IsValidNetAddr();
 

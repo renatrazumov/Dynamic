@@ -635,7 +635,7 @@ bool CDynodePaymentVote::IsValid(CNode* pnode, int nValidationHeight, std::strin
         return false;
     }
 
-    int nRank = dnodeman.GetDynodeRank(vinDynode, nBlockHeight - 101, nMinRequiredProtocol);
+    int nRank = dnodeman.GetDynodeRank(vinDynode, nBlockHeight - 101, nMinRequiredProtocol, false);
 
     if(nRank > DNPAYMENTS_SIGNATURES_TOTAL) {
         // It's common to have dynodes mistakenly think they are in the top 10
@@ -665,7 +665,7 @@ bool CDynodePayments::ProcessBlock(int nBlockHeight)
     // if we have not enough data about dynodes.
     if(!dynodeSync.IsDynodeListSynced()) return false;
 
-    int nRank = dnodeman.GetDynodeRank(activeDynode.vin, nBlockHeight - 101, GetMinDynodePaymentsProto());
+    int nRank = dnodeman.GetDynodeRank(activeDynode.vin, nBlockHeight - 101, GetMinDynodePaymentsProto(), false);
 
     if (nRank == -1) {
         LogPrint("dnpayments", "CDynodePayments::ProcessBlock -- Unknown Dynode\n");

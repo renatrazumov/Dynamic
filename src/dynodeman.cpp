@@ -477,7 +477,7 @@ CDynode* CDynodeMan::GetNextDynodeInQueueForPayment(int nBlockHeight, bool fFilt
     BOOST_FOREACH(CDynode &dn, vDynodes)
     {
         dn.Check();
-        if(!dn.IsEnabled()) continue;
+        if(!dn.IsValidForPayment()) continue;
 
         // //check protocol version
         if(dn.nProtocolVersion < dnpayments.GetMinDynodePaymentsProto()) continue;
@@ -583,9 +583,12 @@ int CDynodeMan::GetDynodeRank(const CTxIn& vin, int nBlockHeight, int nMinProtoc
     // scan for winner
     BOOST_FOREACH(CDynode& dn, vDynodes) {
         if(dn.nProtocolVersion < nMinProtocol) continue;
+        dn.Check();
         if(fOnlyActive) {
-            dn.Check();
             if(!dn.IsEnabled()) continue;
+        }
+        else {
+            if(!dn.IsValidForPayment()) continue;
         }
         int64_t nScore = dn.CalculateScore(blockHash).GetCompact(false);
 
