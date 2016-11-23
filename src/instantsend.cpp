@@ -30,17 +30,18 @@ int nCompleteTXLocks;
 std::map<uint256, CTransaction> mapLockRequestAccepted;
 std::map<uint256, CTransaction> mapLockRequestRejected;
 std::map<uint256, CTxLockVote> mapTxLockVotes;
+std::map<uint256, CTxLockVote> mapTxLockVotesOrphan;
 std::map<COutPoint, uint256> mapLockedInputs;
 
 std::map<uint256, CTxLockCandidate> mapTxLockCandidates;
-std::map<uint256, int64_t> mapUnknownVotes; //track votes with no tx for DOS
+std::map<COutPoint, int64_t> mapDynodeOrphanVotes; //track dynodes who voted with no txreq (for DOS protection)
 
 CCriticalSection cs_instantsend;
 
 // Transaction Locks
 //
-// step 2) Top INSTANTSEND_SIGNATURES_TOTAL masternodes push "txvote" message
-// step 2) Top INSTANTSEND_SIGNATURES_TOTAL masternodes push "txvote" message
+// step 2) Top INSTANTSEND_SIGNATURES_TOTAL dynodes push "txvote" message
+// step 2) Top INSTANTSEND_SIGNATURES_TOTAL dynodes push "txvote" message
 // step 3) Once there are INSTANTSEND_SIGNATURES_REQUIRED valid "txvote" messages
 //         for a corresponding "txlreg" message, all inputs from that tx are treated as locked
 
@@ -52,117 +53,17 @@ void ProcessMessageInstantSend(CNode* pfrom, std::string& strCommand, CDataStrea
     // Ignore any InstantSend messages until dynode list is synced
     if(!dynodeSync.IsDynodeListSynced()) return;
 
-    if (strCommand == NetMsgType::TXLOCKREQUEST) // InstantSend Transaction Lock Request
-    {
-        //LogPrintf("ProcessMessageInstantSend\n");
-        CDataStream vMsg(vRecv);
-        CTransaction tx;
-        vRecv >> tx;
+    // NOTE: NetMsgType::TXLOCKREQUEST is handled via ProcessMessage() in main.cpp
 
-        // FIXME: this part of simulating inv is not good actually, leaving it only for 12.1 backwards compatibility
-        // and since we are using invs for relaying even initial ix request, this can (and should) be safely removed in 12.2
-        CInv inv(MSG_TXLOCK_REQUEST, tx.GetHash());
-        pfrom->AddInventoryKnown(inv);
-        GetMainSignals().Inventory(inv.hash);
-
-        // have we seen it already?
-        if(mapLockRequestAccepted.count(inv.hash) || mapLockRequestRejected.count(inv.hash)) return;
-        // is it a valid one?
-        if(!IsInstantSendTxValid(tx)) return;
-
-        BOOST_FOREACH(const CTxOut o, tx.vout) {
-            // InstandSend supports normal scripts and unspendable scripts (used in PrivateSend collateral and Governance collateral).
-            // TODO: Look into other script types that are normal and can be included
-            if(!o.scriptPubKey.IsNormalPaymentScript() && !o.scriptPubKey.IsUnspendable()) {
-                LogPrintf("ProcessMessageInstantSend -- Invalid Script %s", tx.ToString());
-                return;
-            }
-        }
-
-        int nBlockHeight = CreateTxLockCandidate(tx);
-
-        bool fMissingInputs = false;
-        CValidationState state;
-
-        bool fAccepted = false;
-        {
-            LOCK(cs_main);
-            fAccepted = AcceptToMemoryPool(mempool, state, tx, true, &fMissingInputs);
-        }
-        if(fAccepted) {
-            RelayInv(inv);
-
-            CreateTxLockVote(tx, nBlockHeight);
-
-            mapLockRequestAccepted.insert(std::make_pair(tx.GetHash(), tx));
-
-            LogPrintf("ProcessMessageInstantSend -- Transaction Lock Request: %s %s : accepted %s\n",
-                pfrom->addr.ToString(), pfrom->cleanSubVer,
-                tx.GetHash().ToString()
-            );
-
-            // Dynodes will sometimes propagate votes before the transaction is known to the client.
-            // If this just happened - update transaction status, try forcing external script notification,
-            // lock inputs and resolve conflicting locks
-            if(IsLockedInstandSendTransaction(tx.GetHash())) {
-                UpdateLockedTransaction(tx, true);
-                LockTransactionInputs(tx);
-                ResolveConflicts(tx);
-            }
-
-            return;
-
-        } else {
-            mapLockRequestRejected.insert(std::make_pair(tx.GetHash(), tx));
-
-            // can we get the conflicting transaction as proof?
-
-            LogPrintf("ProcessMessageInstantSend -- Transaction Lock Request: %s %s : rejected %s\n",
-                pfrom->addr.ToString(), pfrom->cleanSubVer,
-                tx.GetHash().ToString()
-            );
-
-            LockTransactionInputs(tx);
-            ResolveConflicts(tx);
-
-            return;
-        }
-    }
-    else if (strCommand == NetMsgType::TXLOCKVOTE) // InstantSend Transaction Lock Consensus Votes
+    if (strCommand == NetMsgType::TXLOCKVOTE) // InstantSend Transaction Lock Consensus Votes
     {
         CTxLockVote vote;
         vRecv >> vote;
 
-        CInv inv(MSG_TXLOCK_VOTE, vote.GetHash());
-        pfrom->AddInventoryKnown(inv);
-
         if(mapTxLockVotes.count(vote.GetHash())) return;
         mapTxLockVotes.insert(std::make_pair(vote.GetHash(), vote));
 
-        if(ProcessTxLockVote(pfrom, vote)) {
-            //Spam/Dos protection
-            /*
-                Dynodes will sometimes propagate votes before the transaction is known to the client.
-                This tracks those messages and allows it at the same rate of the rest of the network, if
-                a peer violates it, it will simply be ignored
-            */
-            if(!mapLockRequestAccepted.count(vote.txHash) && !mapLockRequestRejected.count(vote.txHash)) {
-                if(!mapUnknownVotes.count(vote.vinDynode.prevout.hash))
-                    mapUnknownVotes[vote.vinDynode.prevout.hash] = GetTime()+(60*10);
-
-                if(mapUnknownVotes[vote.vinDynode.prevout.hash] > GetTime() &&
-                    mapUnknownVotes[vote.vinDynode.prevout.hash] - GetAverageUnknownVoteTime() > 60*10) {
-                        LogPrintf("ProcessMessageInstantSend -- dynode is spamming transaction votes: %s %s\n",
-                            vote.vinDynode.ToString(),
-                            vote.txHash.ToString()
-                        );
-                        return;
-                } else {
-                    mapUnknownVotes[vote.vinDynode.prevout.hash] = GetTime()+(60*10);
-                }
-            }
-            RelayInv(inv);
-        }
+        ProcessTxLockVote(pfrom, vote);
 
         return;
     }
@@ -214,6 +115,46 @@ bool IsInstantSendTxValid(const CTransaction& txCandidate)
     if(nValueIn - nValueOut < INSTANTSEND_MIN_FEE) {
         LogPrint("instantsend", "IsInstantSendTxValid -- did not include enough fees in transaction: fees=%d, txCandidate=%s", nValueOut - nValueIn, txCandidate.ToString());
         return false;
+    }
+
+    return true;
+}
+
+bool ProcessTxLockRequest(CNode* pfrom, const CTransaction &tx)
+{
+    if(!IsInstantSendTxValid(tx)) return false;
+
+    BOOST_FOREACH(const CTxOut o, tx.vout) {
+        // InstandSend supports normal scripts and unspendable scripts (used in PrivateSend collateral and Governance collateral).
+        // TODO: Look into other script types that are normal and can be included
+        if(!o.scriptPubKey.IsNormalPaymentScript() && !o.scriptPubKey.IsUnspendable()) {
+            LogPrintf("TXLOCKREQUEST -- Invalid Script %s", tx.ToString());
+            return false;
+        }
+    }
+
+    int nBlockHeight = CreateTxLockCandidate(tx);
+    if(!nBlockHeight) {
+        // smth is not right
+        return false;
+    }
+
+    uint256 txHash = tx.GetHash();
+    mapLockRequestAccepted.insert(std::make_pair(txHash, tx));
+
+    LogPrintf("TXLOCKREQUEST -- Transaction Lock Request: %s %s : accepted %s\n",
+            pfrom ? pfrom->addr.ToString() : "", pfrom ? pfrom->cleanSubVer : "", txHash.ToString());
+
+    CreateTxLockVote(tx, nBlockHeight);
+    ProcessOrphanTxLockVotes();
+
+    // Dynodes will sometimes propagate votes before the transaction is known to the client.
+    // If this just happened - update transaction status, try forcing external script notification,
+    // lock inputs and resolve conflicting locks
+    if(IsLockedInstandSendTransaction(txHash)) {
+        UpdateLockedTransaction(tx, true);
+        LockTransactionInputs(tx);
+        ResolveConflicts(tx);
     }
 
     return true;
@@ -312,6 +253,37 @@ void CreateTxLockVote(const CTransaction& tx, int nBlockHeight)
 //received a consensus vote
 bool ProcessTxLockVote(CNode* pnode, CTxLockVote& vote)
 {
+    // Dynodes will sometimes propagate votes before the transaction is known to the client,
+    // will actually process only after the lock request itself has arrived
+    if(!mapLockRequestAccepted.count(vote.txHash)) {
+        if(!mapTxLockVotesOrphan.count(vote.GetHash())) {
+            LogPrint("instantsend", "ProcessTxLockVote -- Orphan vote: txid=%s  dynodes=%s new\n", vote.txHash.ToString(), vote.vinDynode.prevout.ToStringShort());
+            vote.nOrphanExpireTime = GetTime() + 60; // keep orphan votes for 1 minute
+            mapTxLockVotesOrphan[vote.GetHash()] = vote;
+        } else {
+            LogPrint("instantsend", "ProcessTxLockVote -- Orphan vote: txid=%s  dynodes=%s seen\n", vote.txHash.ToString(), vote.vinDynode.prevout.ToStringShort());
+        }
+
+        // This tracks those messages and allows only the same rate as of the rest of the network
+
+        int nDynodeOrphanExpireTime = GetTime() + 60*10; // keep time data for 10 minutes
+        if(!mapDynodeOrphanVotes.count(vote.vinDynode.prevout)) {
+            mapDynodeOrphanVotes[vote.vinDynode.prevout] = nDynodeOrphanExpireTime;
+        } else {
+            int64_t nPrevOrphanVote = mapDynodeOrphanVotes[vote.vinDynode.prevout];
+            if(nPrevOrphanVote > GetTime() && nPrevOrphanVote > GetAverageDynodeOrphanVoteTime()) {
+                LogPrint("instantsend", "ProcessTxLockVote -- dynodes is spamming orphan Transaction Lock Votes: txid=%s  dynodes=%s\n",
+                        vote.vinDynode.prevout.ToStringShort(), vote.txHash.ToString());
+                // Misbehaving(pfrom->id, 1);
+                return false;
+            }
+            // not spamming, refresh
+            mapDynodeOrphanVotes[vote.vinDynode.prevout] = nDynodeOrphanExpireTime;
+        }
+
+        return true;
+    }
+
     LogPrint("instantsend", "ProcessTxLockVote -- Transaction Lock Vote, txid=%s\n", vote.txHash.ToString());
     if(!dnodeman.Has(vote.vinDynode)) {
         LogPrint("instantsend", "ProcessTxLockVote -- Unknown dynode %s\n", vote.vinDynode.prevout.ToStringShort());
@@ -323,8 +295,9 @@ bool ProcessTxLockVote(CNode* pnode, CTxLockVote& vote)
     if(n == -1) {
         //can be caused by past versions trying to vote with an invalid protocol
         LogPrint("instantsend", "ProcessTxLockVote -- Outdated dynodes %s\n", vote.vinDynode.prevout.ToStringShort());
-        dnodeman.AskForDN(pnode, vote.vinDynode);
-        return false;
+        if(pnode) {
+            dnodeman.AskForDN(pnode, vote.vinDynode);
+        }        return false;
     }
     LogPrint("instantsend", "ProcessTxLockVote -- Dynode %s, rank=%d\n", vote.vinDynode.prevout.ToStringShort(), n);
 
@@ -337,56 +310,54 @@ bool ProcessTxLockVote(CNode* pnode, CTxLockVote& vote)
     if(!vote.CheckSignature()) {
         LogPrintf("ProcessTxLockVote -- Signature invalid\n");
         // don't ban, it could just be a non-synced dynode
-        dnodeman.AskForDN(pnode, vote.vinDynode);
+        if(pnode) {
+            dnodeman.AskForDN(pnode, vote.vinDynode);
+        }        return false;
+    }
+
+    if(!mapTxLockCandidates.count(vote.txHash)) {
+        // this should never happen
         return false;
     }
 
-    if (!mapTxLockCandidates.count(vote.txHash)) {
-        LogPrintf("ProcessTxLockVote -- New Transaction Lock Candidate! txid=%s\n", vote.txHash.ToString());
-
-        CTxLockCandidate txLockCandidate;
-        txLockCandidate.nBlockHeight = 0;
-        //locks expire after nInstantSendKeepLock confirmations
-        txLockCandidate.nExpirationBlock = chainActive.Height() + Params().GetConsensus().nInstantSendKeepLock;
-        txLockCandidate.nTimeout = GetTime()+(60*5);
-        txLockCandidate.txHash = vote.txHash;
-        mapTxLockCandidates.insert(std::make_pair(vote.txHash, txLockCandidate));
-    } else {
-        LogPrint("instantsend", "ProcessTxLockVote -- Transaction Lock Exists! txid=%s\n", vote.txHash.ToString());
-    }
-
     //compile consessus vote
-    std::map<uint256, CTxLockCandidate>::iterator i = mapTxLockCandidates.find(vote.txHash);
-    if (i != mapTxLockCandidates.end()) {
-        (*i).second.AddVote(vote);
+    mapTxLockCandidates[vote.txHash].AddVote(vote);
 
-        int nSignatures = (*i).second.CountVotes();
-        LogPrint("instantsend", "ProcessTxLockVote -- Transaction Lock signatures count: %d, vote hash=%s\n", nSignatures, vote.GetHash().ToString());
+    int nSignatures = mapTxLockCandidates[vote.txHash].CountVotes();
+    LogPrint("instantsend", "ProcessTxLockVote -- Transaction Lock signatures count: %d, vote hash=%s\n", nSignatures, vote.GetHash().ToString());
 
-        if(nSignatures >= INSTANTSEND_SIGNATURES_REQUIRED) {
-            LogPrint("instantsend", "ProcessTxLockVote -- Transaction Lock Is Complete! txid=%s\n", vote.txHash.ToString());
+    if(nSignatures >= INSTANTSEND_SIGNATURES_REQUIRED) {
+        LogPrint("instantsend", "ProcessTxLockVote -- Transaction Lock Is Complete! txid=%s\n", vote.txHash.ToString());
 
-            // Dynodes will sometimes propagate votes before the transaction is known to the client,
-            // will check for conflicting locks and update transaction status on a new vote message
-            // only after the lock itself has arrived
-            if(!mapLockRequestAccepted.count(vote.txHash) && !mapLockRequestRejected.count(vote.txHash)) return true;
+        if(!FindConflictingLocks(mapLockRequestAccepted[vote.txHash])) { //?????
+            if(mapLockRequestAccepted.count(vote.txHash)) {
 
-            if(!FindConflictingLocks(mapLockRequestAccepted[vote.txHash])) { //?????
-                if(mapLockRequestAccepted.count(vote.txHash)) {
-                    UpdateLockedTransaction(mapLockRequestAccepted[vote.txHash]);
-                    LockTransactionInputs(mapLockRequestAccepted[vote.txHash]);
-                } else if(mapLockRequestRejected.count(vote.txHash)) {
-                    ResolveConflicts(mapLockRequestRejected[vote.txHash]); ///?????
-                } else {
-                    LogPrint("instantsend", "ProcessTxLockVote -- Transaction Lock Request is missing! nSignatures=%d, vote hash %s\n", nSignatures, vote.GetHash().ToString());
-                }
+                UpdateLockedTransaction(mapLockRequestAccepted[vote.txHash]);
+                LockTransactionInputs(mapLockRequestAccepted[vote.txHash]);
+            } else if(mapLockRequestRejected.count(vote.txHash)) {
+                ResolveConflicts(mapLockRequestRejected[vote.txHash]); ///?????
+            } else {
+                LogPrint("instantsend", "ProcessTxLockVote -- Transaction Lock is missing! nSignatures=%d, vote hash=%s\n", nSignatures, vote.GetHash().ToString());
             }
         }
-        return true;
     }
 
+    CInv inv(MSG_TXLOCK_VOTE, vote.GetHash());
+    RelayInv(inv);
 
-    return false;
+    return true;
+}
+
+void ProcessOrphanTxLockVotes()
+{
+    std::map<uint256, CTxLockVote>::iterator it = mapTxLockVotesOrphan.begin();
+    while(it != mapTxLockVotesOrphan.end()) {
+        if(ProcessTxLockVote(NULL, it->second)) {
+            mapTxLockVotesOrphan.erase(it++);
+        } else {
+            ++it;
+        }
+    }
 }
 
 void UpdateLockedTransaction(const CTransaction& tx, bool fForceNotification)
@@ -470,20 +441,20 @@ void ResolveConflicts(const CTransaction& tx)
     }
 }
 
-int64_t GetAverageUnknownVoteTime()
+int64_t GetAverageDynodeOrphanVoteTime()
 {
-    // should never actually call this function when mapUnknownVotes is empty
-    if(mapUnknownVotes.empty()) return 0;
+    // NOTE: should never actually call this function when mapDynodeOrphanVotes is empty
+    if(mapDynodeOrphanVotes.empty()) return 0;
 
-    std::map<uint256, int64_t>::iterator it = mapUnknownVotes.begin();
+    std::map<COutPoint, int64_t>::iterator it = mapDynodeOrphanVotes.begin();
     int64_t total = 0;
 
-    while(it != mapUnknownVotes.end()) {
+    while(it != mapDynodeOrphanVotes.end()) {
         total+= it->second;
         ++it;
     }
 
-    return total / mapUnknownVotes.size();
+    return total / mapDynodeOrphanVotes.size();
 }
 
 void CleanTxLockCandidates()
@@ -520,6 +491,28 @@ void CleanTxLockCandidates()
             mapTxLockCandidates.erase(it++);
         } else {
             ++it;
+        }
+    }
+
+    // clean expired orphan votes
+    std::map<uint256, CTxLockVote>::iterator it1 = mapTxLockVotesOrphan.begin();
+    while(it1 != mapTxLockVotesOrphan.end()) {
+        if(it1->second.nOrphanExpireTime < GetTime()) {
+            LogPrint("instantsend", "CleanTxLockCandidates -- Removing expired orphan vote: txid=%s  dynode=%s\n", it1->second.txHash.ToString(), it1->second.vinDynode.prevout.ToStringShort());
+            mapTxLockVotesOrphan.erase(it1++);
+        } else {
+            ++it1;
+        }
+    }
+
+    // clean expired dynode orphan vote times
+    std::map<COutPoint, int64_t>::iterator it2 = mapDynodeOrphanVotes.begin();
+    while(it2 != mapDynodeOrphanVotes.end()) {
+        if(it2->second < GetTime()) {
+            LogPrint("instantsend", "CleanTxLockCandidates -- Removing expired orphan dynode vote time: dynode=%s\n", it2->first.ToStringShort());
+            mapDynodeOrphanVotes.erase(it2++);
+        } else {
+            ++it2;
         }
     }
 }
