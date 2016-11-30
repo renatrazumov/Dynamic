@@ -439,7 +439,7 @@ bool CGovernanceObject::IsValidLocally(const CBlockIndex* pindex, std::string& s
     // IF ABSOLUTE NO COUNT (NO-YES VALID VOTES) IS MORE THAN 10% OF THE NETWORK DYNODES, OBJ IS INVALID
 
     if(GetAbsoluteNoCount(VOTE_SIGNAL_VALID) > dnodeman.CountEnabled(MIN_GOVERNANCE_PEER_PROTO_VERSION)/10) {
-        strError = "Automated removal";
+        strError = "Voted invalid";
         return false;
     }
 
@@ -668,6 +668,7 @@ void CGovernanceObject::UpdateSentinelVariables(const CBlockIndex *pCurrentBlock
 
     // todo - 12.1 - should be set to `10` after governance vote compression is implemented
     int nAbsVoteReq = std::max(Params().GetConsensus().nGovernanceMinQuorum, nDnCount / 10);
+    int nAbsDeleteReq = std::max(Params().GetConsensus().nGovernanceMinQuorum, (2 * nDnCount) / 3);
     // todo - 12.1 - Temporarily set to 1 for testing - reverted
     //nAbsVoteReq = 1;
 
@@ -683,20 +684,12 @@ void CGovernanceObject::UpdateSentinelVariables(const CBlockIndex *pCurrentBlock
     // ARE ANY OF THESE FLAGS CURRENTLY ACTIVATED?
 
     if(GetAbsoluteYesCount(VOTE_SIGNAL_FUNDING) >= nAbsVoteReq) fCachedFunding = true;
-    if(GetAbsoluteYesCount(VOTE_SIGNAL_VALID) >= nAbsVoteReq) fCachedValid = true;
-    if(GetAbsoluteYesCount(VOTE_SIGNAL_DELETE) >= nAbsVoteReq) {
+    if(GetAbsoluteYesCount(VOTE_SIGNAL_DELETE) >= nAbsDeleteReq) {
         fCachedDelete = true;
         nDeletionTime = GetAdjustedTime();
     }
     if(GetAbsoluteYesCount(VOTE_SIGNAL_ENDORSED) >= nAbsVoteReq) fCachedEndorsed = true;
-
-    // ARE ANY OF THE VOTING FLAGS NEGATIVELY SET BY THE NETWORK?
-    // THIS CAN BE CACHED, THE VOTES BEING HOT-LOADED AS NEEDED TO RECALCULATE
-
-    if(GetAbsoluteNoCount(VOTE_SIGNAL_FUNDING) >= nAbsVoteReq) fCachedFunding = false;
     if(GetAbsoluteNoCount(VOTE_SIGNAL_VALID) >= nAbsVoteReq) fCachedValid = false;
-    if(GetAbsoluteNoCount(VOTE_SIGNAL_DELETE) >= nAbsVoteReq) fCachedDelete = false;
-    if(GetAbsoluteNoCount(VOTE_SIGNAL_ENDORSED) >= nAbsVoteReq) fCachedEndorsed = false;
 }
 
 void CGovernanceObject::swap(CGovernanceObject& first, CGovernanceObject& second) // nothrow
