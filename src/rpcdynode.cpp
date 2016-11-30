@@ -168,9 +168,8 @@ UniValue dynode(const UniValue& params, bool fHelp)
         if (strMode == "enabled")
             return dnodeman.CountEnabled();
 
-        LOCK(cs_main);
         int nCount;
-        dnodeman.GetNextDynodeInQueueForPayment(chainActive.Height(), true, nCount);
+        dnodeman.GetNextDynodeInQueueForPayment(true, nCount);
 
         if (strMode == "qualify")
             return nCount;
@@ -185,14 +184,12 @@ UniValue dynode(const UniValue& params, bool fHelp)
     {
         int nCount;
         int nHeight;
-        CBlockIndex* pindex;
         CDynode* winner = NULL;
         {
             LOCK(cs_main);
             nHeight = chainActive.Height() + (strCommand == "current" ? 1 : 10);
-            pindex = chainActive.Tip();
         }
-        dnodeman.UpdateLastPaid(pindex);
+        dnodeman.UpdateLastPaid();
         winner = dnodeman.GetNextDynodeInQueueForPayment(nHeight, true, nCount);
         if(!winner) return "unknown";
 
@@ -483,22 +480,12 @@ UniValue dynodelist(const UniValue& params, bool fHelp)
     }
 
     if (strMode == "full" || strMode == "lastpaidtime" || strMode == "lastpaidblock") {
-        CBlockIndex* pindex;
-        {
-            LOCK(cs_main);
-            pindex = chainActive.Tip();
-        }
-        dnodeman.UpdateLastPaid(pindex);
+        dnodeman.UpdateLastPaid();
     }
 
     UniValue obj(UniValue::VOBJ);
     if (strMode == "rank") {
-        int nHeight;
-        {
-            LOCK(cs_main);
-            nHeight = chainActive.Height();
-        }
-        std::vector<std::pair<int, CDynode> > vDynodeRanks = dnodeman.GetDynodeRanks(nHeight);
+        std::vector<std::pair<int, CDynode> > vDynodeRanks = dnodeman.GetDynodeRanks();
         BOOST_FOREACH(PAIRTYPE(int, CDynode)& s, vDynodeRanks) {
             std::string strOutpoint = s.second.vin.prevout.ToStringShort();
             if (strFilter !="" && strOutpoint.find(strFilter) == std::string::npos) continue;

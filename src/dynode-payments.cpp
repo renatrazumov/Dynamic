@@ -431,7 +431,7 @@ bool CDynodePayments::AddPaymentVote(const CDynodePaymentVote& vote)
     uint256 blockHash = uint256();
     if(!GetBlockHash(blockHash, vote.nBlockHeight - 101)) return false;
 
-    LOCK2(cs_mapDynodePaymentVotes, cs_mapDynodeBlocks);
+    LOCK2(cs_mapDynodeBlocks, cs_mapDynodePaymentVotes);
 
     if(mapDynodePaymentVotes.count(vote.GetHash())) return false;
 
@@ -588,7 +588,7 @@ void CDynodePayments::CheckAndRemove()
 {
     if(!pCurrentBlockIndex) return;
 
-    LOCK2(cs_mapDynodePaymentVotes, cs_mapDynodeBlocks);
+    LOCK2(cs_mapDynodeBlocks, cs_mapDynodePaymentVotes);
 
     int nLimit = GetStorageLimit();
 
@@ -787,7 +787,7 @@ void CDynodePayments::Sync(CNode* pnode, int nCountNeeded)
 void CDynodePayments::RequestLowDataPaymentBlocks(CNode* pnode)
 {
 
-    LOCK(cs_mapDynodeBlocks);
+    LOCK2(cs_main, cs_mapDynodeBlocks);
 
     std::vector<CInv> vToFetch;
     std::map<int, CDynodeBlockPayees>::iterator it = mapDynodeBlocks.begin();

@@ -163,6 +163,13 @@ void CDynodeSync::ClearFulfilledRequests()
     }
 }
 
+void ReleaseNodes(const std::vector<CNode*> &vNodesCopy)
+{
+    LOCK(cs_vNodes);
+    BOOST_FOREACH(CNode* pnode, vNodesCopy)
+        pnode->Release();
+}
+
 void CDynodeSync::ProcessTick()
 {
     static int nTick = 0;
@@ -211,16 +218,21 @@ void CDynodeSync::ProcessTick()
         return;
     }
 
-    LOCK2(dnodeman.cs, cs_vNodes);
-
     if(nRequestedDynodeAssets == DYNODE_SYNC_INITIAL ||
         (nRequestedDynodeAssets == DYNODE_SYNC_SPORKS && IsBlockchainSynced()))
     {
         SwitchToNextAsset();
     }
 
-    BOOST_FOREACH(CNode* pnode, vNodes)
+    std::vector<CNode*> vNodesCopy;
     {
+        LOCK(cs_vNodes);
+        vNodesCopy = vNodes;
+        BOOST_FOREACH(CNode* pnode, vNodesCopy)
+            pnode->AddRef();
+    }
+
+    BOOST_FOREACH(CNode* pnode, vNodesCopy)    {
         // QUICK MODE (REGTEST ONLY!)
         if(Params().NetworkIDString() == CBaseChainParams::REGTEST)
         {
@@ -237,6 +249,7 @@ void CDynodeSync::ProcessTick()
                 nRequestedDynodeAssets = DYNODE_SYNC_FINISHED;
             }
             nRequestedDynodeAttempt++;
+            ReleaseNodes(vNodesCopy);
             return;
         }
 
@@ -272,9 +285,11 @@ void CDynodeSync::ProcessTick()
                         LogPrintf("CDynodeSync::ProcessTick -- ERROR: failed to sync %s\n", GetAssetName());
                         // there is no way we can continue without dynode list, fail here and try later
                         Fail();
+                        ReleaseNodes(vNodesCopy);
                         return;
                     }
                     SwitchToNextAsset();
+                    ReleaseNodes(vNodesCopy);
                     return;
                 }
 
@@ -316,10 +331,12 @@ void CDynodeSync::ProcessTick()
                     if (nRequestedDynodeAttempt == 0) {
                         LogPrintf("CDynodeSync::ProcessTick -- ERROR: failed to sync %s\n", GetAssetName());
                         // probably not a good idea to proceed without winner list
+                        ReleaseNodes(vNodesCopy);
                         Fail();
                         return;
                     }
                     SwitchToNextAsset();
+                    ReleaseNodes(vNodesCopy);
                     return;
                 }
 
@@ -329,6 +346,7 @@ void CDynodeSync::ProcessTick()
                 if(nRequestedDynodeAttempt > 1 && dnpayments.IsEnoughData()) {
                     LogPrintf("CDynodeSync::ProcessTick -- nTick %d nRequestedDynodeAssets %d -- found enough data\n", nTick, nRequestedDynodeAssets);
                     SwitchToNextAsset();
+                    ReleaseNodes(vNodesCopy);
                     return;
                 }
 
@@ -344,6 +362,7 @@ void CDynodeSync::ProcessTick()
                 // ask node for missing pieces only (old nodes will not be asked)
                 dnpayments.RequestLowDataPaymentBlocks(pnode);
 
+                ReleaseNodes(vNodesCopy);
                 return; //this will cause each peer to get one request each six seconds for the various assets we need
             }
 
@@ -360,6 +379,7 @@ void CDynodeSync::ProcessTick()
                         // it's kind of ok to skip this for now, hopefully we'll catch up later?
                     }
                     SwitchToNextAsset();
+                    ReleaseNodes(vNodesCopy);
                     return;
                 }
 
@@ -385,6 +405,7 @@ void CDynodeSync::ProcessTick()
 
                 pnode->PushMessage(NetMsgType::DNGOVERNANCESYNC, uint256()); //sync dynode votes
 
+                ReleaseNodes(vNodesCopy);
                 return; //this will cause each peer to get one request each six seconds for the various assets we need
             }
         }

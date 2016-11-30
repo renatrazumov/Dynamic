@@ -724,6 +724,8 @@ void CPrivatesendPool::ChargeFees()
         LogPrintf("CPrivatesendPool::ChargeFees -- found uncooperative node (didn't %s transaction), charging fees: %s\n",
                 (nState == POOL_STATE_SIGNING) ? "sign" : "send", vecOffendersCollaterals[0].ToString());
 
+        LOCK(cs_main);
+
         CValidationState state;
         bool fMissingInputs;
         if(!AcceptToMemoryPool(mempool, state, vecOffendersCollaterals[0], false, &fMissingInputs, false, true)) {
@@ -751,6 +753,8 @@ void CPrivatesendPool::ChargeRandomFees()
 {
     if(!fDyNode) return;
 
+    LOCK(cs_main);
+
     BOOST_FOREACH(const CTransaction& txCollateral, vecSessionCollaterals) {
 
         if(GetRandInt(100) > 10) return;
@@ -773,13 +777,17 @@ void CPrivatesendPool::ChargeRandomFees()
 //
 void CPrivatesendPool::CheckTimeout()
 {
-    // check mixing queue objects for timeouts
-    std::vector<CPrivatesendQueue>::iterator it = vecPrivatesendQueue.begin();
-    while(it != vecPrivatesendQueue.end()) {
-        if((*it).IsExpired()) {
-            LogPrint("privatesend", "CPrivatesendPool::CheckTimeout -- Removing expired queue (%s)\n", (*it).ToString());
-            it = vecPrivatesendQueue.erase(it);
-        } else ++it;
+    {
+        TRY_LOCK(cs_privatesend, lockPS);
+        if(!lockPS) return; // it's ok to fail here, we run this quite frequently
+        // check mixing queue objects for timeouts
+        std::vector<CPrivatesendQueue>::iterator it = vecPrivatesendQueue.begin();
+        while(it != vecPrivatesendQueue.end()) {
+            if((*it).IsExpired()) {
+                LogPrint("privatesend", "CPrivatesendPool::CheckTimeout -- Removing expired queue (%s)\n", (*it).ToString());
+                it = vecPrivatesendQueue.erase(it);
+            } else ++it;
+        }
     }
 
     if(!fEnablePrivateSend && !fDyNode) return;
@@ -2335,11 +2343,21 @@ bool CPrivatesendQueue::CheckSignature(const CPubKey& pubKeyDynode)
 
 bool CPrivatesendQueue::Relay()
 {
-    LOCK(cs_vNodes);
-    BOOST_FOREACH(CNode* pnode, vNodes)
+    std::vector<CNode*> vNodesCopy;
+    {
+        LOCK(cs_vNodes);
+        vNodesCopy = vNodes;
+        BOOST_FOREACH(CNode* pnode, vNodesCopy)
+            pnode->AddRef();
+    }
+    BOOST_FOREACH(CNode* pnode, vNodesCopy)
         if(pnode->nVersion >= MIN_PRIVATESEND_PEER_PROTO_VERSION)
             pnode->PushMessage(NetMsgType::PSQUEUE, (*this));
-
+    {
+        LOCK(cs_vNodes);
+        BOOST_FOREACH(CNode* pnode, vNodesCopy)
+            pnode->Release();
+    }
     return true;
 }
 
@@ -2462,6 +2480,8 @@ void ThreadCheckPrivateSendPool()
             // start right after sync is considered to be done
             if(nTick % DYNODE_MIN_DNP_SECONDS == 1)
                 activeDynode.ManageState();
+
+            dnodeman.Check();
 
             if(nTick % 60 == 0) {
                 dnodeman.CheckAndRemove();

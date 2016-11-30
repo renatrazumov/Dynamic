@@ -272,11 +272,13 @@ public:
 
     /// Find an entry in the dynode list that is next to be paid
     CDynode* GetNextDynodeInQueueForPayment(int nBlockHeight, bool fFilterSigTime, int& nCount);
+    /// Same as above but use current block height
+    CDynode* GetNextDynodeInQueueForPayment(bool fFilterSigTime, int& nCount);
 
     /// Find a random entry
     CDynode* FindRandomNotInVec(const std::vector<CTxIn> &vecToExclude, int nProtocolVersion = -1);
 
-    std::vector<CDynode> GetFullDynodeVector() { Check(); return vDynodes; }
+    std::vector<CDynode> GetFullDynodeVector() { return vDynodes; }
 
     std::vector<std::pair<int, CDynode> > GetDynodeRanks(int nBlockHeight = -1, int nMinProtocol=0);
     int GetDynodeRank(const CTxIn &vin, int nBlockHeight, int nMinProtocol=0, bool fOnlyActive=true);
@@ -305,7 +307,7 @@ public:
     /// Perform complete check and only then update list and maps
     bool CheckDnbAndUpdateDynodeList(CDynodeBroadcast dnb, int& nDos);
 
-    void UpdateLastPaid(const CBlockIndex *pindex);
+    void UpdateLastPaid();
 
     void CheckAndRebuildDynodeIndex();
 
