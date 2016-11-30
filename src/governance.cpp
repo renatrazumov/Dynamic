@@ -874,7 +874,6 @@ void CGovernanceManager::InitOnLoad()
     LOCK(cs);
     RebuildIndexes();
     AddCachedTriggers();
-    ClearSeen();
 }
 
 std::string CGovernanceManager::ToString() const
