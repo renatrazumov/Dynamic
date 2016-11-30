@@ -1138,7 +1138,7 @@ void CDynodeMan::ProcessVerifyReply(CNode* pnode, CDynodeVerification& snv)
             LogPrint("dynode", "CDynodeMan::ProcessVerifyBroadcast -- increased PoSe ban score for %s addr %s, new score %d\n",
                         prealDynode->vin.prevout.ToStringShort(), pnode->addr.ToString(), pdn->nPoSeBanScore);
         }
-        LogPrintf("CDynodeMan::ProcessVerifyBroadcast -- PoSe score incresed for %d fake Dynodes, addr %s\n",
+        LogPrintf("CDynodeMan::ProcessVerifyBroadcast -- PoSe score increased for %d fake dynodes, addr %s\n",
                     (int)vpDynodesToBan.size(), pnode->addr.ToString());
     }
 }

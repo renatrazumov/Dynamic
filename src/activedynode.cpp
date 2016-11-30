@@ -182,7 +182,7 @@ void CActiveDynode::ManageStateInitial()
     }
 
     if(pwalletMain->GetBalance() < 1000*COIN) {
-        LogPrintf("CActiveDynode::ManageStateInitial -- %s: Wallet balance is < 1000 DYN", GetStateString());
+        LogPrintf("CActiveDynode::ManageStateInitial -- %s: Wallet balance is < 1000 DYN\n", GetStateString());
         return;
     }
 
