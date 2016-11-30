@@ -122,7 +122,7 @@ bool CDynode::UpdateFromNewBroadcast(CDynodeBroadcast& dnb)
     nTimeLastChecked = 0;
     nTimeLastWatchdogVote = dnb.sigTime;
     int nDos = 0;
-    if(dnb.lastPing == CDynodePing() || (dnb.lastPing != CDynodePing() && dnb.lastPing.CheckAndUpdate(nDos, false))) {
+    if(dnb.lastPing == CDynodePing() || (dnb.lastPing != CDynodePing() && dnb.lastPing.CheckAndUpdate(nDos))) {
         lastPing = dnb.lastPing;
         dnodeman.mapSeenDynodePing.insert(std::make_pair(lastPing.GetHash(), lastPing));
     }
@@ -169,15 +169,15 @@ void CDynode::Check(bool fForce)
 
     static int64_t nTimeStart = GetTime();
 
-    LogPrint("dynode", "CDynode::Check start -- vin %s\n", vin.prevout.ToStringShort());
-
-    //once spent, stop doing the checks
-    if(nActiveState == DYNODE_OUTPOINT_SPENT) return;
-
     if(ShutdownRequested()) return;
 
     if(!fForce && (GetTime() - nTimeLastChecked < DYNODE_CHECK_SECONDS)) return;
     nTimeLastChecked = GetTime();
+
+    LogPrint("dynode", "CDynode::Check -- Dynode %s is in %s state\n", vin.prevout.ToStringShort(), GetStateString());
+
+    //once spent, stop doing the checks
+    if(nActiveState == DYNODE_OUTPOINT_SPENT) return;
 
     int nHeight = 0;
     if(!fUnitTest) {
@@ -467,7 +467,7 @@ bool CDynodeBroadcast::SimpleCheck(int& nDos)
     }
 
     // empty ping or incorrect sigTime/blockhash
-    if(lastPing == CDynodePing() || !lastPing.CheckAndUpdate(nDos, false, true)) {
+    if(lastPing == CDynodePing() || !lastPing.CheckAndUpdate(nDos, true)) {
         return false;
     }
 
@@ -723,16 +723,10 @@ bool CDynodePing::CheckSignature(CPubKey& pubKeyDynode, int &nDos)
     return true;
 }
 
-bool CDynodePing::CheckAndUpdate(int& nDos, bool fRequireEnabled, bool fSimpleCheck)
+bool CDynodePing::CheckAndUpdate(int& nDos, bool fSimpleCheck)
 {
     if (sigTime > GetAdjustedTime() + 60 * 60) {
         LogPrintf("CDynodePing::CheckAndUpdate -- Signature rejected, too far into the future, dynode=%s\n", vin.prevout.ToStringShort());
-        nDos = 1;
-        return false;
-    }
-
-    if (sigTime <= GetAdjustedTime() - 60 * 60) {
-        LogPrintf("CDynodePing::CheckAndUpdate -- Signature rejected, too far into the past: dynode=%s  sigTime=%d  GetAdjustedTime()=%d\n", vin.prevout.ToStringShort(), sigTime, GetAdjustedTime());
         nDos = 1;
         return false;
     }
@@ -768,8 +762,6 @@ bool CDynodePing::CheckAndUpdate(int& nDos, bool fRequireEnabled, bool fSimpleCh
         LogPrint("dynode", "CDynodePing::CheckAndUpdate -- Couldn't find compatible Dynode entry, dynode=%s\n", vin.prevout.ToStringShort());
         return false;
     }
-
-    if (fRequireEnabled && !pdn->IsEnabled() && !pdn->IsPreEnabled() && !pdn->IsWatchdogExpired()) return false;
 
     // LogPrintf("dnping - Found corresponding dn for vin: %s\n", vin.prevout.ToStringShort());
     // update only if there is no known ping for this dynode or

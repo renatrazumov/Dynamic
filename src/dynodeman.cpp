@@ -124,9 +124,6 @@ bool CDynodeMan::Add(CDynode &dn)
 {
     LOCK(cs);
 
-    if (!dn.IsEnabled() && !dn.IsPreEnabled())
-        return false;
-
     CDynode *pdn = Find(dn.vin);
     if (pdn == NULL) {
         LogPrint("dynode", "CDynodeMan::Add -- Adding new Dynode: addr=%s, %i now\n", dn.addr.ToString(), size() + 1);
@@ -321,7 +318,6 @@ int CDynodeMan::CountEnabled(int nProtocolVersion)
     nProtocolVersion = nProtocolVersion == -1 ? dnpayments.GetMinDynodePaymentsProto() : nProtocolVersion;
 
     BOOST_FOREACH(CDynode& dn, vDynodes) {
-        dn.Check();
         if(dn.nProtocolVersion < nProtocolVersion || !dn.IsEnabled()) continue;
         nCount++;
     }
@@ -461,6 +457,15 @@ bool CDynodeMan::Has(const CTxIn& vin)
 //
 // Deterministically select the oldest/best dynode to pay on the network
 //
+CDynode* CDynodeMan::GetNextDynodeInQueueForPayment(bool fFilterSigTime, int& nCount)
+{
+    if(!pCurrentBlockIndex) {
+        nCount = 0;
+        return NULL;
+    }
+    return GetNextDynodeInQueueForPayment(pCurrentBlockIndex->nHeight, fFilterSigTime, nCount);
+}
+
 CDynode* CDynodeMan::GetNextDynodeInQueueForPayment(int nBlockHeight, bool fFilterSigTime, int& nCount)
 {
     // Need LOCK2 here to ensure consistent locking order because the GetBlockHash call below locks cs_main
@@ -476,7 +481,6 @@ CDynode* CDynodeMan::GetNextDynodeInQueueForPayment(int nBlockHeight, bool fFilt
     int nDnCount = CountEnabled();
     BOOST_FOREACH(CDynode &dn, vDynodes)
     {
-        dn.Check();
         if(!dn.IsValidForPayment()) continue;
 
         // //check protocol version
@@ -583,7 +587,6 @@ int CDynodeMan::GetDynodeRank(const CTxIn& vin, int nBlockHeight, int nMinProtoc
     // scan for winner
     BOOST_FOREACH(CDynode& dn, vDynodes) {
         if(dn.nProtocolVersion < nMinProtocol) continue;
-        dn.Check();
         if(fOnlyActive) {
             if(!dn.IsEnabled()) continue;
         }
@@ -620,7 +623,6 @@ std::vector<std::pair<int, CDynode> > CDynodeMan::GetDynodeRanks(int nBlockHeigh
     // scan for winner
     BOOST_FOREACH(CDynode& dn, vDynodes) {
 
-        dn.Check();
 
         if(dn.nProtocolVersion < nMinProtocol || !dn.IsEnabled()) continue;
 
@@ -656,10 +658,7 @@ CDynode* CDynodeMan::GetDynodeByRank(int nRank, int nBlockHeight, int nMinProtoc
     BOOST_FOREACH(CDynode& dn, vDynodes) {
 
         if(dn.nProtocolVersion < nMinProtocol) continue;
-        if(fOnlyActive) {
-            dn.Check();
-            if(!dn.IsEnabled()) continue;
-        }
+        if(fOnlyActive && !dn.IsEnabled()) continue;
 
         int64_t nScore = dn.CalculateScore(blockHash).GetCompact(false);
 
@@ -701,20 +700,16 @@ void CDynodeMan::ProcessMessage(CNode* pfrom, std::string& strCommand, CDataStre
 
     if (strCommand == NetMsgType::DNANNOUNCE) { //Dynode Broadcast
 
-        {
-            LOCK(cs);
+        CDynodeBroadcast dnb;
+        vRecv >> dnb;
 
-            CDynodeBroadcast dnb;
-            vRecv >> dnb;
+        int nDos = 0;
 
-            int nDos = 0;
-
-            if (CheckDnbAndUpdateDynodeList(dnb, nDos)) {
-                // use announced Dynode as a peer
-                addrman.Add(CAddress(dnb.addr), pfrom->addr, 2*60*60);
-            } else if(nDos > 0) {
-                Misbehaving(pfrom->GetId(), nDos);
-            }
+        if (CheckDnbAndUpdateDynodeList(dnb, nDos)) {
+            // use announced Dynode as a peer
+            addrman.Add(CAddress(dnb.addr), pfrom->addr, 2*60*60);
+        } else if(nDos > 0) {
+            Misbehaving(pfrom->GetId(), nDos);
         }
         if(fDynodesAdded) {
             NotifyDynodeUpdates();
@@ -728,7 +723,8 @@ void CDynodeMan::ProcessMessage(CNode* pfrom, std::string& strCommand, CDataStre
 
         LogPrint("dynode", "DNPING -- Dynode ping, dynode=%s\n", dnp.vin.prevout.ToStringShort());
 
-        LOCK(cs);
+        // Need LOCK2 here to ensure consistent locking order because the CheckAndUpdate call below locks cs_main
+        LOCK2(cs_main, cs);
 
         if(mapSeenDynodePing.count(dnp.GetHash())) return; //seen
         mapSeenDynodePing.insert(std::make_pair(dnp.GetHash(), dnp));
@@ -736,7 +732,7 @@ void CDynodeMan::ProcessMessage(CNode* pfrom, std::string& strCommand, CDataStre
         LogPrint("dynode", "DNPING -- Dynode ping, dynode=%s new\n", dnp.vin.prevout.ToStringShort());
 
         int nDos = 0;
-        if(dnp.CheckAndUpdate(nDos, false)) return;
+        if(dnp.CheckAndUpdate(nDos)) return;
 
         if(nDos > 0) {
             // if anything significant failed, mark that node
@@ -816,7 +812,8 @@ void CDynodeMan::ProcessMessage(CNode* pfrom, std::string& strCommand, CDataStre
 
     } else if (strCommand == NetMsgType::DNVERIFY) { // Dynode Verify
 
-        LOCK(cs);
+        // Need LOCK2 here to ensure consistent locking order because the all functions below call GetBlockHash which locks cs_main
+        LOCK2(cs_main, cs);
 
         CDynodeVerification snv;
         vRecv >> snv;
@@ -842,7 +839,9 @@ void CDynodeMan::DoFullVerificationStep()
 
     std::vector<std::pair<int, CDynode> > vecDynodeRanks = GetDynodeRanks(pCurrentBlockIndex->nHeight - 1, MIN_POSE_PROTO_VERSION);
 
-    LOCK(cs);
+    // Need LOCK2 here to ensure consistent locking order because the SendVerifyRequest call below locks cs_main
+    // through GetHeight() signal in ConnectNode
+    LOCK2(cs_main, cs);
 
     int nCount = 0;
     int nCountMax = std::max(10, (int)vDynodes.size() / 100); // verify at least 10 dynode at once but at most 1% of all known dynodes
@@ -1139,7 +1138,7 @@ void CDynodeMan::ProcessVerifyReply(CNode* pnode, CDynodeVerification& snv)
             LogPrint("dynode", "CDynodeMan::ProcessVerifyBroadcast -- increased PoSe ban score for %s addr %s, new score %d\n",
                         prealDynode->vin.prevout.ToStringShort(), pnode->addr.ToString(), pdn->nPoSeBanScore);
         }
-        LogPrintf("CDynodeMan::ProcessVerifyBroadcast -- PoSe score incresed for %d fake Dynodes, addr %s\n",
+        LogPrintf("CDynodeMan::ProcessVerifyBroadcast -- PoSe score increased for %d fake dynodes, addr %s\n",
                     (int)vpDynodesToBan.size(), pnode->addr.ToString());
     }
 }
@@ -1296,7 +1295,8 @@ void CDynodeMan::UpdateDynodeList(CDynodeBroadcast dnb)
 
 bool CDynodeMan::CheckDnbAndUpdateDynodeList(CDynodeBroadcast dnb, int& nDos)
 {
-    LOCK(cs);
+    // Need LOCK2 here to ensure consistent locking order because the SimpleCheck call below locks cs_main
+    LOCK2(cs_main, cs);
 
     nDos = 0;
     LogPrint("dynode", "CDynodeMan::CheckDnbAndUpdateDynodeList -- dynode=%s\n", dnb.vin.prevout.ToStringShort());
@@ -1349,11 +1349,12 @@ bool CDynodeMan::CheckDnbAndUpdateDynodeList(CDynodeBroadcast dnb, int& nDos)
     return true;
 }
 
-void CDynodeMan::UpdateLastPaid(const CBlockIndex *pindex)
+void CDynodeMan::UpdateLastPaid()
 {
     LOCK(cs);
 
     if(fLiteMode) return;
+    if(!pCurrentBlockIndex) return;
 
     static bool IsFirstRun = true;
     // Do full scan on first run or if we are not a dynode
@@ -1361,10 +1362,10 @@ void CDynodeMan::UpdateLastPaid(const CBlockIndex *pindex)
     int nMaxBlocksToScanBack = (IsFirstRun || !fDyNode) ? dnpayments.GetStorageLimit() : LAST_PAID_SCAN_BLOCKS;
 
     // LogPrint("dnpayments", "CDynodeMan::UpdateLastPaid -- nHeight=%d, nMaxBlocksToScanBack=%d, IsFirstRun=%s\n",
-    //                         pindex->nHeight, nMaxBlocksToScanBack, IsFirstRun ? "true" : "false");
+    //                         pCurrentBlockIndex->nHeight, nMaxBlocksToScanBack, IsFirstRun ? "true" : "false");
 
     BOOST_FOREACH(CDynode& dn, vDynodes) {
-        dn.UpdateLastPaid(pindex, nMaxBlocksToScanBack);
+        dn.UpdateLastPaid(pCurrentBlockIndex, nMaxBlocksToScanBack);
     }
 
     // every time is like the first time if winners list is not synced
@@ -1510,7 +1511,7 @@ void CDynodeMan::UpdatedBlockTip(const CBlockIndex *pindex)
     if(fDyNode) {
         DoFullVerificationStep();
         // normal wallet does not need to update this every block, doing update on rpc call should be enough
-        UpdateLastPaid(pindex);
+        UpdateLastPaid();
     }
 }
 
