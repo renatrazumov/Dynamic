@@ -815,7 +815,8 @@ void CDynodeMan::ProcessMessage(CNode* pfrom, std::string& strCommand, CDataStre
 
     } else if (strCommand == NetMsgType::DNVERIFY) { // Dynode Verify
 
-        LOCK(cs);
+        // Need LOCK2 here to ensure consistent locking order because the all functions below call GetBlockHash which locks cs_main
+        LOCK2(cs_main, cs);
 
         CDynodeVerification snv;
         vRecv >> snv;
