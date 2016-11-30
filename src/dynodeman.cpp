@@ -815,18 +815,18 @@ void CDynodeMan::ProcessMessage(CNode* pfrom, std::string& strCommand, CDataStre
         // Need LOCK2 here to ensure consistent locking order because the all functions below call GetBlockHash which locks cs_main
         LOCK2(cs_main, cs);
 
-        CDynodeVerification snv;
-        vRecv >> snv;
+        CDynodeVerification dnv;
+        vRecv >> dnv;
 
-        if(snv.vchSig1.empty()) {
+        if(dnv.vchSig1.empty()) {
             // CASE 1: someone asked me to verify myself /IP we are using/
-            SendVerifyReply(pfrom, snv);
-        } else if (snv.vchSig2.empty()) {
+            SendVerifyReply(pfrom, dnv);
+        } else if (dnv.vchSig2.empty()) {
             // CASE 2: we _probably_ got verification we requested from some dynode
-            ProcessVerifyReply(pfrom, snv);
+            ProcessVerifyReply(pfrom, dnv);
         } else {
             // CASE 3: we _probably_ got verification broadcast signed by some dynode which verified another one
-            ProcessVerifyBroadcast(pfrom, snv);
+            ProcessVerifyBroadcast(pfrom, dnv);
         }
     }
 }
@@ -974,10 +974,10 @@ bool CDynodeMan::SendVerifyRequest(const CAddress& addr, const std::vector<CDyno
     if(pnode != NULL) {
         netfulfilledman.AddFulfilledRequest(addr, strprintf("%s", NetMsgType::DNVERIFY)+"-request");
         // use random nonce, store it and require node to reply with correct one later
-        CDynodeVerification snv(addr, GetRandInt(999999), pCurrentBlockIndex->nHeight - 1);
-        mWeAskedForVerification[addr] = snv;
-        LogPrintf("CDynodeMan::SendVerifyRequest -- verifying using nonce %d addr=%s\n", snv.nonce, addr.ToString());
-        pnode->PushMessage(NetMsgType::DNVERIFY, snv);
+        CDynodeVerification dnv(addr, GetRandInt(999999), pCurrentBlockIndex->nHeight - 1);
+        mWeAskedForVerification[addr] = dnv;
+        LogPrintf("CDynodeMan::SendVerifyRequest -- verifying using nonce %d addr=%s\n", dnv.nonce, addr.ToString());
+        pnode->PushMessage(NetMsgType::DNVERIFY, dnv);
         return true;
     } else {
         // can't connect, add some PoSe "ban score" to all dynodes with given addr
@@ -994,7 +994,7 @@ bool CDynodeMan::SendVerifyRequest(const CAddress& addr, const std::vector<CDyno
     }
 }
 
-void CDynodeMan::SendVerifyReply(CNode* pnode, CDynodeVerification& snv)
+void CDynodeMan::SendVerifyReply(CNode* pnode, CDynodeVerification& dnv)
 {
     // only dynodes can sign this, why would someone ask regular node?
     if(!fDyNode) {
@@ -1011,30 +1011,30 @@ void CDynodeMan::SendVerifyReply(CNode* pnode, CDynodeVerification& snv)
     }
 
     uint256 blockHash;
-    if(!GetBlockHash(blockHash, snv.nBlockHeight)) {
-        LogPrintf("DynodeMan::SendVerifyReply -- can't get block hash for unknown block height %d, peer=%d\n", snv.nBlockHeight, pnode->id);
+    if(!GetBlockHash(blockHash, dnv.nBlockHeight)) {
+        LogPrintf("DynodeMan::SendVerifyReply -- can't get block hash for unknown block height %d, peer=%d\n", dnv.nBlockHeight, pnode->id);
         return;
     }
 
-    std::string strMessage = strprintf("%s%d%s", activeDynode.service.ToString(false), snv.nonce, blockHash.ToString());
+    std::string strMessage = strprintf("%s%d%s", activeDynode.service.ToString(false), dnv.nonce, blockHash.ToString());
 
-    if(!privateSendSigner.SignMessage(strMessage, snv.vchSig1, activeDynode.keyDynode)) {
+    if(!privateSendSigner.SignMessage(strMessage, dnv.vchSig1, activeDynode.keyDynode)) {
         LogPrintf("DynodeMan::SendVerifyReply -- SignMessage() failed\n");
         return;
     }
 
     std::string strError;
 
-    if(!privateSendSigner.VerifyMessage(activeDynode.pubKeyDynode, snv.vchSig1, strMessage, strError)) {
+    if(!privateSendSigner.VerifyMessage(activeDynode.pubKeyDynode, dnv.vchSig1, strMessage, strError)) {
         LogPrintf("DynodeMan::SendVerifyReply -- VerifyMessage() failed, error: %s\n", strError);
         return;
     }
 
-    pnode->PushMessage(NetMsgType::DNVERIFY, snv);
+    pnode->PushMessage(NetMsgType::DNVERIFY, dnv);
     netfulfilledman.AddFulfilledRequest(pnode->addr, strprintf("%s", NetMsgType::DNVERIFY)+"-reply");
 }
 
-void CDynodeMan::ProcessVerifyReply(CNode* pnode, CDynodeVerification& snv)
+void CDynodeMan::ProcessVerifyReply(CNode* pnode, CDynodeVerification& dnv)
 {
     std::string strError;
 
@@ -1046,25 +1046,25 @@ void CDynodeMan::ProcessVerifyReply(CNode* pnode, CDynodeVerification& snv)
     }
 
     // Received nonce for a known address must match the one we sent
-    if(mWeAskedForVerification[pnode->addr].nonce != snv.nonce) {
+    if(mWeAskedForVerification[pnode->addr].nonce != dnv.nonce) {
         LogPrintf("CDynodeMan::ProcessVerifyReply -- ERROR: wrong nounce: requested=%d, received=%d, peer=%d\n",
-                    mWeAskedForVerification[pnode->addr].nonce, snv.nonce, pnode->id);
+                    mWeAskedForVerification[pnode->addr].nonce, dnv.nonce, pnode->id);
         Misbehaving(pnode->id, 20);
         return;
     }
 
     // Received nBlockHeight for a known address must match the one we sent
-    if(mWeAskedForVerification[pnode->addr].nBlockHeight != snv.nBlockHeight) {
+    if(mWeAskedForVerification[pnode->addr].nBlockHeight != dnv.nBlockHeight) {
         LogPrintf("CDynodeMan::ProcessVerifyReply -- ERROR: wrong nBlockHeight: requested=%d, received=%d, peer=%d\n",
-                    mWeAskedForVerification[pnode->addr].nBlockHeight, snv.nBlockHeight, pnode->id);
+                    mWeAskedForVerification[pnode->addr].nBlockHeight, dnv.nBlockHeight, pnode->id);
         Misbehaving(pnode->id, 20);
         return;
     }
 
     uint256 blockHash;
-    if(!GetBlockHash(blockHash, snv.nBlockHeight)) {
+    if(!GetBlockHash(blockHash, dnv.nBlockHeight)) {
         // this shouldn't happen...
-        LogPrintf("DynodeMan::ProcessVerifyReply -- can't get block hash for unknown block height %d, peer=%d\n", snv.nBlockHeight, pnode->id);
+        LogPrintf("DynodeMan::ProcessVerifyReply -- can't get block hash for unknown block height %d, peer=%d\n", dnv.nBlockHeight, pnode->id);
         return;
     }
 
@@ -1081,10 +1081,10 @@ void CDynodeMan::ProcessVerifyReply(CNode* pnode, CDynodeVerification& snv)
         CDynode* prealDynode = NULL;
         std::vector<CDynode*> vpDynodesToBan;
         std::vector<CDynode>::iterator it = vDynodes.begin();
-        std::string strMessage1 = strprintf("%s%d%s", pnode->addr.ToString(false), snv.nonce, blockHash.ToString());
+        std::string strMessage1 = strprintf("%s%d%s", pnode->addr.ToString(false), dnv.nonce, blockHash.ToString());
         while(it != vDynodes.end()) {
             if((CAddress)it->addr == pnode->addr) {
-                if(privateSendSigner.VerifyMessage(it->pubKeyDynode, snv.vchSig1, strMessage1, strError)) {
+                if(privateSendSigner.VerifyMessage(it->pubKeyDynode, dnv.vchSig1, strMessage1, strError)) {
                     // found it!
                     prealDynode = &(*it);
                     if(!it->IsPoSeVerified()) {
@@ -1095,26 +1095,26 @@ void CDynodeMan::ProcessVerifyReply(CNode* pnode, CDynodeVerification& snv)
                     // we can only broadcast it if we are an activated dynode
                     if(activeDynode.vin == CTxIn()) continue;
                     // update ...
-                    snv.addr = it->addr;
-                    snv.vin1 = it->vin;
-                    snv.vin2 = activeDynode.vin;
-                    std::string strMessage2 = strprintf("%s%d%s%s%s", snv.addr.ToString(false), snv.nonce, blockHash.ToString(),
-                                            snv.vin1.prevout.ToStringShort(), snv.vin2.prevout.ToStringShort());
+                    dnv.addr = it->addr;
+                    dnv.vin1 = it->vin;
+                    dnv.vin2 = activeDynode.vin;
+                    std::string strMessage2 = strprintf("%s%d%s%s%s", dnv.addr.ToString(false), dnv.nonce, blockHash.ToString(),
+                                            dnv.vin1.prevout.ToStringShort(), dnv.vin2.prevout.ToStringShort());
                     // ... and sign it
-                    if(!privateSendSigner.SignMessage(strMessage2, snv.vchSig2, activeDynode.keyDynode)) {
+                    if(!privateSendSigner.SignMessage(strMessage2, dnv.vchSig2, activeDynode.keyDynode)) {
                         LogPrintf("DynodeMan::ProcessVerifyReply -- SignMessage() failed\n");
                         return;
                     }
 
                     std::string strError;
 
-                    if(!privateSendSigner.VerifyMessage(activeDynode.pubKeyDynode, snv.vchSig2, strMessage2, strError)) {
+                    if(!privateSendSigner.VerifyMessage(activeDynode.pubKeyDynode, dnv.vchSig2, strMessage2, strError)) {
                         LogPrintf("DynodeMan::ProcessVerifyReply -- VerifyMessage() failed, error: %s\n", strError);
                         return;
                     }
 
-                    mWeAskedForVerification[pnode->addr] = snv;
-                    snv.Relay();
+                    mWeAskedForVerification[pnode->addr] = dnv;
+                    dnv.Relay();
 
                 } else {
                     vpDynodesToBan.push_back(&(*it));
@@ -1143,26 +1143,26 @@ void CDynodeMan::ProcessVerifyReply(CNode* pnode, CDynodeVerification& snv)
     }
 }
 
-void CDynodeMan::ProcessVerifyBroadcast(CNode* pnode, const CDynodeVerification& snv)
+void CDynodeMan::ProcessVerifyBroadcast(CNode* pnode, const CDynodeVerification& dnv)
 {
     std::string strError;
 
-    if(mapSeenDynodeVerification.find(snv.GetHash()) != mapSeenDynodeVerification.end()) {
+    if(mapSeenDynodeVerification.find(dnv.GetHash()) != mapSeenDynodeVerification.end()) {
         // we already have one
         return;
     }
-    mapSeenDynodeVerification[snv.GetHash()] = snv;
+    mapSeenDynodeVerification[dnv.GetHash()] = dnv;
 
     // we don't care about history
-    if(snv.nBlockHeight < pCurrentBlockIndex->nHeight - MAX_POSE_BLOCKS) {
+    if(dnv.nBlockHeight < pCurrentBlockIndex->nHeight - MAX_POSE_BLOCKS) {
         LogPrint("dynode", "DynodeMan::ProcessVerifyBroadcast -- Outdated: current block %d, verification block %d, peer=%d\n",
-                    pCurrentBlockIndex->nHeight, snv.nBlockHeight, pnode->id);
+                    pCurrentBlockIndex->nHeight, dnv.nBlockHeight, pnode->id);
         return;
     }
 
-    if(snv.vin1.prevout == snv.vin2.prevout) {
+    if(dnv.vin1.prevout == dnv.vin2.prevout) {
         LogPrint("dynode", "DynodeMan::ProcessVerifyBroadcast -- ERROR: same vins %s, peer=%d\n",
-                    snv.vin1.prevout.ToStringShort(), pnode->id);
+                    dnv.vin1.prevout.ToStringShort(), pnode->id);
         // that was NOT a good idea to cheat and verify itself,
         // ban the node we received such message from
         Misbehaving(pnode->id, 100);
@@ -1170,13 +1170,13 @@ void CDynodeMan::ProcessVerifyBroadcast(CNode* pnode, const CDynodeVerification&
     }
 
     uint256 blockHash;
-    if(!GetBlockHash(blockHash, snv.nBlockHeight)) {
+    if(!GetBlockHash(blockHash, dnv.nBlockHeight)) {
         // this shouldn't happen...
-        LogPrintf("DynodeMan::ProcessVerifyBroadcast -- Can't get block hash for unknown block height %d, peer=%d\n", snv.nBlockHeight, pnode->id);
+        LogPrintf("DynodeMan::ProcessVerifyBroadcast -- Can't get block hash for unknown block height %d, peer=%d\n", dnv.nBlockHeight, pnode->id);
         return;
     }
 
-    int nRank = GetDynodeRank(snv.vin2, snv.nBlockHeight, MIN_POSE_PROTO_VERSION);
+    int nRank = GetDynodeRank(dnv.vin2, dnv.nBlockHeight, MIN_POSE_PROTO_VERSION);
     if(nRank < MAX_POSE_RANK) {
         LogPrint("dynode", "DynodeMan::ProcessVerifyBroadcast -- Dynode is not in top %d, current rank %d, peer=%d\n",
                     (int)MAX_POSE_RANK, nRank, pnode->id);
@@ -1186,33 +1186,33 @@ void CDynodeMan::ProcessVerifyBroadcast(CNode* pnode, const CDynodeVerification&
     {
         LOCK(cs);
 
-        std::string strMessage1 = strprintf("%s%d%s", snv.addr.ToString(false), snv.nonce, blockHash.ToString());
-        std::string strMessage2 = strprintf("%s%d%s%s%s", snv.addr.ToString(false), snv.nonce, blockHash.ToString(),
-                                snv.vin1.prevout.ToStringShort(), snv.vin2.prevout.ToStringShort());
+        std::string strMessage1 = strprintf("%s%d%s", dnv.addr.ToString(false), dnv.nonce, blockHash.ToString());
+        std::string strMessage2 = strprintf("%s%d%s%s%s", dnv.addr.ToString(false), dnv.nonce, blockHash.ToString(),
+                                dnv.vin1.prevout.ToStringShort(), dnv.vin2.prevout.ToStringShort());
 
-        CDynode* pdn1 = Find(snv.vin1);
+        CDynode* pdn1 = Find(dnv.vin1);
         if(!pdn1) {
-            LogPrintf("CDynodeMan::ProcessVerifyBroadcast -- can't find dynode1 %s\n", snv.vin1.prevout.ToStringShort());
+            LogPrintf("CDynodeMan::ProcessVerifyBroadcast -- can't find dynode1 %s\n", dnv.vin1.prevout.ToStringShort());
             return;
         }
 
-        CDynode* pdn2 = Find(snv.vin2);
+        CDynode* pdn2 = Find(dnv.vin2);
         if(!pdn2) {
-            LogPrintf("CDynodeMan::ProcessVerifyBroadcast -- can't find dynode %s\n", snv.vin2.prevout.ToStringShort());
+            LogPrintf("CDynodeMan::ProcessVerifyBroadcast -- can't find dynode %s\n", dnv.vin2.prevout.ToStringShort());
             return;
         }
 
-        if(pdn1->addr != snv.addr) {
-            LogPrintf("CDynodeMan::ProcessVerifyBroadcast -- addr %s do not match %s\n", snv.addr.ToString(), pnode->addr.ToString());
+        if(pdn1->addr != dnv.addr) {
+            LogPrintf("CDynodeMan::ProcessVerifyBroadcast -- addr %s do not match %s\n", dnv.addr.ToString(), pnode->addr.ToString());
             return;
         }
 
-        if(privateSendSigner.VerifyMessage(pdn1->pubKeyDynode, snv.vchSig1, strMessage1, strError)) {
+        if(privateSendSigner.VerifyMessage(pdn1->pubKeyDynode, dnv.vchSig1, strMessage1, strError)) {
             LogPrintf("DynodeMan::ProcessVerifyBroadcast -- VerifyMessage() for dynode1 failed, error: %s\n", strError);
             return;
         }
 
-        if(privateSendSigner.VerifyMessage(pdn2->pubKeyDynode, snv.vchSig2, strMessage2, strError)) {
+        if(privateSendSigner.VerifyMessage(pdn2->pubKeyDynode, dnv.vchSig2, strMessage2, strError)) {
             LogPrintf("DynodeMan::ProcessVerifyBroadcast -- VerifyMessage() for dynode2 failed, error: %s\n", strError);
             return;
         }
@@ -1220,7 +1220,7 @@ void CDynodeMan::ProcessVerifyBroadcast(CNode* pnode, const CDynodeVerification&
         if(!pdn1->IsPoSeVerified()) {
             pdn1->DecreasePoSeBanScore();
         }
-        snv.Relay();
+        dnv.Relay();
 
         LogPrintf("CDynodeMan::ProcessVerifyBroadcast -- verified dynode %s for addr %s\n",
                     pdn1->vin.prevout.ToStringShort(), pnode->addr.ToString());
@@ -1228,7 +1228,7 @@ void CDynodeMan::ProcessVerifyBroadcast(CNode* pnode, const CDynodeVerification&
         // increase ban score for everyone else with the same addr
         int nCount = 0;
         BOOST_FOREACH(CDynode& dn, vDynodes) {
-            if(dn.addr != snv.addr || dn.vin.prevout == snv.vin1.prevout) continue;
+            if(dn.addr != dnv.addr || dn.vin.prevout == dnv.vin1.prevout) continue;
             dn.IncreasePoSeBanScore();
             nCount++;
             LogPrint("dynode", "CDynodeMan::ProcessVerifyBroadcast -- increased PoSe ban score for %s addr %s, new score %d\n",
