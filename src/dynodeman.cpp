@@ -124,9 +124,6 @@ bool CDynodeMan::Add(CDynode &dn)
 {
     LOCK(cs);
 
-    if (!dn.IsEnabled() && !dn.IsPreEnabled())
-        return false;
-
     CDynode *pdn = Find(dn.vin);
     if (pdn == NULL) {
         LogPrint("dynode", "CDynodeMan::Add -- Adding new Dynode: addr=%s, %i now\n", dn.addr.ToString(), size() + 1);
@@ -735,7 +732,7 @@ void CDynodeMan::ProcessMessage(CNode* pfrom, std::string& strCommand, CDataStre
         LogPrint("dynode", "DNPING -- Dynode ping, dynode=%s new\n", dnp.vin.prevout.ToStringShort());
 
         int nDos = 0;
-        if(dnp.CheckAndUpdate(nDos, false)) return;
+        if(dnp.CheckAndUpdate(nDos)) return;
 
         if(nDos > 0) {
             // if anything significant failed, mark that node
