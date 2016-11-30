@@ -85,7 +85,7 @@ void OptionsModel::Init(bool resetSettings)
         settings.setValue("theme", "");
 
     if (!settings.contains("fShowDynodesTab"))
-        settings.setValue("fShowDynodesTab", dynodeConfig.getCount());
+        settings.setValue("fShowDyodesTab", true);
 
     if (!settings.contains("fShowAdvancedPSUI"))
         settings.setValue("fShowAdvancedPSUI", false);
