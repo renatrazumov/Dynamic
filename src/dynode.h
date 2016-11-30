@@ -79,6 +79,7 @@ public:
 
     bool Sign(CKey& keyDynode, CPubKey& pubKeyDynode);
     bool CheckSignature(CPubKey& pubKeyDynode, int &nDos);
+    bool CheckAndUpdate(int& nDos, bool fSimpleCheck = false);
     void Relay();
 
     CDynodePing& operator=(CDynodePing from)
